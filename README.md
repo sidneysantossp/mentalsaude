@@ -129,4 +129,4 @@ Projeto privado - Todos os direitos reservados.
 
 🤖 **Desenvolvido com Claude Code**  
 🎨 **Design Moderno e Profissional**  
-🧠 **Focado em Saúde Mental e Bem-Estar**
+🧠 **Focado em Saúde Mental e Bem-Estar**# mentalsaude
