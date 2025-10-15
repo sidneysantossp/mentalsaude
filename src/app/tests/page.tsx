@@ -188,7 +188,7 @@ export default function TestsPage() {
                   <div className="flex-grow"></div>
                   
                   {/* Start Test Button */}
-                  <Link href={`/tests/${category.id}`}>
+                  <Link href={`/tests/${category.id === 'depression' ? '1' : category.id === 'compulsion' ? '2' : category.id === 'anxiety' ? '3' : category.id === 'stress' ? '4' : category.id === 'mental-suffering' ? '5' : category.id}`}>
                     <Button 
                       variant="outline" 
                       className="w-full border-black bg-black text-white hover:bg-gray-800 hover:text-white font-semibold py-3 rounded-lg transition-all duration-200 hover:shadow-lg flex items-center justify-center space-x-2"

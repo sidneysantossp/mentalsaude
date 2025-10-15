@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Calendar, Clock, ArrowRight, Search, Filter, Brain, Heart, Flame, Users, Star, Shield, ChevronLeft, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
 
 // Blog posts data
 const blogPosts = [
@@ -165,63 +166,29 @@ export default function BlogPage() {
   const featuredPost = blogPosts.find(post => post.featured)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-yellow-500" />
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
-                Mental Saúde
-              </Link>
-            </div>
-            
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/#tests" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Testes
-              </Link>
-              <Link href="/#about" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Sobre
-              </Link>
-              <Link href="/blog" className="text-yellow-600 font-semibold">
-                Blog
-              </Link>
-              <Button variant="outline" className="ml-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-                <Link href="/auth/signin">Entrar</Link>
-              </Button>
-              <Button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white">
-                <Link href="/auth/signup">Criar Conta</Link>
-              </Button>
-            </nav>
+    <LayoutWrapper>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" 
+              alt="Blog Saúde Mental"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
           </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" 
-            alt="Blog Saúde Mental"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
-        </div>
-        
-        <div className="relative z-10 container mx-auto px-4 py-16 text-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Blog
-            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent block">Saúde Mental</span>
-          </h1>
-          <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Artigos, dicas e informações para cuidar da sua saúde mental e bem-estar emocional
-          </p>
-        </div>
-      </section>
+          
+          <div className="relative z-10 container mx-auto px-4 py-16 text-center text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              Blog
+              <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent block">Saúde Mental</span>
+            </h1>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
+              Artigos, dicas e informações para cuidar da sua saúde mental e bem-estar emocional
+            </p>
+          </div>
+        </section>
 
       {/* Search and Filter Section */}
       <section className="container mx-auto px-4 py-12">
@@ -438,6 +405,7 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </LayoutWrapper>
   )
 }

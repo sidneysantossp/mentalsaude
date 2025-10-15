@@ -26,6 +26,8 @@ import {
   Lightbulb
 } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
+
 
 interface TestResult {
   id: string
@@ -197,29 +199,33 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center">
-        <div className="text-center">
-          <Brain className="h-12 w-12 text-blue-600 animate-pulse mx-auto mb-4" />
-          <p className="text-gray-600">Carregando resultados...</p>
+      <LayoutWrapper>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <Brain className="h-12 w-12 text-blue-600 animate-pulse mx-auto mb-4" />
+            <p className="text-gray-600">Carregando resultados...</p>
+          </div>
         </div>
-      </div>
-    )
+    </LayoutWrapper>
+  )
   }
 
   if (!result) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center">
-        <div className="text-center">
-          <AlertTriangle className="h-12 w-12 text-red-600 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Resultado não encontrado</h2>
-          <p className="text-gray-600 mb-4">O resultado solicitado não está disponível.</p>
-          <Button onClick={() => router.push('/dashboard')}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Voltar ao Dashboard
-          </Button>
+      <LayoutWrapper>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <AlertTriangle className="h-12 w-12 text-red-600 mx-auto mb-4" />
+            <h2 className="text-xl font-bold text-gray-900 mb-2">Resultado não encontrado</h2>
+            <p className="text-gray-600 mb-4">O resultado solicitado não está disponível.</p>
+            <Button onClick={() => router.push('/dashboard')}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Voltar ao Dashboard
+            </Button>
+          </div>
         </div>
-      </div>
-    )
+    </LayoutWrapper>
+  )
   }
 
   const severityInfo = getSeverityInfo(result.severity)
@@ -227,47 +233,40 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
   const SeverityIcon = severityInfo.icon
 
   return (
-    <div>
-      {/* Result Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" onClick={() => router.back()}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Voltar
-              </Button>
-              <div className="flex items-center space-x-2">
-                <IconComponent className="h-6 w-6 text-blue-600" />
-                <span className="font-medium text-gray-900">Resultados</span>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-2">
-              {session && (
-                <Button variant="outline" size="sm" onClick={handleDownloadReport} className="bg-black hover:bg-gray-800 text-white border-black">
-                  <Download className="h-4 w-4 mr-2" />
-                  Baixar Relatório
-                </Button>
-              )}
-              <Button variant="outline" size="sm">
-                <Share2 className="h-4 w-4 mr-2" />
-                Compartilhar
-              </Button>
-              {!session && (
-                <Link href="/auth/signin">
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
-                    Entrar para Salvar
-                  </Button>
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <LayoutWrapper>
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
+          {/* Result Header */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2">
+                  <IconComponent className="h-6 w-6 text-blue-600" />
+                  <span className="font-medium text-gray-900">Resultados</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                {session && (
+                  <Button variant="outline" size="sm" onClick={handleDownloadReport} className="bg-black hover:bg-gray-800 text-white border-black">
+                    <Download className="h-4 w-4 mr-2" />
+                    Baixar Relatório
+                  </Button>
+                )}
+                <Button variant="outline" size="sm">
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Compartilhar
+                </Button>
+                {!session && (
+                  <Link href="/auth/signin">
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      Entrar para Salvar
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
           {/* Result Header */}
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -577,6 +576,6 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
           </div>
         </div>
       </div>
-    </div>
+    </LayoutWrapper>
   )
 }
