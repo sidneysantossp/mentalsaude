@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSupabase } from '@/components/providers/supabase-provider'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Brain, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { data: session } = useSession()
+  const { user, signOut } = useSupabase()
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
@@ -38,12 +38,21 @@ export default function Header() {
             <Link href="#resources" className="text-gray-600 hover:text-blue-600 transition-colors">
               Recursos
             </Link>
-            {session ? (
-              <Link href="/dashboard">
-                <Button variant="outline" className="ml-4 border-black text-black hover:bg-black hover:text-white hover:border-black">
-                  Dashboard
+            {user ? (
+              <div className="flex items-center space-x-2 ml-4">
+                <Link href="/dashboard">
+                  <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white hover:border-black">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline" 
+                  className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500"
+                  onClick={signOut}
+                >
+                  Sair
                 </Button>
-              </Link>
+              </div>
             ) : (
               <>
                 <Button variant="outline" className="ml-4 border-black text-black hover:bg-black hover:text-white hover:border-black">
@@ -85,12 +94,21 @@ export default function Header() {
             <Link href="#resources" className="block py-2 text-gray-600 hover:text-blue-600">
               Recursos
             </Link>
-            {session ? (
-              <Link href="/dashboard" className="block py-2">
-                <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white hover:border-black">
-                  Dashboard
+              {user ? (
+              <div className="space-y-2">
+                <Link href="/dashboard" className="block">
+                  <Button variant="outline" className="w-full border-black text-black hover:bg-black hover:text-white hover:border-black">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline" 
+                  className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500"
+                  onClick={signOut}
+                >
+                  Sair
                 </Button>
-              </Link>
+              </div>
             ) : (
               <div className="flex space-x-2 pt-2">
                 <Button variant="outline" className="flex-1 border-black text-black hover:bg-black hover:text-white hover:border-black">
