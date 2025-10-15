@@ -1,31 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { getTests } from '@/lib/mysql'
 
 export async function GET(request: NextRequest) {
   try {
-    const tests = await db.test.findMany({
-      where: {
-        isActive: true
-      },
-      include: {
-        questions: {
-          select: {
-            id: true
-          }
-        },
-        _count: {
-          select: {
-            questions: true
-          }
-        }
-      },
-      orderBy: {
-        createdAt: 'asc'
-      }
-    })
+    const tests = await getTests()
 
     // If no tests in database, return mock data
-    if (tests.length === 0) {
+    if (!tests || tests.length === 0) {
       const mockTests = [
         {
           id: 'depression',
@@ -128,11 +109,11 @@ export async function GET(request: NextRequest) {
       title: test.title,
       description: test.description,
       category: test.category,
-      timeLimit: test.timeLimit,
-      instructions: test.instructions,
-      questionCount: test._count.questions,
-      difficulty: 'Fácil', // Default difficulty
-      estimatedTime: `${test.timeLimit || 5} min`
+      timeLimit: test.duration_minutes,
+      instructions: 'Para cada questão, selecione a resposta que melhor descreve como você se sentiu.',
+      questionCount: test.question_count,
+      difficulty: test.difficulty_level,
+      estimatedTime: `${test.duration_minutes} min`
     }))
 
     return NextResponse.json({

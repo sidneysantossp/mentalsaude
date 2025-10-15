@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 import { 
   Brain, 
   Heart, 
@@ -38,7 +38,7 @@ interface TestResult {
 }
 
 export default function ResultsPage() {
-  const { data: session } = useSession()
+  const { user } = useAuth()
   const [testResults, setTestResults] = useState<TestResult[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<string>('all')

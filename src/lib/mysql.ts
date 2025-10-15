@@ -109,7 +109,7 @@ export async function verifyToken(token: string) {
 // Funções de teste
 export async function getTests() {
   try {
-    const tests = await query('SELECT * FROM tests WHERE is_active = true ORDER BY created_at ASC') as any[]
+    const tests = await query('SELECT * FROM tests ORDER BY created_at ASC') as any[]
     return tests
   } catch (error) {
     console.error('Error fetching tests:', error)
@@ -119,7 +119,7 @@ export async function getTests() {
 
 export async function getTestById(id: string) {
   try {
-    const tests = await query('SELECT * FROM tests WHERE id = ? AND is_active = true', [id]) as any[]
+    const tests = await query('SELECT * FROM tests WHERE id = ?', [id]) as any[]
     return tests[0] || null
   } catch (error) {
     console.error('Error fetching test:', error)
@@ -130,7 +130,7 @@ export async function getTestById(id: string) {
 export async function getQuestionsByTestId(testId: string) {
   try {
     const questions = await query(
-      'SELECT * FROM questions WHERE test_id = ? ORDER BY `order` ASC',
+      'SELECT * FROM questions WHERE test_id = ? ORDER BY order_index ASC',
       [testId]
     ) as any[]
     return questions

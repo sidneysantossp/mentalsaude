@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 import { 
   Users, 
   FileText, 
@@ -43,7 +43,7 @@ interface RecentActivity {
 }
 
 export default function AdminDashboard() {
-  const { data: session, status } = useSession()
+  const { user, loading } = useAuth()
   const router = useRouter()
   const [stats, setStats] = useState<DashboardStats>({
     totalUsers: 0,
@@ -54,46 +54,63 @@ export default function AdminDashboard() {
     recentTests: 0
   })
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([])
-  const [loading, setLoading] = useState(true)
+  const [dashboardLoading, setDashboardLoading] = useState(true)
 
   useEffect(() => {
     // Check if user is admin
-    if (status === 'authenticated' && session?.user?.role !== 'ADMIN') {
+    if (!loading && (!user || user.role !== 'ADMIN')) {
       router.push('/dashboard')
       return
     }
-    
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin')
-      return
-    }
 
-    fetchDashboardData()
-  }, [status, session, router])
+    if (user && user.role === 'ADMIN') {
+      fetchDashboardData()
+    }
+  }, [loading, user, router])
 
   const fetchDashboardData = async () => {
     try {
-      // Fetch dashboard stats
-      const statsResponse = await fetch('/api/admin/dashboard/stats')
-      if (statsResponse.ok) {
-        const statsData = await statsResponse.json()
-        setStats(statsData.stats)
-      }
+      // Mock data for now since we don't have admin APIs yet
+      setStats({
+        totalUsers: 150,
+        totalTests: 8,
+        totalResults: 1240,
+        activeUsers: 45,
+        recentUsers: 12,
+        recentTests: 89
+      })
 
-      // Fetch recent activity
-      const activityResponse = await fetch('/api/admin/dashboard/activity')
-      if (activityResponse.ok) {
-        const activityData = await activityResponse.json()
-        setRecentActivity(activityData.activities)
-      }
+      setRecentActivity([
+        {
+          id: '1',
+          type: 'user',
+          description: 'Novo usuário registrado: joao@example.com',
+          timestamp: new Date().toISOString(),
+          status: 'success'
+        },
+        {
+          id: '2',
+          type: 'test',
+          description: 'Teste de Depressão concluído',
+          timestamp: new Date(Date.now() - 3600000).toISOString(),
+          status: 'success'
+        },
+        {
+          id: '3',
+          type: 'result',
+          description: 'Resultado disponível para maria@example.com',
+          timestamp: new Date(Date.now() - 7200000).toISOString(),
+          status: 'success'
+        }
+      ])
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
     } finally {
-      setLoading(false)
+      setDashboardLoading(false)
     }
   }
 
-  if (status === 'loading' || loading) {
+  if (loading || dashboardLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -104,7 +121,7 @@ export default function AdminDashboard() {
     )
   }
 
-  if (!session || session.user?.role !== 'ADMIN') {
+  if (!user || user.role !== 'ADMIN') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -127,7 +144,7 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">
-                Bem-vindo, {session.user?.name}
+                Bem-vindo, {user?.name}
               </span>
               <Badge variant="secondary">Administrador</Badge>
             </div>
