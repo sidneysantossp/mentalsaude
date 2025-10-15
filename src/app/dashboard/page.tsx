@@ -32,7 +32,16 @@ export default function DashboardPage() {
 
   const fetchTestResults = async () => {
     try {
-      const response = await fetch('/api/results')
+      const token = localStorage.getItem('auth_token')
+      const headers: HeadersInit = {}
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+      
+      const response = await fetch('/api/results', {
+        headers
+      })
       const data = await response.json()
       if (data.success) {
         setTestResults(data.results)

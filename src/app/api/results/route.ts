@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { getUserTestResults } from '@/lib/mysql'
 import ZAI from 'z-ai-web-dev-sdk'
 
 // Mock test data for fallback
@@ -77,12 +77,8 @@ export async function POST(request: NextRequest) {
     // Get test information - try database first, fallback to mock data
     let test = null
     try {
-      test = await db.test.findUnique({
-        where: { id: testId },
-        include: {
-          questions: true
-        }
-      })
+      const { getTestById } = await import('@/lib/mysql')
+      test = await getTestById(testId)
     } catch (dbError) {
       console.log('Database not available, using mock data')
     }
@@ -208,23 +204,29 @@ export async function POST(request: NextRequest) {
     // Create test result in database - try database first, fallback to localStorage simulation
     let testResult = null
     try {
-      testResult = await db.testResult.create({
-        data: {
-          userId: userId || 'anonymous', // Allow anonymous users
-          testId: testId,
-          totalScore: totalScore,
-          category: category,
-          interpretation: interpretation,
-          recommendations: recommendations,
-          answers: {
-            create: answerData
-          }
-        },
-        include: {
-          answers: true,
-          test: true
-        }
+      const { saveTestResult } = await import('@/lib/mysql')
+      const resultId = await saveTestResult({
+        userId: userId || 'anonymous',
+        testId: testId,
+        totalScore: totalScore,
+        category: category,
+        interpretation: interpretation,
+        recommendations: recommendations,
+        answers: answerData
       })
+      
+      testResult = {
+        id: resultId,
+        totalScore: totalScore,
+        category: category,
+        interpretation: interpretation,
+        recommendations: recommendations,
+        completedAt: new Date().toISOString(),
+        test: {
+          title: test.title,
+          category: test.category
+        }
+      }
     } catch (dbError) {
       console.log('Database save failed, generating mock result')
       // Generate mock result for fallback
@@ -272,41 +274,28 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('userId')
     const testId = searchParams.get('testId')
 
-    // Build where clause
-    const whereClause: any = {}
-    if (userId) whereClause.userId = userId
-    if (testId) whereClause.testId = testId
-
-    const results = await db.testResult.findMany({
-      where: whereClause,
-      include: {
-        test: true,
-        answers: {
-          include: {
-            question: true
-          }
+    // Get user from token if no userId provided
+    let targetUserId = userId
+    if (!targetUserId) {
+      const authHeader = request.headers.get('authorization')
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.substring(7)
+        try {
+          const { verifyToken } = await import('@/lib/mysql')
+          const userData = verifyToken(token)
+          targetUserId = userData.id
+        } catch (error) {
+          // Invalid token, continue without user
         }
-      },
-      orderBy: {
-        completedAt: 'desc'
       }
-    })
+    }
+
+    // Fetch results using MySQL
+    const results = await getUserTestResults(targetUserId || 'anonymous')
 
     return NextResponse.json({
       success: true,
-      results: results.map(result => ({
-        id: result.id,
-        totalScore: result.totalScore,
-        category: result.category,
-        interpretation: result.interpretation,
-        recommendations: result.recommendations,
-        completedAt: result.completedAt,
-        test: {
-          id: result.test.id,
-          title: result.test.title,
-          category: result.test.category
-        }
-      }))
+      results: results
     })
   } catch (error) {
     console.error('Error fetching test results:', error)

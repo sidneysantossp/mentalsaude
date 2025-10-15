@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Brain, Eye, EyeOff, Mail, Lock } from 'lucide-react'
-import { toast } from 'sonner'
+import { useToast } from '@/hooks/use-toast'
 import { useAuth } from '@/components/providers/mysql-auth-provider'
 
 export default function SignIn() {
@@ -18,6 +18,7 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { signIn } = useAuth()
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,13 +28,24 @@ export default function SignIn() {
       const { error } = await signIn(email, password)
       
       if (error) {
-        toast.error(error)
+        toast({
+          title: "Erro no login",
+          description: error,
+          variant: "destructive"
+        })
       } else {
-        toast.success('Login realizado com sucesso!')
+        toast({
+          title: "Login realizado!",
+          description: "Redirecionando para o dashboard..."
+        })
         router.push('/dashboard')
       }
     } catch (error) {
-      toast.error('Ocorreu um erro ao fazer login')
+      toast({
+        title: "Erro inesperado",
+        description: "Ocorreu um erro ao fazer login. Tente novamente.",
+        variant: "destructive"
+      })
     } finally {
       setIsLoading(false)
     }

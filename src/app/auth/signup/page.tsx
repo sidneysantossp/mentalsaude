@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Brain, Eye, EyeOff, Mail, Lock, User } from 'lucide-react'
-import { toast } from 'sonner'
+import { useToast } from '@/hooks/use-toast'
 import { useAuth } from '@/components/providers/mysql-auth-provider'
 
 export default function SignUp() {
@@ -20,13 +20,18 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { signUp } = useAuth()
+  const { toast } = useToast()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
 
     if (password !== confirmPassword) {
-      toast.error('As senhas não coincidem')
+      toast({
+        title: "Senhas não coincidem",
+        description: "Por favor, verifique se as senhas são iguais.",
+        variant: "destructive"
+      })
       setIsLoading(false)
       return
     }
@@ -35,13 +40,24 @@ export default function SignUp() {
       const { error } = await signUp(email, password, name)
       
       if (error) {
-        toast.error(error)
+        toast({
+          title: "Erro no cadastro",
+          description: error,
+          variant: "destructive"
+        })
       } else {
-        toast.success('Conta criada com sucesso! Faça login para continuar.')
+        toast({
+          title: "Conta criada!",
+          description: "Redirecionando para o login..."
+        })
         router.push('/auth/signin')
       }
     } catch (error) {
-      toast.error('Ocorreu um erro ao criar conta')
+      toast({
+        title: "Erro inesperado",
+        description: "Ocorreu um erro ao criar conta. Tente novamente.",
+        variant: "destructive"
+      })
     } finally {
       setIsLoading(false)
     }
