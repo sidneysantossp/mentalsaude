@@ -28,6 +28,13 @@ export default function DashboardPage() {
 
   useEffect(() => {
     fetchTestResults()
+    
+    // Add a safety timeout to ensure loading is turned off
+    const safetyTimeout = setTimeout(() => {
+      setLoading(false)
+    }, 15000) // 15 second safety timeout
+    
+    return () => clearTimeout(safetyTimeout)
   }, [])
 
   const fetchTestResults = async () => {
@@ -39,15 +46,32 @@ export default function DashboardPage() {
         headers['Authorization'] = `Bearer ${token}`
       }
       
+      // Add timeout to prevent hanging
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
       const response = await fetch('/api/results', {
-        headers
+        headers,
+        signal: controller.signal
       })
+      
+      clearTimeout(timeoutId)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const data = await response.json()
       if (data.success) {
-        setTestResults(data.results)
+        setTestResults(data.results || [])
+      } else {
+        console.error('API returned error:', data.error)
       }
     } catch (error) {
       console.error('Error fetching test results:', error)
+      if (error.name === 'AbortError') {
+        console.error('Request timed out')
+      }
     } finally {
       setLoading(false)
     }

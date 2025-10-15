@@ -14,8 +14,7 @@ const dbConfig = {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  connectTimeout: 5000,
-  acquireTimeout: 5000
+  connectTimeout: 5000
 }
 
 // Pool de conexões com fallback
@@ -25,8 +24,21 @@ let dbAvailable = false
 // Função para testar conexão
 async function testConnection() {
   try {
-    const testPool = mysql.createPool(dbConfig)
-    await testPool.execute('SELECT 1')
+    const testPool = mysql.createPool({
+      ...dbConfig,
+      connectionLimit: 1
+    })
+    
+    // Add timeout to the connection test
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Connection timeout')), 3000)
+    })
+    
+    await Promise.race([
+      testPool.execute('SELECT 1'),
+      timeoutPromise
+    ])
+    
     await testPool.end()
     return true
   } catch (error) {
@@ -476,7 +488,21 @@ export async function getUserTestResults(userId: string) {
       console.warn('⚠️ Fetching user test results in fallback mode')
       
       if (typeof globalThis !== 'undefined' && globalThis.fallbackResults) {
-        return globalThis.fallbackResults.filter((result: any) => result.user_id === userId)
+        const userResults = globalThis.fallbackResults.filter((result: any) => result.user_id === userId)
+        // Transform the results to match expected format
+        return userResults.map((result: any) => ({
+          id: result.id,
+          totalScore: result.total_score,
+          category: result.category,
+          interpretation: result.interpretation,
+          recommendations: result.recommendations,
+          completedAt: result.completed_at,
+          test: {
+            id: result.test_id,
+            title: `Teste ${result.test_id}`, // Fallback title
+            category: result.test_category || 'GENERAL'
+          }
+        }))
       }
       
       return []
@@ -490,10 +516,24 @@ export async function getUserTestResults(userId: string) {
       ORDER BY tr.completed_at DESC
     `, [userId]) as any[]
     
-    return results
+    // Transform results to match expected format
+    return results.map(result => ({
+      id: result.id,
+      totalScore: result.total_score,
+      category: result.category,
+      interpretation: result.interpretation,
+      recommendations: result.recommendations,
+      completedAt: result.completed_at,
+      test: {
+        id: result.test_id,
+        title: result.title,
+        category: result.test_category
+      }
+    }))
   } catch (error) {
     console.error('Error fetching user test results:', error)
-    throw error
+    // Return empty array on error to prevent dashboard from hanging
+    return []
   }
 }
 
