@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
-import { db } from '@/lib/db'
+import { createUser } from '@/lib/mysql'
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, password } = await request.json()
+    const { email, password, name } = await request.json()
 
-    if (!name || !email || !password) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: 'Todos os campos são obrigatórios' },
+        { error: 'Email e senha são obrigatórios' },
         { status: 400 }
       )
     }
@@ -20,35 +19,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const existingUser = await db.user.findUnique({
-      where: { email }
+    const user = await createUser(email, password, name)
+
+    return NextResponse.json({
+      success: true,
+      user,
+      message: 'Conta criada com sucesso!'
     })
 
-    if (existingUser) {
-      return NextResponse.json(
-        { error: 'Este email já está em uso' },
-        { status: 400 }
-      )
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 12)
-
-    const user = await db.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      }
-    })
-
-    return NextResponse.json(
-      { message: 'Usuário criado com sucesso', userId: user.id },
-      { status: 201 }
-    )
-  } catch (error) {
+  } catch (error: any) {
     console.error('Registration error:', error)
+    
     return NextResponse.json(
-      { error: 'Erro interno do servidor' },
+      { error: error.message || 'Erro ao criar conta' },
       { status: 500 }
     )
   }

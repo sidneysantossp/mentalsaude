@@ -7,10 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { Brain, Eye, EyeOff, Mail, Lock, User } from 'lucide-react'
 import { toast } from 'sonner'
-import { useSupabase } from '@/components/providers/supabase-provider'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 
 export default function SignUp() {
   const [name, setName] = useState('')
@@ -20,7 +19,7 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { signUp } = useSupabase()
+  const { signUp } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -36,9 +35,9 @@ export default function SignUp() {
       const { error } = await signUp(email, password, name)
       
       if (error) {
-        toast.error(error.message || 'Erro ao criar conta')
+        toast.error(error)
       } else {
-        toast.success('Conta criada com sucesso! Verifique seu email para confirmar.')
+        toast.success('Conta criada com sucesso! Faça login para continuar.')
         router.push('/auth/signin')
       }
     } catch (error) {

@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Brain, Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import { toast } from 'sonner'
-import { useSupabase } from '@/components/providers/supabase-provider'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 
 export default function SignIn() {
   const [email, setEmail] = useState('')
@@ -17,7 +17,7 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
-  const { signIn } = useSupabase()
+  const { signIn } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,7 +27,7 @@ export default function SignIn() {
       const { error } = await signIn(email, password)
       
       if (error) {
-        toast.error(error.message || 'Email ou senha incorretos')
+        toast.error(error)
       } else {
         toast.success('Login realizado com sucesso!')
         router.push('/dashboard')

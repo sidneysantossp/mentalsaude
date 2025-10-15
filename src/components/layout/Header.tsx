@@ -1,14 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { useSupabase } from '@/components/providers/supabase-provider'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Brain, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { user, signOut } = useSupabase()
+  const { user, signOut } = useAuth()
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">

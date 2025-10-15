@@ -1,6 +1,6 @@
 'use client'
 
-import { useSupabase } from '@/components/providers/supabase-provider'
+import { useAuth } from '@/components/providers/mysql-auth-provider'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
@@ -22,7 +22,7 @@ interface TestResult {
 }
 
 export default function DashboardPage() {
-  const { user } = useSupabase()
+  const { user } = useAuth()
   const [testResults, setTestResults] = useState<TestResult[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -93,7 +93,7 @@ export default function DashboardPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {user ? `Bem-vindo(a), ${user.user_metadata?.name || 'Usuário'}!` : 'Seu Dashboard'}
+                  {user ? `Bem-vindo(a), ${user.name || 'Usuário'}!` : 'Seu Dashboard'}
                 </h1>
                 <p className="mt-1 text-sm text-gray-600">
                   {user 
