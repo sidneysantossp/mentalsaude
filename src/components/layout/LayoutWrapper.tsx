@@ -3,6 +3,7 @@
 import { ReactNode } from 'react'
 import Header from './Header'
 import Footer from './Footer'
+import FallbackIndicator from '@/components/ui/fallback-indicator'
 
 interface LayoutWrapperProps {
   children: ReactNode
@@ -19,6 +20,7 @@ export default function LayoutWrapper({
 }: LayoutWrapperProps) {
   return (
     <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 ${className}`}>
+      <FallbackIndicator />
       {showHeader && <Header />}
       <main className="flex-grow">
         {children}

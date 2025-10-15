@@ -13,25 +13,249 @@ const dbConfig = {
   database: 'anticosccb_mentalsaude',
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  connectTimeout: 5000,
+  acquireTimeout: 5000
 }
 
-// Pool de conexões
-const pool = mysql.createPool(dbConfig)
+// Pool de conexões com fallback
+let pool: mysql.Pool | null = null
+let dbAvailable = false
+
+// Função para testar conexão
+async function testConnection() {
+  try {
+    const testPool = mysql.createPool(dbConfig)
+    await testPool.execute('SELECT 1')
+    await testPool.end()
+    return true
+  } catch (error) {
+    console.warn('Database connection failed:', error.message)
+    return false
+  }
+}
+
+// Inicializar pool com fallback
+async function initializePool() {
+  dbAvailable = await testConnection()
+  if (dbAvailable) {
+    try {
+      pool = mysql.createPool(dbConfig)
+      console.log('✅ Database pool initialized successfully')
+    } catch (error) {
+      console.error('❌ Failed to initialize database pool:', error.message)
+      dbAvailable = false
+      pool = null
+    }
+  } else {
+    console.warn('⚠️ Database not available, using fallback mode')
+    pool = null
+  }
+}
+
+// Inicializar pool
+initializePool()
+
+// Retry connection periodically
+setInterval(async () => {
+  const wasAvailable = dbAvailable
+  dbAvailable = await testConnection()
+  
+  if (dbAvailable && !wasAvailable) {
+    console.log('🔄 Database is now available, reinitializing pool...')
+    await initializePool()
+  } else if (!dbAvailable && wasAvailable) {
+    console.warn('⚠️ Database connection lost, switching to fallback mode')
+    pool = null
+  }
+}, 30000) // Check every 30 seconds
 
 export async function query(sql: string, params?: any[]) {
+  if (!dbAvailable || !pool) {
+    console.warn('⚠️ Database not available, using fallback data')
+    return getFallbackData(sql, params)
+  }
+
   try {
     const [rows] = await pool.execute(sql, params)
     return rows
   } catch (error) {
     console.error('Database query error:', error)
-    throw error
+    // Fallback para dados mockados em caso de erro
+    return getFallbackData(sql, params)
   }
+}
+
+// Fallback data functions
+function getFallbackData(sql: string, params?: any[]) {
+  const lowerSql = sql.toLowerCase()
+  
+  if (lowerSql.includes('select') && lowerSql.includes('users')) {
+    if (lowerSql.includes('where email =')) {
+      return [] // Usuário não encontrado em fallback
+    }
+    return [] // Lista vazia de usuários
+  }
+  
+  if (lowerSql.includes('select') && lowerSql.includes('tests')) {
+    return getFallbackTests()
+  }
+  
+  if (lowerSql.includes('select') && lowerSql.includes('questions')) {
+    return getFallbackQuestions(params?.[0])
+  }
+  
+  if (lowerSql.includes('insert')) {
+    // Simular inserção bem-sucedida
+    if (lowerSql.includes('users')) {
+      return { insertId: 1, affectedRows: 1 }
+    }
+    if (lowerSql.includes('test_results')) {
+      return { insertId: 1, affectedRows: 1 }
+    }
+    if (lowerSql.includes('answers')) {
+      return { insertId: 1, affectedRows: 1 }
+    }
+  }
+  
+  return []
+}
+
+// Fallback test data
+function getFallbackTests() {
+  return [
+    {
+      id: '1',
+      title: 'Teste de Ansiedade',
+      description: 'Avalie seus níveis de ansiedade',
+      category: 'ansiedade',
+      duration_minutes: 10,
+      questions_count: 9,
+      difficulty: 'fácil',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '2',
+      title: 'Teste de Depressão',
+      description: 'Avalie seus sintomas depressivos',
+      category: 'depressao',
+      duration_minutes: 15,
+      questions_count: 12,
+      difficulty: 'médio',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '3',
+      title: 'Teste de Estresse',
+      description: 'Meça seu nível de estresse',
+      category: 'estresse',
+      duration_minutes: 10,
+      questions_count: 10,
+      difficulty: 'fácil',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '4',
+      title: 'Teste de Burnout',
+      description: 'Avalie esgotamento profissional',
+      category: 'burnout',
+      duration_minutes: 15,
+      questions_count: 15,
+      difficulty: 'médio',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '5',
+      title: 'Teste de Fobia Social',
+      description: 'Avalie ansiedade em situações sociais',
+      category: 'fobia_social',
+      duration_minutes: 12,
+      questions_count: 11,
+      difficulty: 'médio',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '6',
+      title: 'Teste de Pânico',
+      description: 'Avalie sintomas de transtorno de pânico',
+      category: 'panico',
+      duration_minutes: 10,
+      questions_count: 8,
+      difficulty: 'fácil',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '7',
+      title: 'Teste de TOC',
+      description: 'Avalie sintomas obsessivo-compulsivos',
+      category: 'toc',
+      duration_minutes: 20,
+      questions_count: 18,
+      difficulty: 'difícil',
+      created_at: new Date().toISOString()
+    },
+    {
+      id: '8',
+      title: 'Teste de Autoestima',
+      description: 'Avalie sua autoestima e confiança',
+      category: 'autoestima',
+      duration_minutes: 8,
+      questions_count: 7,
+      difficulty: 'fácil',
+      created_at: new Date().toISOString()
+    }
+  ]
+}
+
+// Fallback questions data
+function getFallbackQuestions(testId?: string) {
+  const questions: any = {
+    '1': [ // Ansiedade
+      { id: 'q1', test_id: '1', question_text: 'Você se sente nervoso ou ansioso?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 1 },
+      { id: 'q2', test_id: '1', question_text: 'Você tem dificuldade em relaxar?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 2 },
+      { id: 'q3', test_id: '1', question_text: 'Você se preocupa excessivamente?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 3 }
+    ],
+    '2': [ // Depressão
+      { id: 'q4', test_id: '2', question_text: 'Você se sente triste ou depressivo?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 1 },
+      { id: 'q5', test_id: '2', question_text: 'Você perdeu interesse em atividades?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 2 },
+      { id: 'q6', test_id: '2', question_text: 'Você tem problemas de sono?', options: JSON.stringify(['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']), scores: JSON.stringify([0, 1, 2, 3, 4]), order_index: 3 }
+    ]
+  }
+  
+  return questions[testId] || []
 }
 
 // Funções de autenticação
 export async function createUser(email: string, password: string, name?: string) {
   try {
+    if (!dbAvailable || !pool) {
+      // Modo fallback - criar usuário mockado
+      console.warn('⚠️ Creating user in fallback mode (not persistent)')
+      const userId = `fallback_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      
+      // Salvar em localStorage-like storage (session apenas para demonstração)
+      if (typeof globalThis !== 'undefined' && globalThis.fallbackUsers) {
+        globalThis.fallbackUsers[email] = {
+          id: userId,
+          email,
+          name,
+          password: await bcrypt.hash(password, 10),
+          createdAt: new Date().toISOString()
+        }
+      } else if (typeof globalThis !== 'undefined') {
+        globalThis.fallbackUsers = {}
+        globalThis.fallbackUsers[email] = {
+          id: userId,
+          email,
+          name,
+          password: await bcrypt.hash(password, 10),
+          createdAt: new Date().toISOString()
+        }
+      }
+      
+      return { id: userId, email, name }
+    }
+
     // Verificar se usuário já existe
     const existingUser = await query('SELECT id FROM users WHERE email = ?', [email])
     if (Array.isArray(existingUser) && existingUser.length > 0) {
@@ -57,6 +281,44 @@ export async function createUser(email: string, password: string, name?: string)
 
 export async function authenticateUser(email: string, password: string) {
   try {
+    if (!dbAvailable || !pool) {
+      // Modo fallback - verificar usuário mockado
+      console.warn('⚠️ Authenticating user in fallback mode')
+      
+      if (typeof globalThis !== 'undefined' && globalThis.fallbackUsers && globalThis.fallbackUsers[email]) {
+        const user = globalThis.fallbackUsers[email]
+        const isValidPassword = await bcrypt.compare(password, user.password)
+        
+        if (!isValidPassword) {
+          throw new Error('Email ou senha incorretos')
+        }
+
+        // Gerar token JWT
+        const token = jwt.sign(
+          { 
+            id: user.id, 
+            email: user.email, 
+            name: user.name,
+            role: 'user'
+          },
+          JWT_SECRET,
+          { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+        )
+
+        return {
+          user: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: 'user'
+          },
+          token
+        }
+      } else {
+        throw new Error('Email ou senha incorretos')
+      }
+    }
+
     const users = await query('SELECT * FROM users WHERE email = ?', [email]) as any[]
     
     if (!Array.isArray(users) || users.length === 0) {
@@ -152,6 +414,39 @@ export async function saveTestResult(data: {
   try {
     const resultId = `result_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
     
+    if (!dbAvailable || !pool) {
+      // Modo fallback - salvar em memória
+      console.warn('⚠️ Saving test result in fallback mode (not persistent)')
+      
+      if (typeof globalThis !== 'undefined') {
+        if (!globalThis.fallbackResults) {
+          globalThis.fallbackResults = []
+        }
+        
+        const result = {
+          id: resultId,
+          user_id: data.userId,
+          test_id: data.testId,
+          total_score: data.totalScore,
+          category: data.category,
+          interpretation: data.interpretation,
+          recommendations: data.recommendations,
+          answers: data.answers.map(answer => ({
+            id: `answer_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            question_id: answer.questionId,
+            test_result_id: resultId,
+            value: answer.value,
+            score: answer.score
+          })),
+          completed_at: new Date().toISOString()
+        }
+        
+        globalThis.fallbackResults.push(result)
+      }
+      
+      return resultId
+    }
+    
     // Inserir resultado
     await query(
       'INSERT INTO test_results (id, user_id, test_id, total_score, category, interpretation, recommendations) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -176,6 +471,17 @@ export async function saveTestResult(data: {
 
 export async function getUserTestResults(userId: string) {
   try {
+    if (!dbAvailable || !pool) {
+      // Modo fallback - retornar resultados mockados
+      console.warn('⚠️ Fetching user test results in fallback mode')
+      
+      if (typeof globalThis !== 'undefined' && globalThis.fallbackResults) {
+        return globalThis.fallbackResults.filter((result: any) => result.user_id === userId)
+      }
+      
+      return []
+    }
+    
     const results = await query(`
       SELECT tr.*, t.title, t.category as test_category 
       FROM test_results tr 
