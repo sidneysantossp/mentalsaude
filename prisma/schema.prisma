@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  password      String?  // opcional para login com OAuth
+  role          Role     @default(USER)
+  dateOfBirth   DateTime?
+  phone         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relacionamentos
+  testResults   TestResult[]
+  appointments  Appointment[]
+  professionalReviews ProfessionalReview[]
+  
+  @@map("users")
+}
+
+model Test {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  category      TestCategory
+  instructions  String
+  timeLimit     Int?     // em minutos
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relacionamentos
+  questions     Question[]
+  testResults   TestResult[]
+  
+  @@map("tests")
+}
+
+model Question {
+  id          String   @id @default(cuid())
+  testId      String
+  text        String
+  type        QuestionType
+  order       Int
+  options     String?  // JSON array para opções de múltipla escolha
+  
+  // Relacionamentos
+  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  answers     Answer[]
+  
+  @@map("questions")
+}
+
+model Answer {
+  id          String   @id @default(cuid())
+  questionId  String
+  testResultId String
+  value       String   // resposta do usuário
+  score       Int      // pontuação da resposta
+  
+  // Relacionamentos
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  testResult  TestResult @relation(fields: [testResultId], references: [id], onDelete: Cascade)
+  
+  @@map("answers")
+}
+
+model TestResult {
+  id          String   @id @default(cuid())
+  userId      String
+  testId      String
+  totalScore  Int
+  category    String   // categoria do resultado (ex: "leve", "moderado", "grave")
+  interpretation String // interpretação do resultado
+  recommendations String? // recomendações
+  completedAt DateTime @default(now())
+  
+  // Relacionamentos
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
+  answers     Answer[]
+  professionalReviews ProfessionalReview[]
+  
+  @@map("test_results")
+}
+
+model Professional {
+  id          String   @id @default(cuid())
+  name        String
+  email       String   @unique
+  specialty   String
+  credentials String
+  bio         String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relacionamentos
+  appointments Appointment[]
+  professionalReviews ProfessionalReview[]
+  
+  @@map("professionals")
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  userId        String
+  professionalId String
+  scheduledFor  DateTime
+  status        AppointmentStatus @default(SCHEDULED)
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relacionamentos
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  professional  Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  
+  @@map("appointments")
+}
+
+model ProfessionalReview {
+  id          String   @id @default(cuid())
+  testResultId String
+  professionalId String
+  userId      String
+  review      String
+  recommendations String?
+  reviewedAt  DateTime @default(now())
+  
+  // Relacionamentos
+  testResult  TestResult @relation(fields: [testResultId], references: [id], onDelete: Cascade)
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("professional_reviews")
+}
+
+model EducationalResource {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  type        ResourceType
+  category    String
+  url         String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("educational_resources")
+}
+
+// Enums
+enum Role {
+  USER
+  ADMIN
+  PROFESSIONAL
+}
+
+enum TestCategory {
+  DEPRESSION
+  ANXIETY
+  BURNOUT
+  ADHD
+  OCD
+  STRESS
+  SLEEP
+  SELF_ESTEEM
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  LIKERT_SCALE
+  YES_NO
+  TEXT
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum ResourceType {
+  ARTICLE
+  VIDEO
+  PODCAST
+  EXERCISE
+  TIP
+}
