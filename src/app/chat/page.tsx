@@ -1,381 +1,598 @@
 'use client'
 
-import { useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
 import { 
   Send, 
   Users, 
-  Crown, 
   MessageCircle, 
-  Hash,
-  Search,
-  Plus,
+  Smile, 
+  Paperclip, 
+  Settings,
+  LogOut,
   User,
-  Star,
-  Shield,
-  Zap,
-  Heart,
-  Brain
+  Hash,
+  Volume2,
+  VolumeX
 } from 'lucide-react'
-import Link from 'next/link'
-import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import { useToast } from '@/hooks/use-toast'
 
-interface ChatRoom {
+interface Message {
+  id: string
+  username: string
+  content: string
+  timestamp: Date
+  room: string
+  isSystem?: boolean
+  userId?: string
+}
+
+interface Room {
   id: string
   name: string
   description: string
-  type: 'PUBLIC' | 'PREMIUM'
+  users: number
   category: string
-  memberCount: number
-  maxMembers: number
-  isActive: boolean
-  lastMessage?: {
-    content: string
-    timestamp: string
-    author: string
-  }
+  isPrivate?: boolean
+  maxUsers?: number
 }
 
-const mockRooms: ChatRoom[] = [
-  {
-    id: '1',
-    name: 'Bem-Estar Diário',
-    description: 'Compartilhe suas experiências e dicas de autocuidado',
-    type: 'PUBLIC',
-    category: 'SUPPORT',
-    memberCount: 234,
-    maxMembers: 500,
-    isActive: true,
-    lastMessage: {
-      content: 'Hoje foi um dia desafiador, mas consegui superar!',
-      timestamp: '2 min atrás',
-      author: 'Maria S.'
-    }
-  },
-  {
-    id: '2',
-    name: 'Ansiedade e Estratégias',
-    description: 'Técnicas e apoio para lidar com a ansiedade',
-    type: 'PUBLIC',
-    category: 'ANXIETY',
-    memberCount: 189,
-    maxMembers: 300,
-    isActive: true,
-    lastMessage: {
-      content: 'A respiração profunda realmente funciona! 🧘‍♀️',
-      timestamp: '5 min atrás',
-      author: 'João P.'
-    }
-  },
-  {
-    id: '3',
-    name: 'Depressão: Apoio Mútuo',
-    description: 'Espaço seguro para compartilhar e receber apoio',
-    type: 'PUBLIC',
-    category: 'DEPRESSION',
-    memberCount: 156,
-    maxMembers: 250,
-    isActive: true,
-    lastMessage: {
-      content: 'Pequenos passos fazem grande diferença 💙',
-      timestamp: '8 min atrás',
-      author: 'Ana C.'
-    }
-  },
-  {
-    id: '4',
-    name: 'Autoestima e Confiança',
-    description: 'Desenvolva sua autoconfiança com o grupo',
-    type: 'PREMIUM',
-    category: 'SELF_ESTEEM',
-    memberCount: 67,
-    maxMembers: 100,
-    isActive: true,
-    lastMessage: {
-      content: 'Hoje me senti orgulhoso de mim mesmo!',
-      timestamp: '12 min atrás',
-      author: 'Carlos M.'
-    }
-  },
-  {
-    id: '5',
-    name: 'Meditação e Mindfulness',
-    description: 'Práticas guiadas e experiências compartilhadas',
-    type: 'PREMIUM',
-    category: 'MINDFULNESS',
-    memberCount: 89,
-    maxMembers: 150,
-    isActive: true,
-    lastMessage: {
-      content: 'Alguém quer meditar juntos amanhã?',
-      timestamp: '15 min atrás',
-      author: 'Patrícia L.'
-    }
-  },
-  {
-    id: '6',
-    name: 'Estresse e Trabalho',
-    description: 'Equilíbrio entre vida profissional e bem-estar',
-    type: 'PREMIUM',
-    category: 'STRESS',
-    memberCount: 124,
-    maxMembers: 200,
-    isActive: true,
-    lastMessage: {
-      content: 'Dicas para desconectar após o expediente?',
-      timestamp: '20 min atrás',
-      author: 'Roberto S.'
-    }
-  }
-]
+interface User {
+  id: string
+  username: string
+  status: 'online' | 'away' | 'busy'
+  avatar?: string
+  currentRoom?: string
+}
 
 export default function ChatPage() {
-  const sessionData = useSession()
-  const session = sessionData?.data || null
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null)
+  const [messages, setMessages] = useState<Message[]>([])
+  const [newMessage, setNewMessage] = useState('')
+  const [username, setUsername] = useState('')
+  const [isConnected, setIsConnected] = useState(false)
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([])
+  const [rooms, setRooms] = useState<Room[]>([])
+  const [soundEnabled, setSoundEnabled] = useState(true)
+  const [showUserList, setShowUserList] = useState(true)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { toast } = useToast()
   const router = useRouter()
-  const [searchTerm, setSearchTerm] = useState('')
-  const [showPremiumModal, setShowPremiumModal] = useState(false)
 
-  const handleJoinRoom = (room: ChatRoom) => {
-    if (room.type === 'PREMIUM' && !session) {
-      setShowPremiumModal(true)
+  // Salas de chat disponíveis
+  const defaultRooms: Room[] = [
+    {
+      id: 'geral',
+      name: 'Bate Papo Geral',
+      description: 'Conversas gerais sobre diversos assuntos',
+      users: 145,
+      category: 'Geral'
+    },
+    {
+      id: 'amigos',
+      name: 'Amigos e Amizades',
+      description: 'Faça novos amigos e converse com pessoas amigáveis',
+      users: 89,
+      category: 'Relacionamentos'
+    },
+    {
+      id: 'jovens',
+      name: 'Jovens e Adolescentes',
+      description: 'Espaço para o público jovem conversar',
+      users: 67,
+      category: 'Jovens'
+    },
+    {
+      id: 'games',
+      name: 'Games e Tecnologia',
+      description: 'Conversas sobre jogos, tecnologia e inovações',
+      users: 234,
+      category: 'Tecnologia'
+    },
+    {
+      id: 'musica',
+      name: 'Música e Cultura',
+      description: 'Compartilhe suas músicas e gostos musicais',
+      users: 156,
+      category: 'Cultura'
+    },
+    {
+      id: 'esportes',
+      name: 'Esportes e Fitness',
+      description: 'Converse sobre esportes, futebol e atividades físicas',
+      users: 198,
+      category: 'Esportes'
+    },
+    {
+      id: 'filmes',
+      name: 'Filmes e Séries',
+      description: 'Discussões sobre cinema, séries e entretenimento',
+      users: 176,
+      category: 'Entretenimento'
+    },
+    {
+      id: 'noticias',
+      name: 'Notícias e Atualidades',
+      description: 'Debata os acontecimentos do dia a dia',
+      users: 92,
+      category: 'Notícias'
+    },
+    {
+      id: 'amor',
+      name: 'Amor e Relacionamentos',
+      description: 'Conversas sobre relacionamentos e sentimentos',
+      users: 203,
+      category: 'Relacionamentos'
+    },
+    {
+      id: 'trabalho',
+      name: 'Trabalho e Carreira',
+      description: 'Discuta profissões, empregos e carreira',
+      users: 78,
+      category: 'Carreira'
+    },
+    {
+      id: 'estudos',
+      name: 'Estudos e Educação',
+      description: 'Tire dúvidas e compartilhe conhecimento',
+      users: 124,
+      category: 'Educação'
+    },
+    {
+      id: 'saude',
+      name: 'Saúde e Bem-estar',
+      description: 'Converse sobre saúde, medicina e bem-estar',
+      users: 87,
+      category: 'Saúde'
+    }
+  ]
+
+  useEffect(() => {
+    setRooms(defaultRooms)
+    
+    // Gerar nome de usuário aleatório se não existir
+    const savedUsername = localStorage.getItem('chatUsername')
+    if (savedUsername) {
+      setUsername(savedUsername)
+      setIsConnected(true)
     } else {
-      router.push(`/chat/${room.id}`)
+      generateRandomUsername()
+    }
+
+    // Simular mensagens iniciais
+    const initialMessages: Message[] = [
+      {
+        id: '1',
+        username: 'Sistema',
+        content: 'Bem-vindo ao Bate Papo! Escolha uma sala para começar a conversar.',
+        timestamp: new Date(),
+        room: 'system',
+        isSystem: true
+      }
+    ]
+    setMessages(initialMessages)
+
+    // Simular usuários online
+    const mockUsers: User[] = [
+      { id: '1', username: 'AnaSilva', status: 'online' },
+      { id: '2', username: 'Carlos123', status: 'online' },
+      { id: '3', username: 'MariaJ', status: 'away' },
+      { id: '4', username: 'PedroHK', status: 'online' },
+      { id: '5', username: 'JuliaM', status: 'busy' },
+      { id: '6', username: 'RafaelS', status: 'online' },
+      { id: '7', username: 'LuciaF', status: 'online' },
+      { id: '8', username: 'MarcosB', status: 'away' }
+    ]
+    setOnlineUsers(mockUsers)
+  }, [])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const generateRandomUsername = () => {
+    const adjectives = ['Feliz', 'Amigo', 'Legal', 'Divertido', 'Alegre', 'Calmo', 'Esperto', 'Criativo']
+    const nouns = ['Gato', 'Sol', 'Estrela', 'Flor', 'Rio', 'Montanha', 'Mar', 'Céu']
+    const numbers = Math.floor(Math.random() * 999)
+    
+    const randomUsername = `${adjectives[Math.floor(Math.random() * adjectives.length)]}${nouns[Math.floor(Math.random() * nouns.length)]}${numbers}`
+    setUsername(randomUsername)
+    localStorage.setItem('chatUsername', randomUsername)
+    setIsConnected(true)
+  }
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const joinRoom = (room: Room) => {
+    setSelectedRoom(room)
+    
+    // Simular entrada na sala
+    const joinMessage: Message = {
+      id: Date.now().toString(),
+      username: 'Sistema',
+      content: `Você entrou na sala "${room.name}"`,
+      timestamp: new Date(),
+      room: room.id,
+      isSystem: true
+    }
+    
+    setMessages([joinMessage])
+    
+    toast({
+      title: "Sala alterada",
+      description: `Você entrou em ${room.name}`,
+    })
+  }
+
+  const sendMessage = () => {
+    if (!newMessage.trim() || !selectedRoom || !username) return
+
+    const message: Message = {
+      id: Date.now().toString(),
+      username: username,
+      content: newMessage,
+      timestamp: new Date(),
+      room: selectedRoom.id,
+      userId: 'current-user'
+    }
+
+    setMessages(prev => [...prev, message])
+    setNewMessage('')
+
+    // Simular resposta de outro usuário
+    setTimeout(() => {
+      const responses = [
+        'Olá! Como vai?',
+        'Interessante essa conversa!',
+        'Concordo com você.',
+        'Alguém aqui quer conversar sobre outro assunto?',
+        'Que legal! 😊',
+        'Eu também acho isso!',
+        'Boa tarde a todos!',
+        'Alguém mais daqui de [cidade]?'
+      ]
+      
+      const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)]
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)]
+      
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        username: randomUser.username,
+        content: randomResponse,
+        timestamp: new Date(),
+        room: selectedRoom.id
+      }
+      
+      setMessages(prev => [...prev, botMessage])
+    }, Math.random() * 5000 + 2000)
+  }
+
+  const changeUsername = () => {
+    const newUsername = prompt('Digite seu novo nome de usuário:', username)
+    if (newUsername && newUsername.trim()) {
+      setUsername(newUsername.trim())
+      localStorage.setItem('chatUsername', newUsername.trim())
+      toast({
+        title: "Nome alterado",
+        description: `Seu nome de usuário agora é ${newUsername.trim()}`,
+      })
     }
   }
 
-  const filteredRooms = mockRooms.filter(room =>
-    room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    room.description.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const disconnect = () => {
+    setIsConnected(false)
+    setSelectedRoom(null)
+    setMessages([])
+    localStorage.removeItem('chatUsername')
+    toast({
+      title: "Desconectado",
+      description: "Você saiu do bate papo",
+    })
+  }
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'SUPPORT': return <Heart className="h-4 w-4" />
-      case 'ANXIETY': return <Brain className="h-4 w-4" />
-      case 'DEPRESSION': return <MessageCircle className="h-4 w-4" />
-      case 'SELF_ESTEEM': return <Star className="h-4 w-4" />
-      case 'MINDFULNESS': return <Zap className="h-4 w-4" />
-      case 'STRESS': return <Shield className="h-4 w-4" />
-      default: return <Hash className="h-4 w-4" />
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'online': return 'bg-green-500'
+      case 'away': return 'bg-yellow-500'
+      case 'busy': return 'bg-red-500'
+      default: return 'bg-gray-500'
     }
   }
 
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'SUPPORT': return 'bg-pink-100 text-pink-800'
-      case 'ANXIETY': return 'bg-blue-100 text-blue-800'
-      case 'DEPRESSION': return 'bg-purple-100 text-purple-800'
-      case 'SELF_ESTEEM': return 'bg-yellow-100 text-yellow-800'
-      case 'MINDFULNESS': return 'bg-green-100 text-green-800'
-      case 'STRESS': return 'bg-orange-100 text-orange-800'
-      default: return 'bg-gray-100 text-gray-800'
-    }
+  const getRoomsByCategory = () => {
+    const categories = rooms.reduce((acc, room) => {
+      if (!acc[room.category]) {
+        acc[room.category] = []
+      }
+      acc[room.category].push(room)
+      return acc
+    }, {} as Record<string, Room[]>)
+    
+    return categories
+  }
+
+  if (!isConnected) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold text-blue-600">Bate Papo</CardTitle>
+            <p className="text-gray-600">Conecte-se para começar a conversar</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Nome de usuário:</label>
+              <Input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Digite seu nome de usuário"
+                maxLength={20}
+              />
+            </div>
+            <Button 
+              onClick={() => {
+                if (username.trim()) {
+                  localStorage.setItem('chatUsername', username.trim())
+                  setIsConnected(true)
+                }
+              }}
+              className="w-full bg-blue-600 hover:bg-blue-700"
+              disabled={!username.trim()}
+            >
+              Entrar no Bate Papo
+            </Button>
+            <Button 
+              onClick={generateRandomUsername}
+              variant="outline"
+              className="w-full"
+            >
+              Gerar nome aleatório
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
-    <LayoutWrapper>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <div className="bg-white shadow-sm border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  Salas de Bate-Papo
-                </h1>
-                <p className="mt-1 text-sm text-gray-600">
-                  Conecte-se com outras pessoas em um ambiente seguro e de apoio
-                </p>
-              </div>
-              <div className="mt-4 sm:mt-0">
-                <Link href="/plans">
-                  <Button className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white">
-                    <Crown className="h-4 w-4 mr-2" />
-                    Assinar Premium
-                  </Button>
-                </Link>
-              </div>
-            </div>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 px-4 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <MessageCircle className="h-6 w-6 text-blue-600" />
+            <h1 className="text-xl font-bold text-gray-800">Bate Papo</h1>
+            {selectedRoom && (
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                <Hash className="h-3 w-3 mr-1" />
+                {selectedRoom.name}
+              </Badge>
+            )}
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSoundEnabled(!soundEnabled)}
+            >
+              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowUserList(!showUserList)}
+            >
+              <Users className="h-4 w-4" />
+              <span className="ml-1 text-sm">{onlineUsers.length}</span>
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={changeUsername}
+            >
+              <User className="h-4 w-4" />
+            </Button>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={disconnect}
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
         </div>
+      </header>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Search and Filters */}
-          <div className="mb-8">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Buscar salas..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
+      <div className="flex h-[calc(100vh-64px)]">
+        {/* Sidebar - Salas */}
+        <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+          <div className="p-4 border-b border-gray-200">
+            <h2 className="font-semibold text-gray-800 mb-2">Salas de Bate Papo</h2>
+            <p className="text-sm text-gray-600">Escolha uma sala para conversar</p>
+          </div>
+          
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {Object.entries(getRoomsByCategory()).map(([category, categoryRooms]) => (
+                <div key={category}>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">{category}</h3>
+                  <div className="space-y-2">
+                    {categoryRooms.map(room => (
+                      <Card 
+                        key={room.id}
+                        className={`cursor-pointer transition-all hover:shadow-md ${
+                          selectedRoom?.id === room.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+                        }`}
+                        onClick={() => joinRoom(room)}
+                      >
+                        <CardContent className="p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm text-gray-800">{room.name}</h4>
+                              <p className="text-xs text-gray-600 mt-1">{room.description}</p>
+                            </div>
+                            <div className="flex items-center space-x-2 ml-2">
+                              <Users className="h-4 w-4 text-gray-500" />
+                              <span className="text-sm text-gray-600">{room.users}</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
+
+        {/* Chat Principal */}
+        <div className="flex-1 flex flex-col bg-white">
+          {selectedRoom ? (
+            <>
+              {/* Messages Area */}
+              <div className="flex-1 flex">
+                <div className="flex-1 flex flex-col">
+                  <ScrollArea className="flex-1 p-4">
+                    <div className="space-y-4">
+                      {messages.map(message => (
+                        <div
+                          key={message.id}
+                          className={`flex ${
+                            message.userId === 'current-user' ? 'justify-end' : 'justify-start'
+                          }`}
+                        >
+                          <div
+                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                              message.isSystem
+                                ? 'bg-gray-100 text-gray-600 text-center text-sm'
+                                : message.userId === 'current-user'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-gray-200 text-gray-800'
+                            }`}
+                          >
+                            {!message.isSystem && (
+                              <div className="font-medium text-xs opacity-75 mb-1">
+                                {message.username} • {formatTime(message.timestamp)}
+                              </div>
+                            )}
+                            <div className="text-sm">{message.content}</div>
+                          </div>
+                        </div>
+                      ))}
+                      <div ref={messagesEndRef} />
+                    </div>
+                  </ScrollArea>
+
+                  {/* Message Input */}
+                  <div className="border-t border-gray-200 p-4">
+                    <div className="flex items-center space-x-2">
+                      <Button variant="ghost" size="sm">
+                        <Paperclip className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm">
+                        <Smile className="h-4 w-4" />
+                      </Button>
+                      <Input
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Digite sua mensagem..."
+                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                        maxLength={500}
+                      />
+                      <Button 
+                        onClick={sendMessage}
+                        disabled={!newMessage.trim()}
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
+                        <Send className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-2 text-center">
+                      Você está conversando como <span className="font-medium">{username}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Users Sidebar */}
+                {showUserList && (
+                  <div className="w-64 border-l border-gray-200 bg-gray-50">
+                    <div className="p-4 border-b border-gray-200">
+                      <h3 className="font-medium text-gray-800">
+                        Usuários na sala ({onlineUsers.length})
+                      </h3>
+                    </div>
+                    <ScrollArea className="h-full">
+                      <div className="p-4 space-y-3">
+                        {onlineUsers.map(user => (
+                          <div key={user.id} className="flex items-center space-x-3">
+                            <div className="relative">
+                              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                                <User className="h-4 w-4 text-gray-600" />
+                              </div>
+                              <div className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full ${getStatusColor(user.status)}`} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-sm font-medium text-gray-800">
+                                {user.username}
+                                {user.username === username && (
+                                  <span className="text-xs text-gray-500 ml-1">(você)</span>
+                                )}
+                              </div>
+                              <div className="text-xs text-gray-500 capitalize">
+                                {user.status === 'online' ? 'Disponível' : 
+                                 user.status === 'away' ? 'Ausente' : 'Ocupado'}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                )}
               </div>
-              <Button variant="outline">
-                <Plus className="h-4 w-4 mr-2" />
-                Criar Sala
-              </Button>
-            </div>
-          </div>
-
-          {/* Room Categories */}
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              <Badge className="bg-blue-100 text-blue-800 cursor-pointer hover:bg-blue-200">
-                Todas
-              </Badge>
-              <Badge className="bg-pink-100 text-pink-800 cursor-pointer hover:bg-pink-200">
-                <Heart className="h-3 w-3 mr-1" />
-                Apoio
-              </Badge>
-              <Badge className="bg-blue-100 text-blue-800 cursor-pointer hover:bg-blue-200">
-                <Brain className="h-3 w-3 mr-1" />
-                Ansiedade
-              </Badge>
-              <Badge className="bg-purple-100 text-purple-800 cursor-pointer hover:bg-purple-200">
-                <MessageCircle className="h-3 w-3 mr-1" />
-                Depressão
-              </Badge>
-              <Badge className="bg-yellow-100 text-yellow-800 cursor-pointer hover:bg-yellow-200">
-                <Star className="h-3 w-3 mr-1" />
-                Autoestima
-              </Badge>
-            </div>
-          </div>
-
-          {/* Rooms Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredRooms.map((room) => (
-              <Card key={room.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Badge className={getCategoryColor(room.category)}>
-                        {getCategoryIcon(room.category)}
-                      </Badge>
-                      {room.type === 'PREMIUM' && (
-                        <Crown className="h-4 w-4 text-yellow-500" />
-                      )}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Users className="h-4 w-4 mr-1" />
-                      {room.memberCount}/{room.maxMembers}
-                    </div>
+            </>
+          ) : (
+            <div className="flex-1 flex items-center justify-center">
+              <div className="text-center">
+                <MessageCircle className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-600 mb-2">
+                  Bem-vindo ao Bate Papo!
+                </h3>
+                <p className="text-gray-500 mb-4">
+                  Escolha uma sala da lista à esquerda para começar a conversar
+                </p>
+                <div className="flex items-center justify-center space-x-4 text-sm text-gray-500">
+                  <div className="flex items-center space-x-1">
+                    <Users className="h-4 w-4" />
+                    <span>{onlineUsers.length} usuários online</span>
                   </div>
-                  <CardTitle className="text-lg">{room.name}</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-gray-600 text-sm mb-4">
-                    {room.description}
-                  </p>
-                  
-                  {room.lastMessage && (
-                    <div className="mb-4 p-2 bg-gray-50 rounded text-sm">
-                      <p className="text-gray-700 truncate">{room.lastMessage.content}</p>
-                      <p className="text-gray-500 text-xs mt-1">
-                        {room.lastMessage.author} • {room.lastMessage.timestamp}
-                      </p>
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      {room.isActive ? (
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      ) : (
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      )}
-                      <span className="text-sm text-gray-500">
-                        {room.isActive ? 'Ativo' : 'Inativo'}
-                      </span>
-                    </div>
-                    
-                    <Button
-                      size="sm"
-                      onClick={() => handleJoinRoom(room)}
-                      className={room.type === 'PREMIUM' ? 'bg-gradient-to-r from-yellow-400 to-orange-500' : ''}
-                    >
-                      {room.type === 'PREMIUM' ? (
-                        <>
-                          <Crown className="h-3 w-3 mr-1" />
-                          Premium
-                        </>
-                      ) : (
-                        <>
-                          <MessageCircle className="h-3 w-3 mr-1" />
-                          Entrar
-                        </>
-                      )}
-                    </Button>
+                  <div className="flex items-center space-x-1">
+                    <MessageCircle className="h-4 w-4" />
+                    <span>{rooms.length} salas disponíveis</span>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* CTA Section */}
-          <div className="mt-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
-            <Crown className="h-12 w-12 text-yellow-400 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-4">
-              Desbloqueie Salas Exclusivas
-            </h2>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Junte-se à nossa comunidade premium e tenha acesso a salas moderadas, 
-              conteúdo exclusivo e suporte especializado 24/7.
-            </p>
-            <Link href="/plans">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                <Crown className="h-4 w-4 mr-2" />
-                Ver Planos Premium
-              </Button>
-            </Link>
-          </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Premium Modal */}
-      {showPremiumModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <Card className="max-w-md w-full">
-            <CardHeader className="text-center">
-              <Crown className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
-              <CardTitle className="text-xl">Sala Exclusiva Premium</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-gray-600">
-                Esta sala é exclusiva para membros premium. 
-                Junte-se a nós para ter acesso a conteúdo exclusivo!
-              </p>
-              <div className="space-y-2">
-                <Link href="/auth/signin">
-                  <Button className="w-full">
-                    Fazer Login
-                  </Button>
-                </Link>
-                <Link href="/plans">
-                  <Button variant="outline" className="w-full">
-                    Ver Planos Premium
-                  </Button>
-                </Link>
-                <Button
-                  variant="ghost"
-                  className="w-full"
-                  onClick={() => setShowPremiumModal(false)}
-                >
-                  Cancelar
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-    </LayoutWrapper>
+    </div>
   )
 }

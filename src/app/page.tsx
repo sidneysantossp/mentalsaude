@@ -138,6 +138,12 @@ export default function Home() {
               <Button size="lg" variant="outline" className="text-base px-8 py-3 h-auto border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold transition-all duration-300 rounded-xl">
                 <Link href="/testes">Conhecer os Testes</Link>
               </Button>
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-base px-8 py-3 h-auto font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 rounded-xl">
+                <Link href="/chat" className="flex items-center">
+                  Bate Papo
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

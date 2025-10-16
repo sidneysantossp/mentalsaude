@@ -23,7 +23,8 @@ import {
   Clock,
   AlertTriangle,
   CheckCircle,
-  Download
+  Download,
+  MessageCircle
 } from 'lucide-react'
 
 interface DashboardStats {
@@ -33,6 +34,8 @@ interface DashboardStats {
   activeUsers: number
   recentUsers: number
   recentTests: number
+  chatUsers: number
+  chatMessages: number
 }
 
 interface RecentActivity {
@@ -52,7 +55,9 @@ export default function AdminDashboard() {
     totalResults: 0,
     activeUsers: 0,
     recentUsers: 0,
-    recentTests: 0
+    recentTests: 0,
+    chatUsers: 0,
+    chatMessages: 0
   })
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([])
   const [loading, setLoading] = useState(false)
@@ -208,6 +213,9 @@ export default function AdminDashboard() {
             <Link href="/admin/tests" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
               Testes
             </Link>
+            <Link href="/admin/chat-management" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
+              Chat
+            </Link>
             <Link href="/admin/questions" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
               Questões
             </Link>
@@ -261,12 +269,12 @@ export default function AdminDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <BarChart3 className="h-8 w-8 text-purple-600" />
+                  <MessageCircle className="h-8 w-8 text-purple-600" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">Resultados</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalResults}</p>
-                  <p className="text-xs text-gray-600">Total realizados</p>
+                  <p className="text-sm font-medium text-gray-500">Chat Ativo</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.chatUsers}</p>
+                  <p className="text-xs text-gray-600">{stats.chatMessages} mensagens</p>
                 </div>
               </div>
             </CardContent>
@@ -276,12 +284,12 @@ export default function AdminDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Activity className="h-8 w-8 text-orange-600" />
+                  <BarChart3 className="h-8 w-8 text-orange-600" />
                 </div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">Usuários Ativos</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.activeUsers}</p>
-                  <p className="text-xs text-gray-600">Últimos 7 dias</p>
+                  <p className="text-sm font-medium text-gray-500">Resultados</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.totalResults}</p>
+                  <p className="text-xs text-gray-600">Total realizados</p>
                 </div>
               </div>
             </CardContent>
@@ -355,6 +363,12 @@ export default function AdminDashboard() {
                       Novo Teste
                     </Button>
                   </Link>
+                  <Link href="/admin/chat-management">
+                    <Button variant="outline" className="w-full justify-start">
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Gerenciar Chat
+                    </Button>
+                  </Link>
                   <Button 
                     variant="outline" 
                     className="w-full justify-start"
@@ -400,6 +414,10 @@ export default function AdminDashboard() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Serviço IA</span>
+                    <Badge className="bg-green-100 text-green-800">Ativo</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-600">Chat</span>
                     <Badge className="bg-green-100 text-green-800">Ativo</Badge>
                   </div>
                 </div>
