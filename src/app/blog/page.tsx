@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Calendar, Clock, ArrowRight, Search, Filter, Brain, Heart, Flame, Users, Star, Shield, ChevronLeft, ChevronRight, Mail, BookOpen, TrendingUp } from 'lucide-react'
+import { Calendar, Clock, ArrowRight, Search, Filter, BookOpen, TrendingUp, ChevronLeft, ChevronRight, Mail, Heart, Brain } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
@@ -189,40 +189,6 @@ export default function BlogPage() {
             </div>
           </div>
         </div>
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-yellow-500" />
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">
-                Mental Saúde
-              </Link>
-            </div>
-            
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/#tests" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Testes
-              </Link>
-              <Link href="/#about" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Sobre
-              </Link>
-              <Link href="/blog" className="text-yellow-600 font-semibold">
-                Blog
-              </Link>
-              <Button variant="outline" className="ml-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-                <Link href="/auth/signin">Entrar</Link>
-              </Button>
-              <Button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white">
-                <Link href="/auth/signup">Criar Conta</Link>
-              </Button>
-            </nav>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
