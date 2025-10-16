@@ -354,18 +354,6 @@ export default function ChatPage() {
     }
   }
 
-  const getRoomsByCategory = () => {
-    const categories = rooms.reduce((acc, room) => {
-      if (!acc[room.category]) {
-        acc[room.category] = []
-      }
-      acc[room.category].push(room)
-      return acc
-    }, {} as Record<string, Room[]>)
-    
-    return categories
-  }
-
   if (!isConnected) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
@@ -447,50 +435,8 @@ export default function ChatPage() {
       </header>
 
       <div className="flex h-[calc(100vh-64px)]">
-        {/* Sidebar - Salas - FIXA */}
-        <div className="w-80 bg-white border-r border-gray-200 flex flex-col fixed h-[calc(100vh-64px)] left-0 top-16 z-10">
-          <div className="p-4 border-b border-gray-200 flex-shrink-0">
-            <h2 className="font-semibold text-gray-800 mb-2">Salas de Apoio</h2>
-            <p className="text-sm text-gray-600">Encontre uma comunidade para sua jornada</p>
-          </div>
-          
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {Object.entries(getRoomsByCategory()).map(([category, categoryRooms]) => (
-                <div key={category}>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">{category}</h3>
-                  <div className="space-y-2">
-                    {categoryRooms.map(room => (
-                      <Card 
-                        key={room.id}
-                        className={`cursor-pointer transition-all hover:shadow-md ${
-                          selectedRoom?.id === room.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-                        }`}
-                        onClick={() => joinRoom(room)}
-                      >
-                        <CardContent className="p-3">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <h4 className="font-medium text-sm text-gray-800">{room.name}</h4>
-                              <p className="text-xs text-gray-600 mt-1">{room.description}</p>
-                            </div>
-                            <div className="flex items-center space-x-2 ml-2">
-                              <Users className="h-4 w-4 text-gray-500" />
-                              <span className="text-sm text-gray-600">{room.users}</span>
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-        </div>
-
-        {/* Chat Principal - COM MARGEM PARA SIDEBAR */}
-        <div className="flex-1 flex flex-col bg-white ml-80">
+        {/* Chat Principal - SEM MARGEM PARA SIDEBAR */}
+        <div className="flex-1 flex flex-col bg-white">
           {selectedRoom ? (
             <>
               {/* Messages Area */}
