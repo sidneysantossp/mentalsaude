@@ -292,7 +292,7 @@ export default function TestsPage() {
                 const IconComponent = config.icon
 
                 return (
-                  <Link key={categoryKey} href={`/testes/${categoryKey}`}>
+                  <Link key={categoryKey} href={categoryTests.length > 0 ? `/testes/${categoryKey}/${categoryTests[0].slug}` : `/testes/${categoryKey}`}>
                     <Card className="group hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-gray-400 cursor-pointer hover:-translate-y-1">
                       {/* Header */}
                       <div className={`relative h-32 bg-gradient-to-br ${config.color} p-6`}>

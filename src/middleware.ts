@@ -14,18 +14,18 @@ export function middleware(request: NextRequest) {
     
     // Lista de categorias que precisam de redirecionamento
     const categoryRedirects: Record<string, string> = {
-      'compulsao-alimentar': 'teste-de-compulsao-alimentar',
-      'depressao': 'teste-de-depressao',
-      'depressao-maior': 'teste-de-depressao-maior',
-      'fobia-social': 'teste-de-fobia-social',
-      'insonia': 'teste-de-insonia',
-      'burnout': 'teste-de-burnout',
-      'estresse': 'teste-de-estresse',
-      'sindrome-impostor': 'teste-de-sindrome-do-impostor',
-      'tdah': 'teste-de-tdah',
-      'toc': 'teste-de-toc',
-      'transtorno-bipolar': 'teste-de-transtorno-bipolar',
-      'transtorno-ansiedade': 'teste-de-transtorno-de-ansiedade'
+      'compulsao-alimentar': 'teste-compulsao-alimentar',
+      'depressao': 'teste-depressao-phq9',
+      'depressao-maior': 'teste-depressao-maior-dsm5',
+      'fobia-social': 'teste-fobia-social-lsas',
+      'insonia': 'teste-isonia-isi',
+      'burnout': 'teste-burnout-mbi',
+      'estresse': 'teste-estresse-pss',
+      'sindrome-impostor': 'teste-sindrome-impostor-cips',
+      'tdah': 'teste-tdah-asrs',
+      'toc': 'teste-toc-ybocs',
+      'transtorno-bipolar': 'teste-transtorno-bipolar-mdq',
+      'transtorno-ansiedade': 'teste-transtorno-ansiedade-gad7'
     }
 
     if (categoryRedirects[category]) {
@@ -44,18 +44,18 @@ export function middleware(request: NextRequest) {
   // Redirecionamentos para URLs específicas antigas
   const oldUrls: Record<string, string> = {
     '/tests': '/testes',
-    '/tests/depression': '/testes/depressao/teste-de-depressao',
-    '/tests/anxiety': '/testes/transtorno-ansiedade/teste-de-transtorno-de-ansiedade',
-    '/tests/stress': '/testes/estresse/teste-de-estresse',
-    '/tests/burnout': '/testes/burnout/teste-de-burnout',
-    '/tests/adhd': '/testes/tdah/teste-de-tdah',
-    '/tests/ocd': '/testes/toc/teste-de-toc',
-    '/tests/insomnia': '/testes/insonia/teste-de-insonia',
-    '/tests/social-anxiety': '/testes/fobia-social/teste-de-fobia-social',
-    '/tests/binge-eating': '/testes/compulsao-alimentar/teste-de-compulsao-alimentar',
-    '/tests/impostor-syndrome': '/testes/sindrome-impostor/teste-de-sindrome-do-impostor',
-    '/tests/bipolar': '/testes/transtorno-bipolar/teste-de-transtorno-bipolar',
-    '/tests/major-depression': '/testes/depressao-maior/teste-de-depressao-maior'
+    '/tests/depression': '/testes/depressao/teste-depressao-phq9',
+    '/tests/anxiety': '/testes/transtorno-ansiedade/teste-transtorno-ansiedade-gad7',
+    '/tests/stress': '/testes/estresse/teste-estresse-pss',
+    '/tests/burnout': '/testes/burnout/teste-burnout-mbi',
+    '/tests/adhd': '/testes/tdah/teste-tdah-asrs',
+    '/tests/ocd': '/testes/toc/teste-toc-ybocs',
+    '/tests/insomnia': '/testes/insonia/teste-isonia-isi',
+    '/tests/social-anxiety': '/testes/fobia-social/teste-fobia-social-lsas',
+    '/tests/binge-eating': '/testes/compulsao-alimentar/teste-compulsao-alimentar',
+    '/tests/impostor-syndrome': '/testes/sindrome-impostor/teste-sindrome-impostor-cips',
+    '/tests/bipolar': '/testes/transtorno-bipolar/teste-transtorno-bipolar-mdq',
+    '/tests/major-depression': '/testes/depressao-maior/teste-depressao-maior-dsm5'
   }
 
   if (oldUrls[pathname]) {
