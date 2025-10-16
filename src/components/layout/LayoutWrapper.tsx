@@ -18,7 +18,7 @@ export default function LayoutWrapper({
   className = ""
 }: LayoutWrapperProps) {
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 ${className}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex flex-col ${className}`}>
       {showHeader && <Header />}
       <main className="flex-grow">
         {children}
