@@ -1,7 +1,5 @@
-'use client'
-
-import { SessionProvider } from 'next-auth/react'
 import { Metadata } from 'next'
+import { ChatProviders } from './providers'
 
 export const metadata: Metadata = {
   title: 'Bate Papo - Chat Online',
@@ -14,8 +12,8 @@ export default function ChatLayout({
   children: React.ReactNode
 }) {
   return (
-    <SessionProvider>
+    <ChatProviders>
       {children}
-    </SessionProvider>
+    </ChatProviders>
   )
 }
