@@ -118,11 +118,14 @@ export default function TestCategoryLanding({
 
   useEffect(() => {
     // Simular estatísticas
+    const totalResults = tests?.reduce((acc, test) => acc + (test._count?.testResults || 0), 0) || 1234
+    const avgTime = tests && tests.length > 0 
+      ? `${Math.round(tests.reduce((acc, test) => acc + (test.timeLimit || 10), 0) / tests.length)} min`
+      : '10-15 min'
+    
     setStats({
-      totalTests: tests.reduce((acc, test) => acc + test._count.testResults, 0) + 1234,
-      averageTime: tests.length > 0 
-        ? `${Math.round(tests.reduce((acc, test) => acc + (test.timeLimit || 10), 0) / tests.length)} min`
-        : '10-15 min',
+      totalTests: totalResults,
+      averageTime: avgTime,
       accuracy: '95%'
     })
   }, [tests])
@@ -488,7 +491,7 @@ export default function TestCategoryLanding({
       </section>
 
       {/* Related Tests */}
-      {tests.length > 1 && (
+      {tests && tests.length > 1 && (
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -502,7 +505,7 @@ export default function TestCategoryLanding({
                     <p className="text-sm text-gray-600 mb-4">{test.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">
-                        {test.questions.length} perguntas
+                        {test.questions?.length || 0} perguntas
                       </span>
                       <Link href={`/testes/${test.id}`}>
                         <Button variant="outline" size="sm">

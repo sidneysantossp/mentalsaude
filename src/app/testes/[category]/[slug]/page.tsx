@@ -432,6 +432,7 @@ export default async function TestPage({ params }: PageProps) {
       test={testData}
       config={config}
       canonicalUrl={`/testes/${category}/${slug}`}
+      tests={[test]} // Passar o teste atual como array
     />
   )
 }

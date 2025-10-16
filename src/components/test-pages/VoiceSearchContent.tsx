@@ -164,7 +164,7 @@ export default function VoiceSearchContent({ category }: { category: string }) {
         </div>
         
         <p className="text-gray-600 mb-6">
-          Perguntas que as pessoas fazem por voz sobre {category.replace('-', ' ')}:
+          Perguntas que as pessoas fazem por voz sobre {category?.replace('-', ' ') || 'esta condição'}:
         </p>
         
         <div className="grid md:grid-cols-2 gap-4">
