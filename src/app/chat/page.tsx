@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import AuthModal from '@/components/chat/auth-modal'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
 
 interface Message {
   id: string
@@ -356,85 +357,88 @@ export default function ChatPage() {
 
   if (!isConnected) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold text-blue-600">Espaço de Apoio</CardTitle>
-            <p className="text-gray-600">Conecte-se para receber e oferecer apoio</p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Button 
-              onClick={() => setShowAuthModal(true)}
-              className="w-full bg-blue-600 hover:bg-blue-700"
-            >
-              Entrar no Espaço de Apoio
-            </Button>
-          </CardContent>
-        </Card>
-        
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-          onAuthenticated={handleAuthenticated}
-        />
-      </div>
+      <LayoutWrapper>
+        <div className="min-h-screen flex items-center justify-center p-4">
+          <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+              <CardTitle className="text-2xl font-bold text-blue-600">Espaço de Apoio</CardTitle>
+              <p className="text-gray-600">Conecte-se para receber e oferecer apoio</p>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Button 
+                onClick={() => setShowAuthModal(true)}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                Entrar no Espaço de Apoio
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <AuthModal
+            isOpen={showAuthModal}
+            onClose={() => setShowAuthModal(false)}
+            onAuthenticated={handleAuthenticated}
+          />
+        </div>
+      </LayoutWrapper>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <MessageCircle className="h-6 w-6 text-blue-600" />
-            <h1 className="text-xl font-bold text-gray-800">Espaço de Apoio</h1>
-            {selectedRoom && (
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">
-                <Hash className="h-3 w-3 mr-1" />
-                {selectedRoom.name}
-              </Badge>
-            )}
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSoundEnabled(!soundEnabled)}
-            >
-              {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-            </Button>
+    <LayoutWrapper>
+      <div className="min-h-screen bg-gray-100">
+        {/* Chat Status Bar */}
+        <div className="bg-white border-b border-gray-200 px-4 py-3">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <MessageCircle className="h-6 w-6 text-blue-600" />
+              <h1 className="text-xl font-bold text-gray-800">Espaço de Apoio</h1>
+              {selectedRoom && (
+                <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                  <Hash className="h-3 w-3 mr-1" />
+                  {selectedRoom.name}
+                </Badge>
+              )}
+            </div>
             
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowUserList(!showUserList)}
-            >
-              <Users className="h-4 w-4" />
-              <span className="ml-1 text-sm">{onlineUsers.length}</span>
-            </Button>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={changeUsername}
-            >
-              <User className="h-4 w-4" />
-            </Button>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={disconnect}
-            >
-              <LogOut className="h-4 w-4" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSoundEnabled(!soundEnabled)}
+              >
+                {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowUserList(!showUserList)}
+              >
+                <Users className="h-4 w-4" />
+                <span className="ml-1 text-sm">{onlineUsers.length}</span>
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={changeUsername}
+              >
+                <User className="h-4 w-4" />
+              </Button>
+              
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={disconnect}
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
-      </header>
 
-      <div className="flex h-[calc(100vh-64px)]">
+        <div className="max-w-7xl mx-auto flex h-[calc(100vh-128px)]">
         {/* Chat Principal - SEM MARGEM PARA SIDEBAR */}
         <div className="flex-1 flex flex-col bg-white">
           {selectedRoom ? (
@@ -575,6 +579,7 @@ export default function ChatPage() {
         onClose={() => setShowAuthModal(false)}
         onAuthenticated={handleAuthenticated}
       />
-    </div>
+      </div>
+    </LayoutWrapper>
   )
 }
