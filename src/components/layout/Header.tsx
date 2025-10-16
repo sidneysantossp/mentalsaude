@@ -28,32 +28,9 @@ export default function Header() {
             <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
               Home
             </Link>
-            <div className="relative group">
-              <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
-                Testes
-              </Link>
-              {/* Dropdown Menu */}
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="p-2">
-                  <Link href="/testes/depressao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    Depressão (PHQ-9)
-                  </Link>
-                  <Link href="/testes/transtorno-ansiedade" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    Ansiedade (GAD-7)
-                  </Link>
-                  <Link href="/testes/tdah" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    TDAH (ASRS)
-                  </Link>
-                  <Link href="/testes/toc" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    TOC (Y-BOCS)
-                  </Link>
-                  <hr className="my-2" />
-                  <Link href="/testes" className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded font-semibold">
-                    Ver todas as 12 categorias →
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Testes
+            </Link>
             <Link href="/chat" className="text-gray-600 hover:text-blue-600 transition-colors">
               Chat
             </Link>
