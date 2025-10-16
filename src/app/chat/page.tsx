@@ -566,8 +566,8 @@ export default function ChatPage() {
             </>
           ) : (
             // Welcome Screen
-            <div className="flex-1 bg-gray-50 overflow-y-auto">
-              <div className="max-w-7xl mx-auto p-8">
+            <div className="flex-1 bg-gray-50">
+              <div className="max-w-7xl mx-auto px-4 py-8">
                 {/* Header */}
                 <div className="text-center mb-12">
                   <MessageCircle className="h-16 w-16 text-blue-600 mx-auto mb-6" />
@@ -659,7 +659,7 @@ export default function ChatPage() {
                   </p>
                 </div>
                 
-                <div className="text-center text-sm text-gray-500">
+                <div className="text-center text-sm text-gray-500 pb-8">
                   <p>Salas de apoio disponíveis para cada categoria de teste da plataforma</p>
                 </div>
               </div>
