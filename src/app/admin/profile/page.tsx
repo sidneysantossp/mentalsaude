@@ -80,8 +80,8 @@ export default function AdminProfilePage() {
       console.error('Error fetching user data:', error)
       // Fallback to session data
       setFormData({
-        name: session.user?.name || '',
-        email: session.user?.email || '',
+        name: session?.user?.name || '',
+        email: session?.user?.email || '',
         phone: '',
         dateOfBirth: ''
       })

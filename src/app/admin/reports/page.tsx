@@ -507,7 +507,7 @@ export default function ReportsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <SimplePieChart
                   data={reportData.testDistribution.map(test => ({
-                    label: test.name,
+                    label: test.testName,
                     value: test.count,
                     color: test.color,
                     tooltip: `${test.count} usuários realizaram este teste (${test.percentage}% do total)`
@@ -608,7 +608,7 @@ export default function ReportsPage() {
                     {/* Test Performance Chart */}
                     <SimpleBarChart
                       data={reportData.testDistribution.map(test => ({
-                        label: test.name,
+                        label: test.testName,
                         value: test.count,
                         color: test.color
                       }))}
@@ -676,7 +676,7 @@ export default function ReportsPage() {
                     {/* Results Chart */}
                     <SimplePieChart
                       data={reportData.testDistribution.map(test => ({
-                        label: test.name,
+                        label: test.testName,
                         value: test.count,
                         color: test.color
                       }))}
