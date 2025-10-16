@@ -218,7 +218,7 @@ export default function Home() {
                       <div className="flex-grow"></div>
                       
                       {/* Start Test Button */}
-                      <Link href={`/testes/${test.category.toLowerCase().replace('_', '-')}`}>
+                      <Link href={test.canonicalUrl || `/testes/${test.category.toLowerCase().replace('_', '-')}`}>
                         <Button 
                           className="w-full bg-black hover:bg-gray-800 text-white font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2"
                         >

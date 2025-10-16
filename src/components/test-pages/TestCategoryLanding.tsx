@@ -34,7 +34,23 @@ import VoiceSearchContent from './VoiceSearchContent'
 import PerformanceOptimizer, { OptimizedImage } from './PerformanceOptimizer'
 
 interface TestCategoryLandingProps {
-  category: string
+  test?: {
+    id: string
+    title: string
+    description: string
+    category: string
+    timeLimit?: number
+    questionCount: number
+    estimatedTime: string
+    questions: string
+    difficulty: string
+    icon: string
+    color: string
+    image: string
+    instructions: string
+    isActive: boolean
+    slug: string
+  }
   config: {
     title: string
     description: string
@@ -44,10 +60,9 @@ interface TestCategoryLandingProps {
     faq: Array<{ question: string; answer: string }>
     howTo: Array<{ step: number; instruction: string }>
   }
-  tests: (Test & {
-    questions: any[]
-    _count: { testResults: number }
-  })[]
+  canonicalUrl?: string
+  category?: string
+  tests?: any[]
 }
 
 const iconMap: Record<string, any> = {
@@ -81,8 +96,10 @@ const colorMap: Record<string, string> = {
 }
 
 export default function TestCategoryLanding({ 
-  category, 
+  test, 
   config, 
+  canonicalUrl,
+  category,
   tests 
 }: TestCategoryLandingProps) {
   const [activeTab, setActiveTab] = useState('overview')
@@ -94,8 +111,10 @@ export default function TestCategoryLanding({
     accuracy: '95%'
   })
 
-  const IconComponent = iconMap[category] || Brain
-  const gradientClass = colorMap[category] || 'from-blue-500 to-purple-600'
+  // Usar category do test ou da prop
+  const currentCategory = test?.category || category || 'depressao'
+  const IconComponent = iconMap[currentCategory] || Brain
+  const gradientClass = colorMap[currentCategory] || 'from-blue-500 to-purple-600'
 
   useEffect(() => {
     // Simular estatísticas
@@ -109,8 +128,10 @@ export default function TestCategoryLanding({
   }, [tests])
 
   const handleStartTest = () => {
-    if (tests.length > 0) {
-      setTestStarted(true)
+    if (test) {
+      // Redirecionar para a página do teste específico
+      window.location.href = `/testes/${test.category.toLowerCase().replace('_', '-')}/${test.slug}`
+    } else if (tests && tests.length > 0) {
       // Redirecionar para o primeiro teste disponível
       window.location.href = `/testes/${tests[0].id}`
     }
@@ -245,7 +266,7 @@ export default function TestCategoryLanding({
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Sobre esta Avaliação</h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-600 leading-relaxed mb-6">
-                    Nossa avaliação de {category.replace('-', ' ')} foi desenvolvida por profissionais de saúde mental 
+                    Nossa avaliação de {currentCategory.replace('-', ' ')} foi desenvolvida por profissionais de saúde mental 
                     utilizando instrumentos científicos validados internacionalmente. Este teste ajuda a identificar 
                     padrões e sintomas que podem indicar a necessidade de acompanhamento profissional.
                   </p>

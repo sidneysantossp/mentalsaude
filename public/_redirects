@@ -1,0 +1,46 @@
+# Redirecionamentos 301 para SEO
+# Formato: [origem] [destino] [status]
+
+# Redirecionamentos de URLs antigas para novas canônicas
+/testes/compulsao-alimentar /testes/compulsao-alimentar/teste-compulsao-alimentar 301
+/testes/depressao /testes/depressao/teste-depressao-phq9 301
+/testes/fobia-social /testes/fobia-social/teste-fobia-social-lsas 301
+/testes/insonia /testes/insonia/teste-isonia-isi 301
+/testes/burnout /testes/burnout/teste-burnout-mbi 301
+/testes/estresse /testes/estresse/teste-estresse-pss 301
+/testes/sindrome-impostor /testes/sindrome-impostor/teste-sindrome-impostor-cips 301
+/testes/tdah /testes/tdah/teste-tdah-asrs 301
+/testes/toc /testes/toc/teste-toc-ybocs 301
+/testes/transtorno-bipolar /testes/transtorno-bipolar/teste-transtorno-bipolar-mdq 301
+/testes/transtorno-ansiedade /testes/transtorno-ansiedade/teste-transtorno-ansiedade-gad7 301
+/testes/depressao-maior /testes/depressao-maior/teste-depressao-maior-dsm5 301
+
+# Redirecionamentos de URLs em inglês para português
+/tests /testes 301
+/tests/depression /testes/depressao/teste-depressao-phq9 301
+/tests/anxiety /testes/transtorno-ansiedade/teste-transtorno-ansiedade-gad7 301
+/tests/stress /testes/estresse/teste-estresse-pss 301
+/tests/burnout /testes/burnout/teste-burnout-mbi 301
+/tests/adhd /testes/tdah/teste-tdah-asrs 301
+/tests/ocd /testes/toc/teste-toc-ybocs 301
+/tests/insomnia /testes/insonia/teste-isonia-isi 301
+/tests/social-anxiety /testes/fobia-social/teste-fobia-social-lsas 301
+/tests/binge-eating /testes/compulsao-alimentar/teste-compulsao-alimentar 301
+/tests/impostor-syndrome /testes/sindrome-impostor/teste-sindrome-impostor-cips 301
+/tests/bipolar /testes/transtorno-bipolar/teste-transtorno-bipolar-mdq 301
+/tests/major-depression /testes/depressao-maior/teste-depressao-maior-dsm5 301
+
+# Redirecionamentos de IDs numéricos para URLs canônicas (se existirem)
+/testes/1 /testes/depressao/teste-depressao-phq9 301
+/testes/2 /testes/compulsao-alimentar/teste-compulsao-alimentar 301
+/testes/3 /testes/transtorno-ansiedade/teste-transtorno-ansiedade-gad7 301
+/testes/4 /testes/estresse/teste-estresse-pss 301
+/testes/5 /testes/fobia-social/teste-fobia-social-lsas 301
+/testes/6 /testes/tdah/teste-tdah-asrs 301
+/testes/7 /testes/tdah/teste-tdah-asrs 301
+/testes/8 /testes/insonia/teste-isonia-isi 301
+/testes/9 /testes/burnout/teste-burnout-mbi 301
+/testes/10 /testes/sindrome-impostor/teste-sindrome-impostor-cips 301
+/testes/11 /testes/toc/teste-toc-ybocs 301
+/testes/12 /testes/transtorno-bipolar/teste-transtorno-bipolar-mdq 301
+/testes/13 /testes/depressao-maior/teste-depressao-maior-dsm5 301

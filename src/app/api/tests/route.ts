@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+import { generateSlug, getCategorySlug, generateCanonicalUrl } from '@/lib/utils/slug'
 
 export async function GET(request: NextRequest) {
   try {
@@ -35,6 +36,13 @@ export async function GET(request: NextRequest) {
       } else if (questionCount > 8) {
         difficulty = 'Médio'
       }
+
+      // Gerar slug se não existir
+      const slug = test.slug || generateSlug(test.title)
+      
+      // Gerar URL canônica
+      const categorySlug = getCategorySlug(test.category)
+      const canonicalUrl = `/testes/${categorySlug}/${slug}`
 
       // Mapear categoria para informações visuais
       const categoryMap = {
@@ -91,6 +99,9 @@ export async function GET(request: NextRequest) {
         title: test.title,
         description: test.description,
         category: test.category,
+        categorySlug: categorySlug,
+        slug: slug,
+        canonicalUrl: canonicalUrl,
         timeLimit: test.timeLimit,
         questionCount,
         estimatedTime: `${estimatedTime} min`,
