@@ -23,7 +23,11 @@ export default function LayoutWrapper({
       <main className="flex-grow relative">
         {children}
       </main>
-      {showFooter && <Footer />}
+      {showFooter && (
+        <div className="flex-shrink-0">
+          <Footer />
+        </div>
+      )}
     </div>
   )
 }
