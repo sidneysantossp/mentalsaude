@@ -147,35 +147,27 @@ const iconMap = {
 
 export default function TestsPage() {
   const [tests, setTests] = useState<Test[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  console.log('TestsPage renderizado - loading:', loading, 'error:', error, 'tests:', tests.length)
-
   useEffect(() => {
-    console.log('useEffect executado')
     fetchTests()
   }, [])
 
   const fetchTests = async () => {
     try {
-      console.log('Iniciando busca de testes...')
       setLoading(true)
       const response = await fetch('/api/tests')
       
-      console.log('Response status:', response.status)
-      
       if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`)
+        throw new Error('Erro ao buscar testes')
       }
       
       const data = await response.json()
-      console.log('Dados recebidos:', data)
       
       if (data.success) {
         setTests(data.data)
-        console.log('Testes carregados:', data.data.length)
       } else {
         throw new Error(data.error || 'Erro desconhecido')
       }
@@ -184,13 +176,12 @@ export default function TestsPage() {
       setError(err instanceof Error ? err.message : 'Erro ao carregar testes')
     } finally {
       setLoading(false)
-      console.log('Loading finalizado')
     }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <LayoutWrapper>
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -199,13 +190,13 @@ export default function TestsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </LayoutWrapper>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <LayoutWrapper>
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -219,7 +210,7 @@ export default function TestsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </LayoutWrapper>
     )
   }
 
