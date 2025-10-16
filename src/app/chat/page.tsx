@@ -69,9 +69,15 @@ export default function ChatPage() {
   const router = useRouter()
   const { data: session } = useSession()
 
-  // Salas de chat disponíveis - Organizadas por categorias de tratamento
+  // Salas de chat disponíveis - Exatamente as 14 categorias de testes
   const defaultRooms: Room[] = [
-    // Transtornos de Humor
+    {
+      id: 'compulsao-alimentar',
+      name: 'Compulsão Alimentar',
+      description: 'Apoio para recuperação da compulsão alimentar',
+      users: 198,
+      category: 'Transtornos Alimentares'
+    },
     {
       id: 'depressao',
       name: 'Depressão',
@@ -87,22 +93,6 @@ export default function ChatPage() {
       category: 'Transtornos de Humor'
     },
     {
-      id: 'bipolar',
-      name: 'Transtorno Bipolar',
-      description: 'Comunidade para discutir o transtorno afetivo bipolar',
-      users: 89,
-      category: 'Transtornos de Humor'
-    },
-    
-    // Transtornos de Ansiedade
-    {
-      id: 'ansiedade',
-      name: 'Transtorno de Ansiedade',
-      description: 'Apoio para quem vive com transtornos de ansiedade',
-      users: 312,
-      category: 'Transtornos de Ansiedade'
-    },
-    {
       id: 'fobia-social',
       name: 'Fobia Social',
       description: 'Superando a ansiedade social juntos',
@@ -110,48 +100,12 @@ export default function ChatPage() {
       category: 'Transtornos de Ansiedade'
     },
     {
-      id: 'estresse',
-      name: 'Estresse e Gestão',
-      description: 'Técnicas e apoio para controlar o estresse',
-      users: 267,
-      category: 'Transtornos de Ansiedade'
-    },
-    
-    // Transtornos Obsessivo-Compulsivos
-    {
-      id: 'toc',
-      name: 'TOC - Transtorno Obsessivo-Compulsivo',
-      description: 'Compartilhando estratégias para lidar com TOC',
-      users: 145,
-      category: 'Transtornos Obsessivo-Compulsivos'
-    },
-    {
-      id: 'compulsao-alimentar',
-      name: 'Compulsão Alimentar',
-      description: 'Apoio para recuperação da compulsão alimentar',
-      users: 198,
-      category: 'Transtornos Obsessivo-Compulsivos'
-    },
-    
-    // Transtornos do Neurodesenvolvimento
-    {
-      id: 'tdah',
-      name: 'TDAH',
-      description: 'Dicas e apoio para adultos com TDAH',
-      users: 289,
-      category: 'Transtornos do Neurodesenvolvimento'
-    },
-    
-    // Transtornos do Sono
-    {
       id: 'insonia',
       name: 'Insônia',
       description: 'Comunidade para quem tem dificuldades para dormir',
       users: 223,
       category: 'Transtornos do Sono'
     },
-    
-    // Relacionados ao Trabalho
     {
       id: 'burnout',
       name: 'Burnout',
@@ -160,48 +114,46 @@ export default function ChatPage() {
       category: 'Relacionados ao Trabalho'
     },
     {
-      id: 'impostor',
+      id: 'estresse',
+      name: 'Estresse',
+      description: 'Técnicas e apoio para controlar o estresse',
+      users: 267,
+      category: 'Transtornos de Ansiedade'
+    },
+    {
+      id: 'sindrome-impostor',
       name: 'Síndrome do Impostor',
       description: 'Superando a sensação de fraude profissional',
       users: 167,
       category: 'Relacionados ao Trabalho'
     },
-    
-    // Salas Gerais de Apoio
     {
-      id: 'geral',
-      name: 'Bate Papo Geral',
-      description: 'Conversas gerais sobre saúde mental',
-      users: 456,
-      category: 'Apoio Geral'
+      id: 'tdah',
+      name: 'TDAH',
+      description: 'Dicas e apoio para adultos com TDAH',
+      users: 289,
+      category: 'Transtornos do Neurodesenvolvimento'
     },
     {
-      id: 'familiares',
-      name: 'Familiares e Amigos',
-      description: 'Apoio para quem acompanha pessoas em tratamento',
-      users: 234,
-      category: 'Apoio Geral'
-    },
-    {
-      id: 'recuperacao',
-      name: 'Celebração da Recuperação',
-      description: 'Compartilhando vitórias e progressos',
-      users: 189,
-      category: 'Apoio Geral'
-    },
-    {
-      id: 'tecnicas',
-      name: 'Técnicas e Estratégias',
-      description: 'Compartilhando o que funciona no dia a dia',
-      users: 278,
-      category: 'Apoio Geral'
-    },
-    {
-      id: 'emergencia',
-      name: 'Apoio em Crise',
-      description: 'Espaço para momentos difíceis (não substitui ajuda profissional)',
+      id: 'toc',
+      name: 'TOC',
+      description: 'Compartilhando estratégias para lidar com TOC',
       users: 145,
-      category: 'Apoio Geral'
+      category: 'Transtornos Obsessivo-Compulsivos'
+    },
+    {
+      id: 'transtorno-afetivo-bipolar',
+      name: 'Transtorno Afetivo Bipolar',
+      description: 'Comunidade para discutir o transtorno afetivo bipolar',
+      users: 89,
+      category: 'Transtornos de Humor'
+    },
+    {
+      id: 'transtorno-ansiedade',
+      name: 'Transtorno de Ansiedade',
+      description: 'Apoio para quem vive com transtornos de ansiedade',
+      users: 312,
+      category: 'Transtornos de Ansiedade'
     }
   ]
 
@@ -281,23 +233,18 @@ export default function ChatPage() {
     
     // Mensagem de boas-vindas específica para cada sala
     const welcomeMessages: Record<string, string> = {
+      'compulsao-alimentar': 'Bem-vindo ao grupo de apoio para compulsão alimentar. Juntos somos mais fortes na recuperação.',
       'depressao': 'Bem-vindo ao grupo de apoio para depressão. Aqui você pode compartilhar livremente suas experiências.',
-      'ansiedade': 'Este é um espaço seguro para falar sobre ansiedade. Respiramos juntos e nos apoiamos mutuamente.',
-      'burnout': 'Bem-vindo ao grupo de burnout. Vamos compartilhar estratégias para recuperar nossa energia.',
-      'tdah': 'Espaço para adultos com TDAH compartilharem dicas e apoio. Sinta-se em casa!',
-      'toc': 'Grupo de apoio para TOC. Compartilhe suas estratégias e receba apoio compreensivo.',
-      'fobia-social': 'Aqui é um lugar seguro para falar sobre ansiedade social. Você não está sozinho(a).',
+      'depressao-maior': 'Bem-vindo ao grupo de depressão maior. Aqui encontrará compreensão e solidariedade.',
+      'fobia-social': 'Aqui é um lugar seguro para falar sobre fobia social. Você não está sozinho(a).',
       'insonia': 'Bem-vindo ao grupo de insônia. Vamos compartilhar o que funciona para uma noite melhor de sono.',
-      'compulsao-alimentar': 'Espaço de apoio para recuperação da compulsão alimentar. Juntos somos mais fortes.',
-      'depressao-maior': 'Grupo de apoio para depressão maior. Aqui encontrará compreensão e solidariedade.',
-      'bipolar': 'Comunidade para discussão sobre transtorno bipolar. Compartilhe experiências e estratégias.',
-      'estresse': 'Bem-vindo ao grupo de gestão de estresse. Vamos encontrar equilíbrio juntos.',
-      'impostor': 'Espaço para discutir a síndrome do impostor. Você merece estar onde está!',
-      'geral': 'Bem-vindo ao bate-papo geral de saúde mental. Todos são bem-vindos aqui!',
-      'familiares': 'Apoio para familiares e amigos. Sua presença e apoio fazem toda a diferença.',
-      'recuperacao': 'Espaço para celebrar progressos. Cada pequena vitória merece ser comemorada!',
-      'tecnicas': 'Grupo para compartilhar técnicas e estratégias. O que funciona para você?',
-      'emergencia': 'Espaço de apoio em momentos difíceis. Lembre-se: em crise, procure ajuda profissional.'
+      'burnout': 'Bem-vindo ao grupo de burnout. Vamos compartilhar estratégias para recuperar nossa energia.',
+      'estresse': 'Bem-vindo ao grupo de estresse. Vamos encontrar equilíbrio juntos.',
+      'sindrome-impostor': 'Bem-vindo ao grupo da síndrome do impostor. Você merece estar onde está!',
+      'tdah': 'Bem-vindo ao grupo de TDAH. Espaço para compartilhar dicas e apoio. Sinta-se em casa!',
+      'toc': 'Bem-vindo ao grupo de TOC. Compartilhe suas estratégias e receba apoio compreensivo.',
+      'transtorno-afetivo-bipolar': 'Bem-vindo ao grupo de transtorno afetivo bipolar. Compartilhe experiências e estratégias.',
+      'transtorno-ansiedade': 'Bem-vindo ao grupo de transtorno de ansiedade. Este é um espaço seguro para falar sobre ansiedade.'
     }
     
     const welcomeMessage = welcomeMessages[room.id] || `Você entrou na sala "${room.name}". Este é um espaço seguro para compartilhar e receber apoio.`
@@ -637,7 +584,7 @@ export default function ChatPage() {
                 </p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {rooms.slice(0, 9).map(room => (
+                  {rooms.map(room => (
                     <Card 
                       key={room.id}
                       className="cursor-pointer hover:shadow-lg transition-all duration-200 border-l-4 border-l-blue-500"
@@ -669,7 +616,7 @@ export default function ChatPage() {
                 </div>
                 
                 <div className="text-sm text-gray-500">
-                  <p>Mostrando 9 de {rooms.length} salas disponíveis</p>
+                  <p>Salas de apoio disponíveis para cada categoria de teste da plataforma</p>
                 </div>
               </div>
             </div>
