@@ -68,7 +68,7 @@ const faqData = [
 
 export default function Home() {
   const [tests, setTests] = useState<Test[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false) // Changed to false initially
   const [openItems, setOpenItems] = useState<number[]>([])
 
   useEffect(() => {
@@ -93,6 +93,8 @@ export default function Home() {
       }
     } catch (err) {
       console.error('Erro ao carregar testes:', err)
+      // Set empty array on error to stop loading
+      setTests([])
     } finally {
       setLoading(false)
     }

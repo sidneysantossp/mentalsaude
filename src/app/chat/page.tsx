@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -10,13 +10,11 @@ import { Input } from '@/components/ui/input'
 import { 
   Send, 
   Users, 
-  Lock, 
   Crown, 
   MessageCircle, 
   Hash,
   Search,
   Plus,
-  Settings,
   User,
   Star,
   Shield,
@@ -36,24 +34,11 @@ interface ChatRoom {
   memberCount: number
   maxMembers: number
   isActive: boolean
-  isJoined?: boolean
   lastMessage?: {
     content: string
     timestamp: string
     author: string
   }
-}
-
-interface ChatMessage {
-  id: string
-  content: string
-  author: {
-    name: string
-    avatar?: string
-    role?: string
-  }
-  timestamp: string
-  isOwn?: boolean
 }
 
 const mockRooms: ChatRoom[] = [
@@ -149,97 +134,12 @@ const mockRooms: ChatRoom[] = [
   }
 ]
 
-const mockMessages: ChatMessage[] = [
-  {
-    id: '1',
-    content: 'Olá pessoal! Como estão se sentindo hoje? 😊',
-    author: {
-      name: 'Maria Silva',
-      role: 'member'
-    },
-    timestamp: '14:30'
-  },
-  {
-    id: '2',
-    content: 'Oi Maria! Hoje estou bem, melhorando a cada dia 🌱',
-    author: {
-      name: 'João Pedro',
-      role: 'member'
-    },
-    timestamp: '14:32'
-  },
-  {
-    id: '3',
-    content: 'Que bom ouvir isso! A técnica de respiração que compartilhei ontem ajudou alguém?',
-    author: {
-      name: 'Ana Costa',
-      role: 'moderator'
-    },
-    timestamp: '14:35'
-  },
-  {
-    id: '4',
-    content: 'Sim Ana! Fiz 5 minutos hoje e já senti diferença. Obrigado por compartilhar! 🙏',
-    author: {
-      name: 'Carlos Mendes',
-      role: 'member'
-    },
-    timestamp: '14:38'
-  }
-]
-
 export default function ChatPage() {
   const sessionData = useSession()
   const session = sessionData?.data || null
   const router = useRouter()
-  const params = useParams()
-  const [selectedRoom, setSelectedRoom] = useState<ChatRoom | null>(null)
-  const [rooms, setRooms] = useState<ChatRoom[]>(mockRooms)
-  const [messages, setMessages] = useState<ChatMessage[]>(mockMessages)
-  const [newMessage, setNewMessage] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [showPremiumModal, setShowPremiumModal] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const roomId = params?.id as string
-
-  useEffect(() => {
-    if (roomId) {
-      const room = rooms.find(r => r.id === roomId)
-      if (room) {
-        if (room.type === 'PREMIUM' && !session) {
-          setShowPremiumModal(true)
-        } else {
-          setSelectedRoom(room)
-        }
-      }
-    }
-  }, [roomId, rooms, session])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleSendMessage = () => {
-    if (newMessage.trim() && selectedRoom) {
-      const message: ChatMessage = {
-        id: Date.now().toString(),
-        content: newMessage,
-        author: {
-          name: session?.user?.name || 'Usuário',
-          role: 'member'
-        },
-        timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-        isOwn: true
-      }
-      setMessages([...messages, message])
-      setNewMessage('')
-    }
-  }
 
   const handleJoinRoom = (room: ChatRoom) => {
     if (room.type === 'PREMIUM' && !session) {
@@ -249,7 +149,7 @@ export default function ChatPage() {
     }
   }
 
-  const filteredRooms = rooms.filter(room =>
+  const filteredRooms = mockRooms.filter(room =>
     room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     room.description.toLowerCase().includes(searchTerm.toLowerCase())
   )
@@ -276,99 +176,6 @@ export default function ChatPage() {
       case 'STRESS': return 'bg-orange-100 text-orange-800'
       default: return 'bg-gray-100 text-gray-800'
     }
-  }
-
-  if (selectedRoom) {
-    return (
-      <LayoutWrapper>
-        <div className="min-h-screen bg-gray-50">
-          {/* Chat Header */}
-          <div className="bg-white border-b border-gray-200 px-4 py-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => router.push('/chat')}
-                >
-                  ←
-                </Button>
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <h2 className="font-semibold text-gray-900">{selectedRoom.name}</h2>
-                    {selectedRoom.type === 'PREMIUM' && (
-                      <Crown className="h-4 w-4 text-yellow-500" />
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {selectedRoom.memberCount} membros online
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Badge className={getCategoryColor(selectedRoom.category)}>
-                  {getCategoryIcon(selectedRoom.category)}
-                  <span className="ml-1">{selectedRoom.category}</span>
-                </Badge>
-                <Button variant="ghost" size="sm">
-                  <Settings className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ height: 'calc(100vh - 200px)' }}>
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.isOwn ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                    message.isOwn
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-900 border border-gray-200'
-                  }`}
-                >
-                  {!message.isOwn && (
-                    <div className="flex items-center space-x-2 mb-1">
-                      <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
-                        <User className="h-3 w-3 text-gray-600" />
-                      </div>
-                      <span className="text-xs font-medium">
-                        {message.author.name}
-                      </span>
-                    </div>
-                  )}
-                  <p className="text-sm">{message.content}</p>
-                  <p className={`text-xs mt-1 ${message.isOwn ? 'text-blue-100' : 'text-gray-500'}`}>
-                    {message.timestamp}
-                  </p>
-                </div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Message Input */}
-          <div className="bg-white border-t border-gray-200 px-4 py-3">
-            <div className="flex items-center space-x-2">
-              <Input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Digite sua mensagem..."
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                className="flex-1"
-              />
-              <Button onClick={handleSendMessage} size="sm">
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </LayoutWrapper>
-    )
   }
 
   return (

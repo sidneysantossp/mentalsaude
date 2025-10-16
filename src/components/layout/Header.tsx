@@ -1,39 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Brain, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const sessionData = useSession()
-  
-  // Safe session access
-  const session = sessionData?.data || null
-  const status = sessionData?.status || 'loading'
 
-  // Handle loading state
-  if (status === 'loading') {
-    return (
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Link href="/" className="flex items-center space-x-2">
-                <Brain className="h-8 w-8 text-yellow-500" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">Mental Saúde</span>
-              </Link>
-            </div>
-            <div className="animate-pulse">
-              <div className="h-8 w-32 bg-gray-200 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </header>
-    )
-  }
+  // Temporarily disabled session check for development
+  const session = null
+  const status = 'unauthenticated'
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
