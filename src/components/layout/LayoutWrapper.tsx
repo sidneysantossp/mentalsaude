@@ -20,7 +20,7 @@ export default function LayoutWrapper({
   return (
     <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex flex-col ${className}`}>
       {showHeader && <Header />}
-      <main className="flex-grow">
+      <main className="flex-grow relative">
         {children}
       </main>
       {showFooter && <Footer />}

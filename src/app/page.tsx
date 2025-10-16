@@ -112,7 +112,7 @@ export default function Home() {
     <LayoutWrapper>
       {/* Hero Section */}
       <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden bg-white">
-        <div className="relative z-10 container mx-auto px-4 py-12">
+        <div className="relative z-0 container mx-auto px-4 py-12">
           <div className="text-center max-w-4xl mx-auto">
             <div className="mb-6">
               <div className="inline-flex items-center bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
