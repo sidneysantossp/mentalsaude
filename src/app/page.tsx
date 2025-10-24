@@ -116,6 +116,7 @@ export default function Home() {
                 Testes Psicológicos Gratuitos e Validados
               </div>
             </div>
+            <p className="text-lg text-white/90 max-w-2xl mx-auto mb-8 leading-relaxed">
               Testes gratuitos e confiáveis para compreender melhor seu bem-estar emocional. 
               Resultados imediatos baseados em instrumentos científicos validados.
             </p>

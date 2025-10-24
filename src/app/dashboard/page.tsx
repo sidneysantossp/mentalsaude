@@ -59,6 +59,11 @@ export default function DashboardPage() {
   const fetchHistoricalData = async () => {
     try {
       const response = await fetch('/api/test-results/historical')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success) {
+          setHistoricalData(data.data)
+        }
       }
     } catch (error) {
       console.error('Error fetching historical data:', error)
