@@ -27,6 +27,7 @@ const categoryConfig: Record<string, {
     treatments: ['Terapia Cognitivo-Comportamental', 'Acompanhamento nutricional', 'Grupos de apoio', 'Mindfulness alimentar', 'Exercícios físicos regulares'],
     faq: [
       {
+<<<<<<< HEAD
         question: 'O que é compulsão alimentar e como difere de outros transtornos alimentares?',
         answer: 'A compulsão alimentar, ou Transtorno da Compulsão Alimentar Periódica (TCAP), é caracterizada por episódios recorrentes de ingestão excessiva de alimentos acompanhados por sensação de perda de controle. Diferente da bulimia, não envolve comportamentos compensatórios inadequados como vômitos ou uso excessivo de laxantes. Também se distingue da simples hiperfagia pela presença de sofrimento psicológico significativo e impacto negativo na vida social e profissional. Os episódios ocorrem em média pelo menos uma vez por semana durante três meses, com quantidades de alimentos maiores que a maioria das pessoas comeria em circunstâncias similares.'
       },
@@ -49,6 +50,18 @@ const categoryConfig: Record<string, {
       {
         question: 'Compulsão alimentar pode levar a outros problemas de saúde?',
         answer: 'Sim, a compulsão alimentar não tratada está associada a diversas complicações de saúde física e mental. Complicações físicas incluem obesidade, diabetes tipo 2, hipertensão, doenças cardiovasculares, apneia do sono, problemas gastrointestinais e dores articulares. Complicações psicológicas englobam depressão, ansiedade, abuso de substâncias, ideação suicida e isolamento social. O transtorno também impacta negativamente a qualidade de vida, relacionamentos interpessoais e desempenho profissional. O tratamento precoce é crucial para prevenir essas complicações e melhorar prognóstico a longo prazo.'
+=======
+        question: 'O que é compulsão alimentar?',
+        answer: 'Compulsão alimentar é um transtorno caracterizado por episódios recorrentes de ingestão excessiva de alimentos acompanhados por sensação de perda de controle.'
+      },
+      {
+        question: 'Como sei se tenho compulsão alimentar?',
+        answer: 'Sinais incluem comer grandes quantidades rapidamente, comer até sentir desconforto, comer sem fome, e sentir-se culpado após os episódios.'
+      },
+      {
+        question: 'O teste é confiável?',
+        answer: 'Sim, nosso teste é baseado em escalas científicas validadas como a Binge Eating Scale (BES), amplamente utilizada na prática clínica.'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       }
     ],
     howTo: [
@@ -66,6 +79,7 @@ const categoryConfig: Record<string, {
     treatments: ['Psicoterapia', 'Antidepressivos', 'Exercícios físicos', 'Terapia de luz', 'Meditação'],
     faq: [
       {
+<<<<<<< HEAD
         question: 'O que é depressão e como diferenciar de tristeza normal?',
         answer: 'A depressão é um transtorno de humor persistente que vai muito além da tristeza normal. Enquanto a tristeza é uma emoção humana natural que geralmente diminui com o tempo, a depressão é uma condição médica séria que afeta como você se sente, pensa e lida com atividades diárias. Os sintomas depressivos incluem humor deprimido persistente, perda de interesse ou prazer em atividades, alterações de sono e apetite, fadiga, dificuldade de concentração e pensamentos de morte. A depressão interfere significativamente na vida diária e pode durar semanas, meses ou até anos sem tratamento adequado.'
       },
@@ -88,6 +102,18 @@ const categoryConfig: Record<string, {
       {
         question: 'Depressão pode ser prevenida e quais estratégias ajudam?',
         answer: 'Embora nem sempre seja possível prevenir a depressão, várias estratégias podem reduzir o risco e ajudar a manter a saúde mental. Manter rotinas regulares de sono, exercitar-se regularmente (pelo menos 30 minutos diários), praticar técnicas de relaxamento e mindfulness, cultivar relacionamentos sociais saudáveis, evitar álcool e drogas, gerenciar o estresse através de técnicas como respiração profunda e meditação, estabelecer metas realistas, buscar ajuda profissional precocemente quando necessário, e manter um diário para processar emoções. O tratamento precoce de sintomas leves pode prevenir a progressão para depressão maior.'
+=======
+        question: 'O que é o PHQ-9?',
+        answer: 'O PHQ-9 é um questionário de 9 itens amplamente utilizado para rastreamento, monitoramento e medição da gravidade da depressão.'
+      },
+      {
+        question: 'Quanto tempo demora o teste?',
+        answer: 'O teste leva aproximadamente 5-10 minutos para ser completado, com resultados imediatos ao final.'
+      },
+      {
+        question: 'Meus dados são confidenciais?',
+        answer: 'Sim, todas as suas respostas são 100% confidenciais e criptografadas, seguindo as normas de proteção de dados.'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       }
     ],
     howTo: [
@@ -312,6 +338,7 @@ const categoryConfig: Record<string, {
     treatments: ['Terapia cognitivo-comportamental', 'Medicamentos ansiolíticos', 'Relaxamento', 'Exercícios', 'Mindfulness'],
     faq: [
       {
+<<<<<<< HEAD
         question: 'O que é Transtorno de Ansiedade Generalizada e como se diferencia de ansiedade normal?',
         answer: 'Transtorno de Ansiedade Generalizada (TAG) é caracterizado por preocupação excessiva, persistente e difícil de controlar sobre diversos aspectos da vida, como trabalho, saúde, família ou finanças. Diferente da ansiedade normal que é proporcional a situações estressantes específicas, na TAG a preocupação é desproporcional, frequente (mais dias que não por pelo menos 6 meses) e interfere significativamente nas atividades diárias. Sintomas físicos incluem tensão muscular, fadiga, irritabilidade, dificuldade de concentração e distúrbios do sono. A ansiedade normal é transitória e adaptativa, enquanto a TAG é crônica e debilitante.'
       },
@@ -334,6 +361,14 @@ const categoryConfig: Record<string, {
       {
         question: 'É possível prevenir ou reduzir os sintomas de ansiedade generalizada?',
         answer: 'Embora nem sempre seja possível prevenir completamente a TAG, várias estratégias podem reduzir risco e intensidade dos sintomas. Manter rotina regular de exercícios (pelo menos 150 minutos semanais) demonstra redução significativa na ansiedade. Praticar técnicas de mindfulness e meditação regularmente fortalece capacidade de regulação emocional. Estabelecer limites saudáveis no trabalho e relacionamentos, evitar cafeína e álcool em excesso, manter sono adequado (7-9 horas), e desenvolver rede de apoio social sólida. Aprender técnicas de gerenciamento de estresse como respiração profunda, relaxamento muscular progressivo e time management. Buscar ajuda profissional precocemente quando os sintomas começam a interferir na vida diária.'
+=======
+        question: 'O que é Transtorno de Ansiedade Generalizada?',
+        answer: 'É caracterizado por preocupação excessiva e persistente sobre várias áreas da vida, difícil de controlar.'
+      },
+      {
+        question: 'Como o GAD-7 funciona?',
+        answer: 'Avalia frequência de sintomas de ansiedade nas últimas 2 semanas, fornecendo uma pontuação de gravidade.'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       }
     ],
     howTo: [

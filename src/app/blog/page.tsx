@@ -3,11 +3,18 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+<<<<<<< HEAD
 import { Calendar, Clock, ArrowRight, Search, Filter, Brain, Heart, Flame, Users, Star, Shield, ChevronLeft, ChevronRight, Mail, BookOpen, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import Footer from '@/components/Footer'
+=======
+import { Calendar, Clock, ArrowRight, Search, Filter, BookOpen, TrendingUp, ChevronLeft, ChevronRight, Mail, Heart, Brain } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 // Blog posts data
 const blogPosts = [
@@ -190,6 +197,7 @@ export default function BlogPage() {
             </div>
           </div>
         </div>
+<<<<<<< HEAD
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
@@ -224,6 +232,8 @@ export default function BlogPage() {
           </div>
         </div>
       </header>
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
       {/* Hero Section */}
       <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
@@ -561,9 +571,12 @@ export default function BlogPage() {
         </div>
       </section>
       </div>
+<<<<<<< HEAD
 
       {/* Footer */}
       <Footer />
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }

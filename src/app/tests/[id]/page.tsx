@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { Progress } from '@/components/ui/progress'
+<<<<<<< HEAD
 import { Brain, ChevronLeft, ChevronRight, Clock, CheckCircle, Download, User, TrendingUp, Shield, Heart, Share2, Mail } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
@@ -16,6 +17,11 @@ import PDFGenerator from '@/components/test/PDFGenerator'
 import ShareResults from '@/components/test/ShareResults'
 import AccordionFAQ from '@/components/test/AccordionFAQ'
 import Footer from '@/components/Footer'
+=======
+import { Brain, ChevronLeft, ChevronRight, Clock, CheckCircle } from 'lucide-react'
+import Link from 'next/link'
+import LayoutWrapper from '@/components/layout/LayoutWrapper'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 interface Question {
   id: string
@@ -60,9 +66,12 @@ export default function TestPage() {
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [showResults, setShowResults] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+<<<<<<< HEAD
   const [testResult, setTestResult] = useState<any>(null)
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [user, setUser] = useState<any>(null)
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
   useEffect(() => {
     if (testId) {
@@ -151,6 +160,7 @@ export default function TestPage() {
 
     setIsSubmitting(true)
     try {
+<<<<<<< HEAD
       // Convert answers to the format expected by the API
       const formattedAnswers = Object.entries(answers).map(([questionId, score]) => ({
         questionId,
@@ -158,20 +168,31 @@ export default function TestPage() {
       }))
 
       const response = await fetch(`/api/tests/${testId}/submit`, {
+=======
+      const response = await fetch('/api/test-results', {
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+<<<<<<< HEAD
           answers: formattedAnswers,
           testType: test?.category || 'Teste Psicológico'
+=======
+          testId,
+          answers
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         })
       })
 
       const data = await response.json()
       
       if (data.success) {
+<<<<<<< HEAD
         setTestResult(data.result)
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         setShowResults(true)
       } else {
         throw new Error(data.error || 'Erro ao enviar respostas')
@@ -194,6 +215,7 @@ export default function TestPage() {
     return Math.round((totalScore / maxScore) * 100)
   }
 
+<<<<<<< HEAD
   const handleAuthSuccess = (userData: any) => {
     setUser(userData)
     // Here you could show a success message or update UI
@@ -355,6 +377,8 @@ export default function TestPage() {
     return []
   }
 
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   if (loading) {
     return (
       <LayoutWrapper>
@@ -387,6 +411,7 @@ export default function TestPage() {
     )
   }
 
+<<<<<<< HEAD
   if (showResults && testResult) {
     return (
       <LayoutWrapper>
@@ -563,6 +588,51 @@ export default function TestPage() {
               </Button>
             </Link>
           </div>
+=======
+  if (showResults) {
+    const score = calculateScore()
+    
+    return (
+      <LayoutWrapper>
+        <div className="container mx-auto px-4 py-8 max-w-2xl">
+          <Card className="text-center">
+            <CardHeader>
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-green-600" />
+              </div>
+              <CardTitle className="text-2xl">Teste Concluído!</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold mb-2">{test.title}</h3>
+                <p className="text-gray-600 mb-4">Suas respostas foram processadas com sucesso.</p>
+              </div>
+              
+              <div className="bg-blue-50 rounded-lg p-6">
+                <div className="text-3xl font-bold text-blue-600 mb-2">
+                  {score} pontos
+                </div>
+                <p className="text-sm text-gray-600">
+                  Baseado em suas respostas em {questions.length} perguntas
+                </p>
+              </div>
+
+              <div className="space-y-2 text-sm text-gray-600">
+                <p>Este resultado é uma ferramenta de autoavaliação e não substitui uma consulta profissional.</p>
+                <p>Se tiver preocupações com sua saúde mental, recomendamos procurar um psicólogo ou psiquiatra.</p>
+              </div>
+
+              <div className="flex gap-4 justify-center">
+                <Link href="/testes">
+                  <Button variant="outline">Fazer Outro Teste</Button>
+                </Link>
+                <Link href="/">
+                  <Button>Voltar ao Início</Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         </div>
       </LayoutWrapper>
     )
@@ -652,7 +722,11 @@ export default function TestPage() {
 
           <Button
             onClick={handleNext}
+<<<<<<< HEAD
             disabled={answers[currentQ?.id || ''] === undefined || isSubmitting}
+=======
+            disabled={!answers[currentQ?.id || ''] || isSubmitting}
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
           >
             {isSubmitting ? (
               'Enviando...'
@@ -666,6 +740,7 @@ export default function TestPage() {
             )}
           </Button>
         </div>
+<<<<<<< HEAD
 
         {/* SEO FAQ Section */}
         {getSEOContent().length > 0 && (
@@ -695,4 +770,9 @@ export default function TestPage() {
       />
     )
   }
+=======
+      </div>
+    </LayoutWrapper>
+  )
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 }

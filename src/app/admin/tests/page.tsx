@@ -8,6 +8,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+<<<<<<< HEAD
+=======
+import AdminNavigation from '@/components/admin/admin-navigation'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 import { 
   FileText, 
   Plus, 
@@ -223,6 +227,7 @@ export default function AdminTests() {
       </header>
 
       {/* Navigation */}
+<<<<<<< HEAD
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
@@ -247,6 +252,9 @@ export default function AdminTests() {
           </div>
         </div>
       </nav>
+=======
+      <AdminNavigation />
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Filters */}

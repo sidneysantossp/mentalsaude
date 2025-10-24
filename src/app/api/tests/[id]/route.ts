@@ -3,10 +3,17 @@ import { db } from '@/lib/db'
 
 export async function GET(
   request: NextRequest,
+<<<<<<< HEAD
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id: testId } = await params
+=======
+  { params }: { params: { id: string } }
+) {
+  try {
+    const testId = params.id
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
     // Buscar o teste específico
     const test = await db.test.findUnique({

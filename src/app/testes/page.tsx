@@ -1,16 +1,24 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+<<<<<<< HEAD
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
   Brain, 
+=======
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { 
+  Brain,
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   Heart, 
   Flame, 
   Zap, 
   Shield, 
   Calendar, 
+<<<<<<< HEAD
   Lock, 
   ChevronRight, 
   AlertTriangle, 
@@ -18,6 +26,10 @@ import {
   Cloud, 
   Loader2, 
   Star,
+=======
+  ChevronRight, 
+  AlertTriangle, 
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   Users,
   Moon,
   Sun,
@@ -27,7 +39,10 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+<<<<<<< HEAD
 import Footer from '@/components/Footer'
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 interface Test {
   id: string
@@ -134,6 +149,7 @@ const categoryConfig = {
   }
 }
 
+<<<<<<< HEAD
 const iconMap = {
   Brain,
   Heart,
@@ -151,6 +167,10 @@ export default function TestsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+=======
+export default function TestsPage() {
+  const [tests, setTests] = useState<Test[]>([])
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
   useEffect(() => {
     fetchTests()
@@ -158,7 +178,10 @@ export default function TestsPage() {
 
   const fetchTests = async () => {
     try {
+<<<<<<< HEAD
       setLoading(true)
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       const response = await fetch('/api/tests')
       
       if (!response.ok) {
@@ -169,6 +192,7 @@ export default function TestsPage() {
       
       if (data.success) {
         setTests(data.data)
+<<<<<<< HEAD
       } else {
         throw new Error(data.error || 'Erro desconhecido')
       }
@@ -215,6 +239,14 @@ export default function TestsPage() {
     )
   }
 
+=======
+      }
+    } catch (err) {
+      console.error('Erro ao carregar testes:', err)
+    }
+  }
+
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   // Agrupar testes por categoria
   const testsByCategory = tests.reduce((acc, test) => {
     const categoryKey = test.category.toLowerCase().replace('_', '-')
@@ -229,6 +261,7 @@ export default function TestsPage() {
 
   return (
     <LayoutWrapper>
+<<<<<<< HEAD
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-white py-16">
@@ -419,6 +452,81 @@ export default function TestsPage() {
 
       {/* Footer */}
       <Footer />
+=======
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="container mx-auto px-4">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Testes Psicológicos
+              <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent block">
+                Validados e Gratuitos
+              </span>
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Avaliações profissionais baseadas em instrumentos científicos reconhecidos internacionalmente.
+            </p>
+          </div>
+
+          {/* Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {categories.map((categoryKey) => {
+              const config = categoryConfig[categoryKey as keyof typeof categoryConfig]
+              const categoryTests = testsByCategory[categoryKey] || []
+              const IconComponent = config.icon
+
+              return (
+                <Link key={categoryKey} href={categoryTests.length > 0 ? `/testes/${categoryKey}/${categoryTests[0].slug}` : `/testes/${categoryKey}`}>
+                  <Card className="group hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-gray-400 cursor-pointer hover:-translate-y-1">
+                    {/* Header */}
+                    <div className={`relative h-32 bg-gradient-to-br ${config.color} p-6`}>
+                      <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
+                        <span className="text-white text-xs font-semibold">
+                          {categoryTests.length} teste{categoryTests.length !== 1 ? 's' : ''}
+                        </span>
+                      </div>
+                      <IconComponent className="w-12 h-12 text-white mb-2" />
+                      <h3 className="text-xl font-bold text-white">{config.title}</h3>
+                    </div>
+                    
+                    {/* Content */}
+                    <CardContent className="p-6">
+                      <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                        {config.description}
+                      </p>
+                      
+                      {/* Stats */}
+                      <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
+                        <div className="flex items-center">
+                          <Users className="w-3 h-3 mr-1" />
+                          <span>{config.stats.users}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="w-3 h-3 mr-1" />
+                          <span>{config.stats.time}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Award className="w-3 h-3 mr-1" />
+                          <span>{config.stats.accuracy}</span>
+                        </div>
+                      </div>
+                      
+                      {/* CTA */}
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="text-green-600 border-green-600">
+                          GRATUITO
+                        </Badge>
+                        <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }

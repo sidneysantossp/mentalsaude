@@ -1,9 +1,61 @@
+<<<<<<< HEAD
+=======
+# Robots.txt para MentalSaude.com.br
+# https://mentalsaude.com.br
+
+User-agent: *
+Allow: /
+
+# Priorizar URLs canônicas
+Disallow: /testes/1$
+Disallow: /testes/2$
+Disallow: /testes/3$
+Disallow: /testes/4$
+Disallow: /testes/5$
+Disallow: /testes/6$
+Disallow: /testes/7$
+Disallow: /testes/8$
+Disallow: /testes/9$
+Disallow: /testes/10$
+Disallow: /testes/11$
+Disallow: /testes/12$
+Disallow: /testes/13$
+
+# Bloquear URLs antigas com parâmetros
+Disallow: /*?*
+Disallow: /api/
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /_next/
+Disallow: /static/
+
+# Permitir arquivos importantes
+Allow: /api/tests/
+Allow: /api/test-results/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Sitemap
+Sitemap: https://mentalsaude.com.br/sitemap.xml
+
+# Frequência de rastreamento para páginas importantes
+Crawl-delay: 1
+
+# User agents específicos
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
+<<<<<<< HEAD
 User-agent: Twitterbot
 Allow: /
 
@@ -12,3 +64,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+=======
+User-agent: Slurp
+Allow: /
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701

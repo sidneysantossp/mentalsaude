@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
+<<<<<<< HEAD
+=======
+import { generateSlug, getCategorySlug, generateCanonicalUrl } from '@/lib/utils/slug'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 export async function GET(request: NextRequest) {
   try {
@@ -36,6 +40,16 @@ export async function GET(request: NextRequest) {
         difficulty = 'Médio'
       }
 
+<<<<<<< HEAD
+=======
+      // Gerar slug se não existir
+      const slug = test.slug || generateSlug(test.title)
+      
+      // Gerar URL canônica
+      const categorySlug = getCategorySlug(test.category)
+      const canonicalUrl = `/testes/${categorySlug}/${slug}`
+
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       // Mapear categoria para informações visuais
       const categoryMap = {
         'DEPRESSION': {
@@ -91,6 +105,12 @@ export async function GET(request: NextRequest) {
         title: test.title,
         description: test.description,
         category: test.category,
+<<<<<<< HEAD
+=======
+        categorySlug: categorySlug,
+        slug: slug,
+        canonicalUrl: canonicalUrl,
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         timeLimit: test.timeLimit,
         questionCount,
         estimatedTime: `${estimatedTime} min`,

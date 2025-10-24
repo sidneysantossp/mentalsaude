@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     const maxScore = questions.length * 3 // Assumindo que o máximo por opção é 3
     const percentageScore = Math.round((totalScore / maxScore) * 100)
 
+<<<<<<< HEAD
     // For now, we'll handle anonymous users by not requiring userId
     // In a real application, you would get this from authentication
     const anonymousUserId = 'anonymous-user'
@@ -66,11 +67,17 @@ export async function POST(request: NextRequest) {
       })
     }
 
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     // Salvar resultado do teste
     const testResult = await db.testResult.create({
       data: {
         testId: testId,
+<<<<<<< HEAD
         userId: user.id,
+=======
+        userId: 'anonymous', // Temporariamente, até implementar autenticação
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         totalScore: totalScore,
         category: totalScore > 20 ? 'alto' : totalScore > 10 ? 'moderado' : 'baixo',
         interpretation: `Sua pontuação foi ${totalScore} de ${maxScore}`,

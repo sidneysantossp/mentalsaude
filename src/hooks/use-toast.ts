@@ -1,5 +1,6 @@
 "use client"
 
+<<<<<<< HEAD
 // Inspired by react-hot-toast library
 import * as React from "react"
 
@@ -192,3 +193,10 @@ function useToast() {
 }
 
 export { useToast, toast }
+=======
+import { useToast as useToastUI } from "@/components/ui/use-toast"
+
+export function useToast() {
+  return useToastUI()
+}
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701

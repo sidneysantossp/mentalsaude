@@ -29,6 +29,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import Link from 'next/link'
+<<<<<<< HEAD
 import { useRouter } from 'next/navigation'
 import { Test } from '@prisma/client'
 import VoiceSearchContent from './VoiceSearchContent'
@@ -38,6 +39,30 @@ import Footer from '@/components/Footer'
 
 interface TestCategoryLandingProps {
   category: string
+=======
+import { Test } from '@prisma/client'
+import VoiceSearchContent from './VoiceSearchContent'
+import PerformanceOptimizer, { OptimizedImage } from './PerformanceOptimizer'
+
+interface TestCategoryLandingProps {
+  test?: {
+    id: string
+    title: string
+    description: string
+    category: string
+    timeLimit?: number
+    questionCount: number
+    estimatedTime: string
+    questions: string
+    difficulty: string
+    icon: string
+    color: string
+    image: string
+    instructions: string
+    isActive: boolean
+    slug: string
+  }
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   config: {
     title: string
     description: string
@@ -47,10 +72,16 @@ interface TestCategoryLandingProps {
     faq: Array<{ question: string; answer: string }>
     howTo: Array<{ step: number; instruction: string }>
   }
+<<<<<<< HEAD
   tests: (Test & {
     questions: any[]
     _count: { testResults: number }
   })[]
+=======
+  canonicalUrl?: string
+  category?: string
+  tests?: any[]
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 }
 
 const iconMap: Record<string, any> = {
@@ -84,17 +115,29 @@ const colorMap: Record<string, string> = {
 }
 
 export default function TestCategoryLanding({ 
+<<<<<<< HEAD
   category, 
   config, 
   tests 
 }: TestCategoryLandingProps) {
   const [activeTab, setActiveTab] = useState('overview')
+=======
+  test, 
+  config, 
+  canonicalUrl,
+  category,
+  tests 
+}: TestCategoryLandingProps) {
+  const [activeTab, setActiveTab] = useState('overview')
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   const [testStarted, setTestStarted] = useState(false)
   const [stats, setStats] = useState({
     totalTests: 0,
     averageTime: '10-15 min',
     accuracy: '95%'
   })
+<<<<<<< HEAD
   const router = useRouter()
 
   const IconComponent = iconMap[category] || Brain
@@ -107,15 +150,42 @@ export default function TestCategoryLanding({
       averageTime: tests.length > 0 
         ? `${Math.round(tests.reduce((acc, test) => acc + (test.timeLimit || 10), 0) / tests.length)} min`
         : '10-15 min',
+=======
+
+  // Usar category do test ou da prop
+  const currentCategory = test?.category || category || 'depressao'
+  const IconComponent = iconMap[currentCategory] || Brain
+  const gradientClass = colorMap[currentCategory] || 'from-blue-500 to-purple-600'
+
+  useEffect(() => {
+    // Simular estatísticas
+    const totalResults = tests?.reduce((acc, test) => acc + (test._count?.testResults || 0), 0) || 1234
+    const avgTime = tests && tests.length > 0 
+      ? `${Math.round(tests.reduce((acc, test) => acc + (test.timeLimit || 10), 0) / tests.length)} min`
+      : '10-15 min'
+    
+    setStats({
+      totalTests: totalResults,
+      averageTime: avgTime,
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       accuracy: '95%'
     })
   }, [tests])
 
   const handleStartTest = () => {
+<<<<<<< HEAD
     if (tests.length > 0) {
       setTestStarted(true)
       // Redirecionar para o primeiro teste disponível usando Next.js router
       router.push(`/tests/${tests[0].id}`)
+=======
+    if (test) {
+      // Redirecionar para a página do teste específico
+      window.location.href = `/testes/${test.category.toLowerCase().replace('_', '-')}/${test.slug}`
+    } else if (tests && tests.length > 0) {
+      // Redirecionar para o primeiro teste disponível
+      window.location.href = `/testes/${tests[0].id}`
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     }
   }
 
@@ -248,7 +318,11 @@ export default function TestCategoryLanding({
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">Sobre esta Avaliação</h2>
                 <div className="prose prose-lg max-w-none">
                   <p className="text-gray-600 leading-relaxed mb-6">
+<<<<<<< HEAD
                     Nossa avaliação de {category.replace('-', ' ')} foi desenvolvida por profissionais de saúde mental 
+=======
+                    Nossa avaliação de {currentCategory.replace('-', ' ')} foi desenvolvida por profissionais de saúde mental 
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                     utilizando instrumentos científicos validados internacionalmente. Este teste ajuda a identificar 
                     padrões e sintomas que podem indicar a necessidade de acompanhamento profissional.
                   </p>
@@ -413,8 +487,32 @@ export default function TestCategoryLanding({
         {activeTab === 'faq' && (
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Perguntas Frequentes</h2>
+<<<<<<< HEAD
             <div className="max-w-4xl mx-auto">
               <AccordionFAQ items={config.faq} />
+=======
+            <div className="max-w-3xl mx-auto space-y-4">
+              {config.faq.map((item, index) => (
+                <Card key={index} className="border border-gray-200">
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="font-semibold text-gray-900">{item.question}</span>
+                    <ChevronRight 
+                      className={`w-5 h-5 text-gray-500 transition-transform ${
+                        expandedFaq === index ? 'rotate-90' : ''
+                      }`} 
+                    />
+                  </button>
+                  {expandedFaq === index && (
+                    <div className="px-6 pb-4 pt-0">
+                      <p className="text-gray-600 leading-relaxed">{item.answer}</p>
+                    </div>
+                  )}
+                </Card>
+              ))}
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
             </div>
           </div>
         )}
@@ -451,7 +549,11 @@ export default function TestCategoryLanding({
       </section>
 
       {/* Related Tests */}
+<<<<<<< HEAD
       {tests.length > 1 && (
+=======
+      {tests && tests.length > 1 && (
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
         <section className="bg-gray-50 py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
@@ -465,7 +567,11 @@ export default function TestCategoryLanding({
                     <p className="text-sm text-gray-600 mb-4">{test.description}</p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">
+<<<<<<< HEAD
                         {test.questions.length} perguntas
+=======
+                        {test.questions?.length || 0} perguntas
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                       </span>
                       <Link href={`/testes/${test.id}`}>
                         <Button variant="outline" size="sm">
@@ -480,9 +586,12 @@ export default function TestCategoryLanding({
           </div>
         </section>
       )}
+<<<<<<< HEAD
 
       {/* Footer */}
       <Footer />
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </div>
   )
 }

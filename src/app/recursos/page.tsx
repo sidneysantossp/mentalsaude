@@ -26,7 +26,10 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+<<<<<<< HEAD
 import Footer from '@/components/Footer'
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 const resources = [
   {
@@ -509,9 +512,12 @@ export default function ResourcesPage() {
           </div>
         </section>
       </div>
+<<<<<<< HEAD
 
       {/* Footer */}
       <Footer />
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }

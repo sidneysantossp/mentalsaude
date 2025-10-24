@@ -6,7 +6,10 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Brain, Calendar, ChevronRight, ChevronDown, ChevronUp, Lock, Shield, Star } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+<<<<<<< HEAD
 import Footer from '@/components/Footer'
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 interface Test {
   id: string
@@ -69,7 +72,11 @@ const faqData = [
 
 export default function Home() {
   const [tests, setTests] = useState<Test[]>([])
+<<<<<<< HEAD
   const [loading, setLoading] = useState(true)
+=======
+  const [loading, setLoading] = useState(false) // Changed to false initially
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   const [openItems, setOpenItems] = useState<number[]>([])
 
   useEffect(() => {
@@ -94,6 +101,11 @@ export default function Home() {
       }
     } catch (err) {
       console.error('Erro ao carregar testes:', err)
+<<<<<<< HEAD
+=======
+      // Set empty array on error to stop loading
+      setTests([])
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     } finally {
       setLoading(false)
     }
@@ -111,6 +123,7 @@ export default function Home() {
     <LayoutWrapper>
       {/* Hero Section */}
       <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden bg-white">
+<<<<<<< HEAD
         {/* Background Image */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-black/20"></div>
@@ -122,6 +135,9 @@ export default function Home() {
         </div>
         
         <div className="relative z-10 container mx-auto px-4 py-12">
+=======
+        <div className="relative z-0 container mx-auto px-4 py-12">
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
           <div className="text-center max-w-4xl mx-auto">
             <div className="mb-6">
               <div className="inline-flex items-center bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
@@ -129,11 +145,19 @@ export default function Home() {
                 Testes Psicológicos Gratuitos e Validados
               </div>
             </div>
+<<<<<<< HEAD
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
               Avalie Sua
               <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent block">Saúde Mental</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
+=======
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-gray-900">
+              Avalie Sua
+              <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent block">Saúde Mental</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
               Testes gratuitos e confiáveis para compreender melhor seu bem-estar emocional. 
               Resultados imediatos baseados em instrumentos científicos validados.
             </p>
@@ -147,6 +171,15 @@ export default function Home() {
               <Button size="lg" variant="outline" className="text-base px-8 py-3 h-auto border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-bold transition-all duration-300 rounded-xl">
                 <Link href="/testes">Conhecer os Testes</Link>
               </Button>
+<<<<<<< HEAD
+=======
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-base px-8 py-3 h-auto font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 rounded-xl">
+                <Link href="/chat" className="flex items-center">
+                  Bate Papo
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
             </div>
           </div>
         </div>
@@ -185,6 +218,7 @@ export default function Home() {
                   <Card key={test.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-gray-400 flex flex-col h-80 rounded-xl">
                     {/* Card Image Section - Top Portion */}
                     <div className="relative h-48 overflow-hidden bg-gray-100">
+<<<<<<< HEAD
                       {test.imageUrl ? (
                         <>
                           <img 
@@ -201,6 +235,9 @@ export default function Home() {
                       ) : (
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200"></div>
                       )}
+=======
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-200/40 via-transparent to-transparent"></div>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                       
                       {/* FREE Badge */}
                       <div className="absolute top-4 right-4 bg-black text-white text-xs font-bold px-3 py-1 rounded-md shadow-lg">
@@ -236,7 +273,11 @@ export default function Home() {
                       <div className="flex-grow"></div>
                       
                       {/* Start Test Button */}
+<<<<<<< HEAD
                       <Link href={`/testes/${test.category.toLowerCase().replace('_', '-')}`}>
+=======
+                      <Link href={test.canonicalUrl || `/testes/${test.category.toLowerCase().replace('_', '-')}`}>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                         <Button 
                           className="w-full bg-black hover:bg-gray-800 text-white font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2"
                         >
@@ -336,9 +377,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+<<<<<<< HEAD
 
       {/* Footer */}
       <Footer />
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }

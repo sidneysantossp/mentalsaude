@@ -19,16 +19,23 @@ import {
   ArrowLeft,
   BarChart3,
   PieChart,
+<<<<<<< HEAD
   Activity,
   Sparkles,
   RefreshCw
+=======
+  Activity
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import SimpleBarChart from '@/components/charts/SimpleBarChart'
 import SimplePieChart from '@/components/charts/SimplePieChart'
 import SimpleLineChart from '@/components/charts/SimpleLineChart'
+<<<<<<< HEAD
 import Footer from '@/components/Footer'
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
 interface TestResult {
   id: string
@@ -71,8 +78,11 @@ export default function TestResultPage() {
   const [historicalData, setHistoricalData] = useState<HistoricalData[]>([])
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState(false)
+<<<<<<< HEAD
   const [aiSummary, setAiSummary] = useState<string | null>(null)
   const [loadingSummary, setLoadingSummary] = useState(false)
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
   useEffect(() => {
     if (params.id) {
@@ -81,12 +91,15 @@ export default function TestResultPage() {
     }
   }, [params.id])
 
+<<<<<<< HEAD
   useEffect(() => {
     if (result) {
       generateAISummary()
     }
   }, [result])
 
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   const fetchResult = async () => {
     try {
       const response = await fetch(`/api/test-results/${params.id}`)
@@ -165,6 +178,7 @@ export default function TestResultPage() {
     }
   }
 
+<<<<<<< HEAD
   const generateAISummary = async () => {
     if (!result) return
     
@@ -197,6 +211,8 @@ export default function TestResultPage() {
     }
   }
 
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   const getSeverityColor = (category: string) => {
     switch (category.toLowerCase()) {
       case 'leve':
@@ -381,6 +397,7 @@ export default function TestResultPage() {
                 </p>
               </div>
 
+<<<<<<< HEAD
               {/* AI Summary Section */}
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -454,11 +471,29 @@ export default function TestResultPage() {
               </div>
 
               {/* Enhanced Recommendations */}
+=======
+              {/* Interpretation */}
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                  <Info className="h-5 w-5 mr-2 text-blue-600" />
+                  Interpretação do Resultado
+                </h3>
+                <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-lg border border-gray-200">
+                  {result.interpretation}
+                </p>
+              </div>
+
+              {/* Recommendations */}
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
               {result.recommendations && (
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                     <TrendingUp className="h-5 w-5 mr-2 text-green-600" />
+<<<<<<< HEAD
                     Recomendações Adicionais
+=======
+                    Recomendações
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                   </h3>
                   <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                     <p className="text-gray-700 leading-relaxed">
@@ -546,9 +581,12 @@ export default function TestResultPage() {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
 
       {/* Footer */}
       <Footer />
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }

@@ -1,13 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+<<<<<<< HEAD
 import { useSession } from 'next-auth/react'
+=======
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Brain, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+<<<<<<< HEAD
   const sessionData = useSession()
   
   // Safe session access
@@ -34,6 +38,12 @@ export default function Header() {
       </header>
     )
   }
+=======
+
+  // Temporarily disabled session check for development
+  const session = null
+  const status = 'unauthenticated'
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
@@ -51,6 +61,7 @@ export default function Header() {
             <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
               Home
             </Link>
+<<<<<<< HEAD
             <div className="relative group">
               <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
                 Testes
@@ -77,6 +88,11 @@ export default function Header() {
                 </div>
               </div>
             </div>
+=======
+            <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors">
+              Testes
+            </Link>
+>>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
             <Link href="/chat" className="text-gray-600 hover:text-blue-600 transition-colors">
               Chat
             </Link>
