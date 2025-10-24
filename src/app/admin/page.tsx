@@ -7,10 +7,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-<<<<<<< HEAD
-=======
 import AdminNavigation from '@/components/admin/admin-navigation'
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 import { 
   Users, 
   FileText, 
@@ -27,12 +24,8 @@ import {
   Clock,
   AlertTriangle,
   CheckCircle,
-<<<<<<< HEAD
-  Download
-=======
   Download,
   MessageCircle
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 } from 'lucide-react'
 
 interface DashboardStats {
@@ -42,11 +35,8 @@ interface DashboardStats {
   activeUsers: number
   recentUsers: number
   recentTests: number
-<<<<<<< HEAD
-=======
   chatUsers: number
   chatMessages: number
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 }
 
 interface RecentActivity {
@@ -66,13 +56,9 @@ export default function AdminDashboard() {
     totalResults: 0,
     activeUsers: 0,
     recentUsers: 0,
-<<<<<<< HEAD
-    recentTests: 0
-=======
     recentTests: 0,
     chatUsers: 0,
     chatMessages: 0
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
   })
   const [recentActivity, setRecentActivity] = useState<RecentActivity[]>([])
   const [loading, setLoading] = useState(false)
@@ -216,37 +202,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Navigation */}
-<<<<<<< HEAD
-      <nav className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            <Link href="/admin" className="py-4 px-1 border-b-2 border-blue-500 text-sm font-medium text-blue-600">
-              Dashboard
-            </Link>
-            <Link href="/admin/users" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Usuários
-            </Link>
-            <Link href="/admin/tests" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Testes
-            </Link>
-            <Link href="/admin/questions" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Questões
-            </Link>
-            <Link href="/admin/results" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Resultados
-            </Link>
-            <Link href="/admin/reports" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Relatórios
-            </Link>
-            <Link href="/admin/settings" className="py-4 px-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300">
-              Configurações
-            </Link>
-          </div>
-        </div>
-      </nav>
-=======
       <AdminNavigation />
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Grid */}
@@ -285,21 +241,12 @@ export default function AdminDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-<<<<<<< HEAD
-                  <BarChart3 className="h-8 w-8 text-purple-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">Resultados</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.totalResults}</p>
-                  <p className="text-xs text-gray-600">Total realizados</p>
-=======
                   <MessageCircle className="h-8 w-8 text-purple-600" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-500">Chat Ativo</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.chatUsers}</p>
                   <p className="text-xs text-gray-600">{stats.chatMessages} mensagens</p>
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                 </div>
               </div>
             </CardContent>
@@ -309,21 +256,12 @@ export default function AdminDashboard() {
             <CardContent className="p-6">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-<<<<<<< HEAD
-                  <Activity className="h-8 w-8 text-orange-600" />
-                </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-500">Usuários Ativos</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.activeUsers}</p>
-                  <p className="text-xs text-gray-600">Últimos 7 dias</p>
-=======
                   <BarChart3 className="h-8 w-8 text-orange-600" />
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-500">Resultados</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.totalResults}</p>
                   <p className="text-xs text-gray-600">Total realizados</p>
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                 </div>
               </div>
             </CardContent>
@@ -397,15 +335,12 @@ export default function AdminDashboard() {
                       Novo Teste
                     </Button>
                   </Link>
-<<<<<<< HEAD
-=======
                   <Link href="/admin/chat-management">
                     <Button variant="outline" className="w-full justify-start">
                       <MessageCircle className="h-4 w-4 mr-2" />
                       Gerenciar Chat
                     </Button>
                   </Link>
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                   <Button 
                     variant="outline" 
                     className="w-full justify-start"
@@ -421,45 +356,6 @@ export default function AdminDashboard() {
                       Ver Relatórios
                     </Button>
                   </Link>
-                  <Link href="/admin/settings">
-                    <Button variant="outline" className="w-full justify-start">
-                      <Settings className="h-4 w-4 mr-2" />
-                      Configurações
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* System Status */}
-            <Card className="shadow-sm mt-6">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  <span>Status do Sistema</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Banco de Dados</span>
-                    <Badge className="bg-green-100 text-green-800">Online</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">API</span>
-                    <Badge className="bg-green-100 text-green-800">Funcionando</Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Serviço IA</span>
-                    <Badge className="bg-green-100 text-green-800">Ativo</Badge>
-                  </div>
-<<<<<<< HEAD
-=======
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Chat</span>
-                    <Badge className="bg-green-100 text-green-800">Ativo</Badge>
-                  </div>
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
                 </div>
               </CardContent>
             </Card>
