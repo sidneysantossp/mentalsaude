@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 50px; }
+        .form-group { margin: 15px 0; }
+        input { padding: 8px; width: 300px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin: 20px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>Teste de Login - Mental Saúde</h1>
+    
+    <form id="loginForm">
+        <div class="form-group">
+            <label>Email:</label><br>
+            <input type="email" id="email" value="sid.websp@gmail.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Senha:</label><br>
+            <input type="password" id="password" value="Admin@2024!" required>
+        </div>
+        
+        <button type="submit">Fazer Login</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // 1. Obter CSRF token
+                const csrfResponse = await fetch('/api/auth/csrf');
+                const csrfData = await csrfResponse.json();
+                
+                console.log('CSRF Token:', csrfData.csrfToken);
+                
+                // 2. Fazer login
+                const loginResponse = await fetch('/api/auth/callback/credentials', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        email: email,
+                        password: password,
+                        csrfToken: csrfData.csrfToken,
+                        callbackUrl: '/dashboard',
+                        json: 'true'
+                    })
+                });
+                
+                console.log('Login Response Status:', loginResponse.status);
+                console.log('Login Response Headers:', Object.fromEntries(loginResponse.headers));
+                
+                const responseText = await loginResponse.text();
+                console.log('Login Response:', responseText);
+                
+                if (loginResponse.status === 200) {
+                    resultDiv.innerHTML = '<div class="success">✅ Login bem-sucedido! Redirecionando...</div>';
+                    
+                    // Verificar sessão
+                    setTimeout(async () => {
+                        const sessionResponse = await fetch('/api/auth/session');
+                        const sessionData = await sessionResponse.json();
+                        console.log('Session Data:', sessionData);
+                        
+                        if (sessionData.user) {
+                            resultDiv.innerHTML += '<div class="success">✅ Sessão ativa! Usuário: ' + sessionData.user.email + '</div>';
+                            setTimeout(() => {
+                                window.location.href = '/dashboard';
+                            }, 2000);
+                        } else {
+                            resultDiv.innerHTML += '<div class="error">❌ Sessão não encontrada</div>';
+                        }
+                    }, 1000);
+                } else {
+                    resultDiv.innerHTML = '<div class="error">❌ Falha no login: ' + responseText + '</div>';
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                resultDiv.innerHTML = '<div class="error">❌ Erro: ' + error.message + '</div>';
+            }
+        });
+    </script>
+</body>
+</html>
