@@ -1,49 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-<<<<<<< HEAD
-import { useSession } from 'next-auth/react'
-=======
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Brain, Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-<<<<<<< HEAD
-  const sessionData = useSession()
-  
-  // Safe session access
-  const session = sessionData?.data || null
-  const status = sessionData?.status || 'loading'
-
-  // Handle loading state
-  if (status === 'loading') {
-    return (
-      <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Link href="/" className="flex items-center space-x-2">
-                <Brain className="h-8 w-8 text-yellow-500" />
-                <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent">Mental Saúde</span>
-              </Link>
-            </div>
-            <div className="animate-pulse">
-              <div className="h-8 w-32 bg-gray-200 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </header>
-    )
-  }
-=======
-
-  // Temporarily disabled session check for development
-  const session = null
-  const status = 'unauthenticated'
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
@@ -61,38 +24,6 @@ export default function Header() {
             <Link href="/" className="text-gray-600 hover:text-blue-600 transition-colors">
               Home
             </Link>
-<<<<<<< HEAD
-            <div className="relative group">
-              <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors flex items-center">
-                Testes
-              </Link>
-              {/* Dropdown Menu */}
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div className="p-2">
-                  <Link href="/testes/depressao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    Depressão (PHQ-9)
-                  </Link>
-                  <Link href="/testes/transtorno-ansiedade" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    Ansiedade (GAD-7)
-                  </Link>
-                  <Link href="/testes/tdah" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    TDAH (ASRS)
-                  </Link>
-                  <Link href="/testes/toc" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded">
-                    TOC (Y-BOCS)
-                  </Link>
-                  <hr className="my-2" />
-                  <Link href="/testes" className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100 rounded font-semibold">
-                    Ver todas as 12 categorias →
-                  </Link>
-                </div>
-              </div>
-            </div>
-=======
-            <Link href="/testes" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Testes
-            </Link>
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
             <Link href="/chat" className="text-gray-600 hover:text-blue-600 transition-colors">
               Chat
             </Link>

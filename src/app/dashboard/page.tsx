@@ -59,20 +59,6 @@ export default function DashboardPage() {
   const fetchHistoricalData = async () => {
     try {
       const response = await fetch('/api/test-results/historical')
-<<<<<<< HEAD
-      if (response.ok) {
-        const data = await response.json()
-        if (data.success) {
-          setHistoricalData(data.data)
-        }
-      } else {
-        // Silently fail if not authorized
-        console.log('User not authenticated for historical data')
-=======
-      const data = await response.json()
-      if (data.success) {
-        setHistoricalData(data.data)
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
       }
     } catch (error) {
       console.error('Error fetching historical data:', error)

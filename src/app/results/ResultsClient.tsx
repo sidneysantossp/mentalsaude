@@ -7,10 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
-<<<<<<< HEAD
-import Footer from '@/components/Footer'
-=======
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
 import { 
   Brain, 
   Heart, 
@@ -331,12 +327,6 @@ export function ResultsClient({ initialResults }: ResultsClientProps) {
           )}
         </div>
       </div>
-<<<<<<< HEAD
-
-      {/* Footer */}
-      <Footer />
-=======
->>>>>>> ea77019058fe465d921176d51fea7060fb6ac701
     </LayoutWrapper>
   )
 }
