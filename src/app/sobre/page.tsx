@@ -22,6 +22,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import Footer from '@/components/Footer'
 
 const teamMembers = [
   {
@@ -353,6 +354,9 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </LayoutWrapper>
   )
 }

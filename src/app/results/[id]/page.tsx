@@ -19,13 +19,16 @@ import {
   ArrowLeft,
   BarChart3,
   PieChart,
-  Activity
+  Activity,
+  Sparkles,
+  RefreshCw
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import SimpleBarChart from '@/components/charts/SimpleBarChart'
 import SimplePieChart from '@/components/charts/SimplePieChart'
 import SimpleLineChart from '@/components/charts/SimpleLineChart'
+import Footer from '@/components/Footer'
 
 interface TestResult {
   id: string
@@ -68,6 +71,8 @@ export default function TestResultPage() {
   const [historicalData, setHistoricalData] = useState<HistoricalData[]>([])
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState(false)
+  const [aiSummary, setAiSummary] = useState<string | null>(null)
+  const [loadingSummary, setLoadingSummary] = useState(false)
 
   useEffect(() => {
     if (params.id) {
@@ -75,6 +80,12 @@ export default function TestResultPage() {
       fetchHistoricalData()
     }
   }, [params.id])
+
+  useEffect(() => {
+    if (result) {
+      generateAISummary()
+    }
+  }, [result])
 
   const fetchResult = async () => {
     try {
@@ -151,6 +162,38 @@ export default function TestResultPage() {
     } else {
       // Fallback: copiar para área de transferência
       navigator.clipboard.writeText(window.location.href)
+    }
+  }
+
+  const generateAISummary = async () => {
+    if (!result) return
+    
+    setLoadingSummary(true)
+    try {
+      const response = await fetch('/api/generate-ai-summary', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          testTitle: result.test.title,
+          score: result.totalScore,
+          category: result.category,
+          maxScore: result.answers.length * 3,
+          answers: result.answers
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success) {
+          setAiSummary(data.data.summary)
+        }
+      }
+    } catch (err) {
+      console.error('Erro ao gerar resumo com IA:', err)
+    } finally {
+      setLoadingSummary(false)
     }
   }
 
@@ -338,23 +381,84 @@ export default function TestResultPage() {
                 </p>
               </div>
 
-              {/* Interpretation */}
+              {/* AI Summary Section */}
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                  <Info className="h-5 w-5 mr-2 text-blue-600" />
-                  Interpretação do Resultado
-                </h3>
-                <p className="text-gray-700 leading-relaxed bg-white p-4 rounded-lg border border-gray-200">
-                  {result.interpretation}
-                </p>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-semibold text-gray-900 flex items-center">
+                    <Sparkles className="h-5 w-5 mr-2 text-purple-600" />
+                    Resumo Personalizado por IA
+                  </h3>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={generateAISummary}
+                    disabled={loadingSummary}
+                    className="flex items-center space-x-1"
+                  >
+                    <RefreshCw className={`h-3 w-3 ${loadingSummary ? 'animate-spin' : ''}`} />
+                    <span>Atualizar</span>
+                  </Button>
+                </div>
+                
+                {loadingSummary ? (
+                  <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
+                    <div className="flex items-center space-x-3">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-600"></div>
+                      <div>
+                        <p className="text-gray-600 font-medium">Gerando resumo personalizado com IA...</p>
+                        <p className="text-xs text-gray-500 mt-1">Analisando seus resultados para criar insights personalizados</p>
+                      </div>
+                    </div>
+                  </div>
+                ) : aiSummary ? (
+                  <div className="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-lg border border-purple-200">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm text-purple-700 font-medium flex items-center">
+                          <Sparkles className="h-4 w-4 mr-1" />
+                          Análise baseada em inteligência artificial
+                        </p>
+                        <Badge variant="outline" className="text-xs bg-white">
+                          Personalizado
+                        </Badge>
+                      </div>
+                      <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                        {aiSummary}
+                      </div>
+                      <div className="pt-3 border-t border-purple-200">
+                        <p className="text-xs text-gray-500 italic flex items-start">
+                          <Info className="h-3 w-3 mr-1 mt-0.5 flex-shrink-0" />
+                          <span>Este resumo foi gerado por IA com base nos seus resultados do teste e não substitui uma avaliação profissional. Para questões de saúde mental, recomendamos sempre consultar um especialista.</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div className="text-center text-gray-500">
+                      <Sparkles className="h-8 w-8 mx-auto mb-2 text-gray-400" />
+                      <p className="font-medium mb-1">Resumo indisponível</p>
+                      <p className="text-sm text-gray-400 mb-3">Não foi possível gerar o resumo personalizado no momento</p>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={generateAISummary}
+                        className="text-sm"
+                      >
+                        <RefreshCw className="h-3 w-3 mr-1" />
+                        Tentar novamente
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Recommendations */}
+              {/* Enhanced Recommendations */}
               {result.recommendations && (
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                     <TrendingUp className="h-5 w-5 mr-2 text-green-600" />
-                    Recomendações
+                    Recomendações Adicionais
                   </h3>
                   <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                     <p className="text-gray-700 leading-relaxed">
@@ -442,6 +546,9 @@ export default function TestResultPage() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </LayoutWrapper>
   )
 }

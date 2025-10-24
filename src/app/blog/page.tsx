@@ -7,6 +7,7 @@ import { Calendar, Clock, ArrowRight, Search, Filter, Brain, Heart, Flame, Users
 import Link from 'next/link'
 import { useState } from 'react'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import Footer from '@/components/Footer'
 
 // Blog posts data
 const blogPosts = [
@@ -560,6 +561,9 @@ export default function BlogPage() {
         </div>
       </section>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </LayoutWrapper>
   )
 }

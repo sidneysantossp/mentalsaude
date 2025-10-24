@@ -26,6 +26,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import Footer from '@/components/Footer'
 
 const resources = [
   {
@@ -508,6 +509,9 @@ export default function ResourcesPage() {
           </div>
         </section>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </LayoutWrapper>
   )
 }

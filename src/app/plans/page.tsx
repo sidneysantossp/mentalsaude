@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import Footer from '@/components/Footer'
 
 const plans = [
   {
@@ -478,6 +479,9 @@ export default function PlansPage() {
           </div>
         </section>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </LayoutWrapper>
   )
 }

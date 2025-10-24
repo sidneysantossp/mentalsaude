@@ -33,6 +33,8 @@ import { useRouter } from 'next/navigation'
 import { Test } from '@prisma/client'
 import VoiceSearchContent from './VoiceSearchContent'
 import PerformanceOptimizer, { OptimizedImage } from './PerformanceOptimizer'
+import AccordionFAQ from '@/components/test/AccordionFAQ'
+import Footer from '@/components/Footer'
 
 interface TestCategoryLandingProps {
   category: string
@@ -87,7 +89,6 @@ export default function TestCategoryLanding({
   tests 
 }: TestCategoryLandingProps) {
   const [activeTab, setActiveTab] = useState('overview')
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [testStarted, setTestStarted] = useState(false)
   const [stats, setStats] = useState({
     totalTests: 0,
@@ -412,27 +413,8 @@ export default function TestCategoryLanding({
         {activeTab === 'faq' && (
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-8">Perguntas Frequentes</h2>
-            <div className="max-w-3xl mx-auto space-y-4">
-              {config.faq.map((item, index) => (
-                <Card key={index} className="border border-gray-200">
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
-                  >
-                    <span className="font-semibold text-gray-900">{item.question}</span>
-                    <ChevronRight 
-                      className={`w-5 h-5 text-gray-500 transition-transform ${
-                        expandedFaq === index ? 'rotate-90' : ''
-                      }`} 
-                    />
-                  </button>
-                  {expandedFaq === index && (
-                    <div className="px-6 pb-4 pt-0">
-                      <p className="text-gray-600 leading-relaxed">{item.answer}</p>
-                    </div>
-                  )}
-                </Card>
-              ))}
+            <div className="max-w-4xl mx-auto">
+              <AccordionFAQ items={config.faq} />
             </div>
           </div>
         )}
@@ -498,6 +480,9 @@ export default function TestCategoryLanding({
           </div>
         </section>
       )}
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

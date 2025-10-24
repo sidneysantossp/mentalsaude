@@ -27,16 +27,28 @@ const categoryConfig: Record<string, {
     treatments: ['Terapia Cognitivo-Comportamental', 'Acompanhamento nutricional', 'Grupos de apoio', 'Mindfulness alimentar', 'Exercícios físicos regulares'],
     faq: [
       {
-        question: 'O que é compulsão alimentar?',
-        answer: 'Compulsão alimentar é um transtorno caracterizado por episódios recorrentes de ingestão excessiva de alimentos acompanhados por sensação de perda de controle.'
+        question: 'O que é compulsão alimentar e como difere de outros transtornos alimentares?',
+        answer: 'A compulsão alimentar, ou Transtorno da Compulsão Alimentar Periódica (TCAP), é caracterizada por episódios recorrentes de ingestão excessiva de alimentos acompanhados por sensação de perda de controle. Diferente da bulimia, não envolve comportamentos compensatórios inadequados como vômitos ou uso excessivo de laxantes. Também se distingue da simples hiperfagia pela presença de sofrimento psicológico significativo e impacto negativo na vida social e profissional. Os episódios ocorrem em média pelo menos uma vez por semana durante três meses, com quantidades de alimentos maiores que a maioria das pessoas comeria em circunstâncias similares.'
       },
       {
-        question: 'Como sei se tenho compulsão alimentar?',
-        answer: 'Sinais incluem comer grandes quantidades rapidamente, comer até sentir desconforto, comer sem fome, e sentir-se culpado após os episódios.'
+        question: 'Como a Binge Eating Scale (BES) avalia a compulsão alimentar?',
+        answer: 'A Binge Eating Scale é um questionário autoaplicável de 16 itens desenvolvido especificamente para avaliar a gravidade dos sintomas de compulsão alimentar. Desenvolvida por Gormally et al. (1982), é amplamente utilizada em pesquisa e prática clínica devido à sua excelente validade e confiabilidade. A escala avalia aspectos comportamentais (comer rapidamente, comer até sentir desconforto), emocionais (culpa, vergonha) e cognitivos (preocupação com comida e peso). Cada resposta é pontuada, resultando em uma classificação que varia de ausência de compulsão a compulsão severa, fornecendo uma avaliação quantitativa que orienta intervenções terapêuticas.'
       },
       {
-        question: 'O teste é confiável?',
-        answer: 'Sim, nosso teste é baseado em escalas científicas validadas como a Binge Eating Scale (BES), amplamente utilizada na prática clínica.'
+        question: 'Quais são os sinais e sintomas de alerta da compulsão alimentar?',
+        answer: 'Os sinais característicos incluem: comer muito mais rápido que o normal, comer até sentir desconforto físico, comer grandes quantidades mesmo sem fome, comer sozinho por vergonha da quantidade, sentir-se deprimido ou culpado após os episódios. Outros indicadores importantes: alimentos desaparecem rapidamente da casa, embalagens vazias escondidas, acúmulo de peso rápido, isolamento social durante refeições, dietas restritivas seguidas por episódios de compulsão, dificuldade em parar de comer uma vez iniciado, e pensamentos obsessivos sobre comida e peso entre os episódios.'
+      },
+      {
+        question: 'Quais as principais causas e fatores de risco para compulsão alimentar?',
+        answer: 'A compulsão alimentar resulta de múltiplos fatores interconectados. Fatores biológicos incluem predisposição genética, alterações neuroquímicas envolvendo dopamina e serotonina, e desregulação do sistema de recompensa cerebral. Fatores psicológicos englobam baixa autoestima, perfeccionismo, dificuldade em regular emoções, histórico de trauma ou abuso. Fatores sociais incluem pressão cultural para magreza, dietas restritivas crônicas, bullying relacionado ao peso, e estresse crônico. A restrição alimentar crônica é um forte gatilho, criando um ciclo de restrição-compulsão-culpa que perpetua o transtorno.'
+      },
+      {
+        question: 'Como tratar a compulsão alimentar de forma eficaz?',
+        answer: 'O tratamento mais eficaz combina abordagens multidisciplinares. Terapia Cognitivo-Comportamental (TCC) é considerada padrão-ouro, ajudando a modificar padrões de pensamento disfuncionais e comportamentos alimentares. Terapia Interpessoal foca em melhorar relacionamentos e comunicação. Abordagens baseadas em mindfulness e alimentação intuitiva ajudam a reconectar sinais de fome e saciedade. Em alguns casos, medicamentos como ISRS ou topiramato podem ser indicados. Grupos de apoio e acompanhamento nutricional com especialista em transtornos alimentares complementam o tratamento. O foco é na recuperação do relacionamento saudável com comida, não apenas na perda de peso.'
+      },
+      {
+        question: 'Compulsão alimentar pode levar a outros problemas de saúde?',
+        answer: 'Sim, a compulsão alimentar não tratada está associada a diversas complicações de saúde física e mental. Complicações físicas incluem obesidade, diabetes tipo 2, hipertensão, doenças cardiovasculares, apneia do sono, problemas gastrointestinais e dores articulares. Complicações psicológicas englobam depressão, ansiedade, abuso de substâncias, ideação suicida e isolamento social. O transtorno também impacta negativamente a qualidade de vida, relacionamentos interpessoais e desempenho profissional. O tratamento precoce é crucial para prevenir essas complicações e melhorar prognóstico a longo prazo.'
       }
     ],
     howTo: [
@@ -54,16 +66,28 @@ const categoryConfig: Record<string, {
     treatments: ['Psicoterapia', 'Antidepressivos', 'Exercícios físicos', 'Terapia de luz', 'Meditação'],
     faq: [
       {
-        question: 'O que é o PHQ-9?',
-        answer: 'O PHQ-9 é um questionário de 9 itens amplamente utilizado para rastreamento, monitoramento e medição da gravidade da depressão.'
+        question: 'O que é depressão e como diferenciar de tristeza normal?',
+        answer: 'A depressão é um transtorno de humor persistente que vai muito além da tristeza normal. Enquanto a tristeza é uma emoção humana natural que geralmente diminui com o tempo, a depressão é uma condição médica séria que afeta como você se sente, pensa e lida com atividades diárias. Os sintomas depressivos incluem humor deprimido persistente, perda de interesse ou prazer em atividades, alterações de sono e apetite, fadiga, dificuldade de concentração e pensamentos de morte. A depressão interfere significativamente na vida diária e pode durar semanas, meses ou até anos sem tratamento adequado.'
       },
       {
-        question: 'Quanto tempo demora o teste?',
-        answer: 'O teste leva aproximadamente 5-10 minutos para ser completado, com resultados imediatos ao final.'
+        question: 'Como o PHQ-9 funciona e por que é considerado confiável?',
+        answer: 'O PHQ-9 (Patient Health Questionnaire-9) é um instrumento de rastreamento desenvolvido por pesquisadores da Columbia University. É considerado o padrão-ouro para avaliação de depressão em cuidados primários devido à sua excelente validade psicométrica. O questionário avalia os nove critérios diagnósticos de depressão maior segundo o DSM-5, com frequência dos sintomas nas últimas duas semanas. Sua confiabilidade é comprovada por extensos estudos científicos que demonstram sensibilidade de 88% e especificidade de 88% para detectar depressão maior. O PHQ-9 é rápido (5 minutos), fácil de administrar e fornece uma pontuação que indica a gravidade dos sintomas.'
       },
       {
-        question: 'Meus dados são confidenciais?',
-        answer: 'Sim, todas as suas respostas são 100% confidenciais e criptografadas, seguindo as normas de proteção de dados.'
+        question: 'Quais são os principais fatores de risco para depressão?',
+        answer: 'A depressão resulta de uma complexa interação de fatores biológicos, genéticos, ambientais e psicológicos. Principais fatores de risco incluem: histórico familiar de depressão, desequilíbrios químicos cerebrais (neurotransmissores como serotonina, dopamina e norepinefrina), eventos estressantes da vida (perda, divórcio, problemas financeiros), traumas na infância, doenças crônicas, uso de certos medicamentos, abuso de substâncias, isolamento social e certos traços de personalidade como perfeccionismo ou baixa autoestima. Mulheres têm maior probabilidade de desenvolver depressão, possivelmente devido a fatores hormonais e sociais.'
+      },
+      {
+        question: 'Como interpretar os resultados do teste de depressão?',
+        answer: 'Os resultados do PHQ-9 são classificados em níveis de gravidade: 0-4 (mínima), 5-9 (leve), 10-14 (moderada), 15-19 (moderadamente grave), 20-27 (grave). Cada pontuação corresponde a diferentes recomendações de intervenção. Pontuações mínimas geralmente não requerem tratamento, enquanto depressão leve pode beneficiar-se de acompanhamento e intervenções psicossociais. Depressão moderada frequentemente requer tratamento ativo com psicoterapia e/ou medicação. Depressão grave necessita intervenção imediata com tratamento especializado. É importante lembrar que este é um instrumento de rastreamento, não diagnóstico definitivo.'
+      },
+      {
+        question: 'Quais tratamentos são mais eficazes para depressão?',
+        answer: 'O tratamento da depressão mais eficaz geralmente combina abordagens múltiplas. Psicoterapia, especialmente Terapia Cognitivo-Comportamental (TCC), é altamente eficaz, ajudando a identificar e modificar padrões de pensamento negativo. Antidepressivos, como ISRS (Inibidores Seletivos de Recaptação de Serotonina), podem ser necessários para casos moderados a graves. Exercícios físicos regulares demonstram efeitos antidepressivos comparáveis à medicação em casos leves a moderados. Outras abordagens eficazes incluem terapia interpessoal, mindfulness, terapia de luz para depressão sazonal, estimulação magnética transcraniana para casos resistentes, e mudanças no estilo de vida como sono adequado, alimentação balanceada e apoio social.'
+      },
+      {
+        question: 'Depressão pode ser prevenida e quais estratégias ajudam?',
+        answer: 'Embora nem sempre seja possível prevenir a depressão, várias estratégias podem reduzir o risco e ajudar a manter a saúde mental. Manter rotinas regulares de sono, exercitar-se regularmente (pelo menos 30 minutos diários), praticar técnicas de relaxamento e mindfulness, cultivar relacionamentos sociais saudáveis, evitar álcool e drogas, gerenciar o estresse através de técnicas como respiração profunda e meditação, estabelecer metas realistas, buscar ajuda profissional precocemente quando necessário, e manter um diário para processar emoções. O tratamento precoce de sintomas leves pode prevenir a progressão para depressão maior.'
       }
     ],
     howTo: [
@@ -288,12 +312,28 @@ const categoryConfig: Record<string, {
     treatments: ['Terapia cognitivo-comportamental', 'Medicamentos ansiolíticos', 'Relaxamento', 'Exercícios', 'Mindfulness'],
     faq: [
       {
-        question: 'O que é Transtorno de Ansiedade Generalizada?',
-        answer: 'É caracterizado por preocupação excessiva e persistente sobre várias áreas da vida, difícil de controlar.'
+        question: 'O que é Transtorno de Ansiedade Generalizada e como se diferencia de ansiedade normal?',
+        answer: 'Transtorno de Ansiedade Generalizada (TAG) é caracterizado por preocupação excessiva, persistente e difícil de controlar sobre diversos aspectos da vida, como trabalho, saúde, família ou finanças. Diferente da ansiedade normal que é proporcional a situações estressantes específicas, na TAG a preocupação é desproporcional, frequente (mais dias que não por pelo menos 6 meses) e interfere significativamente nas atividades diárias. Sintomas físicos incluem tensão muscular, fadiga, irritabilidade, dificuldade de concentração e distúrbios do sono. A ansiedade normal é transitória e adaptativa, enquanto a TAG é crônica e debilitante.'
       },
       {
-        question: 'Como o GAD-7 funciona?',
-        answer: 'Avalia frequência de sintomas de ansiedade nas últimas 2 semanas, fornecendo uma pontuação de gravidade.'
+        question: 'Como o GAD-7 funciona e por que é considerado padrão-ouro?',
+        answer: 'O GAD-7 (Generalized Anxiety Disorder-7) é um instrumento de rastreamento desenvolvido por Drs. Robert Spitzer, Kurt Kroenke e Janet Williams. É considerado padrão-ouro devido à sua excelente validade psicométrica e eficiência clínica. O questionário avalia os sete critérios principais de ansiedade generalizada segundo o DSM-5, medindo a frequência dos sintomas nas últimas duas semanas. Sua sensibilidade de 92% e especificidade de 76% para detectar TAG o tornam ideal para cuidados primários. É rápido (2-3 minutos), fácil de administrar e fornece pontuação que indica gravidade: leve (5-9), moderada (10-14) e grave (15-21).'
+      },
+      {
+        question: 'Quais são os principais gatilhos e fatores de risco para ansiedade generalizada?',
+        answer: 'A TAG resulta de interação complexa entre vulnerabilidade biológica e fatores ambientais. Fatores genéticos representam 30-40% do risco, com histórico familiar aumentando significativamente a probabilidade. Desequilíbrios neuroquímicos envolvendo GABA, serotonina e norepinefrina desempenham papel crucial. Fatores ambientais incluem estresse crônico, traumas na infância, abuso de substâncias, eventos negativos da vida e personalidade com traços de neuroticismo. Condições médicas como hipertireoidismo, doenças cardiovasculares e distúrbios respiratórios podem mimetizar ou exacerbar sintomas ansiosos. Mulheres têm aproximadamente o dobro de probabilidade de desenvolver TAG.'
+      },
+      {
+        question: 'Como interpretar os resultados do teste GAD-7?',
+        answer: 'A pontuação do GAD-7 varia de 0 a 21, com classificações específicas: 0-4 (ansiedade mínima - geralmente não requer tratamento), 5-9 (ansiedade leve - pode beneficiar-se de monitoramento e intervenções psicossociais), 10-14 (ansiedade moderada - frequentemente indica necessidade de tratamento ativo), 15-21 (ansiedade grave - requer intervenção imediata e tratamento especializado). Cada pontuação corresponde a diferentes níveis de impacto funcional e sofrimento. É importante considerar que pontuações elevadas podem refletir ansiedade situacional ou outros transtornos ansiosos específicos, não apenas TAG. O resultado deve ser discutido com profissional para diagnóstico diferencial adequado.'
+      },
+      {
+        question: 'Quais tratamentos são mais eficazes para Transtorno de Ansiedade Generalizada?',
+        answer: 'O tratamento da TAG mais eficaz combina abordagens farmacológicas e psicoterápicas. Terapia Cognitivo-Comportamental (TCC) é considerada padrão-ouro, ajudando a identificar e reestruturar padrões de pensamento ansioso, desenvolver habilidades de enfrentamento e exposição gradual a situações temidas. Medicamentos como ISRS (escitalopram, sertralina) e SNRIs (venlafaxina, duloxetina) são primeira linha farmacológica. Benzodiazepínicos podem ser usados a curto prazo para crises agudas. Abordagens complementares eficazes incluem mindfulness-based stress reduction (MBSR), terapia de aceitação e compromisso (ACT), técnicas de relaxamento progressivo, exercícios físicos regulares e treinamento de respiração diafragmática.'
+      },
+      {
+        question: 'É possível prevenir ou reduzir os sintomas de ansiedade generalizada?',
+        answer: 'Embora nem sempre seja possível prevenir completamente a TAG, várias estratégias podem reduzir risco e intensidade dos sintomas. Manter rotina regular de exercícios (pelo menos 150 minutos semanais) demonstra redução significativa na ansiedade. Praticar técnicas de mindfulness e meditação regularmente fortalece capacidade de regulação emocional. Estabelecer limites saudáveis no trabalho e relacionamentos, evitar cafeína e álcool em excesso, manter sono adequado (7-9 horas), e desenvolver rede de apoio social sólida. Aprender técnicas de gerenciamento de estresse como respiração profunda, relaxamento muscular progressivo e time management. Buscar ajuda profissional precocemente quando os sintomas começam a interferir na vida diária.'
       }
     ],
     howTo: [
