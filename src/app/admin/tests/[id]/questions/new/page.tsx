@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,15 +12,24 @@ import { ArrowLeft, Save, Plus, X } from 'lucide-react'
 import Link from 'next/link'
 import { toast } from 'sonner'
 
-export default function NewQuestionPage({ params }: { params: { id: string } }) {
+export default function NewQuestionPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [testId, setTestId] = useState<string>('')
   const [formData, setFormData] = useState({
     text: '',
     type: 'LIKERT_SCALE',
     order: 1,
     options: ['Nunca', 'Raramente', 'Às vezes', 'Frequentemente', 'Sempre']
   })
+
+  useEffect(() => {
+    const resolveParams = async () => {
+      const resolvedParams = await params
+      setTestId(resolvedParams.id)
+    }
+    resolveParams()
+  }, [params])
 
   const questionTypes = [
     { value: 'LIKERT_SCALE', label: 'Escala Likert' },
@@ -31,10 +40,12 @@ export default function NewQuestionPage({ params }: { params: { id: string } }) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!testId) return
+
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/admin/tests/${params.id}/questions`, {
+      const response = await fetch(`/api/admin/tests/${testId}/questions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -46,7 +57,7 @@ export default function NewQuestionPage({ params }: { params: { id: string } }) 
       if (!response.ok) throw new Error('Erro ao criar questão')
 
       toast.success('Questão criada com sucesso!')
-      router.push(`/admin/tests/${params.id}`)
+      router.push(`/admin/tests/${testId}`)
     } catch (error) {
       toast.error('Erro ao criar questão')
       console.error(error)
@@ -73,10 +84,14 @@ export default function NewQuestionPage({ params }: { params: { id: string } }) 
     setFormData({ ...formData, options: newOptions })
   }
 
+  if (!testId) {
+    return <div>Carregando...</div>
+  }
+
   return (
     <div className="p-8">
       <div className="mb-8">
-        <Link href={`/admin/tests/${params.id}`}>
+        <Link href={`/admin/tests/${testId}`}>
           <Button variant="ghost" size="sm" className="mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar

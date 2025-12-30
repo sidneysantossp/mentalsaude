@@ -8,10 +8,8 @@
 import { supabase } from './supabase'
 import { Database } from '@/types/supabase'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
 import { cache, withCache, CACHE_KEYS, invalidateCache } from './cache'
-
-const JWT_SECRET = process.env.JWT_SECRET || process.env.NEXTAUTH_SECRET || 'fallback_secret_key_change_in_production'
+import { generateToken, verifyToken } from './utils/auth'
 
 // Export Supabase client as the primary database interface
 export const db = supabase
@@ -38,21 +36,23 @@ export type AppointmentUpdate = Database['public']['Tables']['appointments']['Up
 // ============ TESTS ============
 
 /**
- * Busca todos os testes ativos
+ * Busca todos os testes ativos (com cache)
  */
 export async function getTests(): Promise<Test[]> {
-  const { data, error } = await supabase
-    .from('tests')
-    .select('*')
-    .eq('is_active', true)
-    .order('created_at', { ascending: true })
+  return withCache(CACHE_KEYS.TESTS, async () => {
+    const { data, error } = await supabase
+      .from('tests')
+      .select('*')
+      .eq('is_active', true)
+      .order('created_at', { ascending: true })
 
-  if (error) {
-    console.error('Error fetching tests:', error)
-    throw error
-  }
+    if (error) {
+      console.error('Error fetching tests:', error)
+      throw error
+    }
 
-  return data || []
+    return data || []
+  })
 }
 
 /**
@@ -581,16 +581,12 @@ export async function authenticateUser(email: string, password: string) {
     }
 
     // Generate JWT token
-    const token = jwt.sign(
-      {
-        id: profile.id,
-        email: profile.email,
-        name: profile.name,
-        role: profile.role
-      },
-      JWT_SECRET as string,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-    )
+    const token = generateToken({
+      id: profile.id,
+      email: profile.email,
+      name: profile.name,
+      role: profile.role
+    })
 
     return {
       user: {
@@ -608,16 +604,9 @@ export async function authenticateUser(email: string, password: string) {
 }
 
 /**
- * Verifica token JWT
+ * Verifica token JWT (usando utils/auth)
  */
-export async function verifyToken(token: string) {
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET) as any
-    return decoded
-  } catch (error) {
-    throw new Error('Token inválido')
-  }
-}
+export { verifyToken } from './utils/auth'
 
 /**
  * Busca usuário por ID
