@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, Edit, Trash2, Plus, Clock, FileText } from 'lucide-react'
 import Link from 'next/link'
+import { getCategoryLabel } from '@/lib/categories'
 
 export const dynamic = 'force-dynamic'
 
@@ -38,17 +39,6 @@ export default async function TestDetailPage({ params }: { params: Promise<{ id:
     notFound()
   }
 
-  const categoryLabels: Record<string, string> = {
-    DEPRESSION: 'Depressão',
-    ANXIETY: 'Ansiedade',
-    BURNOUT: 'Burnout',
-    ADHD: 'TDAH',
-    OCD: 'TOC',
-    STRESS: 'Estresse',
-    SLEEP: 'Sono',
-    SELF_ESTEEM: 'Autoestima'
-  }
-
   const questionTypeLabels: Record<string, string> = {
     MULTIPLE_CHOICE: 'Múltipla Escolha',
     LIKERT_SCALE: 'Escala Likert',
@@ -70,9 +60,9 @@ export default async function TestDetailPage({ params }: { params: Promise<{ id:
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">{test.title}</h1>
             <div className="flex items-center gap-3">
-              <Badge variant="secondary">
-                {categoryLabels[test.category] || test.category}
-              </Badge>
+                <Badge variant="secondary">
+                  {getCategoryLabel(test.category)}
+                </Badge>
               <Badge variant={test.isActive ? "default" : "secondary"}>
                 {test.isActive ? 'Ativo' : 'Inativo'}
               </Badge>

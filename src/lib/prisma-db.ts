@@ -117,6 +117,23 @@ export async function getTestById(id: string) {
   }
 }
 
+export async function getTestBySlug(slug: string) {
+  try {
+    const test = await prisma.test.findUnique({
+      where: { slug },
+      include: {
+        questions: {
+          orderBy: { order: 'asc' }
+        }
+      }
+    })
+    return test
+  } catch (error) {
+    console.error('Error fetching test by slug:', error)
+    throw error
+  }
+}
+
 export async function getQuestionsByTestId(testId: string) {
   try {
     const questions = await prisma.question.findMany({

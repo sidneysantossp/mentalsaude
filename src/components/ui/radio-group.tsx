@@ -1,44 +1,100 @@
 "use client"
 
 import * as React from "react"
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
-import { CircleIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+interface RadioGroupContextValue {
+  value?: string
+  name?: string
+  onChange?: (value: string) => void
+}
+
+const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(null)
+
+interface RadioGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  value?: string
+  name?: string
+  onValueChange?: (value: string) => void
+}
+
 function RadioGroup({
+  value,
+  name,
+  onValueChange,
   className,
+  children,
   ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+}: RadioGroupProps) {
+  const contextValue = React.useMemo(
+    () => ({
+      value,
+      name,
+      onChange: onValueChange
+    }),
+    [value, name, onValueChange]
+  )
+
   return (
-    <RadioGroupPrimitive.Root
-      data-slot="radio-group"
-      className={cn("grid gap-3", className)}
-      {...props}
-    />
+    <RadioGroupContext.Provider value={contextValue}>
+      <div role="radiogroup" className={cn("grid gap-3", className)} {...props}>
+        {children}
+      </div>
+    </RadioGroupContext.Provider>
   )
 }
 
+interface RadioGroupItemProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  value: string
+  disabled?: boolean
+}
+
 function RadioGroupItem({
+  value,
+  children,
+  disabled,
   className,
   ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+}: RadioGroupItemProps) {
+  const context = React.useContext(RadioGroupContext)
+
+  if (!context) {
+    throw new Error("RadioGroupItem must be used within a RadioGroup")
+  }
+
+  const checked = context.value === value
+
+  const handleChange = () => {
+    if (disabled) return
+    context.onChange?.(value)
+  }
+
   return (
-    <RadioGroupPrimitive.Item
-      data-slot="radio-group-item"
+    <label
+      role="radio"
+      aria-checked={checked}
+      tabIndex={-1}
+      data-state={checked ? "checked" : "unchecked"}
+      data-disabled={disabled ? "true" : undefined}
       className={cn(
-        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        "relative flex w-full cursor-pointer items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm font-semibold text-slate-900 shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring hover:border-slate-300 disabled:cursor-not-allowed disabled:opacity-60",
+        checked && "border-emerald-400 bg-emerald-50 shadow-lg",
         className
       )}
+      onClick={handleChange}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator
-        data-slot="radio-group-indicator"
-        className="relative flex items-center justify-center"
-      >
-        <CircleIcon className="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2" />
-      </RadioGroupPrimitive.Indicator>
-    </RadioGroupPrimitive.Item>
+      <input
+        type="radio"
+        className="sr-only"
+        name={context.name}
+        value={value}
+        checked={checked}
+        onChange={handleChange}
+        disabled={disabled}
+      />
+      {children}
+    </label>
   )
 }
 

@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import { useAuth } from '@/components/providers/mysql-auth-provider'
+import { getCategoryLabel } from '@/lib/categories'
 import { 
   Brain, 
   Heart, 
@@ -87,17 +88,6 @@ export default function ResultsPage() {
       case 'ADHD': return Activity
       case 'STRESS': return Flame
       default: return Brain
-    }
-  }
-
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'DEPRESSION': return 'Depressão'
-      case 'ANXIETY': return 'Ansiedade'
-      case 'ADHD': return 'TDAH'
-      case 'STRESS': return 'Estresse'
-      case 'OCD': return 'Compulsão'
-      default: return category
     }
   }
 

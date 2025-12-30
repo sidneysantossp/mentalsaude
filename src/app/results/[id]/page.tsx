@@ -27,6 +27,7 @@ import {
 } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
+import { getCategoryLabel } from '@/lib/categories'
 
 
 interface TestResult {
@@ -165,15 +166,6 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
       case 'ANXIETY': return Heart
       case 'BURNOUT': return Flame
       default: return Brain
-    }
-  }
-
-  const getCategoryLabel = (category: string) => {
-    switch (category) {
-      case 'DEPRESSION': return 'Depressão'
-      case 'ANXIETY': return 'Ansiedade'
-      case 'BURNOUT': return 'Burnout'
-      default: return category
     }
   }
 

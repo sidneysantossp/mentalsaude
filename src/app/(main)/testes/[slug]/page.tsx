@@ -8,11 +8,13 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Brain, Clock, ArrowLeft, ArrowRight, CheckCircle, AlertCircle, Info, LogIn, UserPlus } from 'lucide-react'
 import { toast } from 'sonner'
+import { getCategoryLabel } from '@/lib/categories'
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'
 
 interface Question {
   id: string
@@ -56,6 +58,60 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   const [totalScore, setTotalScore] = useState(0)
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null)
   const [testStarted, setTestStarted] = useState(false)
+  const jsonLd =
+    test && slug
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: test.title,
+          description: test.shortDescription || test.description,
+          url: `${SITE_URL}/testes/${slug}`,
+          mainEntity: {
+            '@type': 'Questionnaire',
+            name: test.title,
+            about: getCategoryLabel(test.category),
+            numberOfQuestions: test.questions.length,
+            typicalTime: test.timeLimit ? `PT${test.timeLimit}M` : 'PT0M',
+            audience: {
+              '@type': 'Audience',
+              audienceType: 'Adultos'
+            }
+          },
+          breadcrumb: {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: SITE_URL
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Testes',
+                item: `${SITE_URL}/testes`
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: test.title,
+                item: `${SITE_URL}/testes/${slug}`
+              }
+            ]
+          }
+        }
+      : null
+
+  const renderStructuredData = () => {
+    if (!jsonLd) return null
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    )
+  }
 
   useEffect(() => {
     const initPage = async () => {
@@ -234,7 +290,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
 
   if (!testStarted) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <>
+        {renderStructuredData()}
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
         <Button variant="ghost" asChild className="mb-6">
           <Link href="/testes">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -250,7 +308,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
                 <CardDescription className="text-base">{test.description}</CardDescription>
               </div>
               <Badge variant="outline" className="ml-4">
-                {test.category}
+                {getCategoryLabel(test.category)}
               </Badge>
             </div>
           </CardHeader>
@@ -307,76 +365,148 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
           </CardContent>
         </Card>
       </div>
-    )
+    </>
+  )
+}
+
+  const handleDownloadPdf = () => {
+    if (typeof window !== 'undefined' && window.print) {
+      window.print()
+    }
   }
 
   if (showResults) {
+    const resultMessage = getResultMessage()
+    const nowLabel = new Date().toLocaleString('pt-BR', {
+      dateStyle: 'short',
+      timeStyle: 'short'
+    })
+
     return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-3xl">
-              <CheckCircle className="h-8 w-8 text-green-600" />
-              Teste Concluído!
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2">Seu Resultado</h3>
-                <div className="text-4xl font-bold text-primary mb-2">
+      <>
+        {renderStructuredData()}
+        <div className="container mx-auto px-4 py-10">
+        <div className="mx-auto w-full max-w-4xl rounded-[32px] border border-gray-200 bg-white shadow-[0_25px_80px_rgba(15,23,42,0.08)] overflow-hidden">
+          <div className="border-b border-gray-200 px-8 py-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
+                Mental Saúde Platform
+              </p>
+              <h2 className="text-2xl font-semibold text-slate-900">
+                Relatório em PDF
+              </h2>
+              <p className="text-sm text-muted-foreground">Resultados clínicos validados</p>
+            </div>
+            <div className="text-right text-sm text-muted-foreground">
+              <p className="font-medium text-slate-900">{test.title}</p>
+              <p>{nowLabel}</p>
+            </div>
+          </div>
+
+          <div className="px-8 py-6 space-y-6">
+            <div className="grid gap-5 md:grid-cols-3">
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Pontuação</p>
+                <p className="mt-2 text-4xl font-bold text-slate-900">
                   {totalScore} / {test.questions.length * 4}
-                </div>
-                <p className="text-lg text-muted-foreground">{getResultMessage()}</p>
-              </div>
-
-              {!session && (
-                <Alert className="border-amber-200 bg-amber-50">
-                  <AlertCircle className="h-4 w-4 text-amber-600" />
-                  <AlertTitle className="text-amber-900">Resultado não salvo</AlertTitle>
-                  <AlertDescription className="text-amber-800">
-                    Você não está logado, portanto seus resultados não foram salvos. 
-                    Faça login ou crie uma conta para salvar seus resultados e acompanhar seu progresso.
-                  </AlertDescription>
-                </Alert>
-              )}
-
-              <div className="bg-muted p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Importante:</strong> Este teste é apenas uma ferramenta de triagem e não substitui 
-                  uma avaliação profissional. Se você está enfrentando dificuldades, recomendamos buscar 
-                  ajuda de um profissional de saúde mental.
                 </p>
+                <p className="text-sm text-muted-foreground">Avaliação</p>
+              </div>
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Categoria</p>
+                <p className="mt-2 text-lg font-semibold text-slate-900">{getCategoryLabel(test.category)}</p>
+                <p className="text-sm text-muted-foreground">Teste realizado</p>
+              </div>
+              <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Tempo</p>
+                <p className="mt-2 text-lg font-semibold text-slate-900">
+                  {test.timeLimit ? `${test.timeLimit} min` : 'Sem limite'}
+                </p>
+                <p className="text-sm text-muted-foreground">Duração sugerida</p>
               </div>
             </div>
 
-            <div className="flex gap-3">
-              <Button asChild variant="outline" className="flex-1">
-                <Link href="/testes">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Voltar para testes
-                </Link>
-              </Button>
-              {session && (
-                <Button asChild className="flex-1">
-                  <Link href="/dashboard">
-                    Ver Meus Resultados
+            <div className="rounded-3xl border border-green-200 bg-gradient-to-r from-emerald-50 to-white p-6 shadow-inner">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="h-6 w-6 text-emerald-500" />
+                <h3 className="text-xl font-semibold">Resultado</h3>
+              </div>
+              <p className="mt-2 text-3xl font-bold text-slate-900">{resultMessage}</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Resultado baseado nos seus relatos das últimas duas semanas.
+              </p>
+            </div>
+
+            {/*
+              warning for session
+            */}
+            {!session && (
+              <Alert className="border-amber-200 bg-amber-50">
+                <AlertCircle className="h-4 w-4 text-amber-600" />
+                <AlertTitle className="text-amber-900">Resultado não salvo</AlertTitle>
+                <AlertDescription className="text-amber-800">
+                  Você não está logado, portanto seus resultados não foram salvos. Faça login ou crie uma conta
+                  para acompanhar seu progresso.
+                </AlertDescription>
+              </Alert>
+            )}
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50/80 p-6">
+              <div className="flex items-center gap-2">
+                <Info className="h-4 w-4 text-slate-500" />
+                <p className="text-sm font-semibold text-slate-800">Recomendações</p>
+              </div>
+              <p className="mt-3 text-sm text-slate-700 leading-relaxed">
+                Este teste é apenas uma triagem inicial. Busque suporte profissional se você estiver enfrentando
+                sintomas persistentes ou intensos. Pratique autocuidado diário, mantenha conexões significativas e
+                considere compartilhar este relatório com um profissional confiável.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-gradient-to-br from-slate-900 to-slate-800 p-6 text-white md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-300">Ação recomendada</p>
+                <p className="text-lg font-semibold">Registre-se para salvar ou baixe o PDF</p>
+              </div>
+              <div className="flex flex-col gap-3 md:flex-row">
+                <Button
+                  asChild
+                  className="w-full md:w-auto bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white border-0"
+                >
+                  <Link href="/auth/signup">
+                    Registrar para salvar este teste
                   </Link>
                 </Button>
-              )}
+                <Button
+                  variant="outline"
+                  onClick={handleDownloadPdf}
+                  disabled={status !== 'authenticated'}
+                  className="w-full md:w-auto border-white bg-white text-black hover:text-black"
+                  title={status !== 'authenticated' ? 'Faça login para habilitar o download' : undefined}
+                >
+                  Baixar PDF
+                </Button>
+              </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
+          </div>
 
-  const currentQ = test.questions[currentQuestion]
+          <div className="bg-slate-900 px-8 py-5 text-center text-xs font-semibold uppercase tracking-[0.35em] text-white">
+            Mental Saúde • {nowLabel}
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+const currentQ = test.questions[currentQuestion]
   const options = currentQ ? (JSON.parse(currentQ.options) as OptionItem[]) : []
   const progress = ((currentQuestion + 1) / test.questions.length) * 100
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <>
+      {renderStructuredData()}
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-6 space-y-4">
         <div className="flex items-center justify-between">
           <Button variant="ghost" onClick={() => setTestStarted(false)}>
@@ -400,55 +530,53 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl">{currentQ.text}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <RadioGroup
-            value={answers[currentQ.id] || ''}
-            onValueChange={(value) => handleAnswer(currentQ.id, value)}
-          >
-            <div className="space-y-3">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">{currentQ.text}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <RadioGroup
+              value={answers[currentQ.id] || ''}
+              onValueChange={(value) => handleAnswer(currentQ.id, value)}
+              className="space-y-3"
+            >
               {options.map((option, index) => {
                 const optionValue = getOptionValue(option)
                 const optionLabel = getOptionLabel(option)
                 return (
-                  <div
+                  <RadioGroupItem
                     key={optionValue}
-                    className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-accent cursor-pointer"
+                    value={optionValue}
+                    id={`option-${index}`}
+                    aria-label={optionLabel}
                   >
-                    <RadioGroupItem value={optionValue} id={`option-${index}`} />
-                    <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                      {optionLabel}
-                    </Label>
-                  </div>
+                    <span className="text-base">{optionLabel}</span>
+                  </RadioGroupItem>
                 )
               })}
-            </div>
-          </RadioGroup>
+            </RadioGroup>
 
-          <div className="flex gap-3 pt-4">
-            <Button
-              variant="outline"
-              onClick={handlePrevious}
-              disabled={currentQuestion === 0}
-              className="flex-1"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Anterior
-            </Button>
-            <Button
-              onClick={handleNext}
-              disabled={!answers[currentQ.id]}
-              className="flex-1"
-            >
-              {currentQuestion === test.questions.length - 1 ? 'Finalizar' : 'Próxima'}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+            <div className="flex gap-3 pt-4">
+              <Button
+                variant="outline"
+                onClick={handlePrevious}
+                disabled={currentQuestion === 0}
+                className="flex-1"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Anterior
+              </Button>
+              <Button
+                onClick={handleNext}
+                disabled={!answers[currentQ.id]}
+                className="flex-1"
+              >
+                {currentQuestion === test.questions.length - 1 ? 'Finalizar' : 'Próxima'}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   )
-}

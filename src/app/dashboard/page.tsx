@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import { Brain, Heart, Flame, Activity, Plus, FileText, TrendingUp, Users, Calendar, BarChart3, Clock, Target } from 'lucide-react'
+import { getCategoryLabel } from '@/lib/categories'
 import { useEffect, useMemo, useState } from 'react'
 
 interface TestResult {
@@ -308,7 +309,7 @@ export default function DashboardPage() {
                                 </p>
                               </div>
                               <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(test.category)}`}>
-                                {test.category}
+                                {getCategoryLabel(test.category)}
                               </span>
                             </div>
                           </div>

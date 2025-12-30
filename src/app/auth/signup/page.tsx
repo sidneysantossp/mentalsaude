@@ -179,6 +179,12 @@ export default function SignUp() {
               </Link>
             </div>
 
+            <div className="mt-3 text-center text-sm">
+              <Link href="/" className="text-blue-600 hover:underline">
+                ← Voltar para a Home
+              </Link>
+            </div>
+
             <div className="mt-4 text-xs text-gray-500 text-center">
               Ao criar uma conta, você concorda com nossos{' '}
               <Link href="/terms" className="text-blue-600 hover:underline">

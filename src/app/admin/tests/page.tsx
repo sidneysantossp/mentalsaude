@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Plus, Edit, Trash2, Eye } from 'lucide-react'
+import { getCategoryLabel } from '@/lib/categories'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,17 +30,6 @@ async function getTests() {
 
 export default async function TestsPage() {
   const tests = await getTests()
-
-  const categoryLabels: Record<string, string> = {
-    DEPRESSION: 'Depressão',
-    ANXIETY: 'Ansiedade',
-    BURNOUT: 'Burnout',
-    ADHD: 'TDAH',
-    OCD: 'TOC',
-    STRESS: 'Estresse',
-    SLEEP: 'Sono',
-    SELF_ESTEEM: 'Autoestima'
-  }
 
   return (
     <div className="p-8">
@@ -74,7 +64,7 @@ export default async function TestsPage() {
                   <div className="flex-1">
                     <CardTitle className="text-lg mb-2">{test.title}</CardTitle>
                     <Badge variant="secondary" className="mb-2">
-                      {categoryLabels[test.category] || test.category}
+                      {getCategoryLabel(test.category)}
                     </Badge>
                   </div>
                   <Badge variant={test.isActive ? "default" : "secondary"}>
