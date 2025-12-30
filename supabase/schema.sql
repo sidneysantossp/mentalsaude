@@ -17,6 +17,7 @@ CREATE TABLE public.profiles (
   email TEXT,
   name TEXT,
   role user_role DEFAULT 'USER',
+  password_hash TEXT, -- Para autenticação local com JWT
   date_of_birth TIMESTAMP,
   phone TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -27,10 +28,14 @@ CREATE TABLE public.profiles (
 CREATE TABLE public.tests (
   id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   title TEXT NOT NULL,
+  slug TEXT UNIQUE, -- URL canônica baseada no título
   description TEXT NOT NULL,
+  short_description TEXT, -- mini descrição para o card
   category test_category NOT NULL,
   instructions TEXT NOT NULL,
   time_limit INTEGER, -- em minutos
+  is_premium BOOLEAN DEFAULT false, -- gratuito ou premium
+  card_image TEXT, -- URL da imagem destacada do card
   is_active BOOLEAN DEFAULT true,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -211,12 +216,12 @@ CREATE TRIGGER on_auth_user_created
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
 -- Inserir dados iniciais de testes
-INSERT INTO public.tests (title, description, category, instructions, time_limit) VALUES
-('Teste de Depressão', 'Avaliação de sintomas depressivos e estado emocional', 'DEPRESSION', 'Responda cada questão com base em como você se sentiu nas últimas duas semanas.', 10),
-('Teste de Ansiedade', 'Medição de níveis de ansiedade e preocupação', 'ANXIETY', 'Responda cada questão com base em como você se sentiu nas últimas duas semanas.', 10),
-('Teste de ADHD - Atenção', 'Avaliação de déficit de atenção', 'ADHD', 'Marque a opção que melhor descreve sua frequência de cada sintoma.', 15),
-('Teste de ADHD - Hiperatividade', 'Avaliação de sintomas de hiperatividade', 'ADHD', 'Marque a opção que melhor descreve sua frequência de cada sintoma.', 15),
-('Teste de Estresse', 'Avaliação do nível de estresse atual', 'STRESS', 'Responda com base em como você se sentiu no último mês.', 10),
-('Teste de Compulsão Alimentar', 'Identificação de padrões alimentares', 'OCD', 'Responda com base em seus hábitos alimentares dos últimos 3 meses.', 15),
-('Teste de Sofrimento Psíquico', 'Medição de sofrimento psicológico geral', 'DEPRESSION', 'Avalie sua saúde mental geral nas últimas semanas.', 12),
-('Teste de Fobia Social', 'Avaliação de ansiedade em situações sociais', 'ANXIETY', 'Responda com base em como você se sente em situações sociais.', 15);
+INSERT INTO public.tests (title, slug, description, short_description, category, instructions, time_limit) VALUES
+('PHQ-9 - Teste de Depressão', 'phq-9', 'Escala de avaliação de sintomas depressivos baseada nos nove critérios do DSM-5. Foi validada em diferentes populações e é amplamente usada para triagem.', 'Triagem confiável para sintomas de depressão em adultos.', 'DEPRESSION', 'Responda cada questão com base em como você se sentiu nas últimas duas semanas.', 10),
+('GAD-7 - Teste de Ansiedade', 'gad-7', 'Instrumento de sete questões que rastreia sintomas de ansiedade generalizada em adultos. É rápido, validado e útil para monitoramento.', 'Triagem segura para ansiedade generalizada.', 'ANXIETY', 'Responda cada questão com base em como você se sentiu nas últimas duas semanas.', 10),
+('Teste de ADHD - Atenção', 'teste-adhd-atencao', 'Avaliação de déficit de atenção', 'Avaliação completa para sintomas de déficit de atenção.', 'ADHD', 'Marque a opção que melhor descreve sua frequência de cada sintoma.', 15),
+('Teste de ADHD - Hiperatividade', 'teste-adhd-hiperatividade', 'Avaliação de sintomas de hiperatividade', 'Avaliação completa para sintomas de hiperatividade.', 'ADHD', 'Marque a opção que melhor descreve sua frequência de cada sintoma.', 15),
+('Teste de Estresse', 'teste-estresse', 'Avaliação do nível de estresse atual', 'Medição precisa do nível de estresse atual.', 'STRESS', 'Responda com base em como você se sentiu no último mês.', 10),
+('Teste de Compulsão Alimentar', 'teste-compulsao-alimentar', 'Identificação de padrões alimentares', 'Avaliação de padrões alimentares compulsivos.', 'OCD', 'Responda com base em seus hábitos alimentares dos últimos 3 meses.', 15),
+('Teste de Sofrimento Psíquico', 'teste-sofrimento-psiquico', 'Medição de sofrimento psicológico geral', 'Avaliação geral do sofrimento psicológico.', 'DEPRESSION', 'Avalie sua saúde mental geral nas últimas semanas.', 12),
+('SPIN - Teste de Fobia Social', 'teste-fobia-social', 'Instrumento de 17 itens que avalia medo e evitamento de situações sociais. Útil para identificar transtorno de ansiedade social e monitorar tratamento.', 'Avaliação completa para ansiedade em situações sociais.', 'ANXIETY', 'Responda com base em como você se sente em situações sociais.', 15);

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserTestResults } from '@/lib/mysql'
+import { getUserTestResults } from '@/lib/db'
 import ZAI from 'z-ai-web-dev-sdk'
 
 // Mock test data for fallback

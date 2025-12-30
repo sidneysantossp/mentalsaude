@@ -7,13 +7,14 @@ import { conditionHubs } from '@/lib/condition-hubs'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const condition = conditionHubs[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const condition = conditionHubs[slug]
   if (!condition) return {}
   return {
     title: `${condition.title} | Mental Saúde Tests`,
@@ -27,8 +28,9 @@ export function generateMetadata({ params }: Props) {
   }
 }
 
-export default function ConditionPage({ params }: Props) {
-  const condition = conditionHubs[params.slug]
+export default async function ConditionPage({ params }: Props) {
+  const { slug } = await params
+  const condition = conditionHubs[slug]
   if (!condition) {
     notFound()
   }

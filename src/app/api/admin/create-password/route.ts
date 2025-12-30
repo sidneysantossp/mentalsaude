@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,33 +16,18 @@ export async function POST(request: NextRequest) {
     
     // Tentar usar MySQL primeiro
     try {
-      const { db } = await import('@/lib/mysql')
+      const { prisma } = await import('@/lib/database')
       
       // Verificar se o usuário existe
-      const users = await db.query(
-        'SELECT id, email, name, role FROM users WHERE email = ?',
-        [email]
-      ) as any[]
+      const users = await prisma.$queryRaw`SELECT id, email, name, role FROM users WHERE email = ${email}` as any[]
       
       if (!users || users.length === 0) {
         console.log('❌ Usuário não encontrado no MySQL')
         
         // Criar usuário no MySQL se não existir
-        const bcrypt = require('bcryptjs')
         const hashedPassword = await bcrypt.hash(newPassword, 10)
         
-        await db.query(
-          'INSERT INTO users (id, email, name, password, role, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?)',
-          [
-            Date.now().toString(),
-            email,
-            email.split('@')[0],
-            hashedPassword,
-            'ADMIN',
-            new Date(),
-            new Date()
-          ]
-        )
+        await prisma.$queryRaw`INSERT INTO users (id, email, name, password, role, createdAt, updatedAt) VALUES (${Date.now().toString()}, ${email}, ${email.split('@')[0]}, ${hashedPassword}, ${'ADMIN'}, ${new Date()}, ${new Date()})`
         
         console.log('✅ Usuário criado no MySQL com senha padrão!')
         
@@ -57,26 +43,19 @@ export async function POST(request: NextRequest) {
         })
       }
       
-      const user = users[0]
+      const user = (users as any[])[0]
       console.log('✅ Usuário encontrado no MySQL:', user.email)
       
       // Garantir que é ADMIN
       if (user.role !== 'ADMIN') {
-        await db.query(
-          'UPDATE users SET role = ? WHERE email = ?',
-          ['ADMIN', email]
-        )
+        await prisma.$queryRaw`UPDATE users SET role = ${'ADMIN'} WHERE email = ${email}`
         console.log('✅ Usuário promovido para ADMIN!')
       }
       
       // Atualizar senha
-      const bcrypt = require('bcryptjs')
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       
-      await db.query(
-        'UPDATE users SET password = ?, updatedAt = ? WHERE email = ?',
-        [hashedPassword, new Date(), email]
-      )
+      await prisma.$queryRaw`UPDATE users SET password = ${hashedPassword}, updatedAt = ${new Date()} WHERE email = ${email}`
       
       console.log('✅ Senha atualizada com sucesso!')
       
@@ -98,7 +77,7 @@ export async function POST(request: NextRequest) {
       })
       
     } catch (dbError) {
-      console.log('⚠️ MySQL não disponível, usando fallback mode:', dbError.message)
+      console.log('⚠️ MySQL não disponível, usando fallback mode:', (dbError as Error).message)
       
       // Fallback: Usar memória local
       if (typeof globalThis !== 'undefined' && globalThis.fallbackUsers) {
@@ -106,7 +85,6 @@ export async function POST(request: NextRequest) {
         
         if (!user) {
           // Criar usuário se não existir
-          const bcrypt = require('bcryptjs')
           const hashedPassword = await bcrypt.hash(newPassword, 10)
           
           user = {
@@ -122,11 +100,11 @@ export async function POST(request: NextRequest) {
           console.log('✅ Usuário criado no fallback mode!')
         } else {
           // Atualizar usuário existente
-          const bcrypt = require('bcryptjs')
           const hashedPassword = await bcrypt.hash(newPassword, 10)
           
           user.password = hashedPassword
           user.role = 'ADMIN'
+          user.updatedAt = new Date().toISOString()
           
           console.log('✅ Usuário atualizado no fallback mode!')
         }
@@ -150,7 +128,6 @@ export async function POST(request: NextRequest) {
       }
       
       // Criar usuário no fallback
-      const bcrypt = require('bcryptjs')
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       
       const newUser = {
@@ -185,7 +162,7 @@ export async function POST(request: NextRequest) {
     console.error('❌ Erro ao criar senha:', error)
     return NextResponse.json({ 
       error: 'Erro interno do servidor',
-      details: error.message 
+      details: (error as Error).message 
     }, { status: 500 })
   }
 }

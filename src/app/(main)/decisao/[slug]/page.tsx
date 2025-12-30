@@ -5,13 +5,14 @@ import { Button } from '@/components/ui/button'
 import { decisionContents } from '@/lib/decision-content'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const entry = decisionContents[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const entry = decisionContents[slug]
   if (!entry) return {}
   return {
     title: `${entry.title} | Mental Saúde Tests`,
@@ -24,8 +25,9 @@ export function generateMetadata({ params }: Props) {
   }
 }
 
-export default function DecisionPage({ params }: Props) {
-  const entry = decisionContents[params.slug]
+export default async function DecisionPage({ params }: Props) {
+  const { slug } = await params
+  const entry = decisionContents[slug]
   if (!entry) {
     notFound()
   }

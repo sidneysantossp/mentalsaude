@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     
     // Tentar usar MySQL primeiro
     try {
-      const { db } = await import('@/lib/mysql')
+      const { db } = await import('@/lib/database')
       
       // Verificar se o usuário existe
       const users = await db.query(

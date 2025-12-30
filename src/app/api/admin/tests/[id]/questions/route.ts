@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma-db'
+import { getTestBySlug } from '@/lib/db'
+import { prisma } from '@/lib/database'
 
 export async function POST(
   request: NextRequest,

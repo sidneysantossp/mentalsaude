@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTestBySlug } from '@/lib/prisma-db'
+import { getTestBySlug } from '@/lib/db'
 import { getCategoryLabel } from '@/lib/categories'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'

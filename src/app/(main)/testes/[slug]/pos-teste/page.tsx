@@ -2,35 +2,37 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { getTestBySlug } from '@/lib/prisma-db'
+import { getTestBySlug } from '@/lib/db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export const dynamic = 'force-static'
 
 export async function generateMetadata({ params }: Props) {
-  const test = await getTestBySlug(params.slug)
+  const { slug } = await params
+  const test = await getTestBySlug(slug)
   if (!test) return {}
   return {
     title: `${test.title} — Pós-teste | Mental Saúde Tests`,
-    description: testsInfo[params.slug]?.nextSteps.title ?? 'Orientações para o próximo passo após o teste',
+    description: testsInfo[slug]?.nextSteps.title ?? 'Orientações para o próximo passo após o teste',
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'),
     openGraph: {
       title: `${test.title} — Pós-teste`,
-      description: testsInfo[params.slug]?.nextSteps.actions[0] ?? 'Recomendações práticas pós-medição'
+      description: testsInfo[slug]?.nextSteps.actions[0] ?? 'Recomendações práticas pós-medição'
     }
   }
 }
 
 export default async function TestPostPage({ params }: Props) {
-  const test = await getTestBySlug(params.slug)
+  const { slug } = await params
+  const test = await getTestBySlug(slug)
   if (!test) {
     notFound()
   }
-  const info = testsInfo[params.slug]
+  const info = testsInfo[slug]
   const actions =
     info?.nextSteps.actions ??
     [

@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTestBySlug } from '@/lib/prisma-db'
+import { getTestBySlug } from '@/lib/db'
 import { getCategoryLabel } from '@/lib/categories'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'
@@ -7,9 +7,10 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-  const test = await getTestBySlug(params.slug)
+  const { slug } = await params
+  const test = await getTestBySlug(slug)
 
   if (!test) {
     return {
@@ -37,7 +38,7 @@ export async function generateMetadata({
     const category = getCategoryLabel(test.category)
     description = `${description} Teste validado de ${category.toLowerCase()} com resultados imediatos e orientações profissionais.`
   }
-  const url = `${SITE_URL}/testes/${params.slug}`
+  const url = `${SITE_URL}/testes/${slug}`
 
   return {
     title,

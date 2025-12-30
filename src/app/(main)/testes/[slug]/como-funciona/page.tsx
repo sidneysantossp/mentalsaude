@@ -2,17 +2,18 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { getTestBySlug } from '@/lib/prisma-db'
+import { getTestBySlug } from '@/lib/db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export const dynamic = 'force-static'
 
 export async function generateMetadata({ params }: Props) {
-  const test = await getTestBySlug(params.slug)
+  const { slug } = await params
+  const test = await getTestBySlug(slug)
   if (!test) return {}
   const metadata: string[] = [
     test.shortDescription || test.description,
@@ -30,11 +31,12 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function TestInfoPage({ params }: Props) {
-  const test = await getTestBySlug(params.slug)
+  const { slug } = await params
+  const test = await getTestBySlug(slug)
   if (!test) {
     notFound()
   }
-  const info = testsInfo[params.slug]
+  const info = testsInfo[slug]
   const summaryPoints = info?.summaryPoints ?? [
     `Instrumento na categoria ${test.category}`,
     `${test.questions.length} questões com escala Likert`,

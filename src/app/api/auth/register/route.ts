@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createUser } from '@/lib/mysql'
+import { createUser } from '@/lib/database'
 
 export async function POST(request: NextRequest) {
   try {
