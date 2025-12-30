@@ -47,6 +47,343 @@ interface Test {
   questions: Question[]
 }
 
+type ArticleSection = {
+  id: string
+  title: string
+  summary: string
+  shortFocus: string
+  longTailKeywords: string[]
+  listItems: string[]
+  authorityLinks: { href: string; label: string }[]
+}
+
+type ArticleContext = {
+  testTitle: string
+  conditionName: string
+}
+
+const ARTICLE_CONNECTORS = [
+  'Comece avaliando se as emoções intensas persistem por semanas e se a rotina foi afetada.',
+  'Em seguida, observe se há perda de prazer nas atividades rotineiras e se o sono ficou irregular.',
+  'Depois, documente pensamentos negativos recorrentes e compare-os com episódios anteriores.',
+  'Também vale mapear fatores de estresse recentes, como carga de trabalho, família ou pandemia.',
+  'Considere se há sintoma físico associado, como dores inexplicáveis ou alterações no apetite.',
+  'Uma parte crucial é analisar o impacto nas relações interpessoais e no desempenho profissional.',
+  'Procure registrar a frequência e intensidade dos episódios para discutir com um especialista.',
+  'A partir desse registro, priorize estratégias de autocuidado e rotinas estruturadas.',
+  'Inclua membros da rede de apoio para manter o acompanhamento constante.',
+  'Por fim, mantenha um plano de segurança visível e revise o progresso com o profissional.'
+]
+
+const ARTICLE_SECTIONS: ArticleSection[] = [
+  {
+    id: 'diferenca-tristeza',
+    title: 'Como distinguir tristeza passageira de depressão persistente',
+    summary:
+      'Aprenda a reconhecer a diferença entre tristeza ocasional e um quadro depressivo que exige intervenção.\nFoque em duração, intensidade e prejuízo funcional para certificar que o PHQ-9 é o instrumento certo.\nMantenha a curiosidade sobre o que impulsiona esses sentimentos antes de avançar com o teste.',
+    shortFocus: 'diferença entre tristeza e depressão persistente',
+    longTailKeywords: [
+      'diferença tristeza e depressão online',
+      'como saber se é depressão ou cansaço crônico',
+      'teste psicológico para detectar depressão persistente'
+    ],
+    listItems: [
+      '**Duração:** tristeza que some em dias raramente exige triagem formal.',
+      '**Intensidade:** tristeza leve que não bloqueia a vida ainda difere de anedonia profunda.',
+      '**Funcionamento:** quando o humor compromete trabalho, estudos e relacionamentos, o teste ganha peso'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'sintomas',
+    title: 'Sintomas físicos e emocionais que você deve registrar',
+    summary:
+      'Listar sinais físicos e emocionais ajuda a montar um dossiê rico para o teste.\nObserve alterações no sono, apetite e energia além da mente acelerada.\nDocumente tudo para ter dados concretos durante a aplicação do teste.',
+    shortFocus: 'sintomas físicos e emocionais para monitorar',
+    longTailKeywords: [
+      'sintomas físicos de depressão persistente',
+      'como ansiedade se manifesta no corpo',
+      'testes psiquiátricos para fadiga constante'
+    ],
+    listItems: [
+      '**Sono:** insônia ou hipersonia frequente',
+      '**Corpo:** dores sem causa clara e fadiga contínua',
+      '**Emoções:** culpa excessiva, irritabilidade e medo constante'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'interpretacao-resultados',
+    title: 'Interpretando os resultados do PHQ-9 (ou GAD-7) com precisão',
+    summary:
+      'Descubra como converter os números em insights reais e tirar proveito dos testes disponíveis.\nCompreenda a escala, as faixas de gravidade e o que elas significam para você.\nUse esse entendimento para conversar com um profissional preparado.',
+    shortFocus: 'interpretação precisa dos resultados do PHQ-9 e GAD-7',
+    longTailKeywords: [
+      'interpretar PHQ-9 online',
+      'escores do GAD-7 explicados',
+      'faixas de gravidade do teste psiquiátrico'
+    ],
+    listItems: [
+      '**Faixas baixas:** 0-4 indica sintomas mínimos, mas acompanhe se o quadro evoluir.',
+      '**Faixas intermediárias:** 10-19 merece atenção terapêutica e conversa com especialista.',
+      '**Faixas altas:** 20+ sinaliza risco e precisa de encaminhamento urgente.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'quando-ajuda',
+    title: 'Quando procurar ajuda médica e quais serviços do SUS acionar',
+    summary:
+      'Saiba identificar o momento certo de buscar suporte clínico e quais portas do SUS abrir.\nDescubra quais sinais exigem encaminhamento imediato e como priorizar agenda de psiquiatria.\nTenha a segurança de saber que a rede pública dispõe de respostas atualizadas.',
+    shortFocus: 'recursos médicos e SUS para transtornos mentais',
+    longTailKeywords: [
+      'quando ir para o SUS com depressão',
+      'agendar psiquiatra SUS ansiedade',
+      'redes de apoio governamentais saúde mental'
+    ],
+    listItems: [
+      '**CAPS e atenção básica:** portas de entrada para triagens e suporte humanizado.',
+      '**Samu 192 e UPAs:** para crises agudas que exigem atenção imediata.',
+      '**Referências:** leve o resultado do teste para acelerar a triagem.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'autocuidado',
+    title: 'Estratégias práticas de autocuidado e rotinas que reforçam o bem-estar',
+    summary:
+      'Construa hábitos que sustentam a estabilidade emocional durante e depois do teste.\nCombine sono regular, movimento e refeições com intenção para criar alicerces sólidos.\nRegistre os lembretes de autocuidado para revisitar sempre que o humor cair.',
+    shortFocus: 'autocuidado para depressão e ansiedade no cotidiano',
+    longTailKeywords: [
+      'rotina para depressão leve',
+      'autocuidado para ansiedade generalizada',
+      'planos de bem-estar mental para adultos'
+    ],
+    listItems: [
+      '**Sono ritualizado:** mantenha horários consistentes mesmo em dias ruins.',
+      '**Movimento diário:** pequenas caminhadas reduzem o cortisol e acalmam o cérebro.',
+      '**Nutrição consciente:** alimentos ricos em triptofano estabilizam neurotransmissores.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'consulta-profissional',
+    title: 'Como relatar seus sintomas ao psiquiatra ou psicólogo',
+    summary:
+      'Traga os dados do teste, fale da frequência e intensidade e mostre o histórico pessoal.\nVamos guiar você para que a conversa com o profissional seja clara, objetiva e confiante.\nInclua detalhes que ajudem a ajustar diagnóstico e tratamento desde a primeira consulta.',
+    shortFocus: 'preparo para consulta psiquiátrica e descrição de sintomas',
+    longTailKeywords: [
+      'como falar com psiquiatra sobre ansiedade',
+      'preparo para consulta de saúde mental',
+      'relato de sintomas para psicólogo'
+    ],
+    listItems: [
+      '**Relate o que mudou:** detalhes de início, frequência e gatilhos.',
+      '**Mostre os registros:** leve anotações do teste, diário de humor e eventos estressores.',
+      '**Priorize segurança:** mencione pensamentos de crise mesmo que escapem do teste.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'mitos',
+    title: 'Desmistificando mitos sobre depressão e ansiedade',
+    summary:
+      'Questione a desinformação e entenda o que é real nos medos de quem busca ajuda.\nOs mitos comuns sobre fraqueza ou falta de fé atrapalham o diagnóstico precoce.\nTenha clareza para separar dados científicos das crenças populares.',
+    shortFocus: 'mitos e verdades sobre transtornos mentais',
+    longTailKeywords: [
+      'mitos sobre depressão no Brasil',
+      'verdades sobre ansiedade crônica',
+      'o que não significa depressão'
+    ],
+    listItems: [
+      '**Mito:** tristeza é sinal de fraqueza. **Verdade:** é sintoma neurológico legítimo.',
+      '**Mito:** antidepressivo vicia. **Verdade:** indicações precisas respeitam protocolos.',
+      '**Mito:** só terapia resolve. **Verdade:** combinação com clínica é mais eficiente.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'estilo-vida',
+    title: 'Como o estilo de vida influencia depressão, ansiedade e recuperação',
+    summary:
+      'Analise o impacto do sono, alimentação, álcool e ambiente de trabalho no seu quadro mental.\nPequenas mudanças em hábitos cotidianos podem reverter a sensação de sobrecarga.\nUse o teste como base para revisar cada domínio da sua vida.',
+    shortFocus: 'estilo de vida e comportamentos na saúde mental',
+    longTailKeywords: [
+      'como o sono afeta a depressão',
+      'atividade física e ansiedade',
+      'hábitos alimentares na saúde mental'
+    ],
+    listItems: [
+      '**Sono irregular:** afeta regulação emocional e sensibilidade ao estresse.',
+      '**Sedentarismo:** reduz oxigenação cerebral e aumenta a ruminação.',
+      '**Uso de álcool:** pode mascarar sintomas e interferir em medicamentos.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'monitoramento',
+    title: 'Monitoramento contínuo e reavaliação do quadro',
+    summary:
+      'Aprenda a usar o teste como régua de acompanhamento, não apenas como diagnóstico único.\nReavalie pontuações, compare registros e discuta mudanças a cada ciclo.\nIsso garante previsibilidade e segurança para sua jornada terapêutica.',
+    shortFocus: 'monitoramento contínuo de sintomas depressivos e ansiosos',
+    longTailKeywords: [
+      'monitorar sintomas depressivos com testes',
+      'reavaliar resultados psiquiátricos online',
+      'uso de diários de humor e testes'
+    ],
+    listItems: [
+      '**Compare faixas:** acompanhe se as pontuações sobem, caem ou se mantêm.',
+      '**Integre dados:** combine resposta do teste com o diário emocional.',
+      '**Ajuste plano:** revise metas com o profissional a cada avaliação.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  },
+  {
+    id: 'por-que-mental-saude',
+    title: 'Por que realizar este teste na Mental Saúde é uma decisão estratégica',
+    summary:
+      'Valorize o ambiente protegido e documentado da nossa plataforma antes de iniciar o teste.\nBasta um clique para manter o histórico, salvar documentos e acessar recomendações personalizadas.\nSua jornada é orientada por dados, segurança e integração com profissionais ali recomendados.',
+    shortFocus: 'vantagens do teste psicológico online na Mental Saúde',
+    longTailKeywords: [
+      'teste psicológico online mental saúde',
+      'plataforma confiável para triagem mental',
+      'benefícios de salvar resultados no app'
+    ],
+    listItems: [
+      '**Salvar resultados:** garante histórico para acompanhar progresso.',
+      '**Segurança:** dados criptografados e controle de privacidade.',
+      '**Integração:** encaminhamos para especialistas e recursos governamentais.'
+    ],
+    authorityLinks: [
+      { href: 'https://www.gov.br/anvisa/pt-br', label: 'Anvisa' },
+      { href: 'https://www.gov.br/saude', label: 'Ministério da Saúde' }
+    ]
+  }
+]
+
+const buildArticleParagraphs = (section: ArticleSection, context: ArticleContext) => {
+  return ARTICLE_CONNECTORS.map((connector, index) => {
+    const keywordList = section.longTailKeywords.join(', ')
+    const sentences = [
+      `A ${section.shortFocus} ajuda a decodificar sintomas e a alicerçar cada ponto da jornada de conhecimento.`,
+      `No contexto de ${keywordList} e da categoria ${context.conditionName.toLowerCase()}, as observações ganham clareza.`,
+      `${connector} Ao combinar esses dados com ${context.testTitle}, você cria um histórico que respeita a singularidade do seu caso.`,
+      `Os termos de transição como “depois”, “além disso” e “outra perspectiva” reforçam o alinhamento entre o que essa página entrega e as intenções de busca.`,
+      `A cada parágrafo você amplia o repertório, pulsa nos long tails e fortalece a narrativa que explica o teste em nossa plataforma.`
+    ]
+    return sentences.join(' ')
+  })
+}
+
+const formatParagraphText = (text: string) => {
+  return text.split('**').map((chunk, index) =>
+    index % 2 === 1 ? (
+      <strong key={`${chunk}-${index}`}>{chunk}</strong>
+    ) : (
+      chunk
+    )
+  )
+}
+
+function SEOArticle({ testTitle, conditionName }: ArticleContext) {
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({})
+  const context = { testTitle, conditionName }
+  const toggleSection = (id: string) => {
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  return (
+    <section className="space-y-10 rounded-3xl border border-slate-200 bg-white px-6 py-8 shadow-lg">
+      <h2 className="text-2xl font-semibold text-slate-900">Conteúdo exclusivo sobre {conditionName}</h2>
+      {ARTICLE_SECTIONS.map(section => {
+        const isOpen = expanded[section.id]
+        const detailParagraphs = buildArticleParagraphs(section, context)
+        return (
+          <article key={section.id} className="space-y-6 border-t border-slate-100 pt-6 first:border-t-0">
+            <h3 className="text-xl font-semibold text-slate-900">{section.title}</h3>
+            <p
+              className="text-sm text-slate-600"
+              style={{
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden'
+              }}
+            >
+              {section.summary}
+            </p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+              Palavras-chave: {section.longTailKeywords.join(' • ')}
+            </p>
+            <div className={`${isOpen ? '' : 'hidden'} space-y-4`}>
+              {detailParagraphs.map((paragraph, index) => (
+                <p key={`${section.id}-detail-${index}`} className="text-sm leading-relaxed text-slate-700">
+                  {formatParagraphText(paragraph)}
+                </p>
+              ))}
+              <div className="space-y-2">
+                <p className="text-sm font-semibold text-slate-900">Pontos estratégicos</p>
+                <ul className="list-disc space-y-1 pl-5 text-sm text-slate-600">
+                  {section.listItems.map(item => (
+                    <li key={`${section.id}-list-${item}`}>{formatParagraphText(item)}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-wrap gap-3 text-sm text-blue-600">
+                {section.authorityLinks.map(link => (
+                  <Link
+                    key={`${section.id}-link-${link.href}`}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <button
+              type="button"
+              className="text-sm font-semibold text-slate-900 underline"
+              onClick={() => toggleSection(section.id)}
+            >
+              {isOpen ? 'Leia menos' : 'Leia mais'}
+            </button>
+          </article>
+        )
+      })}
+    </section>
+  )
+}
+
 const CATEGORY_TO_CONDITION_SLUG: Record<string, string> = {
   DEPRESSION: 'depressao',
   ANXIETY: 'ansiedade'
@@ -301,6 +638,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   }
 
   if (!testStarted) {
+    const categoryLabel = getCategoryLabel(test.category)
     return (
       <>
         {renderStructuredData()}
@@ -320,7 +658,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
                 <CardDescription className="text-base">{test.description}</CardDescription>
               </div>
               <Badge variant="outline" className="ml-4">
-                {getCategoryLabel(test.category)}
+                {categoryLabel}
               </Badge>
             </div>
           </CardHeader>
@@ -387,6 +725,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
             </Button>
           </CardContent>
         </Card>
+        <div className="mt-10">
+          <SEOArticle testTitle={test.title} conditionName={categoryLabel} />
+        </div>
       </div>
     </>
   )
