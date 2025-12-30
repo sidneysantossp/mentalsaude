@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/components/ui/card'
-import { getTests } from '@/lib/prisma-db'
 import { getCategoryLabel } from '@/lib/categories'
 import { Metadata } from 'next'
 
@@ -14,7 +13,20 @@ export const metadata: Metadata = {
   keywords: ['testes psicológicos', 'avaliação mental', 'saúde mental', 'depressão', 'ansiedade', 'testes online'],
 }
 
-function formatTime(test: Awaited<ReturnType<typeof getTests>>[number]) {
+async function getTests() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/tests`, {
+      cache: 'no-store'
+    })
+    if (!response.ok) return []
+    return await response.json()
+  } catch (error) {
+    console.error('Error fetching tests:', error)
+    return []
+  }
+}
+
+function formatTime(test: any) {
   if (test.timeLimit) {
     return `${test.timeLimit} min`
   }
