@@ -6,21 +6,28 @@ import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, Edit, Trash2, Plus, Clock, FileText } from 'lucide-react'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 async function getTest(id: string) {
-  const test = await prisma.test.findUnique({
-    where: { id },
-    include: {
-      questions: {
-        orderBy: { order: 'asc' }
-      },
-      _count: {
-        select: {
-          testResults: true
+  try {
+    const test = await prisma.test.findUnique({
+      where: { id },
+      include: {
+        questions: {
+          orderBy: { order: 'asc' }
+        },
+        _count: {
+          select: {
+            testResults: true
+          }
         }
       }
-    }
-  })
-  return test
+    })
+    return test
+  } catch (error) {
+    console.error('Error fetching test:', error)
+    return null
+  }
 }
 
 export default async function TestDetailPage({ params }: { params: Promise<{ id: string }> }) {

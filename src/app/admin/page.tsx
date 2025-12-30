@@ -9,13 +9,16 @@ import {
   BookOpen
 } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 async function getStats() {
-  const [totalUsers, totalTests, totalResults, totalPosts] = await Promise.all([
-    prisma.user.count(),
-    prisma.test.count(),
-    prisma.testResult.count(),
-    0 // Blog posts - implementar depois
-  ])
+  try {
+    const [totalUsers, totalTests, totalResults, totalPosts] = await Promise.all([
+      prisma.user.count(),
+      prisma.test.count(),
+      prisma.testResult.count(),
+      0 // Blog posts - implementar depois
+    ])
 
   const recentUsers = await prisma.user.count({
     where: {
@@ -41,10 +44,22 @@ async function getStats() {
     recentUsers,
     recentResults
   }
+  } catch (error) {
+    console.error('Error fetching stats:', error)
+    return {
+      totalUsers: 0,
+      totalTests: 0,
+      totalResults: 0,
+      totalPosts: 0,
+      recentUsers: 0,
+      recentResults: 0
+    }
+  }
 }
 
 async function getRecentActivity() {
-  const recentUsers = await prisma.user.findMany({
+  try {
+    const recentUsers = await prisma.user.findMany({
     take: 5,
     orderBy: { createdAt: 'desc' },
     select: {
@@ -69,6 +84,10 @@ async function getRecentActivity() {
   })
 
   return { recentUsers, recentResults }
+  } catch (error) {
+    console.error('Error fetching recent activity:', error)
+    return { recentUsers: [], recentResults: [] }
+  }
 }
 
 export default async function AdminDashboard() {

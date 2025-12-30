@@ -5,18 +5,25 @@ import { Button } from '@/components/ui/button'
 import { Users, Mail, Calendar, Shield } from 'lucide-react'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 async function getUsers() {
-  const users = await prisma.user.findMany({
-    include: {
-      _count: {
-        select: {
-          testResults: true
+  try {
+    const users = await prisma.user.findMany({
+      include: {
+        _count: {
+          select: {
+            testResults: true
+          }
         }
-      }
-    },
-    orderBy: { createdAt: 'desc' }
-  })
-  return users
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+    return users
+  } catch (error) {
+    console.error('Error fetching users:', error)
+    return []
+  }
 }
 
 export default async function UsersPage() {

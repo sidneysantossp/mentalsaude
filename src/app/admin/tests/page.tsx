@@ -5,19 +5,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Plus, Edit, Trash2, Eye } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 async function getTests() {
-  const tests = await prisma.test.findMany({
-    include: {
-      questions: true,
-      _count: {
-        select: {
-          testResults: true
+  try {
+    const tests = await prisma.test.findMany({
+      include: {
+        questions: true,
+        _count: {
+          select: {
+            testResults: true
+          }
         }
-      }
-    },
-    orderBy: { createdAt: 'desc' }
-  })
-  return tests
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+    return tests
+  } catch (error) {
+    console.error('Error fetching tests:', error)
+    return []
+  }
 }
 
 export default async function TestsPage() {

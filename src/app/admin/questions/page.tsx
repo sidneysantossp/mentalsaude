@@ -5,16 +5,23 @@ import { Badge } from '@/components/ui/badge'
 import { HelpCircle, Plus, Edit, Trash2, FileText } from 'lucide-react'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 async function getQuestionsWithTests() {
-  const tests = await prisma.test.findMany({
-    include: {
-      questions: {
-        orderBy: { order: 'asc' }
-      }
-    },
-    orderBy: { title: 'asc' }
-  })
-  return tests
+  try {
+    const tests = await prisma.test.findMany({
+      include: {
+        questions: {
+          orderBy: { order: 'asc' }
+        }
+      },
+      orderBy: { title: 'asc' }
+    })
+    return tests
+  } catch (error) {
+    console.error('Error fetching tests:', error)
+    return []
+  }
 }
 
 export default async function QuestionsPage() {
