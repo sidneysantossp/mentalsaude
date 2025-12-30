@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { prisma } from '@/lib/prisma-db'
 
 export async function GET(request: NextRequest) {
   try {
-    const tests = await db.test.findMany({
+    const tests = await prisma.test.findMany({
       include: {
         _count: {
           select: {
@@ -105,7 +105,17 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { title, description, category, instructions, timeLimit, isActive } = body
+    const {
+      title,
+      description,
+      category,
+      instructions,
+      timeLimit,
+      isActive,
+      shortDescription,
+      isPremium,
+      cardImage
+    } = body
 
     if (!title || !description || !category || !instructions) {
       return NextResponse.json(
@@ -114,13 +124,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const newTest = await db.test.create({
+    const newTest = await prisma.test.create({
       data: {
         title,
         description,
+        shortDescription: shortDescription || null,
         category,
         instructions,
         timeLimit: timeLimit ? parseInt(timeLimit) : null,
+        isPremium: isPremium !== undefined ? isPremium : false,
+        cardImage: cardImage || null,
         isActive: isActive !== undefined ? isActive : true
       }
     })
@@ -131,9 +144,12 @@ export async function POST(request: NextRequest) {
         id: newTest.id,
         title: newTest.title,
         description: newTest.description,
+        shortDescription: newTest.shortDescription,
         category: newTest.category,
         instructions: newTest.instructions,
         timeLimit: newTest.timeLimit,
+        isPremium: newTest.isPremium,
+        cardImage: newTest.cardImage,
         isActive: newTest.isActive,
         createdAt: newTest.createdAt.toISOString()
       }

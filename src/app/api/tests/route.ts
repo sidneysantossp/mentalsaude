@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTests } from '@/lib/mysql'
+import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
-    const tests = await getTests()
+    const tests = await prisma.test.findMany({
+      where: { isActive: true },
+      include: {
+        questions: true
+      },
+      orderBy: { createdAt: 'asc' }
+    })
 
     // If no tests in database, return mock data
     if (!tests || tests.length === 0) {
@@ -107,19 +113,16 @@ export async function GET(request: NextRequest) {
     const formattedTests = tests.map(test => ({
       id: test.id,
       title: test.title,
+      slug: test.slug,
       description: test.description,
       category: test.category,
-      timeLimit: test.duration_minutes,
-      instructions: 'Para cada questão, selecione a resposta que melhor descreve como você se sentiu.',
-      questionCount: test.question_count,
-      difficulty: test.difficulty_level,
-      estimatedTime: `${test.duration_minutes} min`
+      timeLimit: test.timeLimit,
+      instructions: test.instructions,
+      questionCount: test.questions.length,
+      estimatedTime: test.timeLimit ? `${test.timeLimit} min` : 'Sem limite'
     }))
 
-    return NextResponse.json({
-      success: true,
-      tests: formattedTests
-    })
+    return NextResponse.json(formattedTests)
   } catch (error) {
     console.error('Error fetching tests:', error)
     return NextResponse.json(

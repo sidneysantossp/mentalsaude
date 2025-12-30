@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 import { Brain, Heart, Flame, Activity, Plus, FileText, TrendingUp, Users, Calendar, BarChart3, Clock, Target } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface TestResult {
   id: string
@@ -78,25 +78,56 @@ export default function DashboardPage() {
   }
 
   // Calculate stats from real data
-  const userStats = {
-    totalTests: testResults.length,
-    lastTestDate: testResults.length > 0 
-      ? new Date(testResults[0].completedAt).toLocaleDateString('pt-BR')
-      : 'Nenhum teste',
-    averageScore: testResults.length > 0
-      ? Math.round(testResults.reduce((sum, result) => sum + result.totalScore, 0) / testResults.length)
-      : 0,
-    completedCategories: [...new Set(testResults.map(r => r.test.category))].length
-  }
+  const userStats = useMemo(
+    () => ({
+      totalTests: testResults.length,
+      lastTestDate:
+        testResults.length > 0
+          ? new Date(testResults[0].completedAt).toLocaleDateString('pt-BR')
+          : 'Nenhum teste',
+      averageScore:
+        testResults.length > 0
+          ? Math.round(
+              testResults.reduce((sum, result) => sum + result.totalScore, 0) /
+                testResults.length
+            )
+          : 0,
+      completedCategories: [...new Set(testResults.map((r) => r.test.category))].length
+    }),
+    [testResults]
+  )
 
-  const recentTests = testResults.slice(0, 5)
+  const recentTests = useMemo(() => testResults.slice(0, 5), [testResults])
 
-  const categories = [
-    { name: 'Depressão', icon: Brain, count: testResults.filter(r => r.test.category === 'DEPRESSION').length, color: 'text-blue-600' },
-    { name: 'Ansiedade', icon: Heart, count: testResults.filter(r => r.test.category === 'ANXIETY').length, color: 'text-green-600' },
-    { name: 'TDAH', icon: Activity, count: testResults.filter(r => r.test.category === 'ADHD').length, color: 'text-orange-600' },
-    { name: 'Estresse', icon: Flame, count: testResults.filter(r => r.test.category === 'STRESS').length, color: 'text-red-600' }
-  ]
+  const categories = useMemo(
+    () => [
+      {
+        name: 'Depressão',
+        icon: Brain,
+        count: testResults.filter((r) => r.test.category === 'DEPRESSION').length,
+        color: 'text-blue-600'
+      },
+      {
+        name: 'Ansiedade',
+        icon: Heart,
+        count: testResults.filter((r) => r.test.category === 'ANXIETY').length,
+        color: 'text-green-600'
+      },
+      {
+        name: 'TDAH',
+        icon: Activity,
+        count: testResults.filter((r) => r.test.category === 'ADHD').length,
+        color: 'text-orange-600'
+      },
+      {
+        name: 'Estresse',
+        icon: Flame,
+        count: testResults.filter((r) => r.test.category === 'STRESS').length,
+        color: 'text-red-600'
+      }
+    ],
+    [testResults]
+  )
 
   const getStatusColor = (category: string) => {
     switch (category.toLowerCase()) {

@@ -1,98 +1,118 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { prisma } from '@/lib/prisma-db'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useAuth } from '@/components/providers/mysql-auth-provider'
-import { 
-  FileText, 
-  ArrowLeft,
-  Shield
-} from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import { Plus, Edit, Trash2, Eye } from 'lucide-react'
 
-export default function AdminTests() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
+async function getTests() {
+  const tests = await prisma.test.findMany({
+    include: {
+      questions: true,
+      _count: {
+        select: {
+          testResults: true
+        }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  })
+  return tests
+}
 
-  useEffect(() => {
-    // Check if user is admin
-    if (!loading && (!user || user.role !== 'ADMIN')) {
-      router.push('/dashboard')
-      return
-    }
-  }, [loading, user, router])
+export default async function TestsPage() {
+  const tests = await getTests()
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!user || user.role !== 'ADMIN') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Shield className="h-12 w-12 text-red-600 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Acesso Restrito</h2>
-          <p className="text-gray-600">Você não tem permissão para acessar esta área.</p>
-        </div>
-      </div>
-    )
+  const categoryLabels: Record<string, string> = {
+    DEPRESSION: 'Depressão',
+    ANXIETY: 'Ansiedade',
+    BURNOUT: 'Burnout',
+    ADHD: 'TDAH',
+    OCD: 'TOC',
+    STRESS: 'Estresse',
+    SLEEP: 'Sono',
+    SELF_ESTEEM: 'Autoestima'
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/admin" className="mr-4">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Voltar
-                </Button>
-              </Link>
-              <h1 className="text-xl font-bold text-gray-900">Gerenciamento de Testes</h1>
-            </div>
-          </div>
+    <div className="p-8">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gerenciar Testes</h1>
+          <p className="text-gray-600">Crie e gerencie os testes psicológicos da plataforma</p>
         </div>
-      </header>
+        <Link href="/admin/tests/new">
+          <Button className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 hover:opacity-90">
+            <Plus className="w-4 h-4 mr-2" />
+            Novo Teste
+          </Button>
+        </Link>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <FileText className="h-5 w-5 text-blue-600" />
-              <span>Gerenciamento de Testes</span>
-            </CardTitle>
-            <CardDescription>
-              Funcionalidade em desenvolvimento. Em breve você poderá gerenciar testes aqui.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center py-8">
-              <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Funcionalidade em Desenvolvimento</h3>
-              <p className="text-gray-600 mb-4">
-                O gerenciamento completo de testes estará disponível em breve.
-              </p>
-              <Link href="/admin">
-                <Button>
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Voltar ao Dashboard
-                </Button>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tests.length === 0 ? (
+          <Card className="col-span-full">
+            <CardContent className="p-12 text-center">
+              <p className="text-gray-500 mb-4">Nenhum teste cadastrado ainda</p>
+              <Link href="/admin/tests/new">
+                <Button>Criar Primeiro Teste</Button>
               </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        ) : (
+          tests.map((test) => (
+            <Card key={test.id} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <CardTitle className="text-lg mb-2">{test.title}</CardTitle>
+                    <Badge variant="secondary" className="mb-2">
+                      {categoryLabels[test.category] || test.category}
+                    </Badge>
+                  </div>
+                  <Badge variant={test.isActive ? "default" : "secondary"}>
+                    {test.isActive ? 'Ativo' : 'Inativo'}
+                  </Badge>
+                </div>
+                <CardDescription className="line-clamp-2">
+                  {test.description}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 mb-4">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Questões:</span>
+                    <span className="font-medium">{test.questions.length}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Realizações:</span>
+                    <span className="font-medium">{test._count.testResults}</span>
+                  </div>
+                  {test.timeLimit && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Tempo limite:</span>
+                      <span className="font-medium">{test.timeLimit} min</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Link href={`/admin/tests/${test.id}`} className="flex-1">
+                    <Button variant="outline" className="w-full" size="sm">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Ver
+                    </Button>
+                  </Link>
+                  <Link href={`/admin/tests/${test.id}/edit`} className="flex-1">
+                    <Button variant="outline" className="w-full" size="sm">
+                      <Edit className="w-4 h-4 mr-2" />
+                      Editar
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
       </div>
     </div>
   )

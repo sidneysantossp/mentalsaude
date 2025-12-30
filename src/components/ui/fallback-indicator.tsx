@@ -9,8 +9,13 @@ export default function FallbackIndicator() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Check if we're in fallback mode
     const checkFallbackMode = async () => {
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        setIsFallback(true)
+        setIsVisible(true)
+        return
+      }
+
       try {
         const response = await fetch('/api/health')
         const data = await response.json()
@@ -23,11 +28,31 @@ export default function FallbackIndicator() {
     }
 
     checkFallbackMode()
-    
-    // Check every 30 seconds
-    const interval = setInterval(checkFallbackMode, 30000)
-    
-    return () => clearInterval(interval)
+
+    const interval = setInterval(() => {
+      if (typeof navigator === 'undefined' || navigator.onLine) {
+        checkFallbackMode()
+      }
+    }, 60000)
+
+    const handleOnline = () => checkFallbackMode()
+    const handleOffline = () => {
+      setIsFallback(true)
+      setIsVisible(true)
+    }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('online', handleOnline)
+      window.addEventListener('offline', handleOffline)
+    }
+
+    return () => {
+      clearInterval(interval)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('online', handleOnline)
+        window.removeEventListener('offline', handleOffline)
+      }
+    }
   }, [])
 
   if (!isVisible || !isFallback) {

@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -33,15 +33,19 @@ model User {
 }
 
 model Test {
-  id            String   @id @default(cuid())
-  title         String
-  description   String
-  category      TestCategory
-  instructions  String
-  timeLimit     Int?     // em minutos
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique // URL canônica baseada no título
+  description      String
+  shortDescription String?  // mini descrição para o card
+  category         TestCategory
+  instructions     String
+  timeLimit        Int?     // em minutos
+  isPremium        Boolean  @default(false) // gratuito ou premium
+  cardImage        String?  // URL da imagem destacada do card
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
   
   // Relacionamentos
   questions     Question[]

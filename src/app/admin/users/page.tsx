@@ -1,101 +1,115 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { prisma } from '@/lib/prisma-db'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { useAuth } from '@/components/providers/mysql-auth-provider'
-import { 
-  Users, 
-  Plus, 
-  ArrowLeft,
-  Shield
-} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Users, Mail, Calendar, Shield } from 'lucide-react'
+import Link from 'next/link'
 
-export default function AdminUsers() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
+async function getUsers() {
+  const users = await prisma.user.findMany({
+    include: {
+      _count: {
+        select: {
+          testResults: true
+        }
+      }
+    },
+    orderBy: { createdAt: 'desc' }
+  })
+  return users
+}
 
-  useEffect(() => {
-    // Check if user is admin
-    if (!loading && (!user || user.role !== 'ADMIN')) {
-      router.push('/dashboard')
-      return
-    }
-  }, [loading, user, router])
+export default async function UsersPage() {
+  const users = await getUsers()
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando...</p>
-        </div>
-      </div>
-    )
+  const roleLabels: Record<string, string> = {
+    USER: 'Usuário',
+    ADMIN: 'Administrador',
+    PROFESSIONAL: 'Profissional'
   }
 
-  if (!user || user.role !== 'ADMIN') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <Shield className="h-12 w-12 text-red-600 mx-auto mb-4" />
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Acesso Restrito</h2>
-          <p className="text-gray-600">Você não tem permissão para acessar esta área.</p>
-        </div>
-      </div>
-    )
+  const roleColors: Record<string, string> = {
+    USER: 'bg-blue-100 text-blue-800',
+    ADMIN: 'bg-red-100 text-red-800',
+    PROFESSIONAL: 'bg-green-100 text-green-800'
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/admin" className="mr-4">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Voltar
-                </Button>
-              </Link>
-              <h1 className="text-xl font-bold text-gray-900">Gerenciamento de Usuários</h1>
-            </div>
-          </div>
+    <div className="p-8">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gerenciar Usuários</h1>
+          <p className="text-gray-600">Visualize e gerencie todos os usuários da plataforma</p>
         </div>
-      </header>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="shadow-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Users className="h-5 w-5 text-blue-600" />
-              <span>Gerenciamento de Usuários</span>
-            </CardTitle>
-            <CardDescription>
-              Funcionalidade em desenvolvimento. Em breve você poderá gerenciar usuários aqui.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center py-8">
-              <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Funcionalidade em Desenvolvimento</h3>
-              <p className="text-gray-600 mb-4">
-                O gerenciamento completo de usuários estará disponível em breve.
-              </p>
-              <Link href="/admin">
-                <Button>
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Voltar ao Dashboard
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="flex gap-2">
+          <Badge variant="secondary" className="text-lg px-4 py-2">
+            <Users className="w-4 h-4 mr-2" />
+            {users.length} usuários
+          </Badge>
+        </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Lista de Usuários</CardTitle>
+          <CardDescription>Todos os usuários cadastrados no sistema</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {users.length === 0 ? (
+              <p className="text-center text-gray-500 py-8">Nenhum usuário cadastrado</p>
+            ) : (
+              users.map((user) => (
+                <div
+                  key={user.id}
+                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">
+                        {user.name?.charAt(0).toUpperCase() || user.email.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-gray-900">
+                          {user.name || 'Sem nome'}
+                        </h3>
+                        <Badge className={roleColors[user.role]}>
+                          {roleLabels[user.role]}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Mail className="w-3 h-3" />
+                          {user.email}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {new Date(user.createdAt).toLocaleDateString('pt-BR')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="text-right">
+                      <p className="text-sm font-medium text-gray-900">
+                        {user._count.testResults} testes
+                      </p>
+                      <p className="text-xs text-gray-500">realizados</p>
+                    </div>
+                    <Link href={`/admin/users/${user.id}`}>
+                      <Button variant="outline" size="sm">
+                        Ver Detalhes
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }

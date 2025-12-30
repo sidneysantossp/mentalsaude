@@ -1,11 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Brain, Heart, Flame, Zap, Shield, Moon, Star, Users, Calendar, Lock, ChevronRight, Menu, X, AlertTriangle, Eye, Cloud, ChevronDown, ChevronUp } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import {
+  Brain,
+  Heart,
+  Flame,
+  Zap,
+  Shield,
+  Star,
+  Users,
+  Calendar,
+  Lock,
+  ChevronRight,
+  AlertTriangle,
+  Eye,
+  Cloud
+} from 'lucide-react'
 import Link from 'next/link'
+import FAQSection, { FAQItem } from '@/components/home/FAQSection'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 
 const testCategories = [
@@ -92,7 +106,7 @@ const testCategories = [
   }
 ]
 
-const faqData = [
+const faqData: FAQItem[] = [
   {
     id: 1,
     question: "Os testes são realmente gratuitos?",
@@ -136,26 +150,22 @@ const faqData = [
 ]
 
 export default function Home() {
-  const [openItems, setOpenItems] = useState<number[]>([])
-
-  const toggleItem = (id: number) => {
-    setOpenItems(prev => 
-      prev.includes(id) 
-        ? prev.filter(item => item !== id)
-        : [...prev, id]
-    )
-  }
   return (
     <LayoutWrapper>
       {/* CTA Banner Section - Top */}
       <section className="relative py-16 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
-            src="/images/cta-banner-background.jpg" 
-            alt="Comece sua jornada de saúde mental"
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/cta-banner-background.jpg"
+              alt="Comece sua jornada de saúde mental"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-purple-900/80 to-blue-900/90"></div>
         </div>
         
@@ -176,8 +186,8 @@ export default function Home() {
                   <ChevronRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="text-base px-8 py-3 h-auto border-2 border-white text-white hover:bg-white hover:text-black font-bold transition-all duration-300 rounded-xl">
-                <Link href="/tests">Ver Todos os Testes</Link>
+              <Button size="lg" variant="outline" className="text-base px-8 py-3 h-auto border-2 border-white text-black hover:bg-white hover:text-black font-bold transition-all duration-300 rounded-xl">
+                <Link href="/tests" className="text-black hover:text-black">Ver Todos os Testes</Link>
               </Button>
             </div>
             
@@ -219,10 +229,12 @@ export default function Home() {
                 <Card key={category.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-black flex flex-col h-80 rounded-xl">
                   {/* Card Image Section - Top Portion */}
                   <div className="relative h-48 overflow-hidden -mt-6 -mx-6">
-                    <img 
-                      src={category.image} 
+                    <Image
+                      src={category.image}
                       alt={category.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                     
@@ -280,11 +292,16 @@ export default function Home() {
       <section className="relative min-h-[225px] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img 
-            src="/images/hero-therapy-background.jpg" 
-            alt="Saúde Mental e Bem-Estar"
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/hero-therapy-background.jpg"
+              alt="Saúde Mental e Bem-Estar"
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/90 via-blue-800/80 to-purple-900/90"></div>
         </div>
         
@@ -436,10 +453,12 @@ export default function Home() {
             <Card className="group overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
               {/* Image Section */}
               <div className="relative h-48 overflow-hidden -mt-6 -mx-6">
-                <img 
-                  src="/images/blog-anxiety-management.jpg" 
+                <Image
+                  src="/images/blog-anxiety-management.jpg"
                   alt="Técnicas para Gerenciar Ansiedade"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 
@@ -477,10 +496,12 @@ export default function Home() {
             <Card className="group overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
               {/* Image Section */}
               <div className="relative h-48 overflow-hidden -mt-6 -mx-6">
-                <img 
-                  src="/images/blog-depression-coping.jpg" 
+                <Image
+                  src="/images/blog-depression-coping.jpg"
                   alt="Estratégias para Lidar com a Depressão"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 
@@ -518,10 +539,12 @@ export default function Home() {
             <Card className="group overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
               {/* Image Section */}
               <div className="relative h-48 overflow-hidden -mt-6 -mx-6">
-                <img 
-                  src="/images/blog-mindfulness-meditation.jpg" 
+                <Image
+                  src="/images/blog-mindfulness-meditation.jpg"
                   alt="Mindfulness e Meditação"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 
@@ -580,51 +603,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-4">
-              {faqData.map((item) => (
-                <div 
-                  key={item.id}
-                  className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
-                >
-                  <button
-                    onClick={() => toggleItem(item.id)}
-                    className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200 group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                        <Brain className="h-6 w-6 text-white" />
-                      </div>
-                      <h3 className="text-lg md:text-xl font-semibold text-gray-900 pr-4">
-                        {item.question}
-                      </h3>
-                    </div>
-                    <div className="flex-shrink-0">
-                      {openItems.includes(item.id) ? (
-                        <ChevronUp className="h-6 w-6 text-gray-500 group-hover:text-gray-700 transition-colors" />
-                      ) : (
-                        <ChevronDown className="h-6 w-6 text-gray-500 group-hover:text-gray-700 transition-colors" />
-                      )}
-                    </div>
-                  </button>
-                  
-                  <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    openItems.includes(item.id) 
-                      ? 'max-h-96 opacity-100' 
-                      : 'max-h-0 opacity-0'
-                  }`}>
-                    <div className="px-8 pb-6 pt-2">
-                      <div className="pl-16 border-l-4 border-blue-200 pl-8">
-                        <p className="text-gray-600 leading-relaxed text-base">
-                          {item.answer}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <FAQSection items={faqData} />
         </div>
       </section>
     </LayoutWrapper>

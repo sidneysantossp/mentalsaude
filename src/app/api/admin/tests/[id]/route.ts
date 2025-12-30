@@ -44,8 +44,11 @@ export async function GET(
         id: test.id,
         title: test.title,
         description: test.description,
+        shortDescription: test.shortDescription,
         category: test.category,
         instructions: test.instructions,
+        isPremium: test.isPremium,
+        cardImage: test.cardImage,
         timeLimit: test.timeLimit,
         isActive: test.isActive,
         createdAt: test.createdAt.toISOString(),
@@ -72,14 +75,17 @@ export async function PUT(
     const resolvedParams = await params
     const testId = resolvedParams.id
     const body = await request.json()
-    const { title, description, category, instructions, timeLimit, isActive } = body
+    const { title, description, shortDescription, category, instructions, timeLimit, isPremium, cardImage, isActive } = body
 
     const updateData: any = {}
     if (title !== undefined) updateData.title = title
     if (description !== undefined) updateData.description = description
+    if (shortDescription !== undefined) updateData.shortDescription = shortDescription || null
     if (category !== undefined) updateData.category = category
     if (instructions !== undefined) updateData.instructions = instructions
     if (timeLimit !== undefined) updateData.timeLimit = timeLimit ? parseInt(timeLimit) : null
+    if (isPremium !== undefined) updateData.isPremium = isPremium
+    if (cardImage !== undefined) updateData.cardImage = cardImage || null
     if (isActive !== undefined) updateData.isActive = isActive
 
     const updatedTest = await db.test.update({

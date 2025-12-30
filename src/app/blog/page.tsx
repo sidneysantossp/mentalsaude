@@ -1,11 +1,26 @@
 'use client'
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import Image from 'next/image'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Calendar, Clock, ArrowRight, Search, Filter, Brain, Heart, Flame, Users, Star, Shield, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  Calendar,
+  Clock,
+  ArrowRight,
+  Search,
+  Filter,
+  Brain,
+  Heart,
+  Flame,
+  Users,
+  Star,
+  Shield,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
 
 // Blog posts data
@@ -148,19 +163,26 @@ export default function BlogPage() {
   const postsPerPage = 6
 
   // Filter posts based on search and category
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-    const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchesSearch =
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      const matchesCategory = selectedCategory === "Todos" || post.category === selectedCategory
+      return matchesSearch && matchesCategory
+    })
+  }, [searchTerm, selectedCategory])
 
   // Pagination
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage)
-  const indexOfLastPost = currentPage * postsPerPage
-  const indexOfFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost)
+  const totalPages = useMemo(() => {
+    return Math.max(1, Math.ceil(filteredPosts.length / postsPerPage))
+  }, [filteredPosts.length, postsPerPage])
+  const currentPosts = useMemo(() => {
+    const indexOfLastPost = currentPage * postsPerPage
+    const indexOfFirstPost = indexOfLastPost - postsPerPage
+    return filteredPosts.slice(indexOfFirstPost, indexOfLastPost)
+  }, [filteredPosts, currentPage, postsPerPage])
 
   // Get featured post
   const featuredPost = blogPosts.find(post => post.featured)
@@ -171,11 +193,16 @@ export default function BlogPage() {
         {/* Hero Section */}
         <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" 
-              alt="Blog Saúde Mental"
-              className="w-full h-full object-cover"
-            />
+            <div className="relative w-full h-full">
+              <Image
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80"
+                alt="Blog Saúde Mental"
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
           </div>
           
@@ -241,10 +268,12 @@ export default function BlogPage() {
               <div className="md:flex">
                 <div className="md:w-1/2">
                   <div className="relative h-64 md:h-full">
-                    <img 
-                      src={featuredPost.image} 
+                    <Image
+                      src={featuredPost.image}
                       alt={featuredPost.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div className="absolute top-4 left-4">
@@ -297,10 +326,12 @@ export default function BlogPage() {
               <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-yellow-500 hover:-translate-y-1">
                 {/* Card Image */}
                 <div className="relative h-48 overflow-hidden">
-                  <img 
-                    src={post.image} 
+                  <Image
+                    src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   
