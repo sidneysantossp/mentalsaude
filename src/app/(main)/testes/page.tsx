@@ -171,7 +171,7 @@ export default async function TestesPage() {
                   <div className="grid grid-cols-2 gap-4 text-sm text-slate-600">
                     <div>
                       <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Questões</p>
-                      <p className="text-lg font-semibold text-slate-900">{test.questions.length}</p>
+                      <p className="text-lg font-semibold text-slate-900">{test.questionCount || 0}</p>
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Tempo</p>
@@ -180,7 +180,7 @@ export default async function TestesPage() {
                     <div>
                       <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Dificuldade</p>
                       <p className="text-lg font-semibold text-slate-900">
-                        {test.questions.length > 14 ? 'Intermediário' : 'Iniciante'}
+                        {test.questionCount > 14 ? 'Intermediário' : 'Iniciante'}
                       </p>
                     </div>
                     <div>
