@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createUser, getDatabaseInfo, getLocalUserCount, getLocalUsers } from "@/lib/local-db"
+import { createUser } from "@/lib/database"
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,9 +17,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      user,
-      database: getDatabaseInfo(),
-      totalUsers: getLocalUserCount()
+      user
     })
 
   } catch (error: any) {
@@ -34,19 +32,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const users = getLocalUsers()
-    const dbInfo = getDatabaseInfo()
-    
     return NextResponse.json({
       success: true,
-      database: dbInfo,
-      totalUsers: getLocalUserCount(),
-      users: users.map(user => ({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        created_at: user.created_at
-      }))
+      message: "Endpoint de listagem de usuários"
     })
   } catch (error: any) {
     console.error("Error fetching users:", error)
