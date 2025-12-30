@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       const mockTests = [
         {
           id: 'depression',
+          slug: 'teste-de-depressao',
           title: 'Teste de Depressão',
           description: 'Avalie seus sintomas depressivos e entenda seu nível de bem-estar emocional',
           category: 'DEPRESSION',
@@ -27,6 +28,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'anxiety',
+          slug: 'teste-de-ansiedade',
           title: 'Teste de Ansiedade',
           description: 'Meça seus níveis de ansiedade e como ela afeta seu dia a dia',
           category: 'ANXIETY',
@@ -38,6 +40,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'compulsion',
+          slug: 'teste-de-compulsao-alimentar',
           title: 'Teste de Compulsão Alimentar',
           description: 'Identifique padrões de alimentação compulsiva e sua relação com as emoções',
           category: 'OCD',
@@ -49,6 +52,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'adhd',
+          slug: 'teste-de-tdah',
           title: 'Teste de TDAH',
           description: 'Avalie sintomas de desatenção, hiperatividade e impulsividade',
           category: 'ADHD',
@@ -60,6 +64,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'stress',
+          slug: 'teste-de-estresse',
           title: 'Teste de Estresse',
           description: 'Avalie seu nível de estresse atual e seus principais gatilhos',
           category: 'STRESS',
@@ -71,6 +76,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'panic',
+          slug: 'teste-transtorno-de-panico',
           title: 'Teste Transtorno de Pânico',
           description: 'Avalie sintomas de crises de pânico e ansiedade aguda',
           category: 'ANXIETY',
@@ -82,6 +88,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'social-phobia',
+          slug: 'teste-fobia-social',
           title: 'Teste Fobia Social',
           description: 'Identifique medos e ansiedade em situações sociais',
           category: 'ANXIETY',
@@ -93,6 +100,7 @@ export async function GET(request: NextRequest) {
         },
         {
           id: 'mental-suffering',
+          slug: 'grau-de-sofrimento-mental',
           title: 'Grau de Sofrimento Mental',
           description: 'Meça o nível de sofrimento psíquico e seu impacto no bem-estar',
           category: 'DEPRESSION',
