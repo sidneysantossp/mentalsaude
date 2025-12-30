@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getUserTestResults } from '@/lib/db'
+import { getTestById, getUserTestResults } from '@/lib/db'
 import ZAI from 'z-ai-web-dev-sdk'
 
 // Mock test data for fallback
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     // Get test information - try database first, fallback to mock data
     let test = null
     try {
-      const { getTestById } = await import('@/lib/database')
+      const { getTestById } = await import('@/lib/db')
       test = await getTestById(testId)
     } catch (dbError) {
       console.log('Database not available, using mock data')
@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
     // Create test result in database - try database first, fallback to localStorage simulation
     let testResult = null
     try {
-      const { saveTestResult } = await import('@/lib/database')
+      const { saveTestResult } = await import('@/lib/db')
       const resultId = await saveTestResult({
         userId: userId || 'anonymous',
         testId: testId,
@@ -281,7 +281,7 @@ export async function GET(request: NextRequest) {
       if (authHeader && authHeader.startsWith('Bearer ')) {
         const token = authHeader.substring(7)
         try {
-          const { verifyToken } = await import('@/lib/database')
+          const { verifyToken } = await import('@/lib/db')
           const userData = verifyToken(token)
           targetUserId = userData.id
         } catch (error) {

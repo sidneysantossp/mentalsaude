@@ -1,5 +1,4 @@
 import { getTestBySlug } from '@/lib/db'
-import { prisma } from '@/lib/database'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { 
   Users, 
