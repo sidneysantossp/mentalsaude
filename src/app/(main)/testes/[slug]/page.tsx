@@ -80,7 +80,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'diferenca-tristeza',
     title: 'Como distinguir tristeza passageira de depressão persistente',
     summary:
-      'Aprenda a reconhecer a diferença entre tristeza ocasional e um quadro depressivo que exige intervenção.\nFoque em duração, intensidade e prejuízo funcional para certificar que o PHQ-9 é o instrumento certo.\nMantenha a curiosidade sobre o que impulsiona esses sentimentos antes de avançar com o teste.',
+      'Aprenda a reconhecer a diferença entre tristeza ocasional e um quadro depressivo que exige intervenção.\nFoque em duração, intensidade e prejuízo funcional para certificar que o PHQ-9 é o instrumento certo.\nMantenha a curiosidade sobre o que impulsiona esses sentimentos antes de avançar com o teste.\nExplore expressões como "diferença tristeza e depressão online" e "teste psicológico para detectar depressão persistente" no restante do texto.',
     shortFocus: 'diferença entre tristeza e depressão persistente',
     longTailKeywords: [
       'diferença tristeza e depressão online',
@@ -101,7 +101,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'sintomas',
     title: 'Sintomas físicos e emocionais que você deve registrar',
     summary:
-      'Listar sinais físicos e emocionais ajuda a montar um dossiê rico para o teste.\nObserve alterações no sono, apetite e energia além da mente acelerada.\nDocumente tudo para ter dados concretos durante a aplicação do teste.',
+      'Listar sinais físicos e emocionais ajuda a montar um dossiê rico para o teste.\nObserve alterações no sono, apetite e energia além da mente acelerada.\nDocumente tudo para ter dados concretos durante a aplicação do teste.\nInclua termos como "sintomas físicos de depressão persistente" e "teste psiquiátrico para fadiga constante" conforme expandimos o conteúdo.',
     shortFocus: 'sintomas físicos e emocionais para monitorar',
     longTailKeywords: [
       'sintomas físicos de depressão persistente',
@@ -122,7 +122,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'interpretacao-resultados',
     title: 'Interpretando os resultados do PHQ-9 (ou GAD-7) com precisão',
     summary:
-      'Descubra como converter os números em insights reais e tirar proveito dos testes disponíveis.\nCompreenda a escala, as faixas de gravidade e o que elas significam para você.\nUse esse entendimento para conversar com um profissional preparado.',
+      'Descubra como converter os números em insights reais e tirar proveito dos testes disponíveis.\nCompreenda a escala, as faixas de gravidade e o que elas significam para você.\nUse esse entendimento para conversar com um profissional preparado.\nRefira-se a "interpretar PHQ-9 online" e "escores do GAD-7 explicados" ao detalhar as faixas.',
     shortFocus: 'interpretação precisa dos resultados do PHQ-9 e GAD-7',
     longTailKeywords: [
       'interpretar PHQ-9 online',
@@ -143,7 +143,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'quando-ajuda',
     title: 'Quando procurar ajuda médica e quais serviços do SUS acionar',
     summary:
-      'Saiba identificar o momento certo de buscar suporte clínico e quais portas do SUS abrir.\nDescubra quais sinais exigem encaminhamento imediato e como priorizar agenda de psiquiatria.\nTenha a segurança de saber que a rede pública dispõe de respostas atualizadas.',
+      'Saiba identificar o momento certo de buscar suporte clínico e quais portas do SUS abrir.\nDescubra quais sinais exigem encaminhamento imediato e como priorizar agenda de psiquiatria.\nTenha a segurança de saber que a rede pública dispõe de respostas atualizadas.\nConsidere termos como "quando ir para o SUS com depressão" e "redes de apoio governamentais saúde mental" durante a leitura.',
     shortFocus: 'recursos médicos e SUS para transtornos mentais',
     longTailKeywords: [
       'quando ir para o SUS com depressão',
@@ -164,7 +164,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'autocuidado',
     title: 'Estratégias práticas de autocuidado e rotinas que reforçam o bem-estar',
     summary:
-      'Construa hábitos que sustentam a estabilidade emocional durante e depois do teste.\nCombine sono regular, movimento e refeições com intenção para criar alicerces sólidos.\nRegistre os lembretes de autocuidado para revisitar sempre que o humor cair.',
+      'Construa hábitos que sustentam a estabilidade emocional durante e depois do teste.\nCombine sono regular, movimento e refeições com intenção para criar alicerces sólidos.\nRegistre os lembretes de autocuidado para revisitar sempre que o humor cair.\nUse expressões como "rotina para depressão leve" e "autocuidado para ansiedade generalizada" para guiar a escrita.',
     shortFocus: 'autocuidado para depressão e ansiedade no cotidiano',
     longTailKeywords: [
       'rotina para depressão leve',
@@ -185,7 +185,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'consulta-profissional',
     title: 'Como relatar seus sintomas ao psiquiatra ou psicólogo',
     summary:
-      'Traga os dados do teste, fale da frequência e intensidade e mostre o histórico pessoal.\nVamos guiar você para que a conversa com o profissional seja clara, objetiva e confiante.\nInclua detalhes que ajudem a ajustar diagnóstico e tratamento desde a primeira consulta.',
+      'Traga os dados do teste, fale da frequência e intensidade e mostre o histórico pessoal.\nVamos guiar você para que a conversa com o profissional seja clara, objetiva e confiante.\nInclua detalhes que ajudem a ajustar diagnóstico e tratamento desde a primeira consulta.\nIncorpore palavras como "preparo para consulta de saúde mental" e "relato de sintomas para psicólogo" na narrativa.',
     shortFocus: 'preparo para consulta psiquiátrica e descrição de sintomas',
     longTailKeywords: [
       'como falar com psiquiatra sobre ansiedade',
@@ -206,7 +206,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'mitos',
     title: 'Desmistificando mitos sobre depressão e ansiedade',
     summary:
-      'Questione a desinformação e entenda o que é real nos medos de quem busca ajuda.\nOs mitos comuns sobre fraqueza ou falta de fé atrapalham o diagnóstico precoce.\nTenha clareza para separar dados científicos das crenças populares.',
+      'Questione a desinformação e entenda o que é real nos medos de quem busca ajuda.\nOs mitos comuns sobre fraqueza ou falta de fé atrapalham o diagnóstico precoce.\nTenha clareza para separar dados científicos das crenças populares.\nMencione "mitos sobre depressão no Brasil" e "verdades sobre ansiedade crônica" enquanto desmonta essas ideias.',
     shortFocus: 'mitos e verdades sobre transtornos mentais',
     longTailKeywords: [
       'mitos sobre depressão no Brasil',
@@ -227,7 +227,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'estilo-vida',
     title: 'Como o estilo de vida influencia depressão, ansiedade e recuperação',
     summary:
-      'Analise o impacto do sono, alimentação, álcool e ambiente de trabalho no seu quadro mental.\nPequenas mudanças em hábitos cotidianos podem reverter a sensação de sobrecarga.\nUse o teste como base para revisar cada domínio da sua vida.',
+      'Analise o impacto do sono, alimentação, álcool e ambiente de trabalho no seu quadro mental.\nPequenas mudanças em hábitos cotidianos podem reverter a sensação de sobrecarga.\nUse o teste como base para revisar cada domínio da sua vida.\nInclua termos como "como o sono afeta a depressão" e "hábitos alimentares na saúde mental" no conteúdo.',
     shortFocus: 'estilo de vida e comportamentos na saúde mental',
     longTailKeywords: [
       'como o sono afeta a depressão',
@@ -248,7 +248,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'monitoramento',
     title: 'Monitoramento contínuo e reavaliação do quadro',
     summary:
-      'Aprenda a usar o teste como régua de acompanhamento, não apenas como diagnóstico único.\nReavalie pontuações, compare registros e discuta mudanças a cada ciclo.\nIsso garante previsibilidade e segurança para sua jornada terapêutica.',
+      'Aprenda a usar o teste como régua de acompanhamento, não apenas como diagnóstico único.\nReavalie pontuações, compare registros e discuta mudanças a cada ciclo.\nIsso garante previsibilidade e segurança para sua jornada terapêutica.\nReferencie "monitorar sintomas depressivos com testes" e "uso de diários de humor e testes" durante o monitoramento.',
     shortFocus: 'monitoramento contínuo de sintomas depressivos e ansiosos',
     longTailKeywords: [
       'monitorar sintomas depressivos com testes',
@@ -269,7 +269,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     id: 'por-que-mental-saude',
     title: 'Por que realizar este teste na Mental Saúde é uma decisão estratégica',
     summary:
-      'Valorize o ambiente protegido e documentado da nossa plataforma antes de iniciar o teste.\nBasta um clique para manter o histórico, salvar documentos e acessar recomendações personalizadas.\nSua jornada é orientada por dados, segurança e integração com profissionais ali recomendados.',
+      'Valorize o ambiente protegido e documentado da nossa plataforma antes de iniciar o teste.\nBasta um clique para manter o histórico, salvar documentos e acessar recomendações personalizadas.\nSua jornada é orientada por dados, segurança e integração com profissionais ali recomendados.\nTraga termos como "teste psicológico online mental saúde" e "benefícios de salvar resultados no app" para mostrar a proposta da plataforma.',
     shortFocus: 'vantagens do teste psicológico online na Mental Saúde',
     longTailKeywords: [
       'teste psicológico online mental saúde',
@@ -339,9 +339,6 @@ function SEOArticle({ testTitle, conditionName }: ArticleContext) {
             >
               {section.summary}
             </p>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
-              Palavras-chave: {section.longTailKeywords.join(' • ')}
-            </p>
             <div className={`${isOpen ? '' : 'hidden'} space-y-4`}>
               {detailParagraphs.map((paragraph, index) => (
                 <p key={`${section.id}-detail-${index}`} className="text-sm leading-relaxed text-slate-700">
@@ -380,6 +377,77 @@ function SEOArticle({ testTitle, conditionName }: ArticleContext) {
           </article>
         )
       })}
+    </section>
+  )
+}
+
+const LONGTAIL_QUESTIONS = [
+  {
+    question: 'Quais sintomas me levam a buscar um teste de depressão persistente?',
+    answer:
+      'Procure o teste se notar tristeza constante, falta de energia, alterações no sono ou apetite e dificuldades de concentração que persistem há semanas. Também valem alterações de humor em redes sociais e isolamento, e isso se combina com o histórico médico.'
+  },
+  {
+    question: 'Como saber se a tristeza virou um quadro crônico que precisa de avaliação?',
+    answer:
+      'Observe quanto tempo a tristeza dura, se ela afeta energia, sono e vontade de fazer atividades. Quando esses sinais persistem por semanas ou meses e nada parece melhorar, é hora de usar o teste e documentar a frequência dos sintomas.'
+  },
+  {
+    question: 'O que fazer quando o resultado do teste mostra sintomas moderados?',
+    answer:
+      'Marque uma consulta, traga o teste preenchido e destaque os itens com maior pontuação. Use o histórico para apontar evolução e discuta estratégias como terapia cognitivo-comportamental e ajustes de hábitos.'
+  },
+  {
+    question: 'Teste online pode substituir a consulta presencial?',
+    answer:
+      'Não substitui, mas serve como triagem e preparo. Ele documenta padrões e facilita o atendimento presencial, porque o profissional já chega com dados organizados e foco em hipóteses.'
+  },
+  {
+    question: 'Como usar o teste em episódios depressivos intensos ou momentos em que tudo parece pesado?',
+    answer:
+      'Durante o pico de sintomas, priorize segurança (CVV 188, SAMU) e depois registre o que ocorreu. O teste, aplicado com calma, documentará gatilhos e ajudará o profissional a ajustar suportes e medicações.'
+  },
+  {
+    question: 'Quais fatores ambientais mais influenciam o resultado?',
+    answer:
+      'Estresse no trabalho, conflitos familiares, sono fragmentado e isolamento social elevam o risco. Anote essas variáveis nas notas do teste para fornecer contexto ao profissional.'
+  },
+  {
+    question: 'Como incorporar o resultado do teste ao cuidado remoto ou teleconsulta?',
+    answer:
+      'Envie o PDF salvo pela plataforma, destaque os itens críticos e complemente com registros de sono, sono e consumo de substâncias. Isso permite ajustes rápidos de medicação.'
+  },
+  {
+    question: 'O teste exige cadastro ou posso responder anonimamente?',
+    answer:
+      'Você pode responder sem conta para ter uma visão imediata. Criar perfil permite salvar resultados, comparar tendências e compartilhar com equipe de saúde.'
+  },
+  {
+    question: 'O que fazer se o teste indicar risco elevado para suicídio?',
+    answer:
+      'Procure imediatamente serviços de emergência (CVV 188, hospitais públicos). Informe familiares e siga o plano de segurança enquanto prepara uma consulta urgente.'
+  },
+  {
+    question: 'Como usar os resultados para melhorar a rotina e reduzir recaídas?',
+    answer:
+      'Transforme os insights em metas semanais de autocuidado, monitore as variações e destaque pequenas conquistas. Atualize o teste mensalmente para comparar evolução.'
+  }
+]
+
+function LongtailAccordion() {
+  return (
+    <section className="space-y-4 rounded-3xl border border-slate-200 bg-white px-6 py-8 shadow-lg">
+      <h2 className="text-2xl font-semibold text-slate-900">Perguntas frequentes sobre depressão</h2>
+      <div className="space-y-3">
+        {LONGTAIL_QUESTIONS.map((item, index) => (
+          <details key={item.question} className="group rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <summary className="cursor-pointer text-sm font-semibold text-slate-900">
+              {index + 1}. {item.question}
+            </summary>
+            <p className="mt-3 text-sm text-slate-700">{item.answer}</p>
+          </details>
+        ))}
+      </div>
     </section>
   )
 }
@@ -725,8 +793,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
             </Button>
           </CardContent>
         </Card>
-        <div className="mt-10">
+        <div className="mt-10 space-y-10">
           <SEOArticle testTitle={test.title} conditionName={categoryLabel} />
+          <LongtailAccordion />
         </div>
       </div>
     </>
