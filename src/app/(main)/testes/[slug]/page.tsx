@@ -22,6 +22,17 @@ interface Question {
   order: number
 }
 
+type OptionObject = { value: string | number; label: string }
+type OptionItem = string | OptionObject
+
+const getOptionValue = (option: OptionItem) =>
+  typeof option === 'string'
+    ? option
+    : String(option.value)
+
+const getOptionLabel = (option: OptionItem) =>
+  typeof option === 'string' ? option : option.label
+
 interface Test {
   id: string
   title: string
@@ -101,6 +112,15 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
     }))
   }
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    requestAnimationFrame(() => {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur()
+      }
+    })
+  }, [currentQuestion])
+
   const handleNext = () => {
     if (!test) return
     
@@ -124,9 +144,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
     test.questions.forEach(question => {
       const answer = answers[question.id]
       if (answer) {
-        const options = JSON.parse(question.options)
+        const options = (JSON.parse(question.options) as OptionItem[]).map(getOptionValue)
         const answerIndex = options.indexOf(answer)
-        score += answerIndex
+        score += Math.max(answerIndex, 0)
       }
     })
 
@@ -352,7 +372,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   }
 
   const currentQ = test.questions[currentQuestion]
-  const options = currentQ ? JSON.parse(currentQ.options) : []
+  const options = currentQ ? (JSON.parse(currentQ.options) as OptionItem[]) : []
   const progress = ((currentQuestion + 1) / test.questions.length) * 100
 
   return (
@@ -390,14 +410,21 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
             onValueChange={(value) => handleAnswer(currentQ.id, value)}
           >
             <div className="space-y-3">
-              {options.map((option: string, index: number) => (
-                <div key={index} className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-accent cursor-pointer">
-                  <RadioGroupItem value={option} id={`option-${index}`} />
-                  <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
-                    {option}
-                  </Label>
-                </div>
-              ))}
+              {options.map((option, index) => {
+                const optionValue = getOptionValue(option)
+                const optionLabel = getOptionLabel(option)
+                return (
+                  <div
+                    key={optionValue}
+                    className="flex items-center space-x-2 border rounded-lg p-4 hover:bg-accent cursor-pointer"
+                  >
+                    <RadioGroupItem value={optionValue} id={`option-${index}`} />
+                    <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">
+                      {optionLabel}
+                    </Label>
+                  </div>
+                )
+              })}
             </div>
           </RadioGroup>
 
