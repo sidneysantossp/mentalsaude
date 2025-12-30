@@ -202,7 +202,7 @@ export default function SPINPontuacaoPage() {
                   </Button>
                 </Link>
                 <Link href="/testes/teste-fobia-social/pos-teste">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-indigo-600">
+                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-indigo-600 font-semibold">
                     <ChevronRight className="h-4 w-4 mr-2" />
                     Próximos Passos
                   </Button>

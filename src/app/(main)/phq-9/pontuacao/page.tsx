@@ -546,7 +546,7 @@ export default function PHQ9PontuacaoPage() {
                   </Button>
                 </Link>
                 <Link href="/phq-9/pos-teste">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600 font-semibold">
                     <ChevronRight className="h-4 w-4 mr-2" />
                     Próximos Passos
                   </Button>
