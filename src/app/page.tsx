@@ -25,6 +25,7 @@ import LayoutWrapper from '@/components/layout/LayoutWrapper'
 const testCategories = [
   {
     id: 'depression',
+    slug: 'teste-de-depressao',
     title: 'Teste de Depressão',
     description: 'Avalie seus sintomas depressivos e entenda seu nível de bem-estar emocional',
     icon: Brain,
@@ -34,6 +35,7 @@ const testCategories = [
   },
   {
     id: 'anxiety',
+    slug: 'teste-de-ansiedade',
     title: 'Teste de Ansiedade',
     description: 'Meça seus níveis de ansiedade e como ela afeta seu dia a dia',
     icon: Heart,
@@ -43,6 +45,7 @@ const testCategories = [
   },
   {
     id: 'compulsion',
+    slug: 'teste-de-compulsao-alimentar',
     title: 'Teste de Compulsão Alimentar',
     description: 'Identifique padrões de alimentação compulsiva e sua relação com as emoções',
     icon: Flame,
@@ -52,6 +55,7 @@ const testCategories = [
   },
   {
     id: 'adhd',
+    slug: 'teste-de-tdah',
     title: 'Teste de TDAH',
     description: 'Avalie sintomas de desatenção, hiperatividade e impulsividade',
     icon: Zap,
@@ -61,6 +65,7 @@ const testCategories = [
   },
   {
     id: 'stress',
+    slug: 'teste-de-estresse',
     title: 'Teste de Estresse',
     description: 'Avalie seu nível de estresse atual e seus principais gatilhos',
     icon: Users,
@@ -70,6 +75,7 @@ const testCategories = [
   },
   {
     id: 'burnout',
+    slug: 'teste-de-burnout',
     title: 'Teste de Burnout',
     description: 'Identifique sinais de esgotamento profissional e impacto na sua qualidade de vida',
     icon: Flame,
@@ -79,6 +85,7 @@ const testCategories = [
   },
   {
     id: 'panic',
+    slug: 'teste-transtorno-de-panico',
     title: 'Teste Transtorno de Pânico',
     description: 'Avalie sintomas de crises de pânico e ansiedade aguda para entender melhor sua condição',
     icon: AlertTriangle,
@@ -88,6 +95,7 @@ const testCategories = [
   },
   {
     id: 'social-phobia',
+    slug: 'teste-fobia-social',
     title: 'Teste Fobia Social',
     description: 'Identifique medos e ansiedade em situações sociais e seu impacto na vida cotidiana',
     icon: Eye,
@@ -97,6 +105,7 @@ const testCategories = [
   },
   {
     id: 'mental-suffering',
+    slug: 'grau-de-sofrimento-mental',
     title: 'Grau de Sofrimento Mental',
     description: 'Meça o nível de sofrimento psíquico e seu impacto no bem-estar geral',
     icon: Cloud,
@@ -272,7 +281,7 @@ export default function Home() {
                     <div className="flex-grow"></div>
                     
                     {/* Start Test Button */}
-                    <Link href={`/tests/${category.id === 'depression' ? '1' : category.id === 'compulsion' ? '2' : category.id === 'anxiety' ? '3' : category.id === 'stress' ? '4' : category.id === 'mental-suffering' ? '5' : category.id}`}>
+                    <Link href={`/testes/${category.slug}`}>
                       <Button 
                         className="w-full bg-black hover:bg-gray-800 text-white font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2 hover:scale-105"
                       >
