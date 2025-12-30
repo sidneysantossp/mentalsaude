@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Depressão: Sintomas, Causas e Tratamento | Mental Saúde',
-  description: 'Guia completo sobre depressão: entenda sintomas, causas, fatores de risco, quando procurar ajuda e tratamentos baseados em evidências científicas.',
+  description: 'Depressão: sintomas, causas, tratamento e quando procurar ajuda. Guia completo com PHQ-9, orientações profissionais e recursos baseados em evidências científicas.',
   keywords: ['depressão', 'sintomas depressão', 'tratamento depressão', 'saúde mental', 'PHQ-9'],
 }
 

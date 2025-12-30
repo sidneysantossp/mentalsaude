@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Como Funciona o PHQ-9 | Mental Saúde',
-  description: 'Entenda detalhadamente como funciona o teste PHQ-9, suas perguntas, metodologia e para quem é indicado.',
+  description: 'PHQ-9: como funciona o teste de depressão? Entenda as 9 perguntas, pontuação e para quem é indicado. Guia completo da metodologia validada.',
   keywords: ['PHQ-9 como funciona', 'teste depressão', 'metodologia PHQ-9', 'saúde mental'],
 }
 

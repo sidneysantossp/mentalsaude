@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'PHQ-9: Teste de Depressão | Mental Saúde',
-  description: 'PHQ-9 é uma escala validada para triagem de depressão. Faça o teste, entenda a pontuação e saiba quais próximos passos tomar.',
+  description: 'PHQ-9: teste gratuito de depressão validado cientificamente. Avalie sintomas em 5 minutos com resultados imediatos e orientações profissionais.',
   keywords: ['PHQ-9', 'teste depressão', 'escala depressão', 'triagem depressão', 'saúde mental'],
 }
 

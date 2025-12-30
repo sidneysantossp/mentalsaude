@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Metodologia e Conselho Editorial | Mental Saúde',
-  description: 'Conheça nossa metodologia científica, processo de validação dos testes e conselho editorial de especialistas em saúde mental.',
+  description: 'Nossa metodologia científica com validação de testes e conselho editorial de especialistas. Conheça o processo de revisão e garantia de qualidade.',
   keywords: ['metodologia', 'conselho editorial', 'validação', 'saúde mental', 'testes psicológicos'],
 }
 

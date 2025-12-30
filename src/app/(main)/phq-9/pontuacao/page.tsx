@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Pontuação PHQ-9: Interpretação Completa | Mental Saúde',
-  description: 'Guia completo para interpretar a pontuação do PHQ-9. Entenda cada nível de gravidade e o que fazer com seu resultado.',
+  description: 'Interprete sua pontuação PHQ-9: 0-4 mínima, 5-9 leve, 10-14 moderada, 15-19 grave, 20-27 muito grave. Saiba o que fazer com seu resultado.',
   keywords: ['PHQ-9 pontuação', 'interpretação PHQ-9', 'níveis depressão', 'resultado teste depressão'],
 }
 

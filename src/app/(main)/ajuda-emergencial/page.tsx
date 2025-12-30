@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Ajuda Emergencial | Mental Saúde',
-  description: 'Recursos imediatos de ajuda para crise de saúde mental. Telefones, serviços e orientações para emergências psicológicas no Brasil.',
+  description: 'Ajuda imediata 24h: CVV 188, SAMU 192, CAPS. Recursos gratuitos para crise de saúde mental, suicídio e emergências psicológicas no Brasil.',
   keywords: ['ajuda emergencial', 'crise', 'suicídio', 'saúde mental', 'CVV', 'CAPS'],
 }
 

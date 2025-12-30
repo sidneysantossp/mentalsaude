@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Testes Psicológicos Online | Mental Saúde',
-  description: 'Faça testes psicológicos validados para avaliar depressão, ansiedade, estresse e outros aspectos da saúde mental. Resultados imediatos e orientações.',
+  description: 'Testes psicológicos gratuitos e validados para depressão, ansiedade, estresse e TDAH. Resultados imediatos com orientações baseadas em evidências científicas.',
   keywords: ['testes psicológicos', 'avaliação mental', 'saúde mental', 'depressão', 'ansiedade', 'testes online'],
 }
 

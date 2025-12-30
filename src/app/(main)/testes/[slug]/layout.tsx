@@ -23,7 +23,20 @@ export async function generateMetadata({
   }
 
   const title = `${test.title} | Mental Saúde`
-  const description = test.shortDescription || test.description
+  
+  // Criar meta description otimizada com 160 caracteres
+  let description = test.shortDescription || test.description
+  
+  // Se a descrição for muito longa, truncar
+  if (description.length > 160) {
+    description = description.substring(0, 157) + '...'
+  }
+  
+  // Se for muito curta, enriquecer com informações adicionais
+  if (description.length < 120) {
+    const category = getCategoryLabel(test.category)
+    description = `${description} Teste validado de ${category.toLowerCase()} com resultados imediatos e orientações profissionais.`
+  }
   const url = `${SITE_URL}/testes/${params.slug}`
 
   return {
