@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { getTestBySlug } from '@/lib/prisma-db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
@@ -10,50 +11,69 @@ type Props = {
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const test = testsInfo[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) return {}
   return {
     title: `${test.title} — Pontuação | Mental Saúde Tests`,
-    description: test.scoring.detail,
+    description:
+      testsInfo[params.slug]?.scoring.detail || 'Detalhamento genérico das faixas de pontuação do instrumento',
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'),
     openGraph: {
       title: `${test.title} — Pontuação`,
-      description: test.scoring.detail
+      description: testsInfo[params.slug]?.scoring.detail || 'Faixas de pontuação e interpretação'
     }
   }
 }
 
-export default function TestScoringPage({ params }: Props) {
-  const test = testsInfo[params.slug]
+export default async function TestScoringPage({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) {
     notFound()
   }
+  const info = testsInfo[params.slug]
+  const ranges =
+    info?.scoring.ranges ??
+    [
+      {
+        label: '0–100',
+        min: 0,
+        max: test.questions.length * 4,
+        guidance: 'Pontuação geral. Discuta com um profissional para interpretação precisa.'
+      }
+    ]
 
   return (
     <div className="container mx-auto px-4 py-10 max-w-4xl space-y-8">
       <Card className="border-slate-200/70">
         <CardHeader>
           <CardTitle className="text-3xl">{test.title}</CardTitle>
-          <p className="text-slate-600">{test.tagline}</p>
+          <p className="text-slate-600">{info?.tagline ?? 'Informações essenciais sobre pontuação e interpretação.'}</p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            {test.summaryPoints.map(point => (
+            {(info?.summaryPoints ?? [
+              'Instrumento validado para triagem inicial.',
+              `${test.questions.length} perguntas com escala Likert.`,
+              'A interpretação exige olhar o histórico completo.'
+            ]).map(point => (
               <p key={point} className="text-sm text-slate-700">
                 {point}
               </p>
             ))}
           </div>
-          <p className="text-sm font-semibold text-slate-900">{test.scoring.title}</p>
-          <p className="text-sm text-slate-600">{test.scoring.detail}</p>
+          <p className="text-sm font-semibold text-slate-900">{info?.scoring.title ?? 'Interpretação recomendada'}</p>
+          <p className="text-sm text-slate-600">
+            {info?.scoring.detail ??
+              'Cada item vale até 3 pontos. A soma indica gravidade relativa, mas não substitui avaliação clínica.'}
+          </p>
         </CardContent>
       </Card>
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold text-slate-900">Faixas de pontuação</h2>
         <div className="grid gap-4">
-          {test.scoring.ranges.map(range => (
+          {ranges.map(range => (
             <Card key={range.label} className="border-slate-200/70 bg-slate-50">
               <CardContent>
                 <p className="text-sm font-semibold text-slate-900">{range.label}</p>

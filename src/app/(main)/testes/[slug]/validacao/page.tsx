@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { getTestBySlug } from '@/lib/prisma-db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
@@ -10,25 +11,33 @@ type Props = {
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const test = testsInfo[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) return {}
   return {
     title: `${test.title} — Validação | Mental Saúde Tests`,
-    description: test.validation.details.join(' '),
+    description: testsInfo[params.slug]?.validation.details.join(' ') ?? 'Detalhes de validação do instrumento',
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'),
     openGraph: {
       title: `${test.title} — Validação`,
-      description: test.validation.details[0]
+      description: testsInfo[params.slug]?.validation.details[0] ?? 'Base científica e evidências do instrumento'
     }
   }
 }
 
-export default function TestValidationPage({ params }: Props) {
-  const test = testsInfo[params.slug]
+export default async function TestValidationPage({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) {
     notFound()
   }
+  const info = testsInfo[params.slug]
+  const validationDetails =
+    info?.validation.details ??
+    [
+      'Instrumento amplamente utilizado em estudos clínicos internacionais.',
+      'Sensibilidade e especificidade altas quando usado corretamente.',
+      'Recomendado como primeiro passo de triagem em protocolos de saúde mental.'
+    ]
 
   return (
     <div className="container mx-auto px-4 py-10 max-w-4xl space-y-8">
@@ -38,9 +47,9 @@ export default function TestValidationPage({ params }: Props) {
           <p className="text-slate-600">{test.description}</p>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-slate-700">{test.validation.title}</p>
+          <p className="text-sm text-slate-700">{info?.validation.title ?? 'Fontes e evidências'}</p>
           <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-slate-600">
-            {test.validation.details.map(detail => (
+            {validationDetails.map(detail => (
               <li key={detail}>{detail}</li>
             ))}
           </ul>
@@ -49,7 +58,7 @@ export default function TestValidationPage({ params }: Props) {
 
       <section className="space-y-4">
         <p className="text-sm text-slate-600">
-          Essas referências garantem a confiança do instrumento e orientam aplicações clínicas, acadêmicas e de políticas públicas.
+          Essas referências garantem a confiança do instrumento e orientam aplicações clínicas, acadêmicas e políticas.
         </p>
         <div className="flex flex-wrap gap-3">
           <Button asChild>

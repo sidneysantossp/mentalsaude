@@ -202,5 +202,89 @@ export const testsInfo: Record<string, TestInstrumentData> = {
       { label: 'Ansiedade ou TDAH?', slug: 'ansiedade-ou-tdah' },
       { label: 'Como se preparar para psiquiatra', slug: 'preparacao-psiquiatra' }
     ]
+  },
+  'teste-fobia-social': {
+    slug: 'teste-fobia-social',
+    title: 'Escala de Fobia Social (SPIN)',
+    description:
+      'Instrumento de 17 itens que avalia medo e evitamento de situações sociais. Útil para identificar transtorno de ansiedade social e monitorar tratamento.',
+    tagline: 'Avaliação completa para ansiedade em situações sociais.',
+    summaryPoints: [
+      'Avalia medo, evitamento e sintomas físicos em contextos sociais.',
+      'Pontuação de 0 a 68 com faixas claras de gravidade.',
+      'Validado para população brasileira e usado em settings clínicos.'
+    ],
+    scoring: {
+      title: 'Interpretação dos resultados',
+      detail: 'Cada item é pontuado de 0 a 4. A soma total indica o nível de ansiedade social e sugere intervenções adequadas.',
+      ranges: [
+        {
+          label: '0–20',
+          min: 0,
+          max: 20,
+          guidance: 'Ansiedade social mínima. Sem preocupações significativas.'
+        },
+        {
+          label: '21–30',
+          min: 21,
+          max: 30,
+          guidance: 'Ansiedade social leve. Pode beneficiar-se de técnicas de enfrentamento.'
+        },
+        {
+          label: '31–40',
+          min: 31,
+          max: 40,
+          guidance: 'Ansiedade social moderada. Considere psicoterapia especializada.'
+        },
+        {
+          label: '41–50',
+          min: 41,
+          max: 50,
+          guidance: 'Ansiedade social grave. Tratamento intensivo recomendado.'
+        },
+        {
+          label: '51–68',
+          min: 51,
+          max: 68,
+          guidance: 'Ansiedade social muito grave. Procure ajuda especializada urgente.'
+        }
+      ]
+    },
+    validation: {
+      title: 'Validação científica',
+      details: [
+        'Desenvolvido por Connor et al. e validado no Brasil por Bandeira et al.',
+        'Alta consistência interna e validade convergente com outros instrumentos.',
+        'Sensibilidade para detectar mudanças durante tratamento psicoterápico.'
+      ]
+    },
+    nextSteps: {
+      title: 'Após a avaliação',
+      actions: [
+        'Se pontuação moderada ou alta, procure psicólogo especializado em TCC.',
+        'Pratique exposição gradual a situações sociais com apoio profissional.',
+        'Considere grupos de terapia ou habilidades sociais estruturadas.'
+      ]
+    },
+    faqs: [
+      {
+        question: 'Fobia social é apenas timidez?',
+        answer:
+          'Não. Fobia social envolve medo intenso e evitamento que prejudica funcionamento, enquanto timidez é um traço de personalidade.'
+      },
+      {
+        question: 'O teste pode distinguir fobia social de agorafobia?',
+        answer:
+          'Ajuda a identificar ansiedade social específica, mas diagnóstico diferencial requer avaliação clínica completa.'
+      }
+    ],
+    relatedConditions: [
+      { label: 'Fobia Social', slug: 'fobia-social' },
+      { label: 'Ansiedade', slug: 'ansiedade' }
+    ],
+    decisionPages: [
+      { label: 'Ansiedade ou TDAH?', slug: 'ansiedade-ou-tdah' },
+      { label: 'Como superar medo social', slug: 'medo-social' }
+    ]
   }
 }

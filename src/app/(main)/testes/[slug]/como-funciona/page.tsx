@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { getTestBySlug } from '@/lib/prisma-db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
@@ -10,34 +11,44 @@ type Props = {
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const test = testsInfo[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) return {}
+  const metadata: string[] = [
+    test.shortDescription || test.description,
+    'Este instrumento é utilizado para triagem de sintomas recentes'
+  ]
   return {
     title: `${test.title} — Como funciona | Mental Saúde Tests`,
-    description: test.tagline,
+    description: metadata.join(' ').slice(0, 200),
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'),
     openGraph: {
       title: `${test.title} — Como funciona`,
-      description: test.description
+      description: metadata.join(' ')
     }
   }
 }
 
-export default function TestInfoPage({ params }: Props) {
-  const test = testsInfo[params.slug]
+export default async function TestInfoPage({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) {
     notFound()
   }
+  const info = testsInfo[params.slug]
+  const summaryPoints = info?.summaryPoints ?? [
+    `Instrumento na categoria ${test.category}`,
+    `${test.questions.length} questões com escala Likert`,
+    'Finalidade de triagem em saúde mental'
+  ]
 
   return (
     <div className="container mx-auto px-4 py-10 max-w-4xl space-y-8">
       <Card className="border-slate-200/70">
         <CardContent className="space-y-4">
           <CardTitle className="text-3xl">{test.title}</CardTitle>
-          <p className="text-sm text-slate-600">{test.description}</p>
+          <p className="text-sm text-slate-600">{test.shortDescription || test.description}</p>
           <div className="space-y-2">
-            {test.summaryPoints.map(point => (
+            {summaryPoints.map(point => (
               <p key={point} className="text-sm text-slate-700">
                 {point}
               </p>
@@ -50,6 +61,7 @@ export default function TestInfoPage({ params }: Props) {
         <h2 className="text-xl font-semibold text-slate-900">Detalhes do instrumento</h2>
         <p className="text-sm text-slate-600">
           Cada item pede que você reporte a frequência dos sintomas nas últimas duas semanas utilizando uma escala de 0 (nenhuma) a 3 (quase todos os dias).
+          A soma aponta um nível preliminar de risco, mas a interpretação clínica depende de contexto.
         </p>
         <div className="flex flex-wrap gap-3 mt-3">
           <Button asChild>

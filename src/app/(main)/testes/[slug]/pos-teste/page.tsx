@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { getTestBySlug } from '@/lib/prisma-db'
 import { testsInfo } from '@/lib/tests-info'
 
 type Props = {
@@ -10,33 +11,41 @@ type Props = {
 
 export const dynamic = 'force-static'
 
-export function generateMetadata({ params }: Props) {
-  const test = testsInfo[params.slug]
+export async function generateMetadata({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) return {}
   return {
     title: `${test.title} — Pós-teste | Mental Saúde Tests`,
-    description: test.nextSteps.title,
+    description: testsInfo[params.slug]?.nextSteps.title ?? 'Orientações para o próximo passo após o teste',
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'),
     openGraph: {
       title: `${test.title} — Pós-teste`,
-      description: test.nextSteps.actions[0]
+      description: testsInfo[params.slug]?.nextSteps.actions[0] ?? 'Recomendações práticas pós-medição'
     }
   }
 }
 
-export default function TestPostPage({ params }: Props) {
-  const test = testsInfo[params.slug]
+export default async function TestPostPage({ params }: Props) {
+  const test = await getTestBySlug(params.slug)
   if (!test) {
     notFound()
   }
+  const info = testsInfo[params.slug]
+  const actions =
+    info?.nextSteps.actions ??
+    [
+      'Compartilhe os resultados com um profissional de saúde mental.',
+      'Pratique autocuidado diário e registre mudanças de humor.',
+      'Acione redes de apoio e mantenha contatos de emergência visíveis.'
+    ]
 
   return (
     <div className="container mx-auto px-4 py-10 max-w-4xl space-y-8">
       <Card className="border-slate-200/70">
         <CardContent>
-          <CardTitle className="text-3xl">{test.nextSteps.title}</CardTitle>
+          <CardTitle className="text-3xl">{info?.nextSteps.title ?? 'Próximos passos recomendados'}</CardTitle>
           <div className="mt-3 space-y-3 text-sm text-slate-600">
-            {test.nextSteps.actions.map(action => (
+            {actions.map(action => (
               <p key={action}>{action}</p>
             ))}
           </div>
@@ -46,7 +55,7 @@ export default function TestPostPage({ params }: Props) {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-slate-900">Decisões e próximos passos</h2>
         <ul className="list-disc space-y-2 pl-5 text-sm text-slate-700">
-          {test.decisionPages.map(decision => (
+          {(info?.decisionPages ?? []).map(decision => (
             <li key={decision.slug}>
               <Link href={`/decisao/${decision.slug}`} className="text-blue-600 underline">
                 {decision.label}
