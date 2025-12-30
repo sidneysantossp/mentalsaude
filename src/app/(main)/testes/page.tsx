@@ -4,8 +4,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardTitle, CardHeader, CardDescription } from '@/components/ui/card'
 import { getTests } from '@/lib/prisma-db'
 import { getCategoryLabel } from '@/lib/categories'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Testes Psicológicos Online | Mental Saúde',
+  description: 'Faça testes psicológicos validados para avaliar depressão, ansiedade, estresse e outros aspectos da saúde mental. Resultados imediatos e orientações.',
+  keywords: ['testes psicológicos', 'avaliação mental', 'saúde mental', 'depressão', 'ansiedade', 'testes online'],
+}
 
 function formatTime(test: Awaited<ReturnType<typeof getTests>>[number]) {
   if (test.timeLimit) {

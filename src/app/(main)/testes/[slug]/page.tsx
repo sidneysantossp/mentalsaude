@@ -13,6 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Brain, Clock, ArrowLeft, ArrowRight, CheckCircle, AlertCircle, Info, LogIn, UserPlus } from 'lucide-react'
 import { toast } from 'sonner'
 import { getCategoryLabel } from '@/lib/categories'
+import { testsInfo } from '@/lib/tests-info'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'
 
@@ -46,6 +47,11 @@ interface Test {
   questions: Question[]
 }
 
+const CATEGORY_TO_CONDITION_SLUG: Record<string, string> = {
+  DEPRESSION: 'depressao',
+  ANXIETY: 'ansiedade'
+}
+
 export default function TestPage({ params }: { params: Promise<{ slug: string }> }) {
   const router = useRouter()
   const { data: session, status } = useSession()
@@ -58,6 +64,12 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   const [totalScore, setTotalScore] = useState(0)
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null)
   const [testStarted, setTestStarted] = useState(false)
+  const conditionSlug =
+    test && CATEGORY_TO_CONDITION_SLUG[test.category as keyof typeof CATEGORY_TO_CONDITION_SLUG]
+  const decisionPagesData = slug ? testsInfo[slug]?.decisionPages ?? [] : []
+  const activeSlug = slug || test?.slug || ''
+  const baseSlug = slug || test?.slug
+
   const jsonLd =
     test && slug
       ? {
@@ -154,8 +166,8 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
     }
   }
 
-  const startTest = () => {
-    setTestStarted(true)
+    const startTest = () => {
+      setTestStarted(true)
     if (test?.timeLimit) {
       setTimeRemaining(test.timeLimit * 60)
     }
@@ -304,7 +316,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
           <CardHeader>
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <CardTitle className="text-3xl mb-2">{test.title}</CardTitle>
+                <h1 className="text-3xl font-bold mb-2">{test.title}</h1>
                 <CardDescription className="text-base">{test.description}</CardDescription>
               </div>
               <Badge variant="outline" className="ml-4">
@@ -336,6 +348,17 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
                   </div>
                 </AlertDescription>
               </Alert>
+            )}
+
+            {baseSlug && (
+              <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-600">
+                <Link href={`/testes/${baseSlug}/como-funciona`} className="underline">
+                  Entenda como o teste funciona
+                </Link>
+                <Link href={`/testes/${baseSlug}/pontuacao`} className="underline">
+                  Veja a pontuação antes de começar
+                </Link>
+              </div>
             )}
 
             <div className="space-y-4">
@@ -488,6 +511,32 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
                 </Button>
               </div>
             </div>
+
+            <div className="space-y-3 rounded-3xl border border-slate-200 bg-white/80 p-6 text-slate-900">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Explorar o teste</p>
+              <p className="text-lg font-semibold text-slate-900">Entenda melhor a pontuação, a validade e o que fazer em seguida</p>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild size="sm">
+                  <Link href={`/testes/${activeSlug}/pontuacao`}>Pontuação detalhada</Link>
+                </Button>
+                <Button variant="outline" asChild size="sm">
+                  <Link href={`/testes/${activeSlug}/validacao`}>Validação científica</Link>
+                </Button>
+                <Button variant="ghost" asChild size="sm">
+                  <Link href={`/testes/${activeSlug}/pos-teste`}>Próximos passos</Link>
+                </Button>
+                <Button variant="ghost" asChild size="sm" className="px-0 text-left text-blue-600 hover:text-blue-700">
+                  <Link href={`/testes/${activeSlug}/como-funciona`}>Como funciona o instrumento</Link>
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+                {decisionPagesData.map(page => (
+                  <Link key={page.slug} href={`/decisao/${page.slug}`} className="underline">
+                    {page.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="bg-slate-900 px-8 py-5 text-center text-xs font-semibold uppercase tracking-[0.35em] text-white">
@@ -580,3 +629,4 @@ const currentQ = test.questions[currentQuestion]
       </div>
     </>
   )
+}
