@@ -36,6 +36,18 @@ const getOptionValue = (option: OptionItem) =>
 const getOptionLabel = (option: OptionItem) =>
   typeof option === 'string' ? option : option.label
 
+function parseQuestionOptions(rawOptions: string): OptionItem[] {
+  try {
+    const parsed = JSON.parse(rawOptions)
+    return Array.isArray(parsed) ? (parsed as OptionItem[]) : []
+  } catch {
+    return rawOptions
+      .split('|')
+      .map(option => option.trim())
+      .filter(Boolean)
+  }
+}
+
 interface Test {
   id: string
   title: string
@@ -481,7 +493,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
           '@context': 'https://schema.org',
           '@type': 'WebPage',
           name: test.title,
-          description: test.shortDescription || test.description,
+          description: test.description,
           url: `${SITE_URL}/testes/${slug}`,
           mainEntity: {
             '@type': 'Questionnaire',
@@ -617,7 +629,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
     test.questions.forEach(question => {
       const answer = answers[question.id]
       if (answer) {
-        const options = (JSON.parse(question.options) as OptionItem[]).map(getOptionValue)
+        const options = parseQuestionOptions(question.options).map(getOptionValue)
         const answerIndex = options.indexOf(answer)
         score += Math.max(answerIndex, 0)
       }
@@ -958,9 +970,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   )
 }
 
-const currentQ = test.questions[currentQuestion]
-  const options = currentQ ? (JSON.parse(currentQ.options) as OptionItem[]) : []
-  const progress = ((currentQuestion + 1) / test.questions.length) * 100
+  const currentQ = test?.questions?.[currentQuestion]
+  const options = currentQ ? parseQuestionOptions(currentQ.options) : []
+  const progress = test ? ((currentQuestion + 1) / test.questions.length) * 100 : 0
 
   return (
     <>
@@ -982,7 +994,7 @@ const currentQ = test.questions[currentQuestion]
 
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <span>Questão {currentQuestion + 1} de {test.questions.length}</span>
+            <span>Questão {currentQuestion + 1} de {test?.questions?.length ?? 0}</span>
             <span>{Math.round(progress)}%</span>
           </div>
           <Progress value={progress} />
@@ -991,12 +1003,12 @@ const currentQ = test.questions[currentQuestion]
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">{currentQ.text}</CardTitle>
+            <CardTitle className="text-xl">{currentQ?.text ?? ''}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <RadioGroup
-              value={answers[currentQ.id] || ''}
-              onValueChange={(value) => handleAnswer(currentQ.id, value)}
+              value={(currentQ && answers[currentQ.id]) || ''}
+              onValueChange={(value) => currentQ && handleAnswer(currentQ.id, value)}
               className="space-y-3"
             >
               {options.map((option, index) => {
@@ -1027,10 +1039,10 @@ const currentQ = test.questions[currentQuestion]
               </Button>
               <Button
                 onClick={handleNext}
-                disabled={!answers[currentQ.id]}
+                disabled={!currentQ || !answers[currentQ.id]}
                 className="flex-1"
               >
-                {currentQuestion === test.questions.length - 1 ? 'Finalizar' : 'Próxima'}
+                {currentQuestion === (test?.questions?.length ?? 1) - 1 ? 'Finalizar' : 'Próxima'}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
