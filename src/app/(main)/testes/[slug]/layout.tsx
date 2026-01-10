@@ -26,7 +26,7 @@ export async function generateMetadata({
   const title = `${test.title} | Mental Saúde`
   
   // Criar meta description otimizada com 160 caracteres
-  let description = test.shortDescription || test.description
+  let description = test.short_description || test.description
   
   // Se a descrição for muito longa, truncar
   if (description.length > 160) {

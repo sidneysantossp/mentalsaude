@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 
   const title = `${test.title} | Mental Saúde`
-  const description = test.shortDescription || test.description
+  const description = test.short_description || test.description
   const url = `${SITE_URL}/testes/${params.slug}`
 
   return {

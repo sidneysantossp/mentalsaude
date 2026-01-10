@@ -640,7 +640,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
 
     if (session?.user) {
       try {
-        await fetch('/api/test-results', {
+        await fetch('/api/results', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -649,6 +649,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
               questionId,
               answer
             })),
+            userId: session.user.id,
             score
           })
         })
@@ -908,9 +909,9 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-gradient-to-br from-slate-900 to-slate-800 p-6 text-white md:flex-row md:items-center md:justify-between">
+            <div className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-gradient-to-br from-yellow-100 to-yellow-200 p-6 text-slate-800 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-300">Ação recomendada</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-600">Ação recomendada</p>
                 <p className="text-lg font-semibold">Registre-se para salvar ou baixe o PDF</p>
               </div>
               <div className="flex flex-col gap-3 md:flex-row">

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   const test = await getTestBySlug(slug)
   if (!test) return {}
   const metadata: string[] = [
-    test.shortDescription || test.description,
+    test.short_description || test.description,
     'Este instrumento é utilizado para triagem de sintomas recentes'
   ]
   return {
@@ -39,7 +39,6 @@ export default async function TestInfoPage({ params }: Props) {
   const info = testsInfo[slug]
   const summaryPoints = info?.summaryPoints ?? [
     `Instrumento na categoria ${test.category}`,
-    `${test.questions.length} questões com escala Likert`,
     'Finalidade de triagem em saúde mental'
   ]
 
@@ -48,7 +47,7 @@ export default async function TestInfoPage({ params }: Props) {
       <Card className="border-slate-200/70">
         <CardContent className="space-y-4">
           <CardTitle className="text-3xl">{test.title}</CardTitle>
-          <p className="text-sm text-slate-600">{test.shortDescription || test.description}</p>
+          <p className="text-sm text-slate-600">{test.short_description || test.description}</p>
           <div className="space-y-2">
             {summaryPoints.map(point => (
               <p key={point} className="text-sm text-slate-700">

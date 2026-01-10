@@ -81,14 +81,14 @@ export async function POST(request: NextRequest) {
       console.log('⚠️ MySQL não disponível, usando fallback mode:', (dbError as Error).message)
       
       // Fallback: Usar memória local
-      if (typeof globalThis !== 'undefined' && globalThis.fallbackUsers) {
-        let user = globalThis.fallbackUsers.find((u: any) => u.email === email)
+      if (typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
+        let user = (globalThis as any).fallbackUsers.find((u: any) => u.email === email)
         
         if (!user) {
           // Criar usuário se não existir
           const hashedPassword = await bcrypt.hash(newPassword, 10)
           
-          user = {
+          const createdUser = {
             id: Date.now().toString(),
             email: email,
             name: email.split('@')[0],
@@ -97,7 +97,8 @@ export async function POST(request: NextRequest) {
             createdAt: new Date().toISOString()
           }
           
-          globalThis.fallbackUsers.push(user)
+          (globalThis as any).fallbackUsers.push(createdUser)
+          user = createdUser
           console.log('✅ Usuário criado no fallback mode!')
         } else {
           // Atualizar usuário existente
@@ -124,14 +125,14 @@ export async function POST(request: NextRequest) {
       }
       
       // Criar fallback array se não existir
-      if (typeof globalThis !== 'undefined' && !globalThis.fallbackUsers) {
-        globalThis.fallbackUsers = []
+      if (typeof globalThis !== 'undefined' && !(globalThis as any).fallbackUsers) {
+        (globalThis as any).fallbackUsers = []
       }
       
       // Criar usuário no fallback
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       
-      const newUser = {
+      const newUser: any = {
         id: Date.now().toString(),
         email: email,
         name: email.split('@')[0],
@@ -141,7 +142,7 @@ export async function POST(request: NextRequest) {
       }
       
       if (typeof globalThis !== 'undefined') {
-        globalThis.fallbackUsers.push(newUser)
+        (globalThis as any).fallbackUsers.push(newUser)
       }
       
       console.log('✅ Usuário criado em fallback mode!')

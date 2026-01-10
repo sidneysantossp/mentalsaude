@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { createUser, authenticateUser, prisma } from '../src/lib/mysql'
+import { createUser, authenticateUser } from '../src/lib/db'
+import { prisma } from '../src/lib/database'
 
 interface EnvMap {
   [key: string]: string

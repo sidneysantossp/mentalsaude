@@ -34,7 +34,9 @@ async function main() {
     const schema = readFileSync(schemaPath, 'utf-8')
 
     // Apply schema to Supabase
-    execSync(`psql "${SUPABASE_URL.replace('https://', 'postgresql://postgres:')}@${SUPABASE_URL.split('//')[1].split('.')[0]}.supabase.co:5432/postgres" -c "${schema}"`, {
+    const supabaseUrl = SUPABASE_URL!
+    const urlParts = supabaseUrl.split('//')[1].split('.')
+    execSync(`psql "${supabaseUrl.replace('https://', 'postgresql://postgres:')}@${urlParts[0]}.supabase.co:5432/postgres" -c "${schema}"`, {
       stdio: 'inherit',
       env: {
         ...process.env,

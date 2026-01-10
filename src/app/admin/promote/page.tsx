@@ -37,7 +37,7 @@ export default function PromoteUserPage() {
         setMessageType('error')
       }
     } catch (error) {
-      setMessage(`❌ Erro de conexão: ${error.message}`)
+      setMessage(`❌ Erro de conexão: ${(error as Error).message}`)
       setMessageType('error')
     } finally {
       setLoading(false)

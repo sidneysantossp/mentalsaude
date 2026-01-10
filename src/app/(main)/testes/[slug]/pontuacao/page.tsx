@@ -40,7 +40,7 @@ export default async function TestScoringPage({ params }: Props) {
       {
         label: '0–100',
         min: 0,
-        max: test.questions.length * 4,
+        max: 100,
         guidance: 'Pontuação geral. Discuta com um profissional para interpretação precisa.'
       }
     ]
@@ -56,7 +56,6 @@ export default async function TestScoringPage({ params }: Props) {
           <div className="space-y-2">
             {(info?.summaryPoints ?? [
               'Instrumento validado para triagem inicial.',
-              `${test.questions.length} perguntas com escala Likert.`,
               'A interpretação exige olhar o histórico completo.'
             ]).map(point => (
               <p key={point} className="text-sm text-slate-700">

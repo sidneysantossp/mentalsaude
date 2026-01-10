@@ -243,7 +243,7 @@ export default function TesteFobiaSocialPage() {
               <p className="mb-6">
                 Faça o teste SPIN e entenda melhor seus padrões de ansiedade em situações sociais.
               </p>
-              <Link href="/testes/teste-fobia-social/iniciar">
+              <Link href="/testes/teste-fobia-social">
                 <Button variant="secondary" size="lg" className="bg-white text-indigo-600 hover:bg-gray-100">
                   <Brain className="h-4 w-4 mr-2" />
                   Fazer Teste SPIN

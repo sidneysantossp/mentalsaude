@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Users, Mail, Calendar, Shield } from 'lucide-react'
 import Link from 'next/link'
+import { prisma } from '@/lib/database'
 
 export const dynamic = 'force-dynamic'
 

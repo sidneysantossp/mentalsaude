@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, Edit, Trash2, Plus, Clock, FileText } from 'lucide-react'
 import Link from 'next/link'
 import { getCategoryLabel } from '@/lib/categories'
+import { prisma } from '@/lib/database'
 
 export const dynamic = 'force-dynamic'
 

@@ -8,6 +8,7 @@ import {
   TrendingUp,
   BookOpen
 } from 'lucide-react'
+import { prisma } from '@/lib/database'
 
 export const dynamic = 'force-dynamic'
 

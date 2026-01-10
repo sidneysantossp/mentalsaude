@@ -43,7 +43,6 @@ export async function getTests(): Promise<Test[]> {
     const { data, error } = await supabase
       .from('tests')
       .select('*')
-      .eq('is_active', true)
       .order('created_at', { ascending: true })
 
     if (error) {
