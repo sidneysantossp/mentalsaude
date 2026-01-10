@@ -82,13 +82,13 @@ export async function POST(request: NextRequest) {
       
       // Fallback: Usar memória local
       if (typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
-        let user = (globalThis as any).fallbackUsers.find((u: any) => u.email === email)
-        
-        if (!user) {
+        let existingUser: any = (globalThis as any).fallbackUsers.find((u: any) => u.email === email)
+
+        if (!existingUser) {
           // Criar usuário se não existir
           const hashedPassword = await bcrypt.hash(newPassword, 10)
-          
-          const newUserObj = {
+
+          existingUser = {
             id: Date.now().toString(),
             email: email,
             name: email.split('@')[0],
@@ -96,21 +96,20 @@ export async function POST(request: NextRequest) {
             role: 'ADMIN',
             createdAt: new Date().toISOString()
           }
-          
-          (globalThis as any).fallbackUsers.push(newUserObj)
-          user = newUserObj
+
+          (globalThis as any).fallbackUsers.push(existingUser)
           console.log('✅ Usuário criado no fallback mode!')
         } else {
           // Atualizar usuário existente
           const hashedPassword = await bcrypt.hash(newPassword, 10)
-          
-          user.password = hashedPassword
-          user.role = 'ADMIN'
-          user.updatedAt = new Date().toISOString()
-          
+
+          existingUser.password = hashedPassword
+          existingUser.role = 'ADMIN'
+          existingUser.updatedAt = new Date().toISOString()
+
           console.log('✅ Usuário atualizado no fallback mode!')
         }
-        
+
         return NextResponse.json({
           success: true,
           message: 'Senha criada com sucesso! (modo fallback)',
@@ -119,7 +118,7 @@ export async function POST(request: NextRequest) {
             password: newPassword,
             role: 'ADMIN'
           },
-          user: user,
+          user: existingUser,
           instructions: 'Acesse /auth/signin com estas credenciais'
         })
       }
