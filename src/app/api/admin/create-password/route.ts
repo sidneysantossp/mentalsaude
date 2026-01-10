@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
           // Criar usuário se não existir
           const hashedPassword = await bcrypt.hash(newPassword, 10)
           
-          const userData: any = {
+          const newUserObj = {
             id: Date.now().toString(),
             email: email,
             name: email.split('@')[0],
@@ -97,8 +97,8 @@ export async function POST(request: NextRequest) {
             createdAt: new Date().toISOString()
           }
           
-          (globalThis as any).fallbackUsers.push(userData)
-          user = userData
+          (globalThis as any).fallbackUsers.push(newUserObj)
+          user = newUserObj
           console.log('✅ Usuário criado no fallback mode!')
         } else {
           // Atualizar usuário existente
