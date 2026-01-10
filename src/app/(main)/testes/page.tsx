@@ -81,7 +81,7 @@ export default async function TestesPage() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {tests.map(test => {
+          {tests.map((test: Test) => {
             const slug = test.slug || test.id
             return (
               <Card
@@ -110,7 +110,7 @@ export default async function TestesPage() {
                     <div>
                       <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Dificuldade</p>
                       <p className="text-lg font-semibold text-slate-900">
-                        {test.questionCount > 14 ? 'Intermediário' : 'Iniciante'}
+                        {(test.questionCount || 0) > 14 ? 'Intermediário' : 'Iniciante'}
                       </p>
                     </div>
                     <div>
