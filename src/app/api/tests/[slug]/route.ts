@@ -94,13 +94,15 @@ export async function GET(
       }
     }
 
-    // Verificar se o slug existe nos mocks
+    // Verificar se o slug existe nos mocks PRIMEIRO (prioridade total)
     const mockTest = mockTests[slug]
     if (mockTest) {
+      console.log(`✅ Usando mock data para: ${slug}`)
       return NextResponse.json(mockTest)
     }
 
-    // Tentar buscar do Supabase apenas se não encontrar nos mocks
+    // Só tentar buscar do Supabase se não for um teste mock conhecido
+    console.log(`⚠️ Teste não encontrado nos mocks, tentando Supabase: ${slug}`)
     try {
       const test = await getTestBySlug(slug)
       if (test) {
