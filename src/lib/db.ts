@@ -497,12 +497,24 @@ export class DatabaseError extends Error {
  */
 export async function createUser(email: string, password: string, name?: string) {
   try {
-    // Check if user already exists
-    const { data: existingUser } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('email', email)
-      .single()
+    // Check if user already exists (try Supabase first)
+    let existingUser = null
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('email', email)
+        .single()
+      existingUser = data
+    } catch (error) {
+      console.log('⚠️ Supabase não disponível para verificação, usando fallback')
+    }
+
+    // Check fallback users if Supabase failed
+    if (!existingUser && typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
+      const fallbackUsers: any[] = (globalThis as any).fallbackUsers
+      existingUser = fallbackUsers.find((u: any) => u.email === email)
+    }
 
     if (existingUser) {
       throw new Error('Usuário já existe')
@@ -511,44 +523,78 @@ export async function createUser(email: string, password: string, name?: string)
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    // Create auth user in Supabase
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name: name || null,
-          role: 'USER'
+    // Try Supabase Auth first
+    try {
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name: name || null,
+            role: 'USER'
+          }
+        }
+      })
+
+      if (authError) {
+        throw authError
+      }
+
+      // Create profile record
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: authData.user.id,
+            email,
+            name: name || null,
+            role: 'USER',
+            password_hash: hashedPassword // Store hashed password for local auth
+          })
+
+        if (profileError) {
+          console.error('Error creating profile:', profileError)
+          throw profileError
         }
       }
-    })
 
-    if (authError) {
-      throw authError
-    }
-
-    // Create profile record
-    if (authData.user) {
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: authData.user.id,
-          email,
-          name: name || null,
-          role: 'USER',
-          password_hash: hashedPassword // Store hashed password for local auth
-        })
-
-      if (profileError) {
-        console.error('Error creating profile:', profileError)
-        throw profileError
+      return {
+        id: authData.user?.id,
+        email,
+        name
       }
-    }
+    } catch (supabaseError) {
+      console.log('⚠️ Supabase Auth não disponível, usando fallback local:', supabaseError)
+      
+      // Fallback: Create user in local storage/memory
+      const userId = Date.now().toString()
+      
+      // Initialize fallback users array if needed
+      if (typeof globalThis !== 'undefined' && !(globalThis as any).fallbackUsers) {
+        (globalThis as any).fallbackUsers = []
+      }
 
-    return {
-      id: authData.user?.id,
-      email,
-      name
+      // Create user in fallback
+      const newUser = {
+        id: userId,
+        email,
+        name: name || email.split('@')[0],
+        password: hashedPassword,
+        role: 'USER',
+        createdAt: new Date().toISOString()
+      }
+
+      if (typeof globalThis !== 'undefined') {
+        (globalThis as any).fallbackUsers.push(newUser)
+      }
+
+      console.log('✅ Usuário criado em fallback mode!')
+
+      return {
+        id: userId,
+        email,
+        name: name || email.split('@')[0]
+      }
     }
   } catch (error) {
     console.error('Error creating user:', error)
@@ -561,41 +607,75 @@ export async function createUser(email: string, password: string, name?: string)
  */
 export async function authenticateUser(email: string, password: string) {
   try {
-    // Find user profile
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('email', email)
-      .single()
+    // Try Supabase first
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('email', email)
+        .single()
 
-    if (profileError || !profile) {
-      throw new Error('Email ou senha incorretos')
+      if (!profileError && profile) {
+        // Verify password
+        const isValidPassword = await bcrypt.compare(password, profile.password_hash)
+
+        if (isValidPassword) {
+          // Generate JWT token
+          const token = generateToken({
+            id: profile.id,
+            email: profile.email,
+            name: profile.name,
+            role: profile.role
+          })
+
+          return {
+            user: {
+              id: profile.id,
+              email: profile.email,
+              name: profile.name,
+              role: profile.role
+            },
+            token
+          }
+        }
+      }
+    } catch (supabaseError) {
+      console.log('⚠️ Supabase não disponível, verificando fallback local:', supabaseError)
     }
 
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, profile.password_hash)
+    // Fallback: Check local memory
+    if (typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
+      const fallbackUsers: any[] = (globalThis as any).fallbackUsers
+      const user = fallbackUsers.find((u: any) => u.email === email)
 
-    if (!isValidPassword) {
-      throw new Error('Email ou senha incorretos')
+      if (user) {
+        const isValidPassword = await bcrypt.compare(password, user.password)
+
+        if (isValidPassword) {
+          // Generate JWT token
+          const token = generateToken({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role
+          })
+
+          console.log('✅ Usuário autenticado via fallback!')
+
+          return {
+            user: {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              role: user.role
+            },
+            token
+          }
+        }
+      }
     }
 
-    // Generate JWT token
-    const token = generateToken({
-      id: profile.id,
-      email: profile.email,
-      name: profile.name,
-      role: profile.role
-    })
-
-    return {
-      user: {
-        id: profile.id,
-        email: profile.email,
-        name: profile.name,
-        role: profile.role
-      },
-      token
-    }
+    throw new Error('Email ou senha incorretos')
   } catch (error) {
     console.error('Error authenticating user:', error)
     throw error
