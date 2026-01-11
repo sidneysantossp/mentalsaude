@@ -1,7 +1,16 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  // Força usar URL de produção se estiver no Vercel
+  const baseUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://mentalsaude.vercel.app' 
+    : (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+
+  console.log('🔍 Sitemap Debug:', {
+    NODE_ENV: process.env.NODE_ENV,
+    baseUrl: baseUrl,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+  })
 
   // Páginas estáticas principais
   const staticPages = [
