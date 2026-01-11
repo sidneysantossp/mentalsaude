@@ -6,7 +6,13 @@ export async function GET(request: NextRequest) {
     // Check database connection
     let databaseStatus: 'online' | 'offline' | 'error' = 'online'
     try {
-      await db.user.count()
+      const { error } = await db
+        .from('profiles')
+        .select('id', { head: true, count: 'exact' })
+
+      if (error) {
+        throw error
+      }
     } catch (error) {
       databaseStatus = 'error'
     }

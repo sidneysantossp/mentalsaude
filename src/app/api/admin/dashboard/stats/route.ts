@@ -3,50 +3,44 @@ import { db } from '@/lib/db'
 
 export async function GET(request: NextRequest) {
   try {
-    // Get basic stats
-    const totalUsers = await db.user.count()
-    const totalTests = await db.test.count()
-    const totalResults = await db.testResult.count()
-    
-    // Get active users (users who took tests in last 7 days)
     const sevenDaysAgo = new Date()
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
-    
-    const activeUsers = await db.testResult.findMany({
-      where: {
-        completedAt: {
-          gte: sevenDaysAgo
-        }
-      },
-      select: {
-        userId: true
-      },
-      distinct: ['userId']
-    })
-    
-    // Get recent users (registered in last 7 days)
-    const recentUsers = await db.user.count({
-      where: {
-        createdAt: {
-          gte: sevenDaysAgo
-        }
+    const sevenDaysAgoIso = sevenDaysAgo.toISOString()
+
+    // Helper to count rows with optional filters
+    const countRows = async (table: string, filter?: (builder: any) => any) => {
+      const query = db.from(table).select('id', { count: 'exact', head: true })
+      if (filter) {
+        filter(query)
       }
-    })
-    
-    // Get recent tests (completed in last 7 days)
-    const recentTests = await db.testResult.count({
-      where: {
-        completedAt: {
-          gte: sevenDaysAgo
-        }
-      }
-    })
+      const { count, error } = await query
+      if (error) throw error
+      return count ?? 0
+    }
+
+    const totalUsers = await countRows('profiles')
+    const totalTests = await countRows('tests')
+    const totalResults = await countRows('test_results')
+
+    const { data: recentActiveResults, error: activeError } = await db
+      .from('test_results')
+      .select('user_id')
+      .gte('completed_at', sevenDaysAgoIso)
+
+    if (activeError) {
+      throw activeError
+    }
+
+    const activeUsers = new Set((recentActiveResults || []).map(result => result.user_id)).size
+
+    const recentUsers = await countRows('profiles', query => query.gte('created_at', sevenDaysAgoIso))
+    const recentTests = await countRows('test_results', query => query.gte('completed_at', sevenDaysAgoIso))
 
     const stats = {
       totalUsers,
       totalTests,
       totalResults,
-      activeUsers: activeUsers.length,
+      activeUsers,
       recentUsers,
       recentTests
     }

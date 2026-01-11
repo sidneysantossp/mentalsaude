@@ -4,31 +4,30 @@ import { db } from '@/lib/db'
 export async function GET(request: NextRequest) {
   try {
     // Get recent activities
-    const recentResults = await db.testResult.findMany({
-      take: 10,
-      orderBy: {
-        completedAt: 'desc'
-      },
-      include: {
-        user: {
-          select: {
-            name: true,
-            email: true
-          }
-        },
-        test: {
-          select: {
-            title: true
-          }
-        }
-      }
-    })
+    const { data: recentResults, error } = await db
+      .from('test_results')
+      .select(`
+        *,
+        user:profiles (
+          name,
+          email
+        ),
+        test:tests (
+          title
+        )
+      `)
+      .order('completed_at', { ascending: false })
+      .limit(10)
 
-    const activities = recentResults.map(result => ({
+    if (error) {
+      throw error
+    }
+
+    const activities = (recentResults || []).map(result => ({
       id: result.id,
       type: 'result' as const,
-      description: `${result.user?.name || 'Usuário anônimo'} completou o teste "${result.test.title}" com pontuação ${result.totalScore}`,
-      timestamp: result.completedAt.toISOString(),
+      description: `${result.user?.name || 'Usuário anônimo'} completou o teste "${result.test?.title || 'desconhecido'}" com pontuação ${result.total_score}`,
+      timestamp: new Date(result.completed_at).toISOString(),
       status: 'success' as const
     }))
 

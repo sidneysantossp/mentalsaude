@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTestById, getUserTestResults } from '@/lib/db'
+import { db, getUserTestResults, saveTestResult } from '@/lib/db'
 import ZAI from 'z-ai-web-dev-sdk'
 
 // Mock test data for fallback
 const mockTests = {
   '1': {
     id: '1',
-    title: 'PHQ-9 - Questionário de Saúde do Paciente',
+    title: 'PHQ-9 - Questionario de Saude do Paciente',
     category: 'DEPRESSION',
     questions: [
       { id: '1', order: 1 },
@@ -22,7 +22,7 @@ const mockTests = {
   },
   '2': {
     id: '2',
-    title: 'Teste de Compulsão Alimentar',
+    title: 'Teste de Compulsao Alimentar',
     category: 'OCD',
     questions: [
       { id: '1', order: 1 },
@@ -42,7 +42,7 @@ const mockTests = {
   },
   '4': {
     id: '4',
-    title: 'Teste de Nível de Estresse',
+    title: 'Teste de Nivel de Estresse',
     category: 'STRESS',
     questions: [
       { id: '1', order: 1 },
@@ -52,7 +52,7 @@ const mockTests = {
   },
   '5': {
     id: '5',
-    title: 'Teste de Sofrimento Psíquico',
+    title: 'Teste de Sofrimento Psicologico',
     category: 'DEPRESSION',
     questions: [
       { id: '1', order: 1 },
@@ -74,16 +74,29 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get test information - try database first, fallback to mock data
-    let test = null
+    let test: any = null
     try {
-      const { getTestById } = await import('@/lib/db')
-      test = await getTestById(testId)
+      const { data, error } = await db
+        .from('tests')
+        .select(`
+          *,
+          questions (
+            id,
+            "order"
+          )
+        `)
+        .eq('id', testId)
+        .maybeSingle()
+
+      if (error) {
+        throw error
+      }
+
+      test = data
     } catch (dbError) {
       console.log('Database not available, using mock data')
     }
 
-    // Use mock data if database fails or test not found
     if (!test) {
       test = mockTests[testId as keyof typeof mockTests]
       if (!test) {
@@ -94,53 +107,51 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Calculate total score
+    const questionList = (test.questions || []) as { id: string }[]
     let totalScore = 0
-    const answerData = []
+    const answerData: any[] = []
 
     for (const answer of answers) {
-      const question = test.questions.find(q => q.id === answer.questionId)
+      const question = questionList.find(q => q.id === answer.questionId)
       if (question) {
-        // Calculate score based on PHQ-9 pattern (0-3 scale)
         let score = 0
         const answerValue = parseInt(answer.value)
         if (!isNaN(answerValue) && answerValue >= 0 && answerValue <= 3) {
           score = answerValue
         }
-        
+
         totalScore += score
-        
         answerData.push({
-          questionId: answer.questionId,
+          question_id: answer.questionId,
           value: answer.value,
-          score: score
+          score
         })
       }
     }
 
-    // Use AI to generate interpretation and recommendations
+    const maxScore = questionList.length * 3 || answers.length * 3
+
     let interpretation = ""
     let recommendations = ""
     let category = ""
 
     try {
       const zai = await ZAI.create()
-      
       const prompt = `
-        Based on a psychological test result for ${test.category.toLowerCase()} with a total score of ${totalScore} out of ${test.questions.length * 3}, 
-        provide a professional interpretation and recommendations. The test contains ${test.questions.length} questions with a maximum possible score of ${test.questions.length * 3}.
-        
+        Based on a psychological test result for ${test.category.toLowerCase()} with a total score of ${totalScore} out of ${maxScore},
+        provide a professional interpretation and recommendations. The test contains ${questionList.length} questions with a maximum possible score of ${maxScore}.
+
         Test category: ${test.category}
         Test title: ${test.title}
         Total score: ${totalScore}
-        Max possible score: ${test.questions.length * 3}
-        Percentage: ${Math.round((totalScore / (test.questions.length * 3)) * 100)}%
-        
+        Max possible score: ${maxScore}
+        Percentage: ${Math.round((totalScore / maxScore) * 100)}%
+
         Please provide:
         1. A severity category (Minimal, Mild, Moderate, Moderately Severe, Severe)
         2. A brief interpretation of what this score means
         3. 3-4 specific recommendations for the person
-        
+
         Format your response as JSON:
         {
           "category": "severity category",
@@ -153,7 +164,7 @@ export async function POST(request: NextRequest) {
         messages: [
           {
             role: 'system',
-            content: 'You are a mental health professional providing interpretations for psychological test results. Always be supportive, professional, and include appropriate disclaimers.'
+            content: 'You are a mental health professional providing interpretations for psychological test results. Always stay supportive, professional, and include appropriate disclaimers.'
           },
           {
             role: 'user',
@@ -172,7 +183,6 @@ export async function POST(request: NextRequest) {
           interpretation = parsed.interpretation || "Your score indicates moderate symptoms that may benefit from professional attention."
           recommendations = parsed.recommendations || "Consider speaking with a mental health professional for further evaluation and support."
         } catch (parseError) {
-          // Fallback if JSON parsing fails
           category = "Moderate"
           interpretation = "Your score indicates moderate symptoms that may benefit from professional attention."
           recommendations = "Consider speaking with a mental health professional for further evaluation and support."
@@ -180,8 +190,7 @@ export async function POST(request: NextRequest) {
       }
     } catch (aiError) {
       console.error('AI interpretation failed:', aiError)
-      // Fallback interpretation
-      const percentage = Math.round((totalScore / (test.questions.length * 3)) * 100)
+      const percentage = maxScore ? Math.round((totalScore / maxScore) * 100) : 0
       if (percentage <= 25) {
         category = "Minimal"
         interpretation = "Your score indicates minimal symptoms. Continue monitoring your mental health."
@@ -189,7 +198,7 @@ export async function POST(request: NextRequest) {
       } else if (percentage <= 50) {
         category = "Mild"
         interpretation = "Your score indicates mild symptoms that may benefit from self-care strategies."
-        recommendations = "Practice stress management techniques and consider speaking with a trusted friend or professional."
+        recommendations = "Practice stress management techniques and consider speaking with a trusted person or professional."
       } else if (percentage <= 75) {
         category = "Moderate"
         interpretation = "Your score indicates moderate symptoms that may benefit from professional attention."
@@ -201,26 +210,23 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Create test result in database - try database first, fallback to localStorage simulation
-    let testResult = null
+    let testResult: any = null
     try {
-      const { saveTestResult } = await import('@/lib/db')
-      const resultId = await saveTestResult({
-        userId: userId || 'anonymous',
-        testId: testId,
-        totalScore: totalScore,
-        category: category,
-        interpretation: interpretation,
-        recommendations: recommendations,
-        answers: answerData
-      })
-      
+      const savedResult = await saveTestResult({
+        user_id: userId || 'anonymous',
+        test_id: testId,
+        total_score: totalScore,
+        category,
+        interpretation,
+        recommendations
+      }, answerData)
+
       testResult = {
-        id: resultId,
-        totalScore: totalScore,
-        category: category,
-        interpretation: interpretation,
-        recommendations: recommendations,
+        id: savedResult.id,
+        totalScore: savedResult.total_score,
+        category,
+        interpretation,
+        recommendations,
         completedAt: new Date().toISOString(),
         test: {
           title: test.title,
@@ -229,13 +235,12 @@ export async function POST(request: NextRequest) {
       }
     } catch (dbError) {
       console.log('Database save failed, generating mock result')
-      // Generate mock result for fallback
       testResult = {
         id: Date.now().toString(),
-        totalScore: totalScore,
-        category: category,
-        interpretation: interpretation,
-        recommendations: recommendations,
+        totalScore,
+        category,
+        interpretation,
+        recommendations,
         completedAt: new Date().toISOString(),
         test: {
           title: test.title,
@@ -274,7 +279,6 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get('userId')
     const testId = searchParams.get('testId')
 
-    // Get user from token if no userId provided
     let targetUserId = userId
     if (!targetUserId) {
       const authHeader = request.headers.get('authorization')
@@ -290,7 +294,6 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Fetch results using MySQL
     const results = await getUserTestResults(targetUserId || 'anonymous')
 
     return NextResponse.json({

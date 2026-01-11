@@ -2,15 +2,16 @@
  * Authentication utilities
  */
 
-import jwt from 'jsonwebtoken'
+import jwt, { Secret, SignOptions } from 'jsonwebtoken'
 
-const JWT_SECRET = process.env.JWT_SECRET || process.env.NEXTAUTH_SECRET || 'fallback_secret_key_change_in_production'
+const JWT_SECRET: Secret = (process.env.JWT_SECRET || process.env.NEXTAUTH_SECRET || 'fallback_secret_key_change_in_production') as Secret
 
 /**
  * Generate JWT token
  */
 export function generateToken(payload: object, expiresIn: string = '7d'): string {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn })
+  const options: SignOptions = { expiresIn: expiresIn as any }
+  return jwt.sign(payload, JWT_SECRET, options)
 }
 
 /**

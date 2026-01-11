@@ -1,36 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+const resultsSelect = `
+  *,
+  user:profiles (
+    id,
+    name,
+    email
+  ),
+  test:tests (
+    id,
+    title,
+    category
+  )
+`
+
 export async function GET(request: NextRequest) {
   try {
-    const results = await db.testResult.findMany({
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true
-          }
-        },
-        test: {
-          select: {
-            id: true,
-            title: true,
-            category: true
-          }
-        }
-      },
-      orderBy: {
-        completedAt: 'desc'
-      }
-    })
+    const { data: resultsData, error } = await db
+      .from('test_results')
+      .select(resultsSelect)
+      .order('completed_at', { ascending: false })
 
-    const formattedResults = results.map(result => ({
+    if (error) {
+      throw error
+    }
+
+    const formattedResults = (resultsData || []).map(result => ({
       id: result.id,
-      totalScore: result.totalScore,
+      totalScore: result.total_score,
       category: result.category,
       interpretation: result.interpretation,
-      completedAt: result.completedAt.toISOString(),
+      completedAt: new Date(result.completed_at).toISOString(),
       test: result.test,
       user: result.user
     }))
@@ -52,12 +53,12 @@ export async function GET(request: NextRequest) {
         completedAt: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
         test: {
           id: '1',
-          title: 'PHQ-9 - Questionário de Depressão',
+          title: 'PHQ-9 - Questionario de Depressao',
           category: 'DEPRESSION'
         },
         user: {
           id: '1',
-          name: 'João Silva',
+          name: 'Joao Silva',
           email: 'joao.silva@example.com'
         }
       },
@@ -86,7 +87,7 @@ export async function GET(request: NextRequest) {
         completedAt: new Date(Date.now() - 1000 * 60 * 60 * 6).toISOString(),
         test: {
           id: '3',
-          title: 'Teste de TDAH - Desatenção',
+          title: 'Teste de TDAH - Desatencao',
           category: 'ADHD'
         },
         user: {
@@ -99,7 +100,7 @@ export async function GET(request: NextRequest) {
         id: '4',
         totalScore: 15,
         category: 'Moderate',
-        interpretation: 'Nível de estresse moderado detectado',
+        interpretation: 'Nivel de estresse moderado detectado',
         completedAt: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(),
         test: {
           id: '4',
@@ -120,7 +121,7 @@ export async function GET(request: NextRequest) {
         completedAt: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
         test: {
           id: '1',
-          title: 'PHQ-9 - Questionário de Depressão',
+          title: 'PHQ-9 - Questionario de Depressao',
           category: 'DEPRESSION'
         },
         user: {

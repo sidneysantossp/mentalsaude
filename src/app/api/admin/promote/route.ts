@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { db } from '@/lib/db'
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,27 +9,24 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email é obrigatório' }, { status: 400 })
     }
     
-    console.log('🔍 Tentando promover usuário:', email)
+    console.log('Promoting user:', email)
     
-    // Tentar usar MySQL primeiro
     try {
-      const { db } = await import('@/lib/database')
+      const { data: user, error } = await db
+        .from('profiles')
+        .select('id, email, name, role')
+        .eq('email', email)
+        .maybeSingle()
       
-      // Verificar se o usuário existe
-      const users = await db.query(
-        'SELECT id, email, name, role FROM users WHERE email = ?',
-        [email]
-      ) as any[]
+      if (error) {
+        throw error
+      }
       
-      if (!users || users.length === 0) {
-        console.log('❌ Usuário não encontrado no MySQL')
+      if (!user) {
+        console.log('User not found in Supabase')
         return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
       }
       
-      const user = users[0]
-      console.log('✅ Usuário encontrado no MySQL:', user)
-      
-      // Verificar se já é admin
       if (user.role === 'ADMIN') {
         return NextResponse.json({
           success: true,
@@ -42,52 +40,44 @@ export async function POST(request: NextRequest) {
         })
       }
       
-      // Promover para admin
-      await db.query(
-        'UPDATE users SET role = ? WHERE email = ?',
-        ['ADMIN', email]
-      )
+      const { error: updateError } = await db
+        .from('profiles')
+        .update({ role: 'ADMIN' })
+        .eq('email', email)
       
-      console.log('✅ Usuário promovido no MySQL com sucesso!')
+      if (updateError) {
+        throw updateError
+      }
       
-      // Buscar usuário atualizado
-      const updatedUsers = await db.query(
-        'SELECT id, email, name, role FROM users WHERE email = ?',
-        [email]
-      ) as any[]
-      
-      const updatedUser = updatedUsers[0]
+      console.log('User promoted in Supabase')
       
       return NextResponse.json({
         success: true,
         message: 'Usuário promovido para ADMIN com sucesso!',
         user: {
-          id: updatedUser.id,
-          email: updatedUser.email,
-          name: updatedUser.name,
-          role: updatedUser.role
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: 'ADMIN'
         }
       })
-      
     } catch (dbError) {
-      console.log('⚠️ MySQL não disponível, usando fallback mode:', dbError.message)
+      console.log('Supabase not available, using fallback mode:', (dbError as Error).message)
       
-      // Fallback: Usar memória local para desenvolvimento
-      if (typeof globalThis !== 'undefined' && globalThis.fallbackUsers) {
-        const userIndex = globalThis.fallbackUsers.findIndex((u: any) => u.email === email)
+      if (typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
+        const userIndex = (globalThis as any).fallbackUsers.findIndex((u: any) => u.email === email)
         
         if (userIndex === -1) {
-          // Criar usuário se não existir
           const newUser = {
             id: Date.now().toString(),
-            email: email,
+            email,
             name: email.split('@')[0],
             role: 'ADMIN',
             createdAt: new Date().toISOString()
           }
-          globalThis.fallbackUsers.push(newUser)
+          ;(globalThis as any).fallbackUsers.push(newUser)
           
-          console.log('✅ Usuário criado e promovido no fallback mode:', newUser)
+          console.log('User created and promoted in fallback mode:', newUser)
           
           return NextResponse.json({
             success: true,
@@ -95,11 +85,10 @@ export async function POST(request: NextRequest) {
             user: newUser
           })
         } else {
-          // Promover usuário existente
-          globalThis.fallbackUsers[userIndex].role = 'ADMIN'
-          const promotedUser = globalThis.fallbackUsers[userIndex]
+          (globalThis as any).fallbackUsers[userIndex].role = 'ADMIN'
+          const promotedUser = (globalThis as any).fallbackUsers[userIndex]
           
-          console.log('✅ Usuário promovido no fallback mode:', promotedUser)
+          console.log('User promoted in fallback mode:', promotedUser)
           
           return NextResponse.json({
             success: true,
@@ -109,38 +98,36 @@ export async function POST(request: NextRequest) {
         }
       }
       
-      // Criar fallback array se não existir
-      if (typeof globalThis !== 'undefined' && !globalThis.fallbackUsers) {
-        globalThis.fallbackUsers = []
+      if (typeof globalThis !== 'undefined' && !(globalThis as any).fallbackUsers) {
+        ;(globalThis as any).fallbackUsers = []
       }
       
-      // Criar usuário no fallback
       const newUser = {
         id: Date.now().toString(),
-        email: email,
+        email,
         name: email.split('@')[0],
         role: 'ADMIN',
         createdAt: new Date().toISOString()
       }
       
       if (typeof globalThis !== 'undefined') {
-        globalThis.fallbackUsers.push(newUser)
+        ;(globalThis as any).fallbackUsers.push(newUser)
       }
       
-      console.log('✅ Usuário criado em fallback mode:', newUser)
+      console.log('User created in fallback mode:', newUser)
       
       return NextResponse.json({
         success: true,
-        message: 'Usuário criado e promovido para ADMIN (modo desenvolvimento)!',
+        message: 'Usuário criado e promovido para ADMIN (modo fallback)!',
         user: newUser
       })
     }
     
   } catch (error) {
-    console.error('❌ Erro ao promover usuário:', error)
+    console.error('Erro ao promover usuário:', error)
     return NextResponse.json({ 
       error: 'Erro interno do servidor',
-      details: error.message 
+      details: (error as Error).message 
     }, { status: 500 })
   }
 }

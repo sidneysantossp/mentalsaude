@@ -68,11 +68,11 @@ export default function DashboardPage() {
       } else {
         console.error('API returned error:', data.error)
       }
-    } catch (error) {
-      console.error('Error fetching test results:', error)
-      if (error.name === 'AbortError') {
-        console.error('Request timed out')
-      }
+      } catch (error) {
+        console.error('Error fetching test results:', error)
+        if (error instanceof Error && error.name === 'AbortError') {
+          console.error('Request timed out')
+        }
     } finally {
       setLoading(false)
     }

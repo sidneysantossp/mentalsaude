@@ -82,13 +82,14 @@ export async function POST(request: NextRequest) {
       
       // Fallback: Usar memória local
       if (typeof globalThis !== 'undefined' && (globalThis as any).fallbackUsers) {
-        let existingUser: any = (globalThis as any).fallbackUsers.find((u: any) => u.email === email)
+        const fallbackUsers: any[] = (globalThis as any).fallbackUsers
+        let existingUser: any = fallbackUsers.find((u: any) => u.email === email)
 
         if (!existingUser) {
           // Criar usuário se não existir
           const hashedPassword = await bcrypt.hash(newPassword, 10)
 
-          existingUser = {
+          const newUser = {
             id: Date.now().toString(),
             email: email,
             name: email.split('@')[0],
@@ -97,7 +98,8 @@ export async function POST(request: NextRequest) {
             createdAt: new Date().toISOString()
           }
 
-          (globalThis as any).fallbackUsers.push(existingUser)
+          fallbackUsers.push(newUser)
+          existingUser = newUser
           console.log('✅ Usuário criado no fallback mode!')
         } else {
           // Atualizar usuário existente

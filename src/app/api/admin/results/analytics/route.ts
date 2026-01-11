@@ -1,66 +1,75 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+const analyticsSelect = `
+  *,
+  test:tests (
+    id,
+    title,
+    category
+  ),
+  user:profiles (
+    id
+  )
+`
+
 export async function GET(request: NextRequest) {
   try {
     // Get all results for analytics
-    const results = await db.testResult.findMany({
-      include: {
-        test: {
-          select: {
-            id: true,
-            title: true,
-            category: true
-          }
-        },
-        user: {
-          select: {
-            id: true
-          }
-        }
-      }
-    })
+    const { data: resultsData, error } = await db
+      .from('test_results')
+      .select(analyticsSelect)
 
-    // Calculate basic stats
+    if (error) {
+      throw error
+    }
+
+    const results = resultsData || []
+
     const totalResults = results.length
-    const averageScore = results.reduce((sum, result) => sum + result.totalScore, 0) / totalResults
+    const averageScore = totalResults === 0
+      ? 0
+      : results.reduce((sum, result) => sum + (result.total_score || 0), 0) / totalResults
 
     // Results by category
     const resultsByCategory: Record<string, number> = {}
     results.forEach(result => {
-      const category = result.test.category
+      const category = result.test?.category || 'Unknown'
       resultsByCategory[category] = (resultsByCategory[category] || 0) + 1
     })
 
     // Results by severity
     const resultsBySeverity: Record<string, number> = {}
     results.forEach(result => {
-      const severity = result.category
+      const severity = result.category || 'Unknown'
       resultsBySeverity[severity] = (resultsBySeverity[severity] || 0) + 1
     })
 
     // Results by month
     const resultsByMonth: Record<string, number> = {}
     results.forEach(result => {
-      const month = new Date(result.completedAt).toISOString().slice(0, 7) // YYYY-MM
+      const completedAt = result.completed_at ? new Date(result.completed_at) : null
+      const month = completedAt ? completedAt.toISOString().slice(0, 7) : 'unknown'
       resultsByMonth[month] = (resultsByMonth[month] || 0) + 1
     })
 
     // Top tests
-    const testStats: Record<string, { count: number; totalScore: number }> = {}
+    const testStats: Record<string, { count: number; totalScore: number; title: string }> = {}
     results.forEach(result => {
-      const testId = result.test.id
+      const testId = result.test?.id || result.test_id || 'unknown'
+      const title = result.test?.title || 'Unknown'
+      const score = result.total_score || 0
       if (!testStats[testId]) {
-        testStats[testId] = { count: 0, totalScore: 0 }
+        testStats[testId] = { count: 0, totalScore: 0, title }
       }
       testStats[testId].count += 1
-      testStats[testId].totalScore += result.totalScore
+      testStats[testId].totalScore += score
     })
 
     const topTests = Object.entries(testStats)
       .map(([testId, stats]) => ({
         testId,
-        testTitle: results.find(r => r.test.id === testId)?.test.title || 'Unknown',
+        testTitle: stats.title,
         count: stats.count,
         averageScore: stats.totalScore / stats.count
       }))
@@ -113,7 +122,7 @@ export async function GET(request: NextRequest) {
       topTests: [
         {
           testId: '1',
-          testTitle: 'PHQ-9 - Questionário de Depressão',
+          testTitle: 'PHQ-9 - Questionario de Depressao',
           count: 45,
           averageScore: 12.5
         },
@@ -125,7 +134,7 @@ export async function GET(request: NextRequest) {
         },
         {
           testId: '3',
-          testTitle: 'Teste de TDAH - Desatenção',
+          testTitle: 'Teste de TDAH - Desatencao',
           count: 32,
           averageScore: 16.2
         },
@@ -137,7 +146,7 @@ export async function GET(request: NextRequest) {
         },
         {
           testId: '5',
-          testTitle: 'Teste de Compulsão Alimentar',
+          testTitle: 'Teste de Compulsao Alimentar',
           count: 16,
           averageScore: 11.3
         }

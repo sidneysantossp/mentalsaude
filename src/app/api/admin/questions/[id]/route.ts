@@ -1,6 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+const questionSelect = `
+  *,
+  test:tests (
+    id,
+    title,
+    category
+  )
+`
+
+const safeParseOptions = (options: string | null | undefined) => {
+  if (!options) {
+    return []
+  }
+
+  try {
+    return JSON.parse(options)
+  } catch {
+    return []
+  }
+}
+
+const toResponseQuestion = (question: any) => ({
+  id: question.id,
+  text: question.text,
+  type: question.type,
+  order: question.order,
+  testId: question.test_id,
+  test: question.test,
+  options: safeParseOptions(question.options),
+  createdAt: question.created_at,
+  updatedAt: question.created_at
+})
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -9,44 +42,31 @@ export async function GET(
     const resolvedParams = await params
     const questionId = resolvedParams.id
 
-    const question = await db.question.findUnique({
-      where: { id: questionId },
-      include: {
-        test: {
-          select: {
-            id: true,
-            title: true,
-            category: true
-          }
-        }
-      }
-    })
+    const { data: question, error } = await db
+      .from('questions')
+      .select(questionSelect)
+      .eq('id', questionId)
+      .maybeSingle()
+
+    if (error) {
+      throw error
+    }
 
     if (!question) {
       return NextResponse.json(
-        { error: 'Questão não encontrada' },
+        { error: 'Questao nao encontrada' },
         { status: 404 }
       )
     }
 
     return NextResponse.json({
       success: true,
-      question: {
-        id: question.id,
-        text: question.text,
-        type: question.type,
-        order: question.order,
-        testId: question.testId,
-        test: question.test,
-        options: question.options ? JSON.parse(question.options) : [],
-        createdAt: question.createdAt.toISOString(),
-        updatedAt: question.updatedAt.toISOString()
-      }
+      question: toResponseQuestion(question)
     })
   } catch (error) {
     console.error('Error fetching question:', error)
     return NextResponse.json(
-      { error: 'Erro ao buscar questão' },
+      { error: 'Erro ao buscar questao' },
       { status: 500 }
     )
   }
@@ -62,44 +82,40 @@ export async function PUT(
     const body = await request.json()
     const { text, type, testId, order, options } = body
 
-    const updateData: any = {}
+    const updateData: Record<string, any> = {}
     if (text !== undefined) updateData.text = text
     if (type !== undefined) updateData.type = type
-    if (testId !== undefined) updateData.testId = testId
-    if (order !== undefined) updateData.order = parseInt(order)
-    if (options !== undefined) updateData.options = JSON.stringify(options)
+    if (testId !== undefined) updateData.test_id = testId
+    if (order !== undefined) {
+      updateData.order = typeof order === 'string' ? parseInt(order, 10) : order
+    }
+    if (options !== undefined) {
+      updateData.options = JSON.stringify(options)
+    }
 
-    const updatedQuestion = await db.question.update({
-      where: { id: questionId },
-      data: updateData,
-      include: {
-        test: {
-          select: {
-            id: true,
-            title: true,
-            category: true
-          }
-        }
-      }
-    })
+    const { data: updatedQuestion, error } = await db
+      .from('questions')
+      .update(updateData)
+      .eq('id', questionId)
+      .select(questionSelect)
+      .maybeSingle()
+
+    if (error) {
+      throw error
+    }
+
+    if (!updatedQuestion) {
+      throw new Error('Question not found after update')
+    }
 
     return NextResponse.json({
       success: true,
-      question: {
-        id: updatedQuestion.id,
-        text: updatedQuestion.text,
-        type: updatedQuestion.type,
-        order: updatedQuestion.order,
-        testId: updatedQuestion.testId,
-        test: updatedQuestion.test,
-        options: updatedQuestion.options ? JSON.parse(updatedQuestion.options) : [],
-        updatedAt: updatedQuestion.updatedAt.toISOString()
-      }
+      question: toResponseQuestion(updatedQuestion)
     })
   } catch (error) {
     console.error('Error updating question:', error)
     return NextResponse.json(
-      { error: 'Erro ao atualizar questão' },
+      { error: 'Erro ao atualizar questao' },
       { status: 500 }
     )
   }
@@ -113,18 +129,23 @@ export async function DELETE(
     const resolvedParams = await params
     const questionId = resolvedParams.id
 
-    await db.question.delete({
-      where: { id: questionId }
-    })
+    const { error } = await db
+      .from('questions')
+      .delete()
+      .eq('id', questionId)
+
+    if (error) {
+      throw error
+    }
 
     return NextResponse.json({
       success: true,
-      message: 'Questão excluída com sucesso'
+      message: 'Questao excluida com sucesso'
     })
   } catch (error) {
     console.error('Error deleting question:', error)
     return NextResponse.json(
-      { error: 'Erro ao excluir questão' },
+      { error: 'Erro ao excluir questao' },
       { status: 500 }
     )
   }

@@ -1,33 +1,48 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+const questionSelect = `
+  *,
+  test:tests (
+    id,
+    title,
+    category
+  )
+`
+
+const safeParseOptions = (options: string | null | undefined) => {
+  if (!options) {
+    return []
+  }
+
+  try {
+    return JSON.parse(options)
+  } catch {
+    return []
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
-    const questions = await db.question.findMany({
-      include: {
-        test: {
-          select: {
-            id: true,
-            title: true,
-            category: true
-          }
-        }
-      },
-      orderBy: {
-        order: 'asc'
-      }
-    })
+    const { data: questions, error } = await db
+      .from('questions')
+      .select(questionSelect)
+      .order('order', { ascending: true })
 
-    const formattedQuestions = questions.map(question => ({
+    if (error) {
+      throw error
+    }
+
+    const formattedQuestions = (questions || []).map(question => ({
       id: question.id,
       text: question.text,
       type: question.type,
       order: question.order,
-      testId: question.testId,
-      testTitle: question.test.title,
-      testCategory: question.test.category,
-      optionsCount: question.options ? JSON.parse(question.options).length : 0,
-      createdAt: question.createdAt.toISOString()
+      testId: question.test_id,
+      testTitle: question.test?.title,
+      testCategory: question.test?.category,
+      optionsCount: safeParseOptions(question.options).length,
+      createdAt: question.created_at
     }))
 
     return NextResponse.json({
@@ -45,18 +60,18 @@ export async function GET(request: NextRequest) {
         type: 'LIKERT_SCALE',
         order: 1,
         testId: '1',
-        testTitle: 'PHQ-9 - Questionário de Depressão',
+        testTitle: 'PHQ-9 - Questionario de Depressao',
         testCategory: 'DEPRESSION',
         optionsCount: 4,
         createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString()
       },
       {
         id: '2',
-        text: 'Sentindo-se para baixo, deprimido(a) ou sem esperança',
+        text: 'Sentindo-se para baixo, deprimido(a) ou sem esperanca',
         type: 'LIKERT_SCALE',
         order: 2,
         testId: '1',
-        testTitle: 'PHQ-9 - Questionário de Depressão',
+        testTitle: 'PHQ-9 - Questionario de Depressao',
         testCategory: 'DEPRESSION',
         optionsCount: 4,
         createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30).toISOString()
@@ -74,7 +89,7 @@ export async function GET(request: NextRequest) {
       },
       {
         id: '4',
-        text: 'Não consigo parar de me preocupar',
+        text: 'Nao consigo parar de me preocupar',
         type: 'LIKERT_SCALE',
         order: 2,
         testId: '2',
@@ -89,7 +104,7 @@ export async function GET(request: NextRequest) {
         type: 'LIKERT_SCALE',
         order: 1,
         testId: '3',
-        testTitle: 'Teste de TDAH - Desatenção',
+        testTitle: 'Teste de TDAH - Desatencao',
         testCategory: 'ADHD',
         optionsCount: 4,
         createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20).toISOString()
@@ -110,20 +125,32 @@ export async function POST(request: NextRequest) {
 
     if (!text || !type || !testId || order === undefined) {
       return NextResponse.json(
-        { error: 'Campos obrigatórios: texto, tipo, testeId e ordem' },
+        { error: 'Campos obrigatorios: text, type, testId e order' },
         { status: 400 }
       )
     }
 
-    const newQuestion = await db.question.create({
-      data: {
-        text,
-        type,
-        testId,
-        order: parseInt(order),
-        options: options ? JSON.stringify(options) : null
-      }
-    })
+    const payload = {
+      text,
+      type,
+      test_id: testId,
+      order: typeof order === 'string' ? parseInt(order, 10) : order,
+      options: options ? JSON.stringify(options) : null
+    }
+
+    const { data: newQuestion, error } = await db
+      .from('questions')
+      .insert(payload)
+      .select(questionSelect)
+      .maybeSingle()
+
+    if (error) {
+      throw error
+    }
+
+    if (!newQuestion) {
+      throw new Error('Falha ao criar question')
+    }
 
     return NextResponse.json({
       success: true,
@@ -131,16 +158,16 @@ export async function POST(request: NextRequest) {
         id: newQuestion.id,
         text: newQuestion.text,
         type: newQuestion.type,
-        testId: newQuestion.testId,
+        testId: newQuestion.test_id,
         order: newQuestion.order,
-        options: newQuestion.options ? JSON.parse(newQuestion.options) : [],
-        createdAt: newQuestion.createdAt.toISOString()
+        options: safeParseOptions(newQuestion.options),
+        createdAt: newQuestion.created_at
       }
     })
   } catch (error) {
     console.error('Error creating question:', error)
     return NextResponse.json(
-      { error: 'Erro ao criar questão' },
+      { error: 'Erro ao criar questao' },
       { status: 500 }
     )
   }
