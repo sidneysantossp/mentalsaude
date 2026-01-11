@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: "Acesse testes psicológicos validados para entender melhor sua saúde mental. Depressão, Ansiedade, Burnout e mais.",
   keywords: ["saúde mental", "testes psicológicos", "depressão", "ansiedade", "burnout", "avaliação psicológica"],
   authors: [{ name: "Mental Health Tests Team" }],
+  verification: {
+    google: "217li2pM1Jlv1PEueo131CZS-FqfVKaRKTCUoqxMZRU",
+  },
   openGraph: {
     title: "Mental Health Tests",
     description: "Testes psicológicos validados para entender melhor sua saúde mental",
