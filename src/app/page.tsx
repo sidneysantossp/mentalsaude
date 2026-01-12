@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -21,99 +23,9 @@ import {
 import Link from 'next/link'
 import FAQSection, { FAQItem } from '@/components/home/FAQSection'
 import LayoutWrapper from '@/components/layout/LayoutWrapper'
-
-const testCategories = [
-  {
-    id: 'depression',
-    slug: 'teste-de-depressao',
-    title: 'Teste de Depressão',
-    description: 'Avalie seus sintomas depressivos e entenda seu nível de bem-estar emocional',
-    icon: Brain,
-    color: 'bg-blue-500',
-    tests: ['Teste de Depressão', 'Teste de Sofrimento Psíquico'],
-    image: '/images/depression-therapy.jpg'
-  },
-  {
-    id: 'anxiety',
-    slug: 'teste-de-ansiedade',
-    title: 'Teste de Ansiedade',
-    description: 'Meça seus níveis de ansiedade e como ela afeta seu dia a dia',
-    icon: Heart,
-    color: 'bg-cyan-500',
-    tests: ['Teste de Ansiedade', 'Teste de Fobia Social'],
-    image: '/images/anxiety-meditation.jpg'
-  },
-  {
-    id: 'compulsion',
-    slug: 'teste-de-compulsao-alimentar',
-    title: 'Teste de Compulsão Alimentar',
-    description: 'Identifique padrões de alimentação compulsiva e sua relação com as emoções',
-    icon: Flame,
-    color: 'bg-orange-500',
-    tests: ['Teste de Compulsão Alimentar'],
-    image: '/images/healthy-eating.jpg'
-  },
-  {
-    id: 'adhd',
-    slug: 'teste-de-tdah',
-    title: 'Teste de TDAH',
-    description: 'Avalie sintomas de desatenção, hiperatividade e impulsividade',
-    icon: Zap,
-    color: 'bg-yellow-500',
-    tests: ['Teste de TDAH - Desatenção', 'Teste de TDAH - Hiperatividade'],
-    image: '/images/adhd-focus.jpg'
-  },
-  {
-    id: 'stress',
-    slug: 'teste-de-estresse',
-    title: 'Teste de Estresse',
-    description: 'Avalie seu nível de estresse atual e seus principais gatilhos',
-    icon: Users,
-    color: 'bg-red-500',
-    tests: ['Teste de Nível de Estresse'],
-    image: '/images/stress-management.jpg'
-  },
-  {
-    id: 'burnout',
-    slug: 'teste-de-burnout',
-    title: 'Teste de Burnout',
-    description: 'Identifique sinais de esgotamento profissional e impacto na sua qualidade de vida',
-    icon: Flame,
-    color: 'bg-red-600',
-    tests: ['Teste de Burnout Profissional', 'Teste de Esgotamento'],
-    image: '/images/burnout-work.jpg'
-  },
-  {
-    id: 'panic',
-    slug: 'teste-transtorno-de-panico',
-    title: 'Teste Transtorno de Pânico',
-    description: 'Avalie sintomas de crises de pânico e ansiedade aguda para entender melhor sua condição',
-    icon: AlertTriangle,
-    color: 'bg-purple-500',
-    tests: ['Teste de Transtorno de Pânico', 'Avaliação de Crises de Ansiedade'],
-    image: '/images/panic-disorder.jpg'
-  },
-  {
-    id: 'social-phobia',
-    slug: 'teste-fobia-social',
-    title: 'Teste Fobia Social',
-    description: 'Identifique medos e ansiedade em situações sociais e seu impacto na vida cotidiana',
-    icon: Eye,
-    color: 'bg-indigo-500',
-    tests: ['Teste de Fobia Social', 'Avaliação de Ansiedade Social'],
-    image: '/images/social-phobia.jpg'
-  },
-  {
-    id: 'mental-suffering',
-    slug: 'grau-de-sofrimento-mental',
-    title: 'Grau de Sofrimento Mental',
-    description: 'Meça o nível de sofrimento psíquico e seu impacto no bem-estar geral',
-    icon: Cloud,
-    color: 'bg-gray-600',
-    tests: ['Teste de Sofrimento Mental', 'Avaliação de Distresse Psicológico'],
-    image: '/images/mental-suffering.jpg'
-  }
-]
+import type { TestSummary } from '@/types/tests'
+import { DEFAULT_TEST_SUMMARIES } from '@/lib/test-fallback'
+import { CATEGORY_META, DEFAULT_CATEGORY_META } from '@/lib/test-category-meta'
 
 const faqData: FAQItem[] = [
   {
@@ -159,6 +71,34 @@ const faqData: FAQItem[] = [
 ]
 
 export default function Home() {
+  const [tests, setTests] = useState<TestSummary[]>(DEFAULT_TEST_SUMMARIES)
+
+  useEffect(() => {
+    let isMounted = true
+
+    const loadTests = async () => {
+      try {
+        const response = await fetch('/api/tests')
+        if (!response.ok) {
+          throw new Error('Falha ao carregar os testes')
+        }
+
+        const data = (await response.json()) as TestSummary[]
+        if (isMounted && Array.isArray(data) && data.length > 0) {
+          setTests(data)
+        }
+      } catch (error) {
+        console.error('Erro ao carregar testes:', error)
+      }
+    }
+
+    loadTests()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
   return (
     <LayoutWrapper>
       {/* CTA Banner Section - Top */}
@@ -232,58 +172,52 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {testCategories.slice(0, 8).map((category) => {
-              const IconComponent = category.icon
+            {tests.map((test) => {
+              const meta = CATEGORY_META[test.category] ?? DEFAULT_CATEGORY_META
+              const categoryLabel = getCategoryLabel(test.category)
+              const IconComponent = meta.icon
+              const imageSrc = test.cardImage ?? '/images/hero-therapy-background.jpg'
+
               return (
-                <Card key={category.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-black flex flex-col h-80 rounded-xl">
-                  {/* Card Image Section - Top Portion */}
-                  <div className="relative h-48 overflow-hidden -mt-6 -mx-6">
+                <Card key={test.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-200 bg-white hover:border-black flex flex-col h-96 rounded-2xl">
+                  <div className="relative h-52 overflow-hidden">
                     <Image
-                      src={category.image}
-                      alt={category.title}
+                      src={imageSrc}
+                      alt={test.title}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                    
-                    {/* FREE Badge */}
-                    <div className="absolute top-4 right-4 bg-black text-white text-xs font-bold px-3 py-1 rounded-md shadow-lg transition-all duration-300 hover:scale-105">
-                      GRATUITO
-                    </div>
-                    
-                    {/* Icon Overlay */}
-                    <div className="absolute bottom-4 left-4 w-10 h-10 rounded-lg bg-white/95 backdrop-blur-sm flex items-center justify-center shadow-lg">
-                      <IconComponent className="h-5 w-5 text-black" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent"></div>
+                    <div className={`absolute top-4 left-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold text-white ${meta.accent}`}>
+                      <IconComponent className="h-4 w-4" />
+                      <span>{categoryLabel}</span>
                     </div>
                   </div>
-                  
-                  {/* Card Content */}
-                  <CardContent className="px-6 pb-4 pt-3 space-y-3 flex flex-col flex-grow -mt-2">
-                    {/* Category Title */}
-                    <h3 className="font-bold text-black text-base leading-tight">
-                      {category.title}
-                    </h3>
 
-                    {/* Test Info */}
-                    <div className="flex items-center justify-between text-xs text-gray-500 pt-2 border-t border-gray-200">
-                      <span className="flex items-center space-x-1">
-                        <Brain className="h-3 w-3 text-black" />
-                        <span>{category.tests.length} teste{category.tests.length > 1 ? 's' : ''}</span>
-                      </span>
-                      <span className="flex items-center space-x-1">
-                        <Calendar className="h-3 w-3 text-black" />
-                        <span>10-15 min</span>
-                      </span>
+                  <CardContent className="px-6 pb-5 pt-6 space-y-4 flex flex-col flex-grow">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-xl font-semibold text-slate-900">{test.title}</h3>
+                      <Badge variant="outline" className="text-xs">{categoryLabel}</Badge>
                     </div>
-                    
-                    {/* Spacer to push button to bottom */}
-                    <div className="flex-grow"></div>
-                    
-                    {/* Start Test Button */}
-                    <Link href={`/testes/${category.slug}`}>
-                      <Button 
-                        className="w-full bg-black hover:bg-gray-800 text-white font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center space-x-2 hover:scale-105"
+                    <p className="text-sm text-gray-600 line-clamp-3">
+                      {test.shortDescription ?? test.description}
+                    </p>
+                    <div className="flex flex-wrap gap-3 text-xs text-slate-500 uppercase tracking-[0.3em]">
+                      <span className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {test.timeLimit ? `${test.timeLimit} min` : 'Sem limite'}
+                      </span>
+                      {typeof test.questionCount === 'number' && (
+                        <span className="flex items-center gap-1">
+                          <Users className="h-3 w-3" />
+                          {test.questionCount} perguntas
+                        </span>
+                      )}
+                    </div>
+                    <Link href={`/testes/${test.slug}`} className="mt-auto">
+                      <Button
+                        className="w-full bg-black hover:bg-gray-800 text-white font-bold py-2 rounded-lg transition-all duration-300 hover:shadow-lg flex items-center justify-center gap-2"
                       >
                         <span>Iniciar Teste</span>
                         <ChevronRight className="h-4 w-4" />

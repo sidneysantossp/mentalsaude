@@ -14,6 +14,7 @@ import { Brain, Clock, ArrowLeft, ArrowRight, CheckCircle, AlertCircle, Info, Lo
 import { toast } from 'sonner'
 import { getCategoryLabel } from '@/lib/categories'
 import { testsInfo } from '@/lib/tests-info'
+import type { TestDetail } from '@/types/tests'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mentalhealthtests.com'
 
@@ -46,17 +47,6 @@ function parseQuestionOptions(rawOptions: string): OptionItem[] {
       .map(option => option.trim())
       .filter(Boolean)
   }
-}
-
-interface Test {
-  id: string
-  title: string
-  slug: string
-  description: string
-  instructions: string
-  timeLimit?: number
-  category: string
-  questions: Question[]
 }
 
 type ArticleSection = {
@@ -473,7 +463,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
   const router = useRouter()
   const { data: session, status } = useSession()
   const [slug, setSlug] = useState<string>('')
-  const [test, setTest] = useState<Test | null>(null)
+  const [test, setTest] = useState<TestDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
@@ -744,7 +734,7 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            {status !== 'authenticated' && (
+            {status === 'unauthenticated' && (
               <Alert className="border-blue-200 bg-blue-50">
                 <Info className="h-4 w-4 text-blue-600" />
                 <AlertTitle className="text-blue-900">Importante: Salvar Resultados</AlertTitle>
@@ -912,17 +902,28 @@ export default function TestPage({ params }: { params: Promise<{ slug: string }>
             <div className="flex flex-col gap-3 rounded-3xl border border-gray-200 bg-gradient-to-br from-yellow-100 to-yellow-200 p-6 text-slate-800 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-600">Ação recomendada</p>
-                <p className="text-lg font-semibold">Registre-se para salvar ou baixe o PDF</p>
+                <p className="text-lg font-semibold">
+                  {status === 'authenticated'
+                    ? 'Compartilhe seu resultado e acompanhe seus testes salvos'
+                    : 'Registre-se para salvar ou baixe o PDF'}
+                </p>
               </div>
               <div className="flex flex-col gap-3 md:flex-row">
-                <Button
-                  asChild
-                  className="w-full md:w-auto bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white border-0"
-                >
-                  <Link href="/auth/signup">
-                    Registrar para salvar este teste
-                  </Link>
-                </Button>
+                {status === 'authenticated' ? (
+                  <Button
+                    asChild
+                    className="w-full md:w-auto bg-white text-black hover:bg-slate-100 border-2 border-slate-900"
+                  >
+                    <Link href="/results">Ver meus testes</Link>
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    className="w-full md:w-auto bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 hover:from-yellow-500 hover:via-orange-600 hover:to-pink-600 text-white border-0"
+                  >
+                    <Link href="/auth/signup">Registrar para salvar este teste</Link>
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   onClick={handleDownloadPdf}
