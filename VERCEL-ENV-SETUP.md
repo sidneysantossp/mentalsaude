@@ -15,8 +15,8 @@ O sitemap está gerando URLs localhost porque as variáveis de ambiente precisam
    - Adicione as seguintes variáveis:
 
 ```
-NEXT_PUBLIC_SITE_URL=https://mentalsaude.vercel.app
-NEXTAUTH_URL=https://mentalsaude.vercel.app
+NEXT_PUBLIC_SITE_URL=https://www.mentalsaude.com.br
+NEXTAUTH_URL=https://www.mentalsaude.com.br
 NEXTAUTH_SECRET=your-secret-key-here-change-in-production
 ```
 
@@ -42,15 +42,15 @@ Depois de configurar as variáveis:
 ### ✅ Verificação
 
 Após o redeploy, verifique:
-- `https://mentalsaude.vercel.app/sitemap.xml` (deve mostrar URLs corretas)
-- `https://mentalsaude.vercel.app/robots.txt` (deve apontar para sitemap correto)
+- `https://www.mentalsaude.com.br/sitemap.xml` (deve mostrar URLs corretas)
+- `https://www.mentalsaude.com.br/robots.txt` (deve apontar para sitemap correto)
 
 ### 📋 Resumo das Variáveis Críticas
 
 | Variável | Valor Produção | Importância |
 |----------|----------------|------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://mentalsaude.vercel.app` | 🔥 Crítico (Sitemap) |
-| `NEXTAUTH_URL` | `https://mentalsaude.vercel.app` | 🔥 Crítico (Auth) |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.mentalsaude.com.br` | 🔥 Crítico (Sitemap) |
+| `NEXTAUTH_URL` | `https://www.mentalsaude.com.br` | 🔥 Crítico (Auth) |
 | `NEXTAUTH_SECRET` | Chave secreta | 🔥 Crítico (Auth) |
 
 A variável `NEXT_PUBLIC_SITE_URL` é a mais importante para corrigir o sitemap!

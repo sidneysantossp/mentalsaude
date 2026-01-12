@@ -1,12 +1,11 @@
 import { MetadataRoute } from 'next'
+import { getSiteUrl } from '@/lib/site-url'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Força usar URL de produção se estiver no Vercel
-  const baseUrl = process.env.NODE_ENV === 'production' 
-    ? 'https://mentalsaude.vercel.app' 
-    : (process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000')
+  // Determine the canonical site URL (env override > production domain > localhost)
+  const baseUrl = getSiteUrl()
 
-  console.log('🔍 Sitemap Debug:', {
+  console.log('Sitemap Debug:', {
     NODE_ENV: process.env.NODE_ENV,
     baseUrl: baseUrl,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
