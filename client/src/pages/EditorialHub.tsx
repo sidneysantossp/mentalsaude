@@ -1,7 +1,7 @@
 import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
-import { EDITORIAL_SEARCH_SUGGESTIONS, EDITORIAL_SPECIALISTS, EDITORIAL_TOPICS, ESSENTIAL_GUIDES, FEATURED_ARTICLES, RECENT_ARTICLES, START_PATHS, SYMPTOMS_LIST } from "@/data/editorialMock";
-import { Activity, AlertCircle, ArrowRight, BookOpen, Bookmark, CheckCircle, Compass, Flame, Heart, Moon, Search, Shield, Smile, Users, Zap } from "lucide-react";
+import { EDITORIAL_SEARCH_SUGGESTIONS, EDITORIAL_SPECIALISTS, EDITORIAL_TOPICS, ESSENTIAL_GUIDES, FEATURED_ARTICLES, RECENT_ARTICLES, START_PATHS, SYMPTOMS_LIST, EditorialItem } from "@/data/editorialMock";
+import { Activity, AlertCircle, ArrowRight, BookOpen, Bookmark, CheckCircle, Compass, Flame, Heart, Moon, Search, Shield, Smile, Users, X, Zap } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { getSavedArticles, saveArticle, removeSavedArticle, isArticleSaved } from "@/lib/savedContentStorage";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -20,11 +20,29 @@ const iconMap: Record<string, typeof Activity> = {
   Smile,
 };
 
+const EDITORIAL_CONTENT = Array.from(
+  new Map(
+    [...FEATURED_ARTICLES, ...ESSENTIAL_GUIDES, ...RECENT_ARTICLES].map(item => [item.id, item] as const),
+  ).values(),
+);
+
+const editorialMatches = (item: EditorialItem, query: string, category: string) => {
+  const categoryMatches = category === "Todos" || item.category === category;
+  if (!categoryMatches) return false;
+  const normalizedQuery = query.trim().toLocaleLowerCase("pt-BR");
+  if (!normalizedQuery) return true;
+  return [item.title, item.excerpt, item.primaryEntity, item.category, item.contentType]
+    .join(" ")
+    .toLocaleLowerCase("pt-BR")
+    .includes(normalizedQuery);
+};
+
 export default function EditorialHub() {
   const [, setLocation] = useLocation();
   const { user } = useAuth();
   const userId = user?.openId ?? user?.id ?? "guest";
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>([]);
 
@@ -117,9 +135,21 @@ export default function EditorialHub() {
 
   const filteredSuggestions = useMemo(() => {
     if (!searchQuery.trim()) return EDITORIAL_SEARCH_SUGGESTIONS.slice(0, 6);
-    const query = searchQuery.toLowerCase();
-    return EDITORIAL_SEARCH_SUGGESTIONS.filter(item => item.label.toLowerCase().includes(query) || item.type.toLowerCase().includes(query));
+    const query = searchQuery.toLocaleLowerCase("pt-BR");
+    return EDITORIAL_SEARCH_SUGGESTIONS.filter(item => item.label.toLocaleLowerCase("pt-BR").includes(query) || item.type.toLocaleLowerCase("pt-BR").includes(query));
   }, [searchQuery]);
+
+  const filteredEditorialItems = useMemo(
+    () => EDITORIAL_CONTENT.filter(item => editorialMatches(item, searchQuery, selectedCategory)),
+    [searchQuery, selectedCategory],
+  );
+
+  const categoryOptions = useMemo(
+    () => ["Todos", ...Array.from(new Set([...EDITORIAL_TOPICS.map(topic => topic.category), ...EDITORIAL_CONTENT.map(item => item.category)]))],
+    [],
+  );
+
+  const isFiltering = Boolean(searchQuery.trim() || selectedCategory !== "Todos");
 
   return (
     <div className="min-h-screen bg-[#f7f6ef] text-[#153a36]">
@@ -203,6 +233,87 @@ export default function EditorialHub() {
                 </div>
               )}
             </div>
+          </div>
+        </section>
+
+        {/* FILTROS E RESULTADOS EM TEMPO REAL */}
+        <section aria-label="Busca e filtros de conteúdos" className="mx-auto max-w-[1200px] px-5 pb-4 sm:px-8">
+          <div className="rounded-[2rem] border border-[#d2e4df] bg-white p-5 shadow-[0_18px_40px_-30px_rgba(11,70,62,.35)] sm:p-7">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.16em] text-[#0a7066]">Filtre sua leitura</p>
+                <h2 className="mt-1 font-display text-xl font-semibold text-[#173e39]">Encontre um conteúdo para este momento</h2>
+              </div>
+              <div className="flex items-center gap-3 text-xs font-semibold text-[#6a8880]">
+                <span aria-live="polite">{isFiltering ? `${filteredEditorialItems.length} resultado${filteredEditorialItems.length === 1 ? "" : "s"}` : `${EDITORIAL_CONTENT.length} conteúdos disponíveis`}</span>
+                {isFiltering && (
+                  <button
+                    type="button"
+                    onClick={() => { setSearchQuery(""); setSelectedCategory("Todos"); }}
+                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[#0a7066] hover:bg-[#e9f6f2]"
+                  >
+                    <X className="h-3.5 w-3.5" aria-hidden="true" /> Limpar filtros
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
+              <div className="flex flex-wrap gap-2">
+                {categoryOptions.map(category => (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={selectedCategory === category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`rounded-full border px-4 py-2 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a7066] focus-visible:ring-offset-2 ${selectedCategory === category ? "border-[#0a7066] bg-[#0a7066] text-white" : "border-[#cfe4de] bg-[#f4fbf8] text-[#35645b] hover:border-[#0a7066] hover:text-[#0a7066]"}`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {isFiltering && (
+              <div className="mt-6" aria-live="polite">
+                {filteredEditorialItems.length > 0 ? (
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {filteredEditorialItems.map(article => (
+                      <Link key={article.id} href={article.slug} className="group flex flex-col overflow-hidden rounded-2xl border border-[#d9e7e2] bg-[#fffefa] transition-all hover:-translate-y-0.5 hover:border-[#0a7066] hover:shadow-[0_16px_30px_-22px_rgba(11,70,62,.4)]">
+                        {article.image && <img src={article.image} alt={`Ilustração editorial sobre ${article.primaryEntity}`} className="aspect-[16/8] w-full object-cover" />}
+                        <div className="flex flex-1 flex-col p-5">
+                          <div className="flex items-center justify-between gap-3">
+                            <span className="rounded-full bg-[#e5f4ef] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[.1em] text-[#0a7066]">{article.category}</span>
+                            <span className="text-[11px] font-semibold text-[#68857e]">{article.readingTime}</span>
+                          </div>
+                          <h3 className="mt-3 font-display text-lg font-semibold leading-tight text-[#173e39] group-hover:text-[#0a7066]">{article.title}</h3>
+                          <p className="mt-2 line-clamp-3 text-xs leading-5 text-[#628079]">{article.excerpt}</p>
+                          <div className="mt-auto flex items-center justify-between gap-3 border-t border-[#edf4f1] pt-4">
+                            <span className="text-xs font-bold text-[#0a7066]">Ler artigo →</span>
+                            <button
+                              type="button"
+                              aria-label={`${savedIds.includes(article.id) ? "Remover" : "Salvar"} ${article.title}`}
+                              onClick={(e) => handleToggleSave(e, { id: article.id, title: article.title, excerpt: article.excerpt, category: article.category, readingTime: article.readingTime, slug: article.slug })}
+                              className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition-colors ${savedIds.includes(article.id) ? "bg-[#0a7066] text-white" : "border border-[#bde0d6] bg-[#f4fbf8] text-[#0a7066] hover:bg-[#e4f4ef]"}`}
+                            >
+                              <Bookmark className="h-3 w-3" aria-hidden="true" />
+                              {savedIds.includes(article.id) ? "Salvo" : "Salvar"}
+                            </button>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-dashed border-[#b9d8d0] bg-[#f4fbf8] px-6 py-8 text-center">
+                    <Search className="mx-auto h-7 w-7 text-[#82b8b0]" aria-hidden="true" />
+                    <h3 className="mt-3 font-display text-lg font-semibold text-[#173e39]">Nenhum conteúdo encontrado</h3>
+                    <p className="mx-auto mt-1 max-w-md text-sm leading-6 text-[#628079]">Tente buscar por outro termo ou escolha uma categoria diferente. Você também pode explorar todos os conteúdos.</p>
+                    <button type="button" onClick={() => { setSearchQuery(""); setSelectedCategory("Todos"); }} className="mt-4 rounded-xl bg-[#0a615a] px-4 py-2 text-xs font-bold text-white hover:bg-[#074d47]">Ver todos os conteúdos</button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </section>
 

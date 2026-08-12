@@ -77,3 +77,6 @@
 - [x] Integrar o componente ScientificCitation no ArticlePage.tsx, renderizando citações interativas nas seções e parágrafos.
 - [x] Refatorar articlesDatabase.ts e ArticlePage.tsx para suportar blocos de parágrafos data-driven com citações inline dinâmicas.
 - [x] Executar testes automatizados (Vitest) e build de produção para certificar estabilidade e tipagem estrita.
+- [x] Implementar sistema de filtro por categorias na página de conteúdos (/conteudos).
+- [x] Implementar barra de busca em tempo real no Hub Editorial com feedback imediato e estado vazio adequado.
+- [x] Remover a barra de rolagem horizontal da seção de filtros em /conteudos e reorganizar os badges em grid responsivo com quebra de linha.
