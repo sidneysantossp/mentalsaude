@@ -3,13 +3,42 @@ export type ResultBand = "atenção inicial" | "atenção moderada" | "atenção
 export type AssessmentResult = {
   score: number;
   percentage: number;
-  band: ResultBand;
+  band: string;
   summary: string;
+  displayValue?: string;
+  metricLabel?: string;
 };
 
-export function calculateAssessmentResult(scores: number[], maximumScore: number): AssessmentResult {
+export type AssessmentScoringGuide = {
+  kind?: string;
+};
+
+function isAsrsV11SixQuestionScreener(guide: unknown): guide is AssessmentScoringGuide {
+  return Boolean(
+    guide &&
+      typeof guide === "object" &&
+      "kind" in guide &&
+      (guide as AssessmentScoringGuide).kind === "asrs-v1-1-6",
+  );
+}
+
+export function calculateAssessmentResult(scores: number[], maximumScore: number, scoringGuide?: unknown): AssessmentResult {
   const score = scores.reduce((total, current) => total + current, 0);
   const percentage = maximumScore > 0 ? Math.round((score / maximumScore) * 100) : 0;
+
+  if (isAsrsV11SixQuestionScreener(scoringGuide)) {
+    const reachedScreeningThreshold = score >= 4;
+    return {
+      score,
+      percentage,
+      displayValue: `${score} de 6`,
+      metricLabel: "respostas na faixa destacada",
+      band: reachedScreeningThreshold ? "Converse com profissional habilitado" : "Abaixo do ponto de corte do screener",
+      summary: reachedScreeningThreshold
+        ? "Quatro ou mais respostas ficaram nas faixas destacadas pelo ASRS v1.1. Isso não confirma TDAH, mas indica que pode ser útil conversar com profissional habilitado para uma avaliação clínica."
+        : "Menos de quatro respostas ficaram nas faixas destacadas pelo ASRS v1.1. Este resultado não confirma nem exclui TDAH e não substitui uma avaliação clínica.",
+    };
+  }
 
   if (percentage < 35) {
     return {

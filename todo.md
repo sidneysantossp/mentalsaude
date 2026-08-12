@@ -25,3 +25,8 @@
 - [x] Validar visualmente as áreas autenticadas e administrativas com uma sessão Manus OAuth ativa.
 - [ ] Exercitar ponta a ponta os fluxos autenticados de avaliação e autorização por papel.
 - [x] Corrigir o estado de carregamento de uma autoavaliação indisponível para exibir a mensagem de erro adequada.
+- [x] Pesquisar fontes, versões brasileiras e condições de uso dos instrumentos citados nas referências.
+- [x] Documentar limites, licenças e critérios de publicação segura para cada instrumento.
+- [x] Cadastrar no catálogo os testes aprovados, suas perguntas, opções e faixas de interpretação.
+- [ ] Validar uma autoavaliação publicada de ponta a ponta, incluindo resultado e recomendação.
+- [x] Exibir atribuição, referência e direitos do ASRS no fluxo público publicado.

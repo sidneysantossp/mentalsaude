@@ -224,7 +224,11 @@ export async function submitAttempt(input: {
     0,
   );
   const { calculateAssessmentResult } = await import("./assessmentLogic");
-  const outcome = calculateAssessmentResult(normalizedAnswers.map(answer => answer.score), maximumScore);
+  const outcome = calculateAssessmentResult(
+    normalizedAnswers.map(answer => answer.score),
+    maximumScore,
+    content.scoringGuide,
+  );
 
   await db.insert(assessmentAnswers).values(
     normalizedAnswers.map(answer => ({
