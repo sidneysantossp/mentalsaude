@@ -58,3 +58,11 @@
 - [x] Adicionar modo de alto contraste e redimensionador de fonte (A-/A+) acessíveis globalmente na aplicação.
 - [x] Implementar armazenamento local (localStorage) de histórico de autoavaliações para comparação e evolução ao longo do tempo.
 - [x] Criar sistema de lembretes visuais no dashboard para incentivar o usuário a refazer os testes periodicamente com base no histórico.
+- [x] Desenvolver a página principal do hub editorial em /conteudos (Editorial Experience Fase 1).
+- [x] Implementar busca editorial com sugestões por tipo (condição, sintoma, teste, conteúdo).
+- [x] Criar seções de exploração por tema, destaques asimétricos, 'Comece por aqui', guias essenciais e sintomas.
+- [x] Adicionar blocos de testes relacionados, leituras recomendadas, confiança editorial e especialistas.
+- [x] Configurar metadata SEO, Structured Data (WebSite/CollectionPage) e links crawlables para o Knowledge Graph.
+- [x] Adicionar breadcrumb, CTAs completos de metodologia e especialistas, e garantir apenas links válidos ou estados seguros em /conteudos.
+- [x] Incluir sugestões do tipo CONTEÚDO na busca editorial e apontar para rotas existentes (/testes ou /dashboard).
+- [x] Configurar metadata SEO dedicada e JSON-LD (WebSite, CollectionPage, BreadcrumbList) em /conteudos.
