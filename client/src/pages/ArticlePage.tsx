@@ -1,6 +1,7 @@
 import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
 import { ARTICLES_DATABASE, ArticleModel } from "@/data/articlesDatabase";
+import { ScientificCitation } from "@/components/ScientificCitation";
 import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, ExternalLink, Info, Share2, Shield, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -154,8 +155,8 @@ export default function ArticlePage() {
           </p>
 
           <div className="mt-7 flex flex-wrap items-center gap-y-2 gap-x-6 border-y border-[#dcebe6] py-4 text-xs font-medium text-[#5f7d75]">
-            <div>Por <strong className="text-[#173e39]">{article.author}</strong></div>
-            <div>Revisado por <strong className="text-[#173e39]">{article.reviewer}</strong></div>
+            <div>Por <Link href={`/especialistas/${article.authorSlug}`} className="font-bold text-[#0a7066] hover:underline">{article.author}</Link></div>
+            <div>Revisado por <Link href={`/especialistas/${article.reviewerSlug}`} className="font-bold text-[#0a7066] hover:underline">{article.reviewer}</Link></div>
             <div>Atualizado em <strong className="text-[#173e39]">{article.reviewedAt}</strong></div>
             <div className="ml-auto flex items-center gap-3">
               <button
@@ -232,7 +233,17 @@ export default function ArticlePage() {
                     {sec.title}
                   </h2>
                   <div className="mt-4 space-y-4 text-base leading-[1.8] text-[#4f6e67]">
-                    <p>{sec.content}</p>
+                    {sec.paragraphs.map((p, pIdx) => (
+                      <p key={pIdx}>
+                        {p.segments.map((seg, sIdx) => 
+                          seg.refId ? (
+                            <ScientificCitation key={sIdx} refId={seg.refId} references={article.references} displayText={seg.displayText} />
+                          ) : (
+                            <span key={sIdx}>{seg.text}</span>
+                          )
+                        )}
+                      </p>
+                    ))}
                   </div>
                 </section>
               ))}

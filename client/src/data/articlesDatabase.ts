@@ -8,6 +8,23 @@ export type ScientificReference = {
   url: string;
 };
 
+export type InlineCitationSegment = {
+  text: string;
+  refId?: string;
+  displayText?: string;
+};
+
+export type ArticleParagraphBlock = {
+  type: "paragraph";
+  segments: InlineCitationSegment[];
+};
+
+export type ArticleSectionModel = {
+  id: string;
+  title: string;
+  paragraphs: ArticleParagraphBlock[];
+};
+
 export type ArticleModel = {
   slug: string;
   title: string;
@@ -26,20 +43,11 @@ export type ArticleModel = {
   directAnswer: string;
   keyTakeaways: string[];
   tableOfContents: { id: string; label: string }[];
-  sections: {
-    id: string;
-    title: string;
-    content: string; // HTML-like or structured paragraphs
-    subsections?: { title: string; content: string }[];
-  }[];
+  sections: ArticleSectionModel[];
   evidenceBox?: {
     whatWeKnow: string;
     whatEvidenceSuggests: string;
     whatWeDontKnowYet: string;
-  };
-  comparisonTable?: {
-    headers: string[];
-    rows: { feature: string; left: string; right: string }[];
   };
   relatedTest: {
     title: string;
@@ -94,37 +102,92 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       {
         id: "o-que-e-ansiedade",
         title: "O que é ansiedade",
-        content: "A ansiedade é um estado emocional caracterizado por expectativas apreensivas em relação ao futuro, acompanhado por sentimentos de incerteza, nervosismo e alerta. Do ponto de vista evolutivo, a ansiedade desempenha um papel fundamental: prepara o corpo para reagir rapidamente a perigos (resposta de luta ou fuga) (WHO, 2025). Quando você precisa tomar uma decisão importante ou se preparar para um desafio, uma dose moderada de ativação pode aumentar o foco e o desempenho."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A ansiedade é um estado emocional caracterizado por expectativas apreensivas em relação ao futuro, acompanhado por sentimentos de incerteza, nervosismo e alerta. Do ponto de vista evolutivo, a ansiedade desempenha um papel fundamental: prepara o corpo para reagir rapidamente a perigos (resposta de luta ou fuga) " },
+              { text: "WHO, 2025", refId: "ref-1", displayText: "WHO, 2025" },
+              { text: ". Quando você precisa tomar uma decisão importante ou se preparar para um desafio, uma dose moderada de ativação pode aumentar o foco e o desempenho." }
+            ]
+          }
+        ]
       },
       {
         id: "quando-deixa-de-ser-normal",
         title: "Quando a ansiedade deixa de ser apenas uma resposta normal",
-        content: "O limite entre a ansiedade adaptativa e um quadro clínico reside na frequência, na intensidade e no impacto sobre a autonomia da pessoa. Se a preocupação é constante, difícil de controlar, surge sem um gatilho proporcional e compromete o sono, a concentração ou o convívio social, ela deixa de ser um alarme útil e passa a constituir uma fonte de sofrimento contínuo (Spitzer et al., 2006)."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "O limite entre a ansiedade adaptativa e um quadro clínico reside na frequência, na intensidade e no impacto sobre a autonomia da pessoa. Se a preocupação é constante, difícil de controlar, surge sem um gatilho proporcional e compromete o sono, a concentração ou o convívio social, ela deixa de ser um alarme útil e passa a constituir uma fonte de sofrimento contínuo " },
+              { text: "Spitzer et al., 2006", refId: "ref-2", displayText: "Spitzer et al., 2006" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "sintomas-emocionais-e-fisicos",
         title: "Sintomas emocionais e físicos",
-        content: "Os sinais da ansiedade manifestam-se de forma integrada no corpo e na mente. Entre os sintomas emocionais mais comuns destacam-se a sensação de perigo iminente, irritabilidade, dificuldade de concentração e hipervigilância. No plano físico, o sistema nervoso autônomo hiperativado pode gerar taquicardia, falta de ar, tensão muscular acentuada, sudorese, tremores e perturbações gastrointestinais (NIMH, 2025)."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Os sinais da ansiedade manifestam-se de forma integrada no corpo e na mente. Entre os sintomas emocionais mais comuns destacam-se a sensação de perigo iminente, irritabilidade, dificuldade de concentração e hipervigilância. No plano físico, o sistema nervoso autônomo hiperativado pode gerar taquicardia, falta de ar, tensão muscular acentuada, sudorese, tremores e perturbações gastrointestinais " },
+              { text: "NIMH, 2025", refId: "ref-3", displayText: "NIMH, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "ansiedade-vs-estresse",
         title: "Ansiedade x Estresse",
-        content: "Embora frequentemente confundidos, estresse e ansiedade possuem distinções importantes. O estresse costuma estar vinculado a um fator estressor externo evidente (como prazos profissionais ou crises financeiras) e tende a arrefecer quando a situação se resolve. A ansiedade, por sua vez, é marcada por uma preocupação persistente que pode persistir mesmo na ausência de um perigo imediato."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Embora frequentemente confundidos, estresse e ansiedade possuem distinções importantes. O estresse costuma estar vinculado a um fator estressor externo evidente (como prazos profissionais ou crises financeiras) e tende a arrefecer quando a situação se resolve. A ansiedade, por sua vez, é marcada por uma preocupação persistente que pode persistir mesmo na ausência de um perigo imediato." }
+            ]
+          }
+        ]
       },
       {
         id: "avaliacao-e-rastreio",
         title: "Como profissionais avaliam",
-        content: "A investigação clínica de um quadro ansioso envolve uma escuta atenta realizada por médicos psiquiatras ou psicólogos clínicos. O profissional examina o histórico de vida, a intensidade dos sintomas e o impacto funcional. Instrumentos padronizados de rastreio, como o questionário GAD-7, são frequentemente empregados para quantificar a gravidade percebida dos sintomas durante as últimas semanas."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A investigação clínica de um quadro ansioso envolve uma escuta atenta realizada por médicos psiquiatras ou psicólogos clínicos. O profissional examina o histórico de vida, a intensidade dos sintomas e o impacto funcional. Instrumentos padronizados de rastreio, como o questionário GAD-7, são frequentemente empregados para quantificar a gravidade percebida dos sintomas durante as últimas semanas." }
+            ]
+          }
+        ]
       },
       {
         id: "tratamento",
         title: "Tratamento",
-        content: "Os transtornos de ansiedade apresentam prognóstico favorável quando tratados adequadamente. A psicoterapia — com destaque para a Terapia Cognitivo-Comportamental (TCC) — auxilia na reestruturação de padrões de pensamento e no desenvolvimento de estratégias de enfrentamento. Em casos avaliados como moderados a graves, o acompanhamento psiquiátrico pode incluir o uso de medicação reguladora, sempre prescrita e monitorada individualmente."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Os transtornos de ansiedade apresentam prognóstico favorável quando tratados adequadamente. A psicoterapia — com destaque para a Terapia Cognitivo-Comportamental (TCC) — auxilia na reestruturação de padrões de pensamento e no desenvolvimento de estratégias de enfrentamento. Em casos avaliados como moderados a graves, o acompanhamento psiquiátrico pode incluir o uso de medicação reguladora, sempre prescrita e monitorada individualmente." }
+            ]
+          }
+        ]
       },
       {
         id: "quando-procurar-ajuda",
         title: "Quando procurar ajuda",
-        content: "Busque orientação profissional se a preocupação e o mal-estar físico interferirem regularmente em suas atividades, no seu sono ou em suas relações. Cuidar da saúde mental no início de um processo de sofrimento evita desgastes maiores e favorece a recuperação da qualidade de vida."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Busque orientação profissional se a preocupação e o mal-estar físico interferirem regularmente em suas atividades, no seu sono ou em suas relações. Cuidar da saúde mental no início de um processo de sofrimento evita desgastes maiores e favorece a recuperação da qualidade de vida." }
+            ]
+          }
+        ]
       }
     ],
     evidenceBox: {
@@ -184,9 +247,9 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       }
     ],
     relatedArticles: [
-      { title: "A relação bilateral entre noites mal dormidas e episódios de ansiedade", slug: "/conteudos/sono-e-ansiedade", readingTime: "6 min de leitura", category: "Hábitos e Bem-estar" },
-      { title: "Estresse crônico: quando a rotina excede a capacidade de adaptação", slug: "/conteudos/estresse-cronico-sinais", readingTime: "5 min de leitura", category: "Equilíbrio" },
-      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/como-funcionam-os-testes-de-saude-mental", readingTime: "4 min de leitura", category: "Metodologia" }
+      { title: "A relação bilateral entre noites mal dormidas e episódios de ansiedade", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "6 min de leitura", category: "Hábitos e Bem-estar" },
+      { title: "Estresse crônico: quando a rotina excede a capacidade de adaptação", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "5 min de leitura", category: "Equilíbrio" },
+      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/tdah-em-adultos", readingTime: "4 min de leitura", category: "Metodologia" }
     ]
   },
 
@@ -229,32 +292,78 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       {
         id: "o-que-e-depressao",
         title: "O que é depressão",
-        content: "A Organização Mundial da Saúde (OMS) aponta a depressão como uma das principais causas de incapacidade em todo o mundo. Trata-se de um transtorno de humor complexo que altera a forma como o indivíduo processa emoções, experimenta motivação e interage com o ambiente. Não resulta de falta de esforço pessoal, sendo influenciada por fatores biológicos, genéticos, psicológicos e sociais (WHO, 2025)."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A Organização Mundial da Saúde (OMS) aponta a depressão como uma das principais causas de incapacidade em todo o mundo. Trata-se de um transtorno de humor complexo que altera a forma como o indivíduo processa emoções, experimenta motivação e interage com o ambiente. Não resulta de falta de esforço pessoal, sendo influenciada por fatores biológicos, genéticos, psicológicos e sociais " },
+              { text: "WHO, 2025", refId: "ref-dep-1", displayText: "WHO, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "depressao-vs-tristeza",
         title: "Depressão x Tristeza comum",
-        content: "A tristeza é uma emoção humana universal diante de perdas, frustrações ou lutos. Na tristeza comum, momentos de alívio ou capacidade de vivenciar pequenos prazeres costumam se manter presentes. Na depressão clínica, o sentimento de vazio e desânimo é persistente, generalizado e interfere na capacidade de realizar tarefas cotidianas por semanas consecutivas (NIMH, 2025)."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A tristeza é uma emoção humana universal diante de perdas, frustrações ou lutos. Na tristeza comum, momentos de alívio ou capacidade de vivenciar pequenos prazeres costumam se manter presentes. Na depressão clínica, o sentimento de vazio e desânimo é persistente, generalizado e interfere na capacidade de realizar tarefas cotidianas por semanas consecutivas " },
+              { text: "NIMH, 2025", refId: "ref-dep-2", displayText: "NIMH, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "principais-sintomas",
         title: "Principais sintomas",
-        content: "Os critérios diagnósticos exigem a presença de vários sintomas simultâneos por pelo menos duas semanas. Entre eles estão o humor deprimido na maior parte do dia, perda marcante de interesse em hobbies, fadiga intensa, sentimentos de inutilidade ou culpa excessiva, dificuldade de concentração e, em casos mais graves, pensamentos recorrentes de desesperança."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Os critérios diagnósticos exigem a presença de vários sintomas simultâneos por pelo menos duas semanas. Entre eles estão o humor deprimido na maior parte do dia, perda marcante de interesse em hobbies, fadiga intensa, sentimentos de inutilidade ou culpa excessiva, dificuldade de concentração e, em casos mais graves, pensamentos recorrentes de desesperança." }
+            ]
+          }
+        ]
       },
       {
         id: "fatores-e-causas",
         title: "Possíveis fatores envolvidos",
-        content: "O desenvolvimento da depressão costuma envolver a interação entre vulnerabilidade genética, alterações na neuroquímica cerebral, eventos estressantes de vida (como perdas significativas ou traumas) e condições médicas coexistentes."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "O desenvolvimento da depressão costuma envolver a interação entre vulnerabilidade genética, alterações na neuroquímica cerebral, eventos estressantes de vida (como perdas significativas ou traumas) e condições médicas coexistentes." }
+            ]
+          }
+        ]
       },
       {
         id: "avaliacao-profissional",
         title: "Como é feita a avaliação",
-        content: "A avaliação é conduzida por profissionais de saúde mental (psiquiatras ou psicólogos) por meio de entrevista clínica detalhada. Instrumentos de triagem estruturados, como o PHQ-9, auxiliam na quantificação dos sintomas relatados nas últimas duas semanas."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A avaliação é conduzida por profissionais de saúde mental (psiquiatras ou psicólogos) por meio de entrevista clínica detalhada. Instrumentos de triagem estruturados, como o PHQ-9, auxiliam na quantificação dos sintomas relatados nas últimas duas semanas." }
+            ]
+          }
+        ]
       },
       {
         id: "tratamento-e-cuidado",
         title: "Tratamento e visão geral",
-        content: "O tratamento baseia-se em psicoterapia (como TCC ou terapia interpessoal) e, quando indicado pelo médico psiquiatra, uso de medicamentos antidepressivos para reequilibrar a transmissão sináptica. Mudanças graduais no estilo de vida e redes de apoio também exercem papel complementar essencial."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "O tratamento baseia-se em psicoterapia (como TCC ou terapia interpessoal) e, quando indicado pelo médico psiquiatra, uso de medicamentos antidepressivos para reequilibrar a transmissão sináptica. Mudanças graduais no estilo de vida e redes de apoio também exercem papel complementar essencial." }
+            ]
+          }
+        ]
       }
     ],
     evidenceBox: {
@@ -302,8 +411,8 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     relatedArticles: [
       { title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "8 min de leitura", category: "Ansiedade e Tensão" },
-      { title: "Autocompaixão não é fraqueza: o papel da gentileza consigo mesmo", slug: "/conteudos/autocompaxao-em-saude-mental", readingTime: "6 min de leitura", category: "Psicoeducação" },
-      { title: "Guia completo sobre depressão", slug: "/conteudos/guia-depressao", readingTime: "10 min de leitura", category: "Guia Essencial" }
+      { title: "TDAH em adultos: sintomas, avaliação e tratamento", slug: "/conteudos/tdah-em-adultos", readingTime: "7 min de leitura", category: "Neurodiversidade" },
+      { title: "Guia completo sobre depressão", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "10 min de leitura", category: "Guia Essencial" }
     ]
   },
 
@@ -345,32 +454,71 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       {
         id: "o-que-e-tdah",
         title: "O que é TDAH em adultos",
-        content: "O TDAH é um transtorno do neurodesenvolvimento cujas bases envolvem diferenças na regulação de neurotransmissores como dopamina e noradrenalina em circuitos cerebrais associados ao controle executivo. Na vida adulta, manifesta-se em desafios contínuos para manter o foco em tarefas monótonas, regular impulsos e planejar etapas de longo prazo (AAPF, 2025)."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "O TDAH é um transtorno do neurodesenvolvimento cujas bases envolvem diferenças na regulação de neurotransmissores como dopamina e noradrenalina em circuitos cerebrais associados ao controle executivo. Na vida adulta, manifesta-se em desafios contínuos para manter o foco em tarefas monótonas, regular impulsos e planejar etapas de longo prazo " },
+              { text: "AAPF, 2025", refId: "ref-adhd-2", displayText: "AAPF, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "como-se-manifesta",
         title: "Como os sintomas aparecem no dia a dia",
-        content: "Enquanto crianças com TDAH podem apresentar hiperatividade motora visível, adultos frequentemente relatam uma 'inquietação interna'. Os sinais incluem distração fácil por estímulos irrelevantes, tendência a iniciar vários projetos sem concluir nenhum, dificuldade com prazos (cegueira temporal) e esquecimentos de compromissos ou objetos."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "Enquanto crianças com TDAH podem apresentar hiperatividade motora visível, adultos frequentemente relatam uma 'inquietação interna'. Os sinais incluem distração fácil por estímulos irrelevantes, tendência a iniciar vários projetos sem concluir nenhum, dificuldade com prazos (cegueira temporal) e esquecimentos de compromissos ou objetos." }
+            ]
+          }
+        ]
       },
       {
         id: "funcoes-executivas",
         title: "Impacto nas funções executivas",
-        content: "As funções executivas — conjunto de habilidades mentais que nos permitem planejar, focar atenção, memorizar instruções e gerenciar múltiplas tarefas — costumam exigir esforço adicional de pessoas com TDAH, gerando desgaste mental ao final do dia."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "As funções executivas — conjunto de habilidades mentais que nos permitem planejar, focar atenção, memorizar instruções e gerenciar múltiplas tarefas — costumam exigir esforço adicional de pessoas com TDAH, gerando desgaste mental ao final do dia." }
+            ]
+          }
+        ]
       },
       {
         id: "avaliacao-e-asrs",
         title: "Como é feita a avaliação e o ASRS v1.1",
-        content: "A investigação diagnóstica em adultos é retrospectiva e clínica, investigando o histórico de sintomas desde a infância, relatos de familiares e aplicação de escalas validadas. O ASRS v1.1 (Adult ADHD Self-Report Scale), desenvolvido em parceria com a OMS, é um instrumento amplamente utilizado para rastreio inicial."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "A investigação diagnóstica em adultos é retrospectiva e clínica, investigando o histórico de sintomas desde a infância, relatos de familiares e aplicação de escalas validadas. O ASRS v1.1 (Adult ADHD Self-Report Scale), desenvolvido em parceria com a OMS, é um instrumento amplamente utilizado para rastreio inicial " },
+              { text: "Kessler et al., 2005", refId: "ref-adhd-1", displayText: "Kessler et al., 2005" },
+              { text: "." }
+            ]
+          }
+        ]
       },
       {
         id: "tratamento-e-suporte",
         title: "Tratamento e estratégias",
-        content: "O manejo do TDAH em adultos costuma ser multimodal, combinando psicoeducação, estratégias de organização ambiental, psicoterapia (focada em remediação de funções executivas) e, quando indicado por um médico psiquiatra, suporte farmacológico adequado."
+        paragraphs: [
+          {
+            type: "paragraph",
+            segments: [
+              { text: "O manejo do TDAH em adultos costuma ser multimodal, combinando psicoeducação, estratégias de organização ambiental, psicoterapia (focada em remediação de funções executivas) e, quando indicado por um médico psiquiatra, suporte farmacológico adequado." }
+            ]
+          }
+        ]
       }
     ],
     evidenceBox: {
       whatWeKnow: "O reconhecimento precoce e a psicoeducação sobre o TDAH reduzem frustrações crônicas e melhoram a autoestima de adultos diagnosticados tardiamente.",
-      whatEvidenceSuggests: "Abordagens combinando treino de habilidades organizacionais e suporte médico trazem ganhos expressivos na produtividade e bem-estar.",
+      whatEvidenceSuggests: "Abordagens combinando treino de habilidades organizacionais e suporte médico traz ganhos expressivos na produtividade e bem-estar.",
       whatWeDontKnowYet: "A eficácia a longuíssimo prazo de intervenções digitais isoladas para manejo executivo ainda requer ensaios clínicos robustos adicionais."
     },
     relatedTest: {
@@ -413,8 +561,8 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     relatedArticles: [
       { title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "8 min de leitura", category: "Ansiedade e Tensão" },
-      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/como-funcionam-os-testes-de-saude-mental", readingTime: "4 min de leitura", category: "Metodologia" },
-      { title: "TDAH em adultos: guia de orientação", slug: "/conteudos/guia-tdah-adultos", readingTime: "9 min de leitura", category: "Guia Essencial" }
+      { title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "9 min de leitura", category: "Humor e Energia" },
+      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "4 min de leitura", category: "Metodologia" }
     ]
   }
 };

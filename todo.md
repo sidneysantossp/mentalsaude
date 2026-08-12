@@ -69,4 +69,11 @@
 - [x] Implementar recurso 'Salvar para depois' no Hub Editorial (/conteudos) com persistência local e aba/seção dedicada no dashboard do usuário.
 - [x] Adicionar link da página de conteúdos (/conteudos) no menu de navegação principal e no rodapé em todas as páginas públicas.
 - [x] Criar imagens de destaque individuais para os artigos e guias do Hub Editorial e integrá-las aos cards em /conteudos.
-- [ ] Implementar Article Design System V1 e publicar os 3 artigos-piloto em /conteudos/[slug] com rotas reais, DirectAnswer, EvidenceBox, TableOfContents, ScientificCitation, e conversão contextual para testes.
+- [x] Implementar Article Design System V1 e publicar os 3 artigos-piloto em /conteudos/[slug] com rotas reais, DirectAnswer, EvidenceBox, TableOfContents, ScientificCitation, e conversão contextual para testes.
+- [x] Implementar um componente ScientificCitation real para citações inline nos artigos, com referência associada e interação de hover/click.
+- [x] Vincular autores/revisores do Article Design System a links reais no template editorial, usando os slugs já modelados ou estados seguros até a rota existir.
+- [x] Integrar o componente ScientificCitation ao corpo dos artigos, renderizando citações inline com referência associada.
+- [x] Criar a rota /especialistas/:slug ou redirecionar com segurança para a página de metodologia editorial.
+- [x] Integrar o componente ScientificCitation no ArticlePage.tsx, renderizando citações interativas nas seções e parágrafos.
+- [x] Refatorar articlesDatabase.ts e ArticlePage.tsx para suportar blocos de parágrafos data-driven com citações inline dinâmicas.
+- [x] Executar testes automatizados (Vitest) e build de produção para certificar estabilidade e tipagem estrita.
