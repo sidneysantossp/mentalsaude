@@ -69,6 +69,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     publishedAt: "10 de agosto de 2026",
     reviewedAt: "11 de agosto de 2026",
     isFeatured: true,
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
   },
   {
     id: "f-2",
@@ -84,6 +85,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     readingTime: "5 min de leitura",
     publishedAt: "8 de agosto de 2026",
     isFeatured: false,
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
   },
   {
     id: "f-3",
@@ -98,6 +100,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     readingTime: "4 min de leitura",
     publishedAt: "5 de agosto de 2026",
     isFeatured: false,
+    image: "/manus-storage/editorial-autocuidado_9a946878.png",
   },
 ];
 
@@ -116,6 +119,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "12 min de leitura",
     publishedAt: "1 de agosto de 2026",
     isGuide: true,
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
   },
   {
     id: "g-2",
@@ -131,6 +135,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "10 min de leitura",
     publishedAt: "28 de julho de 2026",
     isGuide: true,
+    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
   },
   {
     id: "g-3",
@@ -145,6 +150,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "9 min de leitura",
     publishedAt: "25 de julho de 2026",
     isGuide: true,
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
   },
   {
     id: "g-4",
@@ -159,6 +165,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "8 min de leitura",
     publishedAt: "20 de julho de 2026",
     isGuide: true,
+    image: "/manus-storage/editorial-autocuidado_9a946878.png",
   },
 ];
 
@@ -229,6 +236,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     readingTime: "6 min de leitura",
     publishedAt: "9 de agosto de 2026",
+    image: "/manus-storage/editorial-sono_55a03275.png",
   },
   {
     id: "r-2",
@@ -242,6 +250,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     author: "Redação Mental Saúde",
     readingTime: "5 min de leitura",
     publishedAt: "7 de agosto de 2026",
+    image: "/manus-storage/editorial-estresse_f806d1fc.png",
   },
   {
     id: "r-3",
@@ -255,6 +264,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     author: "Equipe Editorial Mental Saúde",
     readingTime: "6 min de leitura",
     publishedAt: "4 de agosto de 2026",
+    image: "/manus-storage/editorial-autocuidado_9a946878.png",
   },
 ];
 

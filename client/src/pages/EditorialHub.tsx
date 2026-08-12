@@ -249,7 +249,8 @@ export default function EditorialHub() {
             <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_.9fr]">
               {/* Card Principal (2/3) */}
               {FEATURED_ARTICLES[0] && (
-                <Link href="/testes" className="group flex flex-col justify-between rounded-[2rem] border border-[#d2e4df] bg-white p-7 shadow-[0_22px_45px_-30px_rgba(11,70,62,.3)] transition-all hover:border-[#0a7066]">
+                <Link href="/testes" className="group flex flex-col justify-between rounded-[2rem] border border-[#d2e4df] bg-white p-4 shadow-[0_22px_45px_-30px_rgba(11,70,62,.3)] transition-all hover:border-[#0a7066] sm:p-7">
+                  {FEATURED_ARTICLES[0].image && <img src={FEATURED_ARTICLES[0].image} alt="Ilustração editorial sobre ansiedade" className="mb-6 aspect-[16/8] w-full rounded-[1.5rem] object-cover" />}
                   <div>
                     <div className="flex items-center gap-3">
                       <span className="rounded-full bg-[#0a7066] px-3.5 py-1 text-xs font-bold text-white">{FEATURED_ARTICLES[0].category}</span>
@@ -282,7 +283,8 @@ export default function EditorialHub() {
               {/* Dois conteúdos menores empilhados */}
               <div className="flex flex-col gap-6">
                 {FEATURED_ARTICLES.slice(1, 3).map(article => (
-                  <Link key={article.id} href="/testes" className="group flex flex-col justify-between rounded-[2rem] border border-[#d2e4df] bg-white p-6 shadow-[0_16px_35px_-26px_rgba(11,70,62,.25)] transition-all hover:border-[#0a7066]">
+                  <Link key={article.id} href="/testes" className="group flex flex-col justify-between rounded-[2rem] border border-[#d2e4df] bg-white p-4 shadow-[0_16px_35px_-26px_rgba(11,70,62,.25)] transition-all hover:border-[#0a7066] sm:p-6">
+                    {article.image && <img src={article.image} alt={`Ilustração editorial sobre ${article.primaryEntity}`} className="mb-5 aspect-[16/8] w-full rounded-[1.25rem] object-cover" />}
                     <div>
                       <div className="flex items-center justify-between gap-3">
                         <span className="rounded-full bg-[#e5f4ef] px-3 py-0.5 text-[11px] font-bold text-[#0a7066]">{article.category}</span>
@@ -356,7 +358,8 @@ export default function EditorialHub() {
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {ESSENTIAL_GUIDES.map(guide => (
-                <Link key={guide.id} href="/testes" className="group flex flex-col justify-between rounded-3xl border border-[#235852] bg-[#184e48] p-6 transition-all hover:border-[#82d6ca] hover:bg-[#1f5b54]">
+                <Link key={guide.id} href="/testes" className="group flex flex-col justify-between rounded-3xl border border-[#235852] bg-[#184e48] p-4 transition-all hover:border-[#82d6ca] hover:bg-[#1f5b54] sm:p-6">
+                  {guide.image && <img src={guide.image} alt={`Ilustração editorial sobre ${guide.primaryEntity}`} className="mb-5 aspect-[16/8] w-full rounded-2xl object-cover" />}
                   <div>
                     <span className="rounded-full bg-[#27665f] px-3 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#82d6ca]">GUIA MENTAL SAÚDE</span>
                     <h3 className="mt-4 font-display text-xl font-semibold text-white group-hover:text-[#a2e6dc] transition-colors">{guide.title}</h3>
@@ -471,7 +474,8 @@ export default function EditorialHub() {
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {RECENT_ARTICLES.map(article => (
-              <Link key={article.id} href="/testes" className="group flex flex-col justify-between rounded-3xl border border-[#d9e7e2] bg-[#fffefa] p-6 transition-all hover:border-[#0a7066] hover:shadow-[0_20px_40px_-24px_rgba(11,70,62,.3)]">
+              <Link key={article.id} href="/testes" className="group flex flex-col justify-between rounded-3xl border border-[#d9e7e2] bg-[#fffefa] p-4 transition-all hover:border-[#0a7066] hover:shadow-[0_20px_40px_-24px_rgba(11,70,62,.3)] sm:p-6">
+                {article.image && <img src={article.image} alt={`Ilustração editorial sobre ${article.primaryEntity}`} className="mb-5 aspect-[16/8] w-full rounded-2xl object-cover" />}
                 <div>
                   <div className="flex items-center justify-between gap-3">
                     <span className="rounded-full bg-[#e5f4ef] px-3 py-0.5 text-[11px] font-bold text-[#0a7066]">{article.category}</span>
