@@ -15,6 +15,13 @@
       "when": 1786496582042,
       "tag": "0001_sticky_exodus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786505047991,
+      "tag": "0002_curvy_senator_kelly",
+      "breakpoints": true
     }
   ]
 }

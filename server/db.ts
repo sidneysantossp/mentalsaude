@@ -70,6 +70,19 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
+export async function getTermsConsent(userId: number) {
+  const db = await requireDb();
+  const row = await db.select({ termsAcceptedAt: users.termsAcceptedAt }).from(users).where(eq(users.id, userId)).limit(1);
+  return { accepted: Boolean(row[0]?.termsAcceptedAt), acceptedAt: row[0]?.termsAcceptedAt ?? null };
+}
+
+export async function acceptTerms(userId: number, version: string) {
+  const db = await requireDb();
+  const acceptedAt = new Date();
+  await db.update(users).set({ termsAcceptedAt: acceptedAt }).where(eq(users.id, userId));
+  return { accepted: true, version, acceptedAt };
+}
+
 export async function listPublishedAssessments() {
   const db = await requireDb();
   return db

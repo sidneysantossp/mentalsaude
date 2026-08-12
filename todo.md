@@ -36,3 +36,14 @@
 - [x] Adicionar teste integrado de submissão do ASRS com escores 3 e 4 e recomendações correspondentes.
 - [x] Validar tecnicamente abertura, submissão e resultado da autoavaliação com fixture autenticada isolada.
 - [x] Testar o ciclo tRPC autenticado de abertura, início e submissão do ASRS com fixture isolada.
+
+- [x] Criar modal/tela de consentimento e termos de uso obrigatórios antes de iniciar qualquer autoavaliação.
+- [x] Implementar exportação dos resultados do teste em PDF para o usuário logado.
+- [x] Aprimorar a barra de progresso visual durante a realização dos testes.
+- [ ] Definir, com licenças e revisão clínica, quais instrumentos adicionais das referências podem ser publicados no catálogo.
+- [x] Criar e registrar as páginas /termos e /privacidade acessíveis no consentimento.
+- [x] Implementar geração real e download de arquivo PDF com layout dedicado do resultado.
+- [x] Validar visualmente consentimento, termos, privacidade e catálogo; a exportação é coberta por build e fluxo de geração real.
+- [x] Exibir mensagem de erro visível quando a geração ou o download do PDF falhar.
+- [ ] Validar visualmente a tela de consentimento antes do início do teste autenticado.
+- [ ] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.

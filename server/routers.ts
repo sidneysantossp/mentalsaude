@@ -53,6 +53,10 @@ export const appRouter = router({
       .mutation(({ ctx, input }) => db.submitAttempt({ ...input, userId: ctx.user.id })),
   }),
   user: router({
+    consent: protectedProcedure.query(({ ctx }) => db.getTermsConsent(ctx.user.id)),
+    acceptTerms: protectedProcedure
+      .input(z.object({ version: z.string().min(1).max(64) }))
+      .mutation(({ ctx, input }) => db.acceptTerms(ctx.user.id, input.version)),
     profile: protectedProcedure.query(({ ctx }) => db.getUserProfile(ctx.user.id)),
     updateProfile: protectedProcedure
       .input(z.object({
