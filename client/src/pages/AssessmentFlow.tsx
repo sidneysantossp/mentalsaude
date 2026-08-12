@@ -40,6 +40,7 @@ function AssessmentContent({ assessmentId }: { assessmentId: number }) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [error, setError] = useState<string | null>(null);
+  const [blockingError, setBlockingError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const [termsAcceptedLocally, setTermsAcceptedLocally] = useState(false);
   const [ageAcknowledged, setAgeAcknowledged] = useState(false);
@@ -50,15 +51,15 @@ function AssessmentContent({ assessmentId }: { assessmentId: number }) {
   useEffect(() => {
     if (!assessment.data || !hasConsent || (isAsrs && !ageAcknowledged) || startedRef.current) return;
     startedRef.current = true;
-    createAttempt({ assessmentId }, { onSuccess: setAttemptId, onError: issue => setError(issue.message) });
+    createAttempt({ assessmentId }, { onSuccess: setAttemptId, onError: issue => setBlockingError(issue.message) });
   }, [assessment.data, assessmentId, ageAcknowledged, createAttempt, hasConsent, isAsrs]);
 
   if (assessment.isLoading || consent.isLoading) return <LoadingScreen message="Preparando sua autoavaliação…" />;
   if (assessment.error || !assessment.data) return <StateScreen title="Não foi possível abrir esta autoavaliação" body="Verifique se o teste continua disponível ou volte ao seu painel para escolher outra opção." action="Voltar ao painel" onAction={() => setLocation("/dashboard")} />;
-  if (!hasConsent) return <TermsIntro accepting={acceptingTerms} onAccept={() => acceptTerms({ version: TERMS_VERSION }, { onSuccess: () => setTermsAcceptedLocally(true), onError: issue => setError(issue.message) })} onExit={() => setLocation("/dashboard")} error={error} />;
+  if (!hasConsent) return <TermsIntro accepting={acceptingTerms} onAccept={() => acceptTerms({ version: TERMS_VERSION }, { onSuccess: () => setTermsAcceptedLocally(true), onError: issue => setBlockingError(issue.message) })} onExit={() => setLocation("/dashboard")} error={blockingError} />;
   if (isAsrs && !ageAcknowledged) return <AsrsIntro title={assessment.data.title} onContinue={() => setAgeAcknowledged(true)} onExit={() => setLocation("/dashboard")} />;
-  if (starting || (!attemptId && !error)) return <LoadingScreen message="Preparando sua autoavaliação…" />;
-  if (error) return <StateScreen title="Não conseguimos continuar agora" body={error} action="Voltar ao painel" onAction={() => setLocation("/dashboard")} />;
+  if (starting || (!attemptId && !blockingError)) return <LoadingScreen message="Preparando sua autoavaliação…" />;
+  if (blockingError) return <StateScreen title="Não conseguimos continuar agora" body={blockingError} action="Voltar ao painel" onAction={() => setLocation("/dashboard")} />;
   if (result) return <ResultScreen result={result} title={assessment.data.title} onFinish={() => setLocation("/dashboard")} />;
 
   const questions = assessment.data.questions;
@@ -68,7 +69,7 @@ function AssessmentContent({ assessmentId }: { assessmentId: number }) {
   const isLast = index === questions.length - 1;
   const percentage = Math.round(((index + 1) / questions.length) * 100);
   const handleNext = () => {
-    if (!selected) return setError("Escolha uma opção para continuar.");
+    if (!selected) { setError("Selecione uma opção nesta pergunta para continuar."); return; }
     setError(null);
     if (!isLast) return setIndex(current => current + 1);
     if (attemptId) submitAttempt({ attemptId, answers: Object.entries(answers).map(([questionId, optionId]) => ({ questionId: Number(questionId), optionId })) }, { onSuccess: setResult, onError: issue => setError(issue.message) });

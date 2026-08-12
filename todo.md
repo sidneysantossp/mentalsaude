@@ -47,3 +47,4 @@
 - [x] Exibir mensagem de erro visível quando a geração ou o download do PDF falhar.
 - [ ] Validar visualmente a tela de consentimento antes do início do teste autenticado.
 - [ ] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.
+- [x] Evitar tela de erro genérica quando o usuário tenta avançar sem selecionar uma resposta.
