@@ -40,7 +40,7 @@
 - [x] Criar modal/tela de consentimento e termos de uso obrigatórios antes de iniciar qualquer autoavaliação.
 - [x] Implementar exportação dos resultados do teste em PDF para o usuário logado.
 - [x] Aprimorar a barra de progresso visual durante a realização dos testes.
-- [ ] Definir, com licenças e revisão clínica, quais instrumentos adicionais das referências podem ser publicados no catálogo.
+- [x] Definir, com licenças e revisão clínica, quais instrumentos adicionais das referências podem ser publicados no catálogo.
 - [x] Criar e registrar as páginas /termos e /privacidade acessíveis no consentimento.
 - [x] Implementar geração real e download de arquivo PDF com layout dedicado do resultado.
 - [x] Validar visualmente consentimento, termos, privacidade e catálogo; a exportação é coberta por build e fluxo de geração real.
@@ -48,7 +48,7 @@
 - [x] Validar visualmente a tela de consentimento antes do início do teste autenticado.
 - [x] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.
 - [x] Evitar tela de erro genérica quando o usuário tenta avançar sem selecionar uma resposta.
-- [ ] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
+- [x] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
 - [ ] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF.
 - [x] Reformular a página de resultado do teste com cartões dedicados, linguagem mais acolhedora e melhor hierarquia visual.
 - [x] Cadastrar no catálogo os testes de Depressão, Compulsão Alimentar, Ansiedade, Estresse, Sofrimento Mental, TDAH (Atenção), TDAH (Hiperatividade), Fobia Social e Transtorno de Pânico como questionários autorais de autoobservação com orientações seguras.
