@@ -57,3 +57,4 @@
 - [x] Adicionar teste automatizado cobrindo a submissão e o retorno de recomendações para os novos testes autorais (2 a 10).
 - [x] Adicionar modo de alto contraste e redimensionador de fonte (A-/A+) acessíveis globalmente na aplicação.
 - [x] Implementar armazenamento local (localStorage) de histórico de autoavaliações para comparação e evolução ao longo do tempo.
+- [x] Criar sistema de lembretes visuais no dashboard para incentivar o usuário a refazer os testes periodicamente com base no histórico.
