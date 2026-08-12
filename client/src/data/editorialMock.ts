@@ -56,8 +56,8 @@ export const EDITORIAL_SEARCH_SUGGESTIONS = [
 export const FEATURED_ARTICLES: EditorialItem[] = [
   {
     id: "f-1",
-    slug: "/conteudos/ansiedade-o-que-e-sintomas",
-    title: "Ansiedade: o que é, principais sinais e quando buscar apoio especializado",
+    slug: "/conteudos/ansiedade-o-que-e-sintomas-causas",
+    title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda",
     excerpt: "Compreenda a diferença entre a preocupação cotidiana e os estados de ansiedade prolongados, com referências baseadas em evidências e orientações acolhedoras.",
     contentType: "ARTICLE",
     primaryEntity: "Ansiedade",
@@ -73,8 +73,8 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
   },
   {
     id: "f-2",
-    slug: "/conteudos/entendendo-o-tdah-em-adultos",
-    title: "TDAH em adultos: como a desatenção e a impulsividade se manifestam no dia a dia",
+    slug: "/conteudos/tdah-em-adultos",
+    title: "TDAH em adultos: sintomas, avaliação e tratamento",
     excerpt: "Sinais sutis que frequentemente passam despercebidos na infância e como a autoobservação pode ajudar.",
     contentType: "EXPLAINER",
     primaryEntity: "TDAH",
@@ -89,8 +89,8 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
   },
   {
     id: "f-3",
-    slug: "/conteudos/como-funcionam-os-testes-de-saude-mental",
-    title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você",
+    slug: "/conteudos/depressao-sintomas-causas-tratamento",
+    title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda",
     excerpt: "Entenda o papel dos instrumentos de triagem como ferramentas educativas de autoconhecimento.",
     contentType: "EVIDENCE_REVIEW",
     primaryEntity: "Testes",
@@ -107,7 +107,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
 export const ESSENTIAL_GUIDES: EditorialItem[] = [
   {
     id: "g-1",
-    slug: "/conteudos/guia-ansiedade",
+    slug: "/conteudos/ansiedade-o-que-e-sintomas-causas",
     title: "Guia completo sobre ansiedade",
     excerpt: "Sintomas, tipos, avaliação, tratamento e quando procurar ajuda profissional.",
     contentType: "GUIDE",
@@ -123,7 +123,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
   },
   {
     id: "g-2",
-    slug: "/conteudos/guia-depressao",
+    slug: "/conteudos/depressao-sintomas-causas-tratamento",
     title: "Guia completo sobre depressão",
     excerpt: "Entenda sintomas persistentes, avaliação responsável, tratamento e acompanhamento.",
     contentType: "GUIDE",
@@ -139,7 +139,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
   },
   {
     id: "g-3",
-    slug: "/conteudos/guia-tdah-adultos",
+    slug: "/conteudos/tdah-em-adultos",
     title: "TDAH em adultos: guia de orientação",
     excerpt: "Guia prático sobre atenção, organização, funcionamento executivo e acolhimento.",
     contentType: "GUIDE",
@@ -225,8 +225,8 @@ export const START_PATHS = [
 export const RECENT_ARTICLES: EditorialItem[] = [
   {
     id: "r-1",
-    slug: "/conteudos/sono-e-ansiedade",
-    title: "A relação bilateral entre noites mal dormidas e episódios de ansiedade",
+    slug: "/conteudos/ansiedade-o-que-e-sintomas-causas",
+    title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda",
     excerpt: "Como o descanso inadequado altera a regulação emocional e o que fazer para melhorar a higiene do sono.",
     contentType: "ARTICLE",
     primaryEntity: "Sono",
@@ -240,8 +240,8 @@ export const RECENT_ARTICLES: EditorialItem[] = [
   },
   {
     id: "r-2",
-    slug: "/conteudos/estresse-cronico-sinais",
-    title: "Estresse crônico: quando a excede a capacidade de adaptação cotidiana",
+    slug: "/conteudos/depressao-sintomas-causas-tratamento",
+    title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda",
     excerpt: "Identificando o esgotamento antes que ele evolua para exaustão severa.",
     contentType: "EXPLAINER",
     primaryEntity: "Estresse",
@@ -254,8 +254,8 @@ export const RECENT_ARTICLES: EditorialItem[] = [
   },
   {
     id: "r-3",
-    slug: "/conteudos/autocompaxao-em-saude-mental",
-    title: "Autocompaixão não é fraqueza: o papel da gentileza consigo mesmo no tratamento",
+    slug: "/conteudos/tdah-em-adultos",
+    title: "TDAH em adultos: sintomas, avaliação e tratamento",
     excerpt: "Como a autocrítica excessiva alimenta ciclos de sofrimento e como desenvolver uma postura compreensiva.",
     contentType: "ARTICLE",
     primaryEntity: "Bem-estar",

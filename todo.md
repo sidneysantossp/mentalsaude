@@ -69,3 +69,4 @@
 - [x] Implementar recurso 'Salvar para depois' no Hub Editorial (/conteudos) com persistência local e aba/seção dedicada no dashboard do usuário.
 - [x] Adicionar link da página de conteúdos (/conteudos) no menu de navegação principal e no rodapé em todas as páginas públicas.
 - [x] Criar imagens de destaque individuais para os artigos e guias do Hub Editorial e integrá-las aos cards em /conteudos.
+- [ ] Implementar Article Design System V1 e publicar os 3 artigos-piloto em /conteudos/[slug] com rotas reais, DirectAnswer, EvidenceBox, TableOfContents, ScientificCitation, e conversão contextual para testes.
