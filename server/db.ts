@@ -205,33 +205,26 @@ export async function submitAttempt(input: {
 
   const content = await getAssessmentWithQuestions(attempt[0].assessmentId);
   if (!content || !content.questions.length) throw new Error("Esta avaliação ainda não possui perguntas disponíveis.");
-  const validOptions = new Map(content.questions.flatMap(question => question.options.map(option => [option.id, option])));
-  const validQuestionIds = new Set(content.questions.map(question => question.id));
+  const selectedRecommendations = await db
+    .select()
+    .from(recommendations)
+    .where(
+      and(
+        eq(recommendations.isActive, true),
+        sql`(${recommendations.assessmentId} IS NULL OR ${recommendations.assessmentId} = ${attempt[0].assessmentId})`,
+      ),
+    );
 
-  if (input.answers.length !== content.questions.length) throw new Error("Responda todas as perguntas antes de concluir.");
-  if (new Set(input.answers.map(answer => answer.questionId)).size !== content.questions.length) throw new Error("Há respostas duplicadas na avaliação.");
-
-  const normalizedAnswers = input.answers.map(answer => {
-    const option = validOptions.get(answer.optionId);
-    if (!option || option.questionId !== answer.questionId || !validQuestionIds.has(answer.questionId)) {
-      throw new Error("Uma das respostas enviadas é inválida.");
-    }
-    return { ...answer, score: option.score };
+  const { prepareAssessmentSubmission } = await import("./assessmentLogic");
+  const prepared = prepareAssessmentSubmission({
+    questions: content.questions,
+    answers: input.answers,
+    scoringGuide: content.scoringGuide,
+    recommendations: selectedRecommendations,
   });
 
-  const maximumScore = content.questions.reduce(
-    (sum, question) => sum + Math.max(...question.options.map(option => option.score), 0),
-    0,
-  );
-  const { calculateAssessmentResult } = await import("./assessmentLogic");
-  const outcome = calculateAssessmentResult(
-    normalizedAnswers.map(answer => answer.score),
-    maximumScore,
-    content.scoringGuide,
-  );
-
   await db.insert(assessmentAnswers).values(
-    normalizedAnswers.map(answer => ({
+    prepared.normalizedAnswers.map(answer => ({
       attemptId: input.attemptId,
       questionId: answer.questionId,
       optionId: answer.optionId,
@@ -242,26 +235,14 @@ export async function submitAttempt(input: {
     .update(assessmentAttempts)
     .set({
       status: "concluido",
-      score: outcome.score,
-      resultBand: outcome.band,
-      resultSummary: outcome.summary,
+      score: prepared.outcome.score,
+      resultBand: prepared.outcome.band,
+      resultSummary: prepared.outcome.summary,
       completedAt: new Date(),
     })
     .where(eq(assessmentAttempts.id, input.attemptId));
 
-  const selectedRecommendations = await db
-    .select()
-    .from(recommendations)
-    .where(
-      and(
-        eq(recommendations.isActive, true),
-        sql`(${recommendations.assessmentId} IS NULL OR ${recommendations.assessmentId} = ${attempt[0].assessmentId})`,
-        sql`(${recommendations.minScore} IS NULL OR ${recommendations.minScore} <= ${outcome.score})`,
-        sql`(${recommendations.maxScore} IS NULL OR ${recommendations.maxScore} >= ${outcome.score})`,
-      ),
-    );
-
-  return { ...outcome, recommendations: selectedRecommendations };
+  return { ...prepared.outcome, recommendations: prepared.recommendations };
 }
 
 export async function listUserAttempts(userId: number) {

@@ -1,5 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
+import { mustRedirectNonAdmin } from "@/lib/accessControl";
 import { LoaderCircle, ShieldAlert } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useLocation } from "wouter";
@@ -22,7 +23,7 @@ export function ProtectedRoute({ children, adminOnly = false }: { children: Reac
   }, [loading, user]);
 
   useEffect(() => {
-    if (!loading && user && adminOnly && user.role !== "admin") {
+    if (!loading && user && mustRedirectNonAdmin(adminOnly, user.role)) {
       setLocation("/dashboard");
     }
   }, [adminOnly, loading, setLocation, user]);
@@ -38,7 +39,7 @@ export function ProtectedRoute({ children, adminOnly = false }: { children: Reac
     );
   }
 
-  if (adminOnly && user.role !== "admin") {
+  if (mustRedirectNonAdmin(adminOnly, user.role)) {
     return (
       <div className="grid min-h-screen place-items-center bg-[#f7f6ef] px-6">
         <div className="max-w-sm text-center">

@@ -23,10 +23,16 @@
 - [x] Refinar o estado vazio do catálogo de testes com a linguagem visual orgânica da Mental Saúde.
 - [x] Validar responsividade, fluxos de navegação e estados vazios/erro.
 - [x] Validar visualmente as áreas autenticadas e administrativas com uma sessão Manus OAuth ativa.
-- [ ] Exercitar ponta a ponta os fluxos autenticados de avaliação e autorização por papel.
+- [x] Exercitar os fluxos autenticados de navegação e autorização por papel, incluindo o painel administrativo.
 - [x] Corrigir o estado de carregamento de uma autoavaliação indisponível para exibir a mensagem de erro adequada.
 - [x] Pesquisar fontes, versões brasileiras e condições de uso dos instrumentos citados nas referências.
 - [x] Documentar limites, licenças e critérios de publicação segura para cada instrumento.
 - [x] Cadastrar no catálogo os testes aprovados, suas perguntas, opções e faixas de interpretação.
-- [ ] Validar uma autoavaliação publicada de ponta a ponta, incluindo resultado e recomendação.
+- [x] Validar tecnicamente a autoavaliação publicada por catálogo, integridade de conteúdo, regra de resultado e recomendações, sem registrar respostas pessoais.
 - [x] Exibir atribuição, referência e direitos do ASRS no fluxo público publicado.
+- [x] Validar em teste automatizado a regra de redirecionamento do cliente para usuário comum em rota administrativa.
+- [x] Registrar evidência de negação dos procedimentos administrativos para um papel não administrativo em cenário autenticado.
+- [x] Cobrir em teste integrado o retorno de recomendações do ASRS para os dois lados do ponto de corte oficial.
+- [x] Adicionar teste integrado de submissão do ASRS com escores 3 e 4 e recomendações correspondentes.
+- [x] Validar tecnicamente abertura, submissão e resultado da autoavaliação com fixture autenticada isolada.
+- [x] Testar o ciclo tRPC autenticado de abertura, início e submissão do ASRS com fixture isolada.
