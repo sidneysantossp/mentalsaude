@@ -56,7 +56,21 @@
 * { border-color: var(--border); }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: #f7f6ef; color: #153a36; font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif; }
+html[data-font-scale="small"] { font-size: 93.75%; }
+html[data-font-scale="large"] { font-size: 112.5%; }
 button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #e6a900; outline-offset: 3px; }
+
+html.a11y-high-contrast body { background: #000 !important; color: #fff !important; }
+html.a11y-high-contrast body * { border-color: #fff !important; box-shadow: none !important; text-shadow: none !important; }
+html.a11y-high-contrast body :is(p, h1, h2, h3, h4, h5, h6, span, label, li, dt, dd, strong, em) { color: #fff !important; }
+html.a11y-high-contrast body :is(section, article, aside, header, main, nav, form, button, input, textarea, select, [role="dialog"], [role="button"]) { background: #000 !important; }
+html.a11y-high-contrast body a { color: #ffeb3b !important; text-decoration: underline !important; }
+html.a11y-high-contrast body button { color: #fff !important; }
+html.a11y-high-contrast body svg { color: #fff !important; stroke: currentColor !important; }
+html.a11y-high-contrast body img { filter: grayscale(1) contrast(1.2); }
+html.a11y-high-contrast body :focus-visible { outline-color: #ffeb3b !important; }
+
 button:active { transform: scale(.98); }
 ::selection { background: #bfe9df; color: #123f3b; }
 @media (prefers-reduced-motion: no-preference) { .page-enter { animation: enter .25s cubic-bezier(.23,1,.32,1) both; } }

@@ -4,7 +4,9 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
+import AccessibilityControls from "./components/AccessibilityControls";
 import { TooltipProvider } from "./components/ui/tooltip";
+import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import AssessmentFlow from "./pages/AssessmentFlow";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -34,5 +36,5 @@ function Router() {
 }
 
 export default function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><LoginRedirect /><Toaster /><Router /></TooltipProvider></ThemeProvider></ErrorBoundary>;
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><AccessibilityProvider><TooltipProvider><LoginRedirect /><Toaster /><AccessibilityControls /><Router /></TooltipProvider></AccessibilityProvider></ThemeProvider></ErrorBoundary>;
 }

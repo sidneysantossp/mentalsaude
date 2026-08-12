@@ -55,3 +55,5 @@
 - [x] Validar que os novos testes 2 a 10 carregam perguntas e opções corretamente no fluxo de autoavaliação.
 - [x] Garantir recomendações específicas e seguras para cada um dos novos testes no motor de pontuação.
 - [x] Adicionar teste automatizado cobrindo a submissão e o retorno de recomendações para os novos testes autorais (2 a 10).
+- [x] Adicionar modo de alto contraste e redimensionador de fonte (A-/A+) acessíveis globalmente na aplicação.
+- [x] Implementar armazenamento local (localStorage) de histórico de autoavaliações para comparação e evolução ao longo do tempo.
