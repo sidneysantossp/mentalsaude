@@ -2,6 +2,7 @@ import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
 import { ARTICLES_DATABASE, ArticleModel } from "@/data/articlesDatabase";
 import { ScientificCitation } from "@/components/ScientificCitation";
+import { ContextualTestCTA } from "@/components/ContextualTestCTA";
 import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, ExternalLink, Info, Share2, Shield, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -375,6 +376,11 @@ export default function ArticlePage() {
             ))}
           </div>
         </section>
+
+        {/* CONTEXTUAL TEST CTA (Article Design System V1.1) */}
+        <div className="max-w-6xl">
+          <ContextualTestCTA test={article.relatedTest} articleSlug={article.slug} />
+        </div>
       </main>
 
       <footer className="border-t border-[#dce9e4] bg-[#f1f8f5] py-12 px-5 sm:px-8 text-xs text-[#628079] mt-20">

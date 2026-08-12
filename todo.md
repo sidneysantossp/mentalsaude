@@ -80,3 +80,7 @@
 - [x] Implementar sistema de filtro por categorias na página de conteúdos (/conteudos).
 - [x] Implementar barra de busca em tempo real no Hub Editorial com feedback imediato e estado vazio adequado.
 - [x] Remover a barra de rolagem horizontal da seção de filtros em /conteudos e reorganizar os badges em grid responsivo com quebra de linha.
+- [x] Implementar o componente ContextualTestCTA data-driven para V1.1 abaixo de 'Continue explorando'.
+- [x] Mapear GAD-7, PHQ-9 e ASRS aos respectivos artigos-piloto.
+- [x] Validar tracking de visualização/clique sem dados sensíveis e testar fallback seguro se o teste for nulo.
+- [x] Capturar screenshots de comprovação desktop e mobile mostrando 'Continue explorando' seguido do ContextualTestCTA.
