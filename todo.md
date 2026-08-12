@@ -50,3 +50,4 @@
 - [x] Evitar tela de erro genérica quando o usuário tenta avançar sem selecionar uma resposta.
 - [ ] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
 - [ ] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF.
+- [x] Reformular a página de resultado do teste com cartões dedicados, linguagem mais acolhedora e melhor hierarquia visual.

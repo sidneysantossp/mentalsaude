@@ -82,4 +82,120 @@ function LoadingScreen({ message }: { message: string }) { return <div className
 function StateScreen({ title, body, action, onAction }: { title: string; body: string; action: string; onAction: () => void }) { return <div className="grid min-h-screen place-items-center bg-[#f7f6ef] px-5"><div className="max-w-md rounded-3xl border border-[#dceae5] bg-[#fffefa] p-8 text-center"><AlertTriangle className="mx-auto h-8 w-8 text-[#b75a48]" /><h1 className="mt-5 font-display text-3xl font-semibold text-[#173e39]">{title}</h1><p className="mt-3 text-sm leading-6 text-[#66827b]">{body}</p><Button onClick={onAction} className="mt-7 rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">{action}</Button></div></div>; }
 function TermsIntro({ accepting, onAccept, onExit, error }: { accepting: boolean; onAccept: () => void; onExit: () => void; error: string | null }) { const [checked, setChecked] = useState(false); return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36]"><main className="mx-auto max-w-2xl"><Brand compact /><section className="mt-10 rounded-[2rem] border border-[#d9e9e4] bg-[#fffefa] p-7 shadow-[0_26px_55px_-46px_rgba(11,70,62,.8)] sm:p-10"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#58ab9e]">Antes de começar</p><h1 className="mt-4 font-display text-4xl font-semibold tracking-[-.04em] text-[#173e39]">Consentimento e termos de uso</h1><div className="mt-6 space-y-4 text-sm leading-6 text-[#5b7972]"><p>As autoavaliações da Mental Saúde são ferramentas educativas de autoconhecimento. Elas não substituem diagnóstico, psicoterapia, atendimento médico ou cuidado em situações de urgência.</p><p>Você poderá interromper o preenchimento a qualquer momento. O resultado será associado ao seu histórico somente quando você concluir e enviar as respostas.</p><p>Para continuar, leia a <a href="/privacidade" className="font-semibold text-[#0b7167] underline">Política de Privacidade</a> e os <a href="/termos" className="font-semibold text-[#0b7167] underline">Termos de Uso</a>.</p></div><label className="mt-7 flex cursor-pointer items-start gap-3 rounded-2xl border border-[#cce3dc] bg-[#f2faf7] p-4 text-sm font-medium text-[#315a53]"><input type="checkbox" checked={checked} onChange={event => setChecked(event.currentTarget.checked)} className="mt-0.5 h-4 w-4 accent-[#0b7167]" />Li e compreendo os Termos de Uso, a Política de Privacidade e os limites informados para esta autoavaliação.</label>{error && <p className="mt-4 text-sm text-[#a14637]">{error}</p>}<Button disabled={!checked || accepting} onClick={onAccept} className="mt-7 h-12 w-full rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">{accepting ? <><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Registrando consentimento</> : "Aceitar e continuar"}</Button><Button variant="ghost" onClick={onExit} className="mt-3 w-full text-[#4f716a]"><ArrowLeft className="mr-2 h-4 w-4" />Voltar ao painel</Button></section></main></div>; }
 function AsrsIntro({ title, onContinue, onExit }: { title: string; onContinue: () => void; onExit: () => void }) { return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36]"><main className="mx-auto max-w-2xl"><Brand compact /><section className="mt-10 rounded-[2rem] border border-[#d9e9e4] bg-[#fffefa] p-7 shadow-[0_26px_55px_-46px_rgba(11,70,62,.8)] sm:p-10"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#58ab9e]">Antes de começar</p><h1 className="mt-4 font-display text-4xl font-semibold tracking-[-.04em] text-[#173e39]">{title}</h1><div className="mt-6 space-y-4 text-sm leading-6 text-[#5b7972]"><p>Esta versão do ASRS v1.1 é destinada apenas a pessoas com <strong>18 anos ou mais</strong> e considera como você tem se sentido e se comportado nos últimos seis meses.</p><p>O resultado é um rastreio inicial: ele não confirma nem exclui TDAH. Um diagnóstico depende de avaliação clínica completa por profissional habilitado.</p><p>Se você estiver preocupado(a) com seus sintomas ou com a sua segurança, procure atendimento profissional ou um serviço de urgência da sua região.</p></div><div className="mt-6 rounded-2xl border border-[#d7e8e2] bg-[#f4faf8] p-4 text-xs leading-5 text-[#54766f]"><strong>Referência:</strong> Kessler RC et al. (2005), <em>Psychological Medicine</em>, 35(2), 245–256. Tradução brasileira: Maria Carmen Viana. <br /><strong>Direitos:</strong> © New York University e Ronald C. Kessler, PhD. Todos os direitos reservados.</div><label className="mt-7 flex cursor-pointer items-start gap-3 rounded-2xl border border-[#cce3dc] bg-[#f2faf7] p-4 text-sm font-medium text-[#315a53]"><input type="checkbox" onChange={event => { if (event.currentTarget.checked) onContinue(); }} className="mt-0.5 h-4 w-4 accent-[#0b7167]" />Confirmo que tenho 18 anos ou mais e compreendo que este screener não é diagnóstico.</label><Button variant="ghost" onClick={onExit} className="mt-5 text-[#4f716a]"><ArrowLeft className="mr-2 h-4 w-4" />Voltar ao painel</Button></section></main></div>; }
-function ResultScreen({ result, title, onFinish }: { result: Result; title: string; onFinish: () => void }) { const [exporting, setExporting] = useState(false); const [exportError, setExportError] = useState<string | null>(null); const exportPdf = async () => { setExporting(true); try { const pdf = await PDFDocument.create(); const page = pdf.addPage([595, 842]); const font = await pdf.embedFont(StandardFonts.Helvetica); const bold = await pdf.embedFont(StandardFonts.HelveticaBold); let y = 790; page.drawText("Mental Saúde", { x: 48, y, size: 18, font: bold, color: rgb(0.05, 0.38, 0.34) }); y -= 34; page.drawText("Resultado de autoavaliação", { x: 48, y, size: 11, font, color: rgb(0.35, 0.48, 0.45) }); y -= 28; page.drawText(title, { x: 48, y, size: 17, font: bold, color: rgb(0.08, 0.25, 0.23) }); y -= 36; page.drawText(result.displayValue ?? `${result.percentage}%`, { x: 48, y, size: 28, font: bold, color: rgb(0.04, 0.44, 0.39) }); y -= 25; page.drawText(result.band, { x: 48, y, size: 12, font: bold, color: rgb(0.12, 0.32, 0.29) }); y -= 28; y = drawPdfWrapped(page, result.summary, font, 48, y, 500, 11) - 26; page.drawText("Próximos passos possíveis", { x: 48, y, size: 15, font: bold, color: rgb(0.08, 0.25, 0.23) }); y -= 25; for (const item of result.recommendations) { page.drawText(item.title, { x: 48, y, size: 11, font: bold, color: rgb(0.05, 0.38, 0.34) }); y -= 18; y = drawPdfWrapped(page, item.body, font, 48, y, 500, 10) - 18; } y = Math.max(y, 80); drawPdfWrapped(page, "Este documento é uma devolutiva educativa e não substitui avaliação ou diagnóstico profissional.", font, 48, y, 500, 9); const bytes = await pdf.save(); const blob = new Blob([bytes.buffer as ArrayBuffer], { type: "application/pdf" }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.href = url; link.download = `mental-saude-${title.toLowerCase().replace(/[^a-z0-9]+/gi, "-")}.pdf`; link.click(); URL.revokeObjectURL(url); } catch { setExportError("Não foi possível gerar o PDF agora. Tente novamente."); } finally { setExporting(false); } }; return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36] sm:px-8"><main className="mx-auto max-w-[780px]"><div className="print-card rounded-[2rem] bg-[#123f3b] p-7 text-[#f6faf7] sm:p-10"><p className="text-xs font-bold uppercase tracking-[.18em] text-[#86d8ca]">Autoavaliação concluída</p><h1 className="mt-3 font-display text-4xl font-semibold tracking-[-.04em]">{title}</h1><div className="mt-8 grid gap-6 sm:grid-cols-[auto_1fr]"><div className="grid h-28 w-28 place-items-center rounded-full border-[8px] border-[#75cabe] bg-[#0b5b54] px-2 text-center"><span className="font-display text-2xl font-semibold">{result.displayValue ?? `${result.percentage}%`}</span>{result.metricLabel && <span className="mt-1 text-[9px] font-semibold uppercase leading-3 tracking-[.08em] text-[#b9e7de]">{result.metricLabel}</span>}</div><div><p className="text-sm font-bold uppercase tracking-[.14em] text-[#8fdbcf]">{result.band}</p><p className="mt-3 text-sm leading-6 text-[#d5ebe5]">{result.summary}</p></div></div></div><div className="mt-5 rounded-[2rem] border border-[#dceae5] bg-[#fffefa] p-7 sm:p-10"><h2 className="font-display text-2xl font-semibold text-[#163e39]">Próximos passos possíveis</h2><p className="mt-2 text-sm leading-6 text-[#66837c]">Estas sugestões são gerais e não substituem uma conversa com profissional habilitado.</p><div className="mt-6 space-y-3">{result.recommendations.length ? result.recommendations.map(item => <article key={item.id} className="rounded-2xl bg-[#eef7f3] p-5"><h3 className="font-semibold text-[#1c4942]">{item.title}</h3><p className="mt-2 text-sm leading-6 text-[#648078]">{item.body}</p>{item.actionUrl && <a href={item.actionUrl} className="mt-3 inline-flex text-sm font-semibold text-[#0b7167]">{item.actionLabel ?? "Saiba mais"}<ArrowRight className="ml-1 h-4 w-4" /></a>}</article>) : <article className="rounded-2xl bg-[#eef7f3] p-5"><h3 className="font-semibold text-[#1c4942]">Faça uma pausa para se escutar</h3><p className="mt-2 text-sm leading-6 text-[#648078]">Anote como você se sentiu ao responder e considere conversar com alguém de confiança ou com profissional habilitado, se isso fizer sentido para você.</p></article>}</div><div className="print:hidden mt-8 flex flex-wrap gap-3"><Button onClick={exportPdf} disabled={exporting} variant="outline" className="rounded-xl border-[#9bcac0] bg-white text-[#0a615a] hover:bg-[#eef8f5]">{exporting ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}{exporting ? "Gerando PDF…" : "Exportar resultado em PDF"}</Button><Button onClick={onFinish} className="rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">Voltar ao meu painel <ArrowRight className="ml-2 h-4 w-4" /></Button></div>{exportError && <p role="alert" className="mt-4 rounded-xl bg-[#fff2ed] px-4 py-3 text-sm text-[#a14637]">{exportError}</p>}<p className="print:hidden mt-3 text-xs text-[#75918a]">O arquivo é gerado localmente no seu navegador e não é enviado para terceiros.</p></div></main></div>; }
+function ResultScreen({ result, title, onFinish }: { result: Result; title: string; onFinish: () => void }) {
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
+  const exportPdf = async () => {
+    setExporting(true);
+    try {
+      const pdf = await PDFDocument.create();
+      const page = pdf.addPage([595, 842]);
+      const font = await pdf.embedFont(StandardFonts.Helvetica);
+      const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
+      let y = 790;
+      page.drawText("Mental Saúde", { x: 48, y, size: 18, font: bold, color: rgb(0.05, 0.38, 0.34) });
+      y -= 34;
+      page.drawText("Devolutiva de Autoavaliação", { x: 48, y, size: 11, font, color: rgb(0.35, 0.48, 0.45) });
+      y -= 28;
+      page.drawText(title, { x: 48, y, size: 17, font: bold, color: rgb(0.08, 0.25, 0.23) });
+      y -= 36;
+      page.drawText(result.displayValue ?? `${result.percentage}%`, { x: 48, y, size: 28, font: bold, color: rgb(0.04, 0.44, 0.39) });
+      y -= 25;
+      page.drawText(result.band, { x: 48, y, size: 12, font: bold, color: rgb(0.12, 0.32, 0.29) });
+      y -= 28;
+      y = drawPdfWrapped(page, result.summary, font, 48, y, 500, 11) - 26;
+      page.drawText("Recomendações e próximos passos", { x: 48, y, size: 15, font: bold, color: rgb(0.08, 0.25, 0.23) });
+      y -= 25;
+      for (const item of result.recommendations) {
+        page.drawText(item.title, { x: 48, y, size: 11, font: bold, color: rgb(0.05, 0.38, 0.34) });
+        y -= 18;
+        y = drawPdfWrapped(page, item.body, font, 48, y, 500, 10) - 18;
+      }
+      y = Math.max(y, 80);
+      drawPdfWrapped(page, "Este documento é uma devolutiva educativa e não substitui avaliação ou diagnóstico profissional.", font, 48, y, 500, 9);
+      const bytes = await pdf.save();
+      const blob = new Blob([bytes.buffer as ArrayBuffer], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `mental-saude-${title.toLowerCase().replace(/[^a-z0-9]+/gi, "-")}.pdf`;
+      link.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      setExportError("Não foi possível gerar o PDF agora. Tente novamente.");
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36] sm:px-8">
+    <main className="mx-auto max-w-[820px] space-y-6">
+      <section className="print-card relative overflow-hidden rounded-[2.5rem] bg-[#123f3b] p-8 text-[#f6faf7] shadow-[0_30px_60px_-40px_rgba(11,70,62,.9)] sm:p-12">
+        <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#18554f] opacity-40 blur-3xl pointer-events-none" />
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#18554f] px-4 py-1.5 text-xs font-semibold uppercase tracking-[.18em] text-[#86d8ca]"><ShieldCheck className="h-4 w-4" /> Devolutiva de Autoconhecimento</span>
+          <span className="text-xs text-[#a3d6cb]">Mental Saúde</span>
+        </div>
+        <h1 className="mt-4 font-display text-3xl font-semibold tracking-[-.04em] sm:text-4xl">{title}</h1>
+        <div className="mt-8 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
+          <div className="grid h-32 w-32 shrink-0 place-items-center rounded-3xl border-4 border-[#5cb3a5] bg-[#0b5b54] p-3 text-center shadow-inner">
+            <div>
+              <span className="block font-display text-3xl font-semibold text-white">{result.displayValue ?? `${result.percentage}%`}</span>
+              {result.metricLabel && <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[.1em] text-[#a4e2d7]">{result.metricLabel}</span>}
+            </div>
+          </div>
+          <div className="space-y-3">
+            <span className="inline-block rounded-lg bg-[#18554f] px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-[#9eeade]">{result.band}</span>
+            <p className="text-base leading-7 text-[#e1f2ec]">{result.summary}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2.5rem] border border-[#dceae5] bg-[#fffefa] p-8 shadow-[0_24px_50px_-40px_rgba(11,70,62,.15)] sm:p-10">
+        <div className="border-b border-[#e7f1ee] pb-6">
+          <h2 className="font-display text-2xl font-semibold text-[#163e39]">Recomendações e próximos passos</h2>
+          <p className="mt-1 text-sm text-[#66837c]">Orientações personalizadas com base na faixa identificada. O acompanhamento profissional permanece fundamental para diagnósticos.</p>
+        </div>
+
+        <div className="mt-6 space-y-4">
+          {result.recommendations.length ? result.recommendations.map(item => (
+            <article key={item.id} className="rounded-2xl border border-[#d4e8e2] bg-[#f4faf8] p-6 transition-all hover:border-[#9ecfc3]">
+              <h3 className="font-display text-lg font-semibold text-[#13443e]">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#567a72]">{item.body}</p>
+              {item.actionUrl && (
+                <a href={item.actionUrl} className="mt-4 inline-flex items-center text-sm font-semibold text-[#0b7167] hover:text-[#064b46]">
+                  {item.actionLabel ?? "Saiba mais"}
+                  <ArrowRight className="ml-1.5 h-4 w-4" />
+                </a>
+              )}
+            </article>
+          )) : (
+            <article className="rounded-2xl border border-[#d4e8e2] bg-[#f4faf8] p-6">
+              <h3 className="font-display text-lg font-semibold text-[#13443e]">Espaço para acolhimento e escuta</h3>
+              <p className="mt-2 text-sm leading-6 text-[#567a72]">Anote suas percepções e considere conversar com alguém de confiança ou com um profissional habilitado sempre que sentir necessidade.</p>
+            </article>
+          )}
+        </div>
+
+        <div className="mt-8 rounded-2xl bg-[#eaf4f1] p-5 text-xs leading-5 text-[#3a635b]">
+          <strong>Aviso importante:</strong> Esta ferramenta tem fins educativos e de autoconhecimento. Em caso de sofrimento intenso ou crise emocional, procure apoio especializado ou ligue para o CVV (188).
+        </div>
+
+        <div className="print:hidden mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-[#e7f1ee] pt-6">
+          <div className="flex flex-wrap gap-3">
+            <Button onClick={exportPdf} disabled={exporting} variant="outline" className="rounded-xl border-[#9bcac0] bg-white text-[#0a615a] hover:bg-[#eef8f5]">
+              {exporting ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}
+              {exporting ? "Gerando PDF…" : "Exportar resultado em PDF"}
+            </Button>
+            <Button onClick={onFinish} className="rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">
+              Voltar ao meu painel <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+          <span className="text-xs text-[#75918a]">Geração local segura</span>
+        </div>
+
+        {exportError && <p role="alert" className="mt-4 rounded-xl bg-[#fff2ed] px-4 py-3 text-sm text-[#a14637]">{exportError}</p>}
+      </section>
+    </main>
+  </div>;
+}
