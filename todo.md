@@ -1,0 +1,27 @@
+# Project TODO
+
+- [x] Modelar dados para perfis, testes, perguntas, opções, respostas e recomendações.
+- [x] Criar migração do banco de dados e aplicar a estrutura da plataforma.
+- [x] Implementar procedimentos tRPC protegidos por autenticação e papel de acesso.
+- [x] Implementar redirecionamento pós-login para o dashboard do usuário.
+- [x] Criar identidade visual Mental Saúde com paleta teal/verde, tipografia moderna e elementos orgânicos.
+- [x] Construir landing page pública responsiva com hero, benefícios, conteúdo educativo, FAQ e CTA.
+- [x] Construir catálogo público de testes com duração, dificuldade e descrição.
+- [x] Adicionar uma seção de perguntas frequentes completa à landing page pública.
+- [x] Implementar a rota funcional do dashboard do usuário como destino obrigatório pós-login.
+- [x] Conectar catálogo e dashboard ao fluxo de autoavaliação selecionada.
+- [x] Oferecer o início da autoavaliação selecionada a partir do dashboard pós-login, preservando o dashboard como destino obrigatório.
+- [x] Construir fluxo autenticado de autoavaliação com perguntas paginadas, progresso e submissão.
+- [x] Construir dashboard do usuário com histórico, resultados, gráficos, recomendações e perfil editável.
+- [x] Construir dashboard administrativo com métricas de plataforma e gráficos de engajamento.
+- [x] Implementar gestão administrativa de testes, perguntas, opções e status de publicação.
+- [x] Implementar gestão administrativa de usuários com busca, perfil e promoção de papel.
+- [x] Escrever e executar testes unitários para regras de pontuação e controle de acesso.
+- [x] Adicionar edição completa dos metadados de testes existentes no painel administrativo.
+- [x] Disponibilizar o perfil completo e as preferências de notificação de cada usuário para administradores.
+- [x] Exibir o ano de nascimento, quando informado, no detalhe administrativo do usuário.
+- [x] Refinar o estado vazio do catálogo de testes com a linguagem visual orgânica da Mental Saúde.
+- [x] Validar responsividade, fluxos de navegação e estados vazios/erro.
+- [x] Validar visualmente as áreas autenticadas e administrativas com uma sessão Manus OAuth ativa.
+- [ ] Exercitar ponta a ponta os fluxos autenticados de avaliação e autorização por papel.
+- [x] Corrigir o estado de carregamento de uma autoavaliação indisponível para exibir a mensagem de erro adequada.
