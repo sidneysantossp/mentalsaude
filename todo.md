@@ -45,6 +45,8 @@
 - [x] Implementar geração real e download de arquivo PDF com layout dedicado do resultado.
 - [x] Validar visualmente consentimento, termos, privacidade e catálogo; a exportação é coberta por build e fluxo de geração real.
 - [x] Exibir mensagem de erro visível quando a geração ou o download do PDF falhar.
-- [ ] Validar visualmente a tela de consentimento antes do início do teste autenticado.
-- [ ] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.
+- [x] Validar visualmente a tela de consentimento antes do início do teste autenticado.
+- [x] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.
 - [x] Evitar tela de erro genérica quando o usuário tenta avançar sem selecionar uma resposta.
+- [ ] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
+- [ ] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF.
