@@ -51,3 +51,7 @@
 - [ ] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
 - [ ] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF.
 - [x] Reformular a página de resultado do teste com cartões dedicados, linguagem mais acolhedora e melhor hierarquia visual.
+- [x] Cadastrar no catálogo os testes de Depressão, Compulsão Alimentar, Ansiedade, Estresse, Sofrimento Mental, TDAH (Atenção), TDAH (Hiperatividade), Fobia Social e Transtorno de Pânico como questionários autorais de autoobservação com orientações seguras.
+- [x] Validar que os novos testes 2 a 10 carregam perguntas e opções corretamente no fluxo de autoavaliação.
+- [x] Garantir recomendações específicas e seguras para cada um dos novos testes no motor de pontuação.
+- [x] Adicionar teste automatizado cobrindo a submissão e o retorno de recomendações para os novos testes autorais (2 a 10).
