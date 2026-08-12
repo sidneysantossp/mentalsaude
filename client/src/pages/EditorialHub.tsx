@@ -1,8 +1,10 @@
 import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
 import { EDITORIAL_SEARCH_SUGGESTIONS, EDITORIAL_SPECIALISTS, EDITORIAL_TOPICS, ESSENTIAL_GUIDES, FEATURED_ARTICLES, RECENT_ARTICLES, START_PATHS, SYMPTOMS_LIST } from "@/data/editorialMock";
-import { Activity, AlertCircle, ArrowRight, BookOpen, CheckCircle, Compass, Flame, Heart, Moon, Search, Shield, Smile, Users, Zap } from "lucide-react";
+import { Activity, AlertCircle, ArrowRight, BookOpen, Bookmark, CheckCircle, Compass, Flame, Heart, Moon, Search, Shield, Smile, Users, Zap } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
+import { getSavedArticles, saveArticle, removeSavedArticle, isArticleSaved } from "@/lib/savedContentStorage";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Link, useLocation } from "wouter";
 
 const iconMap: Record<string, typeof Activity> = {
@@ -20,8 +22,28 @@ const iconMap: Record<string, typeof Activity> = {
 
 export default function EditorialHub() {
   const [, setLocation] = useLocation();
+  const { user } = useAuth();
+  const userId = user?.openId ?? user?.id ?? "guest";
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    const items = getSavedArticles(userId);
+    setSavedIds(items.map(i => i.id));
+  }, [userId]);
+
+  const handleToggleSave = (e: React.MouseEvent, article: { id: string; title: string; excerpt: string; category: string; readingTime: string; slug: string }) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isArticleSaved(userId, article.id)) {
+      removeSavedArticle(userId, article.id);
+      setSavedIds(prev => prev.filter(id => id !== article.id));
+    } else {
+      saveArticle(userId, article);
+      setSavedIds(prev => [...prev, article.id]);
+    }
+  };
 
   // Configurar metadata SEO e Structured Data JSON-LD ao montar a página editorial
   useEffect(() => {
@@ -240,9 +262,19 @@ export default function EditorialHub() {
                       {FEATURED_ARTICLES[0].excerpt}
                     </p>
                   </div>
-                  <div className="mt-8 flex flex-col gap-2 border-t border-[#e8f2ef] pt-5 sm:flex-row sm:items-center sm:justify-between text-xs text-[#628079]">
+                  <div className="mt-8 flex flex-col gap-3 border-t border-[#e8f2ef] pt-5 sm:flex-row sm:items-center sm:justify-between text-xs text-[#628079]">
                     <span>Por <strong>{FEATURED_ARTICLES[0].author}</strong>{FEATURED_ARTICLES[0].reviewer ? ` · Revisado por ${FEATURED_ARTICLES[0].reviewer}` : ""}</span>
-                    <span className="font-bold text-[#0a7066] flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver testes e guias →</span>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleSave(e, { id: FEATURED_ARTICLES[0].id, title: FEATURED_ARTICLES[0].title, excerpt: FEATURED_ARTICLES[0].excerpt, category: FEATURED_ARTICLES[0].category, readingTime: FEATURED_ARTICLES[0].readingTime, slug: FEATURED_ARTICLES[0].slug })}
+                        className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 font-semibold transition-colors ${savedIds.includes(FEATURED_ARTICLES[0].id) ? "bg-[#0a7066] text-white" : "border border-[#bde0d6] bg-[#f4fbf8] text-[#0a7066] hover:bg-[#e4f4ef]"}`}
+                      >
+                        <Bookmark className="h-3.5 w-3.5" aria-hidden="true" />
+                        {savedIds.includes(FEATURED_ARTICLES[0].id) ? "Salvo" : "Salvar para depois"}
+                      </button>
+                      <span className="font-bold text-[#0a7066] flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver testes →</span>
+                    </div>
                   </div>
                 </Link>
               )}
@@ -265,7 +297,14 @@ export default function EditorialHub() {
                     </div>
                     <div className="mt-4 flex items-center justify-between border-t border-[#edf4f1] pt-3 text-[11px] text-[#6d8a83]">
                       <span>{article.author}</span>
-                      <span className="font-bold text-[#0a7066]">Explorar →</span>
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleSave(e, { id: article.id, title: article.title, excerpt: article.excerpt, category: article.category, readingTime: article.readingTime, slug: article.slug })}
+                        className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-semibold transition-colors ${savedIds.includes(article.id) ? "bg-[#0a7066] text-white" : "border border-[#bde0d6] bg-[#f4fbf8] text-[#0a7066] hover:bg-[#e4f4ef]"}`}
+                      >
+                        <Bookmark className="h-3 w-3" aria-hidden="true" />
+                        {savedIds.includes(article.id) ? "Salvo" : "Salvar"}
+                      </button>
                     </div>
                   </Link>
                 ))}
@@ -325,7 +364,14 @@ export default function EditorialHub() {
                   </div>
                   <div className="mt-8 flex items-center justify-between border-t border-[#255f58] pt-4 text-xs text-[#a2e6dc]">
                     <span>{guide.readingTime}</span>
-                    <span className="font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Ver testes →</span>
+                    <button
+                      type="button"
+                      onClick={(e) => handleToggleSave(e, { id: guide.id, title: guide.title, excerpt: guide.excerpt, category: guide.category, readingTime: guide.readingTime, slug: guide.slug })}
+                      className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-semibold transition-colors ${savedIds.includes(guide.id) ? "bg-[#82d6ca] text-[#123f3b]" : "border border-[#38746c] bg-[#1a554f] text-[#82d6ca] hover:bg-[#22675f]"}`}
+                    >
+                      <Bookmark className="h-3 w-3" aria-hidden="true" />
+                      {savedIds.includes(guide.id) ? "Salvo" : "Salvar"}
+                    </button>
                   </div>
                 </Link>
               ))}
@@ -436,7 +482,14 @@ export default function EditorialHub() {
                 </div>
                 <div className="mt-8 flex items-center justify-between border-t border-[#edf4f1] pt-4 text-xs text-[#6e8c85]">
                   <span>{article.author}</span>
-                  <span className="font-bold text-[#0a7066]">Explorar →</span>
+                  <button
+                    type="button"
+                    onClick={(e) => handleToggleSave(e, { id: article.id, title: article.title, excerpt: article.excerpt, category: article.category, readingTime: article.readingTime, slug: article.slug })}
+                    className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1 font-semibold transition-colors ${savedIds.includes(article.id) ? "bg-[#0a7066] text-white" : "border border-[#bde0d6] bg-[#f4fbf8] text-[#0a7066] hover:bg-[#e4f4ef]"}`}
+                  >
+                    <Bookmark className="h-3 w-3" aria-hidden="true" />
+                    {savedIds.includes(article.id) ? "Salvo" : "Salvar"}
+                  </button>
                 </div>
               </Link>
             ))}

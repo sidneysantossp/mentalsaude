@@ -66,3 +66,4 @@
 - [x] Adicionar breadcrumb, CTAs completos de metodologia e especialistas, e garantir apenas links válidos ou estados seguros em /conteudos.
 - [x] Incluir sugestões do tipo CONTEÚDO na busca editorial e apontar para rotas existentes (/testes ou /dashboard).
 - [x] Configurar metadata SEO dedicada e JSON-LD (WebSite, CollectionPage, BreadcrumbList) em /conteudos.
+- [x] Implementar recurso 'Salvar para depois' no Hub Editorial (/conteudos) com persistência local e aba/seção dedicada no dashboard do usuário.
