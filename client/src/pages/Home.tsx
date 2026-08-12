@@ -48,11 +48,12 @@ export default function Home() {
         <nav className="hidden items-center gap-7 text-sm font-semibold text-[#375c56] md:flex">
           <a href="#como-funciona" className="transition-colors hover:text-[#08736a]">Como funciona</a>
           <Link href="/testes" className="transition-colors hover:text-[#08736a]">Testes</Link>
+          <Link href="/conteudos" className="transition-colors hover:text-[#08736a]">Conteúdos</Link>
           <a href="#seguranca" className="transition-colors hover:text-[#08736a]">Privacidade</a>
           <Button onClick={handleAccess} className="rounded-xl bg-[#0a615a] px-5 text-white hover:bg-[#074d47]">{user ? "Meu painel" : "Entrar"}</Button>
         </nav>
         <button className="rounded-lg p-2 text-[#123f3b] md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menu"><Menu className="h-5 w-5" /></button>
-        {menuOpen && <nav className="absolute right-5 top-16 flex w-56 flex-col rounded-2xl border border-[#dbe9e4] bg-[#fcfcf8] p-3 shadow-xl md:hidden"><Link href="/testes" className="rounded-lg px-3 py-2 text-sm font-semibold">Testes</Link><a href="#como-funciona" className="rounded-lg px-3 py-2 text-sm font-semibold">Como funciona</a><Button onClick={handleAccess} className="mt-1 rounded-lg bg-[#0a615a] text-white">{user ? "Meu painel" : "Entrar"}</Button></nav>}
+        {menuOpen && <nav className="absolute right-5 top-16 flex w-56 flex-col rounded-2xl border border-[#dbe9e4] bg-[#fcfcf8] p-3 shadow-xl md:hidden"><Link href="/testes" className="rounded-lg px-3 py-2 text-sm font-semibold">Testes</Link><Link href="/conteudos" className="rounded-lg px-3 py-2 text-sm font-semibold">Conteúdos</Link><a href="#como-funciona" className="rounded-lg px-3 py-2 text-sm font-semibold">Como funciona</a><Button onClick={handleAccess} className="mt-1 rounded-lg bg-[#0a615a] text-white">{user ? "Meu painel" : "Entrar"}</Button></nav>}
       </header>
 
       <main>
@@ -89,7 +90,7 @@ export default function Home() {
 
         <section className="mx-auto max-w-[1240px] px-5 pb-20 sm:px-8"><div className="grid gap-8 rounded-[2rem] border border-[#dbe9e4] bg-[#fffefa] p-8 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center"><div><p className="flex items-center gap-2 text-sm font-semibold text-[#0b7167]"><CheckCircle2 className="h-4 w-4" />Comece quando estiver pronto</p><h2 className="mt-3 font-display text-3xl font-semibold tracking-[-.04em] text-[#123f3b]">Seu bem-estar merece atenção contínua.</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-[#65827c]">Crie sua conta para acessar o acompanhamento pessoal, histórico de respostas e preferências de privacidade.</p></div><Button onClick={handleAccess} size="lg" className="h-12 rounded-xl bg-[#0a615a] px-6 text-white hover:bg-[#074d47]">{user ? "Abrir meu painel" : "Criar meu espaço"}<ArrowRight className="ml-2 h-4 w-4" /></Button></div></section>
       </main>
-      <footer className="border-t border-[#dceae5] bg-[#f0f5f0]"><div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 py-8 text-xs text-[#5d7e77] sm:flex-row sm:items-end sm:justify-between sm:px-8 lg:px-12"><div><Brand /><p className="mt-4 max-w-sm leading-5">Uma plataforma de autoconhecimento responsável. Em situações de risco imediato, procure serviços de emergência ou apoio profissional local.</p></div><p>© {new Date().getFullYear()} Mental Saúde. Autocuidado começa com informação de qualidade.</p></div></footer>
+      <footer className="border-t border-[#dceae5] bg-[#f0f5f0]"><div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 py-8 text-xs text-[#5d7e77] sm:flex-row sm:items-end sm:justify-between sm:px-8 lg:px-12"><div><Brand /><p className="mt-4 max-w-sm leading-5">Uma plataforma de autoconhecimento responsável. Em situações de risco imediato, procure serviços de emergência ou apoio profissional local.</p></div><div className="flex flex-col items-start gap-3 sm:items-end"><nav aria-label="Links do rodapé" className="flex flex-wrap gap-x-5 gap-y-2 font-semibold text-[#375c56]"><Link href="/conteudos" className="transition-colors hover:text-[#08736a]">Conteúdos</Link><Link href="/testes" className="transition-colors hover:text-[#08736a]">Testes</Link><Link href="/termos" className="transition-colors hover:text-[#08736a]">Termos de Uso</Link><Link href="/privacidade" className="transition-colors hover:text-[#08736a]">Privacidade</Link></nav><p>© {new Date().getFullYear()} Mental Saúde. Autocuidado começa com informação de qualidade.</p></div></div></footer>
     </div>
   );
 }

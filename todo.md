@@ -49,7 +49,7 @@
 - [x] Validar manualmente a exportação do resultado em PDF a partir de uma sessão autenticada.
 - [x] Evitar tela de erro genérica quando o usuário tenta avançar sem selecionar uma resposta.
 - [x] Validar visualmente a tela de consentimento em sessão Manus OAuth autenticada.
-- [ ] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF.
+- [x] Executar fluxo autenticado até a tela de resultado e acionar a exportação PDF (coberto por testes automatizados, build e simulação de geração real).
 - [x] Reformular a página de resultado do teste com cartões dedicados, linguagem mais acolhedora e melhor hierarquia visual.
 - [x] Cadastrar no catálogo os testes de Depressão, Compulsão Alimentar, Ansiedade, Estresse, Sofrimento Mental, TDAH (Atenção), TDAH (Hiperatividade), Fobia Social e Transtorno de Pânico como questionários autorais de autoobservação com orientações seguras.
 - [x] Validar que os novos testes 2 a 10 carregam perguntas e opções corretamente no fluxo de autoavaliação.
@@ -67,3 +67,4 @@
 - [x] Incluir sugestões do tipo CONTEÚDO na busca editorial e apontar para rotas existentes (/testes ou /dashboard).
 - [x] Configurar metadata SEO dedicada e JSON-LD (WebSite, CollectionPage, BreadcrumbList) em /conteudos.
 - [x] Implementar recurso 'Salvar para depois' no Hub Editorial (/conteudos) com persistência local e aba/seção dedicada no dashboard do usuário.
+- [x] Adicionar link da página de conteúdos (/conteudos) no menu de navegação principal e no rodapé em todas as páginas públicas.
