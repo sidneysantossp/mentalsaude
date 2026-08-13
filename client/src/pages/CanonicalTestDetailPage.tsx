@@ -1,22 +1,32 @@
 import { useParams, Link } from "wouter";
 import { getCanonicalTest } from "@/data/testsCanonicalDatabase";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, HelpCircle, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Clock, HelpCircle, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
 
 export function CanonicalTestDetailPage() {
   const params = useParams<{ slug: string }>();
-  const testSlug = params.slug || "gad-7";
-  const test = getCanonicalTest(testSlug) || getCanonicalTest("gad-7");
+  const testSlug = params.slug || "";
+  const test = getCanonicalTest(testSlug); // Removido o fallback automático para GAD-7 em slugs inválidos
 
   if (!test) {
     return (
-      <div className="min-h-screen bg-[#f7f9f6] pt-24 pb-16 text-[#123f3b]">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h1 className="text-2xl font-bold">Teste não encontrado</h1>
-          <p className="mt-2 text-sm text-[#4a6b66]">O instrumento solicitado não está disponível no catálogo.</p>
-          <Link href="/testes">
-            <Button className="mt-6 bg-[#123f3b] text-white">Voltar para Testes</Button>
-          </Link>
+      <div className="min-h-screen bg-[#f7f9f6] pt-24 pb-16 text-[#123f3b] flex flex-col items-center justify-center">
+        <div className="mx-auto max-w-md rounded-3xl border border-[#dceae5] bg-white p-8 text-center shadow-sm">
+          <AlertCircle className="mx-auto h-12 w-12 text-[#0b7167]" />
+          <h1 className="mt-4 font-display text-2xl font-semibold text-[#173e39]">Instrumento não encontrado</h1>
+          <p className="mt-2 text-sm text-[#628079]">O teste canônico que você tentou acessar não existe ou foi removido.</p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <Link href="/testes">
+              <Button className="w-full bg-[#0a615a] text-white hover:bg-[#074d47]">
+                Ver Catálogo de Testes
+              </Button>
+            </Link>
+            <Link href="/conteudos">
+              <Button variant="outline" className="w-full border-[#0a615a]/30 text-[#0a615a]">
+                Hub Editorial
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );

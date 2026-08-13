@@ -84,6 +84,6 @@
 - [x] Mapear GAD-7, PHQ-9 e ASRS aos respectivos artigos-piloto.
 - [x] Validar tracking de visualização/clique sem dados sensíveis e testar fallback seguro se o teste for nulo.
 - [x] Capturar screenshots de comprovação desktop e mobile mostrando 'Continue explorando' seguido do ContextualTestCTA.
-- [ ] Criar entidade canônica de teste e rota dedicada /testes/:slug para satisfazer o fluxo ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION.
-- [ ] Atualizar ContextualTestCTA.tsx para usar test.testSlug em vez de hardcoded /testes, garantindo fallback real quando relatedTest for nulo e testes sem relatedTest (ex: guia geral).
-- [ ] Implementar sistema seguro de tracking com eventos reais (window.__mentalSaudeAnalytics) sem dados pessoais ou clínicos.
+- [x] Criar entidade canônica de teste e rota dedicada /testes/:slug para satisfazer o fluxo ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION.
+- [x] Atualizar ContextualTestCTA.tsx para usar test.testSlug em vez de hardcoded /testes, garantindo fallback real quando relatedTest for nulo e testes sem relatedTest (ex: guia geral).
+- [x] Implementar sistema seguro de tracking com eventos reais (window.__mentalSaudeAnalytics) sem dados pessoais ou clínicos.
