@@ -1,4 +1,5 @@
 import { Brand } from "@/components/Brand";
+import PublicHeader from "@/components/PublicHeader";
 import { Button } from "@/components/ui/button";
 import { BookOpen, CheckCircle, Compass, Shield } from "lucide-react";
 import { Link, useLocation } from "wouter";
@@ -8,20 +9,7 @@ export default function MethodologyPage() {
 
   return (
     <div className="min-h-screen bg-[#f7f6ef] text-[#153a36]">
-      <header className="sticky top-0 z-40 border-b border-[#e2ede8] bg-[#f7f6ef]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-[1200px] items-center justify-between px-5 sm:px-8">
-          <Link href="/"><Brand /></Link>
-          <nav aria-label="Navegação Principal" className="hidden items-center gap-8 md:flex">
-            <Link href="/" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Como funciona</Link>
-            <Link href="/conteudos" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Conteúdos</Link>
-            <Link href="/testes" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Testes</Link>
-            <Link href="/privacidade" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Privacidade</Link>
-          </nav>
-          <Button onClick={() => setLocation("/dashboard")} className="h-10 rounded-xl bg-[#0a615a] px-5 text-sm font-semibold text-white hover:bg-[#074d47]">
-            Meu painel
-          </Button>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main className="mx-auto max-w-[800px] px-5 py-16 sm:px-8">
         <div className="mb-6">

@@ -1,4 +1,4 @@
-import { Brand } from "@/components/Brand";
+import PublicHeader from "@/components/PublicHeader";
 import { Button } from "@/components/ui/button";
 import { ARTICLES_DATABASE, ArticleModel, ArticleModel as ArticleModelType } from "@/data/articlesDatabase";
 import { getCanonicalTest, CanonicalTestEntity } from "@/data/testsCanonicalDatabase";
@@ -195,22 +195,7 @@ export default function ArticlePage() {
         />
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-[#e2ede8] bg-[#f7f6ef]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-[1240px] items-center justify-between px-5 sm:px-8">
-          <Link href="/"><Brand /></Link>
-          <nav aria-label="Navegação Principal" className="hidden items-center gap-8 md:flex">
-            <Link href="/" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Como funciona</Link>
-            <Link href="/conteudos" className="text-sm font-bold text-[#0b7167] transition-colors hover:text-[#0b7167]">Conteúdos</Link>
-            <Link href="/testes" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Testes</Link>
-            <Link href="/privacidade" className="text-sm font-semibold text-[#3b5d56] transition-colors hover:text-[#0b7167]">Privacidade</Link>
-          </nav>
-          <div className="flex items-center gap-3">
-            <Button onClick={() => setLocation("/dashboard")} className="h-10 rounded-xl bg-[#0a615a] px-5 text-sm font-semibold text-white shadow-sm hover:bg-[#074d47]">
-              Meu painel
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main className="mx-auto max-w-[1240px] px-5 py-8 sm:px-8">
         <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-semibold text-[#6e8c85]">

@@ -1,10 +1,10 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Brand } from "@/components/Brand";
+import PublicHeader from "@/components/PublicHeader";
 import { beginLogin } from "@/components/ProtectedRoute";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
-import { ArrowRight, BarChart3, BrainCircuit, CheckCircle2, ChevronRight, CircleHelp, Clock3, LockKeyhole, Menu, ShieldCheck, Sprout } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, BarChart3, BrainCircuit, CheckCircle2, ChevronRight, CircleHelp, Clock3, LockKeyhole, ShieldCheck, Sprout } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 const benefits = [
@@ -28,7 +28,6 @@ const faqs = [
 ];
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { user } = useAuth();
   const [, setLocation] = useLocation();
   const assessments = trpc.assessments.listPublished.useQuery();
@@ -43,18 +42,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden bg-[#f7f6ef] text-[#153a36]">
-      <header className="relative z-40 mx-auto flex h-20 max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-12">
-        <Brand />
-        <nav className="hidden items-center gap-7 text-sm font-semibold text-[#375c56] md:flex">
-          <a href="#como-funciona" className="transition-colors hover:text-[#08736a]">Como funciona</a>
-          <Link href="/testes" className="transition-colors hover:text-[#08736a]">Testes</Link>
-          <Link href="/conteudos" className="transition-colors hover:text-[#08736a]">Conteúdos</Link>
-          <a href="#seguranca" className="transition-colors hover:text-[#08736a]">Privacidade</a>
-          <Button onClick={handleAccess} className="rounded-xl bg-[#0a615a] px-5 text-white hover:bg-[#074d47]">{user ? "Meu painel" : "Entrar"}</Button>
-        </nav>
-        <button className="rounded-lg p-2 text-[#123f3b] md:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-label="Abrir menu"><Menu className="h-5 w-5" /></button>
-        {menuOpen && <nav className="absolute right-5 top-16 flex w-56 flex-col rounded-2xl border border-[#dbe9e4] bg-[#fcfcf8] p-3 shadow-xl md:hidden"><Link href="/testes" className="rounded-lg px-3 py-2 text-sm font-semibold">Testes</Link><Link href="/conteudos" className="rounded-lg px-3 py-2 text-sm font-semibold">Conteúdos</Link><a href="#como-funciona" className="rounded-lg px-3 py-2 text-sm font-semibold">Como funciona</a><Button onClick={handleAccess} className="mt-1 rounded-lg bg-[#0a615a] text-white">{user ? "Meu painel" : "Entrar"}</Button></nav>}
-      </header>
+      <PublicHeader />
 
       <main>
         <section className="relative mx-auto grid max-w-[1440px] gap-10 px-5 pb-16 pt-10 sm:px-8 lg:grid-cols-[1.1fr_.9fr] lg:px-12 lg:pb-28 lg:pt-20">

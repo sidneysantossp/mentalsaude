@@ -99,3 +99,6 @@
 - [x] Validar no preview, com evidência objetiva, o foco por Tab até o índice desktop e até o botão do índice mobile em viewport mobile real.
 - [x] Validar explicitamente a ativação por Enter e Espaço no controle do índice mobile e registrar o resultado no checklist de acessibilidade.
 - [x] Validar no preview, com evidência objetiva, o foco por Tab até o índice desktop e registrar o resultado no checklist de acessibilidade.
+- [x] Auditar e padronizar a navbar das páginas públicas para seguir o cabeçalho visual da Home.
+- [x] Preservar links, acessibilidade, estado autenticado e responsividade no header compartilhado.
+- [x] Validar a navbar padronizada em páginas principais, desktop/mobile, testes e build.

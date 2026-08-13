@@ -1,7 +1,8 @@
 import { useParams, Link } from "wouter";
 import { getCanonicalTest } from "@/data/testsCanonicalDatabase";
+import PublicHeader from "@/components/PublicHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle2, Clock, HelpCircle, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock, HelpCircle, ShieldCheck, Sparkles, AlertCircle } from "lucide-react";
 
 export function CanonicalTestDetailPage() {
   const params = useParams<{ slug: string }>();
@@ -10,8 +11,10 @@ export function CanonicalTestDetailPage() {
 
   if (!test) {
     return (
-      <div className="min-h-screen bg-[#f7f9f6] pt-24 pb-16 text-[#123f3b] flex flex-col items-center justify-center">
-        <div className="mx-auto max-w-md rounded-3xl border border-[#dceae5] bg-white p-8 text-center shadow-sm">
+      <div className="min-h-screen bg-[#f7f9f6] text-[#123f3b]">
+        <PublicHeader />
+        <div className="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center px-6 pb-16 pt-10">
+          <div className="mx-auto max-w-md rounded-3xl border border-[#dceae5] bg-white p-8 text-center shadow-sm">
           <AlertCircle className="mx-auto h-12 w-12 text-[#0b7167]" />
           <h1 className="mt-4 font-display text-2xl font-semibold text-[#173e39]">Instrumento não encontrado</h1>
           <p className="mt-2 text-sm text-[#628079]">O teste canônico que você tentou acessar não existe ou foi removido.</p>
@@ -27,6 +30,7 @@ export function CanonicalTestDetailPage() {
               </Button>
             </Link>
           </div>
+          </div>
         </div>
       </div>
     );
@@ -34,24 +38,7 @@ export function CanonicalTestDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#f7f9f6] text-[#123f3b]">
-      {/* Top bar / Breadcrumb */}
-      <div className="border-b border-[#e2ece8] bg-white/85 backdrop-blur-md sticky top-0 z-40">
-        <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
-          <Link href="/conteudos" className="inline-flex items-center gap-2 text-xs font-bold text-[#1c5d57] hover:text-[#123f3b]">
-            <ArrowLeft className="h-4 w-4" /> Voltar ao Hub Editorial
-          </Link>
-          <div className="flex items-center gap-3">
-            <span className="rounded-full bg-[#edf6f3] px-3 py-1 text-xs font-bold text-[#1c5d57]">
-              {test.acronym}
-            </span>
-            <Link href="/testes">
-              <Button size="sm" variant="outline" className="border-[#1c5d57]/30 text-[#123f3b]">
-                Ver todos os testes
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
+      <PublicHeader />
 
       <main className="mx-auto max-w-4xl px-6 py-12">
         {/* Header Hero da Entidade */}

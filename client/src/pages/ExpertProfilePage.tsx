@@ -1,6 +1,6 @@
-import { Brand } from "@/components/Brand";
+import PublicHeader from "@/components/PublicHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Award, BookOpen, CheckCircle, ShieldCheck } from "lucide-react";
+import { Award, BookOpen, CheckCircle, ShieldCheck } from "lucide-react";
 import { Link, useRoute, useLocation } from "wouter";
 
 const EXPERTS_DATA: Record<string, {
@@ -45,16 +45,7 @@ export default function ExpertProfilePage() {
 
   return (
     <div className="min-h-screen bg-[#f7f6ef] text-[#153a36]">
-      <header className="sticky top-0 z-40 border-b border-[#e2ede8] bg-[#f7f6ef]/90 backdrop-blur-md">
-        <div className="mx-auto flex h-20 max-w-[1240px] items-center justify-between px-5 sm:px-8">
-          <Link href="/"><Brand /></Link>
-          <div className="flex items-center gap-3">
-            <Button onClick={() => setLocation("/conteudos")} variant="outline" className="h-10 rounded-xl border-[#bde0d6] bg-white text-xs font-semibold text-[#0a7066] hover:bg-[#e4f4ef]">
-              <ArrowLeft className="mr-1.5 h-4 w-4" /> Voltar para Conteúdos
-            </Button>
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main className="mx-auto max-w-[800px] px-5 py-12 sm:px-8">
         <div className="rounded-[2.5rem] border border-[#d2e4df] bg-white p-8 sm:p-12 shadow-[0_24px_55px_-30px_rgba(11,70,62,.2)]">
