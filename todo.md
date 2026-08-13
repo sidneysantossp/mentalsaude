@@ -29,7 +29,7 @@
 - [x] Documentar limites, licenças e critérios de publicação segura para cada instrumento.
 - [x] Cadastrar no catálogo os testes aprovados, suas perguntas, opções e faixas de interpretação.
 - [x] Validar tecnicamente a autoavaliação publicada por catálogo, integridade de conteúdo, regra de resultado e recomendações, sem registrar respostas pessoais.
-- [x] Exibir atribuição, referência e direitos do ASRS no fluxo público publicado.
+- [x] Exibir atribuição, reference e direitos do ASRS no fluxo público publicado.
 - [x] Validar em teste automatizado a regra de redirecionamento do cliente para usuário comum em rota administrativa.
 - [x] Registrar evidência de negação dos procedimentos administrativos para um papel não administrativo em cenário autenticado.
 - [x] Cobrir em teste integrado o retorno de recomendações do ASRS para os dois lados do ponto de corte oficial.
@@ -84,3 +84,6 @@
 - [x] Mapear GAD-7, PHQ-9 e ASRS aos respectivos artigos-piloto.
 - [x] Validar tracking de visualização/clique sem dados sensíveis e testar fallback seguro se o teste for nulo.
 - [x] Capturar screenshots de comprovação desktop e mobile mostrando 'Continue explorando' seguido do ContextualTestCTA.
+- [ ] Criar entidade canônica de teste e rota dedicada /testes/:slug para satisfazer o fluxo ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION.
+- [ ] Atualizar ContextualTestCTA.tsx para usar test.testSlug em vez de hardcoded /testes, garantindo fallback real quando relatedTest for nulo e testes sem relatedTest (ex: guia geral).
+- [ ] Implementar sistema seguro de tracking com eventos reais (window.__mentalSaudeAnalytics) sem dados pessoais ou clínicos.

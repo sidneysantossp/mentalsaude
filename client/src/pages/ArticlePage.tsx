@@ -1,9 +1,10 @@
 import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
-import { ARTICLES_DATABASE, ArticleModel } from "@/data/articlesDatabase";
+import { ARTICLES_DATABASE, ArticleModel, ArticleModel as ArticleModelType } from "@/data/articlesDatabase";
+import { getCanonicalTest, CanonicalTestEntity } from "@/data/testsCanonicalDatabase";
 import { ScientificCitation } from "@/components/ScientificCitation";
 import { ContextualTestCTA } from "@/components/ContextualTestCTA";
-import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, ExternalLink, Info, Share2, Shield, Sparkles } from "lucide-react";
+import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, Info, Share2, Shield, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
 import { getSavedArticles, saveArticle, removeSavedArticle, SavedArticle } from "@/lib/savedContentStorage";
@@ -14,7 +15,7 @@ export default function ArticlePage() {
   const [, setLocation] = useLocation();
   const { user } = useAuth();
   const slug = params?.slug || "";
-  const article: ArticleModel | undefined = ARTICLES_DATABASE[slug];
+  const article: ArticleModelType | undefined = ARTICLES_DATABASE[slug];
 
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -111,6 +112,27 @@ export default function ArticlePage() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  // Mapeamento data-driven rigoroso ARTICLE -> CANONICAL TEST ENTITY
+  const relatedTestEntity: CanonicalTestEntity | null = article.relatedTest 
+    ? (getCanonicalTest(article.relatedTest.acronym) || {
+        id: article.relatedTest.acronym.toLowerCase(),
+        slug: article.relatedTest.acronym.toLowerCase(),
+        title: article.relatedTest.title,
+        acronym: article.relatedTest.acronym,
+        category: article.category,
+        description: article.relatedTest.description,
+        fullOverview: article.relatedTest.description,
+        questionCount: article.relatedTest.questionCount,
+        durationMinutes: article.relatedTest.durationMinutes,
+        difficulty: "Leve",
+        targetRoute: `/testes/${article.relatedTest.acronym.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
+        executionRoute: "/testes",
+        methodologyNotes: article.relatedTest.description
+      })
+    : null; // Fallback real: se relatedTest for null ou omitido, retorna null e o ContextualTestCTA não renderiza
+
+  const relatedArticles = Object.values(ARTICLES_DATABASE).filter(a => a.slug !== article.slug).slice(0, 3);
+
   return (
     <div className="min-h-screen bg-[#f7f6ef] text-[#153a36]">
       <header className="sticky top-0 z-40 border-b border-[#e2ede8] bg-[#f7f6ef]/90 backdrop-blur-md">
@@ -198,7 +220,7 @@ export default function ArticlePage() {
             <section className="mt-10 rounded-3xl border border-[#d9e7e2] bg-[#fffefa] p-7">
               <h2 className="font-display text-xl font-semibold text-[#173e39]">O que você precisa saber</h2>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-[#527068]">
-                {article.keyTakeaways.map((item, idx) => (
+                {article.keyTakeaways.map((item: string, idx: number) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[#0a7066]" />
                     <span>{item}</span>
@@ -271,52 +293,37 @@ export default function ArticlePage() {
                 </section>
               )}
 
-              <section id="teste-relacionado" className="scroll-mt-28 rounded-[2rem] bg-[#123f3b] p-8 text-[#f7f6ef] sm:p-10">
-                <span className="rounded-full bg-[#24665f] px-3 py-1 text-[10px] font-bold uppercase tracking-[.14em] text-[#82d6ca]">
-                  AUTOAVALIAÇÃO EDUCATIVA
-                </span>
-                <h3 className="mt-4 font-display text-2xl font-semibold tracking-[-.03em] sm:text-3xl text-white">
-                  Quer entender melhor como esses sinais aparecem para você?
-                </h3>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[#cce8e1]">
-                  A Mental Saúde disponibiliza instrumentos de autoavaliação e rastreio que podem ajudar você a observar sinais relacionados a <strong>{article.primaryEntity.toLowerCase()}</strong>.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Button onClick={() => setLocation("/testes")} className="h-12 rounded-xl bg-[#82d6ca] px-6 text-sm font-bold text-[#123f3b] hover:bg-white">
-                    Conhecer o teste de {article.primaryEntity.toLowerCase()} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                  <Button onClick={() => setLocation("/conteudos")} variant="outline" className="h-12 rounded-xl border-[#3c756e] bg-transparent px-6 text-sm font-semibold text-white hover:bg-[#1a4f49]">
-                    Entender como o teste funciona
-                  </Button>
-                </div>
-              </section>
+              {/* Contextual Test CTA Data-Driven com suporte a fallback real */}
+              <ContextualTestCTA test={relatedTestEntity} articleSlug={article.slug} articleId={article.slug} />
 
               <section id="faq" className="scroll-mt-28">
                 <h2 className="font-display text-2xl font-semibold tracking-[-.02em] text-[#173e39]">Perguntas frequentes</h2>
                 <div className="mt-6 divide-y divide-[#dcebe6] overflow-hidden rounded-3xl border border-[#dcebe6] bg-white">
                   {article.faqs.map((faq, idx) => (
                     <details key={idx} className="group p-6">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-[#173e39]">
+                      <summary className="cursor-pointer font-display text-base font-semibold text-[#173e39] flex items-center justify-between">
                         {faq.question}
-                        <ChevronRight className="h-4 w-4 shrink-0 text-[#0a7066] transition-transform group-open:rotate-90" />
+                        <ChevronRight className="h-4 w-4 text-[#0a7066] transition-transform group-open:rotate-90" />
                       </summary>
-                      <p className="mt-3 text-sm leading-6 text-[#5b7871]">{faq.answer}</p>
+                      <p className="mt-3 text-sm leading-6 text-[#527068]">
+                        {faq.answer}
+                      </p>
                     </details>
                   ))}
                 </div>
               </section>
 
-              <section id="referencias" className="scroll-mt-28 rounded-3xl border border-[#d9e7e2] bg-[#fffefa] p-7">
+              <section id="referencias" className="scroll-mt-28 rounded-3xl border border-[#d9e7e2] bg-white p-7">
                 <h2 className="font-display text-xl font-semibold text-[#173e39]">Referências científicas</h2>
-                <ol className="mt-4 space-y-3 text-xs leading-6 text-[#5a7870]">
-                  {article.references.map(ref => (
+                <ol className="mt-4 space-y-3 text-xs leading-relaxed text-[#58756e]">
+                  {article.references.map((ref, idx) => (
                     <li key={ref.id} className="flex items-start gap-2">
-                      <span className="font-bold text-[#0a7066]">·</span>
-                      <div className="flex-1">
-                        <span>{ref.citation}</span>
-                        {ref.url && (
-                          <a href={ref.url} target="_blank" rel="noreferrer" className="ml-2 inline-flex items-center gap-1 font-semibold text-[#0a7066] hover:underline">
-                            Fonte original <ExternalLink className="h-3 w-3" />
+                      <span className="font-bold text-[#173e39]">{idx + 1}.</span>
+                      <div>
+                        <span>{ref.fullCitation}</span>
+                        {ref.sourceUrl && (
+                          <a href={ref.sourceUrl} target="_blank" rel="noopener noreferrer" className="ml-2 font-semibold text-[#0a7066] underline hover:text-[#053833]">
+                            Fonte original ↗
                           </a>
                         )}
                       </div>
@@ -325,81 +332,68 @@ export default function ArticlePage() {
                 </ol>
               </section>
 
-              <div className="rounded-2xl border border-[#d8e6e1] bg-[#f4faf8] p-5 text-xs leading-5 text-[#58776f]">
-                <strong className="block font-semibold text-[#173e39]">Informação, não diagnóstico</strong>
-                Este conteúdo possui finalidade educativa e não substitui uma avaliação individual realizada por profissional qualificado. Em caso de sofrimento intenso ou risco imediato, procure serviços de emergência (CVV 188).
+              <div className="rounded-2xl border border-[#dcebe6] bg-[#f7f6ef] p-5 text-xs text-[#6e8c85]">
+                <strong className="font-bold text-[#173e39]">Informação, não diagnóstico</strong>
+                <p className="mt-1">
+                  Este conteúdo possui finalidade educativa e não substitui avaliação clínica individual. Em caso de sofrimento intenso ou urgência, procure suporte profissional (CVV 188).
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-16">
+              <h2 className="font-display text-2xl font-semibold text-[#173e39]">Continue explorando</h2>
+              <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                {relatedArticles.map((rel: ArticleModelType) => (
+                  <Link key={rel.slug} href={`/conteudos/${rel.slug}`} className="group block rounded-3xl border border-[#d2e4df] bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0a7066]">
+                    <span className="rounded-full bg-[#e9f6f2] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0a7066]">
+                      {rel.category}
+                    </span>
+                    <h3 className="mt-3 font-display text-sm font-semibold text-[#123f3b] group-hover:text-[#0a7066]">
+                      {rel.title}
+                    </h3>
+                    <div className="mt-4 flex items-center justify-between text-xs font-medium text-[#68857e]">
+                      <span>{rel.readingTime}</span>
+                      <span className="text-[#0a7066] group-hover:underline">Ler artigo →</span>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </article>
 
           <aside className="hidden lg:block sticky top-28 space-y-6">
-            <div className="rounded-3xl border border-[#d5e6e1] bg-white p-6 shadow-sm">
-              <h3 className="font-display text-sm font-bold uppercase tracking-[.12em] text-[#0a7066]">Neste conteúdo</h3>
-              <nav className="mt-4 space-y-2.5 border-t border-[#edf4f1] pt-4">
+            <div className="rounded-3xl border border-[#d9e7e2] bg-white p-6 shadow-sm">
+              <h3 className="font-display text-sm font-bold uppercase tracking-[.14em] text-[#173e39]">Neste conteúdo</h3>
+              <nav className="mt-4 space-y-2 text-xs">
                 {article.tableOfContents.map(toc => (
-                  <a key={toc.id} href={`#${toc.id}`} className="block text-xs font-semibold text-[#58756e] hover:text-[#0a7066] transition-colors">
+                  <a key={toc.id} href={`#${toc.id}`} className="block text-[#58756e] hover:text-[#0a7066] py-1">
                     {toc.label}
                   </a>
                 ))}
               </nav>
             </div>
 
-            <div className="rounded-3xl border border-[#d5e6e1] bg-[#f4faf8] p-6 shadow-sm">
-              <span className="rounded-full bg-[#e4f4ef] px-2.5 py-0.5 text-[10px] font-bold text-[#0a7066]">{article.relatedTest.acronym}</span>
-              <h4 className="mt-3 font-display text-base font-semibold text-[#173e39]">{article.relatedTest.title}</h4>
-              <p className="mt-2 text-xs leading-5 text-[#628079]">{article.relatedTest.description}</p>
-              <div className="mt-4 flex items-center justify-between border-t border-[#dcebe6] pt-3 text-[11px] font-semibold text-[#5a7870]">
-                <span>{article.relatedTest.questionCount} perguntas</span>
-                <span>{article.relatedTest.durationMinutes} min</span>
+            {relatedTestEntity && (
+              <div className="rounded-3xl border border-[#d9e7e2] bg-white p-6 shadow-sm">
+                <span className="rounded-full bg-[#e9f6f2] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0a7066]">
+                  {relatedTestEntity.acronym}
+                </span>
+                <h4 className="mt-3 font-display text-sm font-semibold text-[#173e39]">{relatedTestEntity.title}</h4>
+                <p className="mt-2 text-xs leading-5 text-[#58756e]">{relatedTestEntity.description}</p>
+                <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#68857e]">
+                  <span>{relatedTestEntity.questionCount} perguntas</span>
+                  <span>{relatedTestEntity.durationMinutes} min</span>
+                </div>
+                <Link href={relatedTestEntity.targetRoute}>
+                  <Button className="mt-4 w-full rounded-xl bg-[#0a615a] text-xs font-bold text-white hover:bg-[#074d47]">
+                    Conhecer Instrumento →
+                  </Button>
+                </Link>
               </div>
-              <Button onClick={() => setLocation("/testes")} className="mt-4 h-9 w-full rounded-xl bg-[#0a615a] text-xs font-bold text-white hover:bg-[#074d47]">
-                Conhecer instrumento →
-              </Button>
-            </div>
+            )}
           </aside>
         </div>
-
-        <section className="mt-20 border-t border-[#dcebe6] pt-16 max-w-6xl">
-          <h2 className="font-display text-2xl font-semibold tracking-[-.02em] text-[#123f3b]">Continue explorando</h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-3">
-            {article.relatedArticles.map((rel, idx) => (
-              <Link key={idx} href={rel.slug} className="group flex flex-col justify-between rounded-3xl border border-[#d9e7e2] bg-white p-6 shadow-sm transition-all hover:border-[#0a7066]">
-                <div>
-                  <span className="rounded-full bg-[#e5f4ef] px-3 py-0.5 text-[11px] font-bold text-[#0a7066]">{rel.category}</span>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-[#173e39] group-hover:text-[#0a7066] transition-colors">{rel.title}</h3>
-                </div>
-                <div className="mt-6 flex items-center justify-between border-t border-[#edf4f1] pt-4 text-xs text-[#68857e]">
-                  <span>{rel.readingTime}</span>
-                  <span className="font-bold text-[#0a7066]">Ler artigo →</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* CONTEXTUAL TEST CTA (Article Design System V1.1) */}
-        <div className="max-w-6xl">
-          <ContextualTestCTA test={article.relatedTest} articleSlug={article.slug} />
-        </div>
       </main>
-
-      <footer className="border-t border-[#dce9e4] bg-[#f1f8f5] py-12 px-5 sm:px-8 text-xs text-[#628079] mt-20">
-        <div className="mx-auto max-w-[1200px] flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <div>
-            <Brand />
-            <p className="mt-3 max-w-sm leading-5">Uma plataforma de autoconhecimento responsável. Em situações de risco imediato, procure serviços de emergência ou apoio profissional local (CVV 188).</p>
-          </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-3 font-semibold text-[#3b5d56]">
-            <Link href="/conteudos" className="hover:text-[#0b7167]">Conteúdos</Link>
-            <Link href="/testes" className="hover:text-[#0b7167]">Testes</Link>
-            <Link href="/metodologia" className="hover:text-[#0b7167]">Metodologia editorial</Link>
-            <Link href="/privacidade" className="hover:text-[#0b7167]">Privacidade</Link>
-          </div>
-        </div>
-        <div className="mx-auto max-w-[1200px] mt-8 border-t border-[#dcebe6] pt-6 text-center">
-          © 2026 Mental Saúde. Autocuidado começa com informação de qualidade.
-        </div>
-      </footer>
     </div>
   );
 }

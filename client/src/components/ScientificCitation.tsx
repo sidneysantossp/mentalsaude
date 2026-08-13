@@ -37,7 +37,7 @@ export function ScientificCitation({ refId, references, displayText }: Scientifi
         className="ml-1 inline-flex items-center gap-0.5 rounded bg-[#e5f4ef] px-1.5 py-0.5 text-xs font-bold text-[#0a7066] transition-colors hover:bg-[#d0eae2]"
         title="Ver citação científica"
       >
-        <span>{displayText || `(${reference.authors.split(",")[0]}, ${reference.year})`}</span>
+        <span>{displayText || reference.shortLabel}</span>
       </button>
 
       {open && (
@@ -45,10 +45,10 @@ export function ScientificCitation({ refId, references, displayText }: Scientifi
           <span className="flex items-center gap-1.5 font-bold text-[#0a7066]">
             <BookOpen className="h-3.5 w-3.5" /> Referência Científica
           </span>
-          <span className="mt-2 block leading-relaxed text-[#4a6b63]">{reference.citation}</span>
-          {reference.url && (
+          <span className="mt-2 block leading-relaxed text-[#4a6b63]">{reference.fullCitation}</span>
+          {reference.sourceUrl && (
             <a
-              href={reference.url}
+              href={reference.sourceUrl}
               target="_blank"
               rel="noreferrer"
               className="mt-3 inline-flex items-center gap-1 font-semibold text-[#0a7066] hover:underline"

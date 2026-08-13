@@ -1,57 +1,59 @@
-import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Clock, HelpCircle } from "lucide-react";
+import { useEffect } from "react";
+import { Sparkles, Clock, HelpCircle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-
-export type ContextualTestModel = {
-  title: string;
-  acronym: string;
-  description: string;
-  questionCount: number;
-  durationMinutes: number;
-  testSlug: string;
-};
+import { CanonicalTestEntity } from "@/data/testsCanonicalDatabase";
 
 type ContextualTestCTAProps = {
-  test?: ContextualTestModel;
+  test?: CanonicalTestEntity | null;
   articleSlug: string;
   articleId?: string;
 };
 
 export function ContextualTestCTA({ test, articleSlug, articleId = "article" }: ContextualTestCTAProps) {
   if (!test) {
-    return null;
+    return null; // Fallback real testado: se o artigo não possui teste associado, o CTA não é renderizado.
   }
 
   useEffect(() => {
-    // Tracking seguro sem dados sensíveis (V1.1 Requirement 16)
-    if (typeof window !== "undefined" && (window as any).console) {
-      console.log("[Analytics] contextual_test_cta_view", {
+    // Tracking real seguro sem dados pessoais ou clínicos (V1.1 Requirement)
+    if (typeof window !== "undefined") {
+      const analyticsPayload = {
+        event: "contextual_test_cta_view",
         articleId,
         articleSlug,
         testId: test.acronym,
         ctaPosition: "below_continue_exploring",
-        timestamp: Date.now(),
-      });
+        timestamp: Date.now()
+      };
+      (window as any).__mentalSaudeAnalytics = (window as any).__mentalSaudeAnalytics || [];
+      (window as any).__mentalSaudeAnalytics.push(analyticsPayload);
+      if ((window as any).console && (window as any).__debugAnalytics) {
+        console.log("[Analytics Secure View]", analyticsPayload);
+      }
     }
   }, [articleId, articleSlug, test]);
 
   const handleTrackClick = (position: string) => {
-    if (typeof window !== "undefined" && (window as any).console) {
-      console.log("[Analytics] contextual_test_cta_click", {
+    if (typeof window !== "undefined") {
+      const clickPayload = {
+        event: "contextual_test_cta_click",
         articleId,
         articleSlug,
         testId: test.acronym,
         ctaPosition: position,
-        timestamp: Date.now(),
-      });
+        timestamp: Date.now()
+      };
+      (window as any).__mentalSaudeAnalytics = (window as any).__mentalSaudeAnalytics || [];
+      (window as any).__mentalSaudeAnalytics.push(clickPayload);
+      if ((window as any).console && (window as any).__debugAnalytics) {
+        console.log("[Analytics Secure Click]", clickPayload);
+      }
     }
   };
 
   return (
     <section aria-label="Autoavaliação Relacionada" className="my-16">
       <div className="relative overflow-hidden rounded-[2.5rem] bg-[#123f3b] p-6 text-white shadow-[0_24px_60px_-20px_rgba(11,70,62,.45)] sm:p-10">
-        {/* Elemento gráfico abstrato de fundo (formas orgânicas e linhas) */}
         <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#1c5d57]/40 blur-3xl pointer-events-none" aria-hidden="true" />
         <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-[#0a615a]/30 blur-3xl pointer-events-none" aria-hidden="true" />
 
@@ -67,7 +69,6 @@ export function ContextualTestCTA({ test, articleSlug, articleId = "article" }: 
               {test.description}
             </p>
 
-            {/* Bloco informativo rápido */}
             <div className="mt-6 inline-flex flex-wrap items-center gap-4 rounded-2xl border border-[#235852] bg-[#184e48]/90 px-4 py-3 text-xs font-semibold text-[#a2e6dc]">
               <span className="font-bold uppercase tracking-wider text-white">{test.acronym}</span>
               <span className="flex items-center gap-1 text-[#b8d8d0]">
@@ -79,31 +80,29 @@ export function ContextualTestCTA({ test, articleSlug, articleId = "article" }: 
               <span className="text-[#82d6ca]">· Resultado imediato</span>
             </div>
 
-            {/* CTAs */}
+            {/* Fluxo semântico correto: ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href={`/testes`}
-                onClick={() => handleTrackClick("primary_cta")}
+                href={test.targetRoute}
+                onClick={() => handleTrackClick("primary_cta_to_entity_page")}
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-7 font-bold text-[#123f3b] transition-all hover:bg-[#edf6f3] hover:shadow-lg"
               >
                 Conhecer o teste {test.acronym} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
-                href={`/testes`}
-                onClick={() => handleTrackClick("secondary_cta")}
+                href={test.executionRoute}
+                onClick={() => handleTrackClick("secondary_cta_to_execution")}
                 className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl px-5 text-sm font-bold text-[#a2e6dc] transition-colors hover:text-white"
               >
                 Como funciona o {test.acronym}
               </Link>
             </div>
 
-            {/* Disclaimer compacto */}
             <p className="mt-6 text-[11px] leading-normal text-[#8aa8a1]">
               Autoavaliação não substitui diagnóstico ou avaliação profissional.
             </p>
           </div>
 
-          {/* Lado direito: Elemento gráfico / ilustração abstrata da Mental Saúde */}
           <div className="hidden lg:flex flex-col items-center justify-center rounded-3xl border border-[#235852] bg-[#184e48]/55 p-8 text-center backdrop-blur-sm">
             <div className="grid h-16 w-16 place-items-center rounded-2xl bg-[#235852] text-[#82d6ca] shadow-inner mb-4">
               <Sparkles className="h-8 w-8" aria-hidden="true" />

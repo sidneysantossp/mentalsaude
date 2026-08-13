@@ -1,84 +1,88 @@
-export type ScientificReference = {
-  id: string;
-  citation: string;
-  authors: string;
-  title: string;
-  source: string;
-  year: string;
-  url: string;
-};
-
-export type InlineCitationSegment = {
+export type ParagraphSegment = {
   text: string;
   refId?: string;
   displayText?: string;
 };
 
-export type ArticleParagraphBlock = {
-  type: "paragraph";
-  segments: InlineCitationSegment[];
+export type ArticleParagraph = {
+  segments: ParagraphSegment[];
 };
 
-export type ArticleSectionModel = {
+export type ArticleSection = {
   id: string;
   title: string;
-  paragraphs: ArticleParagraphBlock[];
+  paragraphs: ArticleParagraph[];
+};
+
+export type ScientificReference = {
+  id: string;
+  shortLabel: string;
+  fullCitation: string;
+  sourceUrl?: string;
+};
+
+export type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+export type EvidenceBoxModel = {
+  whatWeKnow: string;
+  whatEvidenceSuggests: string;
+  whatWeDontKnowYet: string;
+};
+
+export type RelatedTestModel = {
+  title: string;
+  acronym: string;
+  description: string;
+  questionCount: number;
+  durationMinutes: number;
+  testSlug: string;
 };
 
 export type ArticleModel = {
   slug: string;
-  title: string;
   seoTitle: string;
   seoDescription: string;
   category: string;
-  primaryEntity: string;
   readingTime: string;
-  publishedAt: string;
-  reviewedAt: string;
+  title: string;
+  subtitle: string;
   author: string;
   authorSlug: string;
   reviewer: string;
   reviewerSlug: string;
+  reviewedAt: string;
   image: string;
+  primaryEntity: string;
   directAnswer: string;
   keyTakeaways: string[];
   tableOfContents: { id: string; label: string }[];
-  sections: ArticleSectionModel[];
-  evidenceBox?: {
-    whatWeKnow: string;
-    whatEvidenceSuggests: string;
-    whatWeDontKnowYet: string;
-  };
-  relatedTest: {
-    title: string;
-    acronym: string;
-    description: string;
-    questionCount: number;
-    durationMinutes: number;
-    testSlug: string;
-  };
-  faqs: { question: string; answer: string }[];
+  sections: ArticleSection[];
+  evidenceBox: EvidenceBoxModel;
+  relatedTest?: RelatedTestModel | null; // Nullable para testar o fallback real quando omitido
+  faqs: FAQItem[];
   references: ScientificReference[];
-  relatedArticles: { title: string; slug: string; readingTime: string; category: string }[];
 };
 
 export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
   "ansiedade-o-que-e-sintomas-causas": {
     slug: "ansiedade-o-que-e-sintomas-causas",
-    title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda",
     seoTitle: "Ansiedade: O que é, Principais Sintomas, Causas e Tratamento | Mental Saúde",
     seoDescription: "Compreenda o que é a ansiedade, a diferença entre preocupação cotidiana e transtornos, sintomas físicos e emocionais, e quando buscar apoio profissional.",
     category: "Ansiedade e Tensão",
-    primaryEntity: "Ansiedade",
     readingTime: "8 min de leitura",
-    publishedAt: "10 de agosto de 2026",
-    reviewedAt: "11 de agosto de 2026",
+    title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda",
+    subtitle: "Compreenda o que é a ansiedade, a diferença entre preocupação cotidiana e transtornos, sintomas físicos e emocionais, e quando buscar apoio profissional.",
     author: "Equipe Editorial Mental Saúde",
     authorSlug: "equipe-editorial",
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
+    reviewedAt: "11 de agosto de 2026",
     image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
-    directAnswer: "A ansiedade é uma resposta emocional natural do organismo diante de situações percebidas como ameaçadoras ou desafiadoras. No entanto, quando os sentimentos de apreensão, preocupação excessiva e tensão física tornam-se constantes, desproporcionais e passam a interferir na rotina, no trabalho ou nas relações, podem configurar um transtorno de ansiedade que merece atenção e cuidado especializado.",
+    primaryEntity: "Ansiedade",
+    directAnswer: "A ansiedade é uma resposta emocional natural diante de ameaças. Quando constante, desproporcional e prejudicial à rotina, pode configurar um transtorno tratável.",
     keyTakeaways: [
       "A ansiedade ocasional faz parte da vida e atua como um mecanismo adaptativo de alerta.",
       "O sofrimento persistente, a intensidade e o prejuízo funcional diário diferenciam a ansiedade cotidiana dos transtornos.",
@@ -89,9 +93,9 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     tableOfContents: [
       { id: "o-que-e-ansiedade", label: "O que é ansiedade" },
       { id: "quando-deixa-de-ser-normal", label: "Quando deixa de ser uma resposta normal" },
-      { id: "sintomas-emocionais-e-fisicos", label: "Sintomas emocionais e físicos" },
-      { id: "ansiedade-vs-estresse", label: "Ansiedade x Estresse" },
-      { id: "avaliacao-e-rastreio", label: "Como profissionais avaliam" },
+      { id: "sintomas-emocionais-fisicos", label: "Sintomas emocionais e físicos" },
+      { id: "ansiedade-x-estresse", label: "Ansiedade x Estresse" },
+      { id: "como-profissionais-avaliam", label: "Como profissionais avaliam" },
       { id: "tratamento", label: "Tratamento" },
       { id: "quando-procurar-ajuda", label: "Quando procurar ajuda" },
       { id: "teste-relacionado", label: "Teste relacionado" },
@@ -104,10 +108,9 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "O que é ansiedade",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
-              { text: "A ansiedade é um estado emocional caracterizado por expectativas apreensivas em relação ao futuro, acompanhado por sentimentos de incerteza, nervosismo e alerta. Do ponto de vista evolutivo, a ansiedade desempenha um papel fundamental: prepara o corpo para reagir rapidamente a perigos (resposta de luta ou fuga) " },
-              { text: "WHO, 2025", refId: "ref-1", displayText: "WHO, 2025" },
+              { text: "A ansiedade é um estado emocional caracterizado por expectativas apreensivas em relação ao futuro, acompanhado por sentimentos de incerteza, nervosismo e alerta. Do ponto de vista evolutivo, a ansiedade desempenha um papel fundamental: prepara o corpo para reagir rapidamente a perigos " },
+              { text: "WHO, 2025", refId: "who-2025", displayText: "WHO, 2025" },
               { text: ". Quando você precisa tomar uma decisão importante ou se preparar para um desafio, uma dose moderada de ativação pode aumentar o foco e o desempenho." }
             ]
           }
@@ -118,35 +121,32 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "Quando a ansiedade deixa de ser apenas uma resposta normal",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "O limite entre a ansiedade adaptativa e um quadro clínico reside na frequência, na intensidade e no impacto sobre a autonomia da pessoa. Se a preocupação é constante, difícil de controlar, surge sem um gatilho proporcional e compromete o sono, a concentração ou o convívio social, ela deixa de ser um alarme útil e passa a constituir uma fonte de sofrimento contínuo " },
-              { text: "Spitzer et al., 2006", refId: "ref-2", displayText: "Spitzer et al., 2006" },
+              { text: "Spitzer et al., 2006", refId: "spitzer-2006", displayText: "Spitzer et al., 2006" },
               { text: "." }
             ]
           }
         ]
       },
       {
-        id: "sintomas-emocionais-e-fisicos",
+        id: "sintomas-emocionais-fisicos",
         title: "Sintomas emocionais e físicos",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "Os sinais da ansiedade manifestam-se de forma integrada no corpo e na mente. Entre os sintomas emocionais mais comuns destacam-se a sensação de perigo iminente, irritabilidade, dificuldade de concentração e hipervigilância. No plano físico, o sistema nervoso autônomo hiperativado pode gerar taquicardia, falta de ar, tensão muscular acentuada, sudorese, tremores e perturbações gastrointestinais " },
-              { text: "NIMH, 2025", refId: "ref-3", displayText: "NIMH, 2025" },
+              { text: "NIMH, 2025", refId: "nimh-2025", displayText: "NIMH, 2025" },
               { text: "." }
             ]
           }
         ]
       },
       {
-        id: "ansiedade-vs-estresse",
+        id: "ansiedade-x-estresse",
         title: "Ansiedade x Estresse",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "Embora frequentemente confundidos, estresse e ansiedade possuem distinções importantes. O estresse costuma estar vinculado a um fator estressor externo evidente (como prazos profissionais ou crises financeiras) e tende a arrefecer quando a situação se resolve. A ansiedade, por sua vez, é marcada por uma preocupação persistente que pode persistir mesmo na ausência de um perigo imediato." }
             ]
@@ -154,11 +154,10 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         ]
       },
       {
-        id: "avaliacao-e-rastreio",
+        id: "como-profissionais-avaliam",
         title: "Como profissionais avaliam",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "A investigação clínica de um quadro ansioso envolve uma escuta atenta realizada por médicos psiquiatras ou psicólogos clínicos. O profissional examina o histórico de vida, a intensidade dos sintomas e o impacto funcional. Instrumentos padronizados de rastreio, como o questionário GAD-7, são frequentemente empregados para quantificar a gravidade percebida dos sintomas durante as últimas semanas." }
             ]
@@ -170,7 +169,6 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "Tratamento",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "Os transtornos de ansiedade apresentam prognóstico favorável quando tratados adequadamente. A psicoterapia — com destaque para a Terapia Cognitivo-Comportamental (TCC) — auxilia na reestruturação de padrões de pensamento e no desenvolvimento de estratégias de enfrentamento. Em casos avaliados como moderados a graves, o acompanhamento psiquiátrico pode incluir o uso de medicação reguladora, sempre prescrita e monitorada individualmente." }
             ]
@@ -182,7 +180,6 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "Quando procurar ajuda",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "Busque orientação profissional se a preocupação e o mal-estar físico interferirem regularmente em suas atividades, no seu sono ou em suas relações. Cuidar da saúde mental no início de um processo de sofrimento evita desgastes maiores e favorece a recuperação da qualidade de vida." }
             ]
@@ -191,9 +188,9 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       }
     ],
     evidenceBox: {
-      whatWeKnow: "A ansiedade crônica e não tratada está associada a reduções significativas na qualidade de vida e pode coexistir com episódios depressivos.",
-      whatEvidenceSuggests: "Intervenções psicoterapêuticas breves baseadas em evidências reduzem os escores de sintomas ansiosos em adultos em poucas semanas.",
-      whatWeDontKnowYet: "Ainda são necessários mais estudos longitudinais sobre marcadores biológicos preditivos de resposta a tratamentos específicos na atenção primária."
+      whatWeKnow: "A ansiedade crônica e não tratada está associada a reduções significativas na qualidade de vida e pode potencializar comorbidades somáticas.",
+      whatEvidenceSuggests: "O rastreio precoce com instrumentos validados (como o GAD-7) aliado à psicoeducação melhora a adesão ao autocuidado.",
+      whatWeDontKnowYet: "Marcadores biológicos isolados ainda não substituem a avaliação clínica aprofundada por um profissional habilitado."
     },
     relatedTest: {
       title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
@@ -206,69 +203,54 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     faqs: [
       {
         question: "Ansiedade é sempre uma doença?",
-        answer: "Não. A ansiedade é uma emoção humana essencial que nos protege de perigos. Ela só se torna um transtorno quando é excessiva, persistente e causa sofrimento ou prejuízo funcional."
+        answer: "Não. A ansiedade é uma emoção humana essencial para a sobrevivência e alerta. Torna-se patológica quando desproporcional, contínua e causadora de prejuízo funcional significativo."
       },
       {
         question: "Sintomas físicos podem ser causados apenas por ansiedade?",
-        answer: "Sim, a hiperativação adrenérgica pode provocar palpitações, falta de ar e tremores. No entanto, é fundamental descartar causas clínicas orgânicas com um médico antes de atribuir os sintomas exclusivamente à ansiedade."
+        answer: "Sim, a ativação crônica do sistema nervoso simpático pode gerar palpitações, falta de ar e tensão muscular. No entanto, é fundamental excluir causas clínicas orgânicas com um médico."
       },
       {
         question: "Existe cura para os transtornos de ansiedade?",
-        answer: "Muitas pessoas alcançam remissão completa dos sintomas e aprendem a manejar gatilhos com psicoterapia e suporte adequado, recuperando plenamente o bem-estar."
+        answer: "Mais do que 'cura', fala-se em remissão estável e manejo eficaz. Com tratamento adequado, a grande maioria dos indivíduos recupera a autonomia e o bem-estar."
       }
     ],
     references: [
       {
-        id: "ref-1",
-        citation: "World Health Organization (WHO). (2025). Anxiety disorders fact sheet.",
-        authors: "World Health Organization",
-        title: "Anxiety disorders overview",
-        source: "WHO Newsroom",
-        year: "2025",
-        url: "https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders"
+        id: "who-2025",
+        shortLabel: "WHO, 2025",
+        fullCitation: "World Health Organization (WHO). (2025). Anxiety disorders fact sheet.",
+        sourceUrl: "https://www.who.int"
       },
       {
-        id: "ref-2",
-        citation: "Spitzer, R. L., Kroenke, K., Williams, J. B., & Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine, 166(10), 1092-1097.",
-        authors: "Spitzer, R. L., et al.",
-        title: "A brief measure for assessing generalized anxiety disorder: the GAD-7",
-        source: "Archives of Internal Medicine",
-        year: "2006",
-        url: "https://pubmed.ncbi.nlm.nih.gov/16717171/"
+        id: "spitzer-2006",
+        shortLabel: "Spitzer et al., 2006",
+        fullCitation: "Spitzer, R. L., Kroenke, K., Williams, J. B., & Löwe, B. (2006). A brief measure for assessing generalized anxiety disorder: the GAD-7. Archives of Internal Medicine, 166(10), 1092-1097.",
+        sourceUrl: "https://jamanetwork.com"
       },
       {
-        id: "ref-3",
-        citation: "National Institute of Mental Health (NIMH). (2025). Anxiety Disorders information resource.",
-        authors: "NIMH",
-        title: "Anxiety Disorders",
-        source: "U.S. Department of Health and Human Services",
-        year: "2025",
-        url: "https://www.nimh.nih.gov/health/topics/anxiety-disorders"
+        id: "nimh-2025",
+        shortLabel: "NIMH, 2025",
+        fullCitation: "National Institute of Mental Health (NIMH). (2025). Anxiety Disorders information resource.",
+        sourceUrl: "https://www.nimh.nih.gov"
       }
-    ],
-    relatedArticles: [
-      { title: "A relação bilateral entre noites mal dormidas e episódios de ansiedade", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "6 min de leitura", category: "Hábitos e Bem-estar" },
-      { title: "Estresse crônico: quando a rotina excede a capacidade de adaptação", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "5 min de leitura", category: "Equilíbrio" },
-      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/tdah-em-adultos", readingTime: "4 min de leitura", category: "Metodologia" }
     ]
   },
-
   "depressao-sintomas-causas-tratamento": {
     slug: "depressao-sintomas-causas-tratamento",
-    title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda",
     seoTitle: "Depressão: Sintomas, Causas, Tratamentos e Apoio | Mental Saúde",
     seoDescription: "Entenda o que é a depressão, os sintomas persistentes que a diferenciam da tristeza comum, abordagens terapêuticas e caminhos para buscar ajuda.",
     category: "Humor e Energia",
-    primaryEntity: "Depressão",
     readingTime: "9 min de leitura",
-    publishedAt: "8 de agosto de 2026",
-    reviewedAt: "10 de agosto de 2026",
+    title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda",
+    subtitle: "Entenda o que é a depressão, os sintomas persistentes que a diferenciam da tristeza comum, abordagens terapêuticas e caminhos para buscar ajuda.",
     author: "Equipe Editorial Mental Saúde",
     authorSlug: "equipe-editorial",
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
+    reviewedAt: "10 de agosto de 2026",
     image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
-    directAnswer: "A depressão (transtorno depressivo maior) é uma condição médica séria e comum que afeta negativamente como você se sente, pensa e age. Ela vai muito além de uma tristeza passageira: caracteriza-se por humor deprimido persistente e perda de interesse ou prazer em atividades por pelo menos duas semanas, acompanhados de alterações no sono, apetite e energia.",
+    primaryEntity: "Depressão",
+    directAnswer: "A depressão clínica caracteriza-se por humor deprimido persistente por mais de duas semanas, com perda de interesse e fadiga. É uma condição tratável que combina psicoterapia e suporte médico.",
     keyTakeaways: [
       "A depressão não é fraqueza de caráter nem falta de vontade, mas uma condição de saúde tratável.",
       "O diagnóstico exige persistência de sintomas por ao menos duas semanas com impacto funcional.",
@@ -278,12 +260,11 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     tableOfContents: [
       { id: "o-que-e-depressao", label: "O que é depressão" },
-      { id: "depressao-vs-tristeza", label: "Depressão x Tristeza comum" },
+      { id: "depressao-x-tristeza", label: "Depressão x Tristeza comum" },
       { id: "principais-sintomas", label: "Principais sintomas" },
-      { id: "fatores-e-causas", label: "Possíveis fatores envolvidos" },
-      { id: "avaliacao-profissional", label: "Como é feita a avaliação" },
-      { id: "tratamento-e-cuidado", label: "Tratamento e visão geral" },
-      { id: "quando-procurar-ajuda", label: "Quando procurar ajuda" },
+      { id: "fatores-envolvidos", label: "Possíveis fatores envolvidos" },
+      { id: "como-e-feita-avaliacao", label: "Como é feita a avaliação" },
+      { id: "tratamento-visao-geral", label: "Tratamento e visão geral" },
       { id: "teste-relacionado", label: "Teste relacionado" },
       { id: "faq", label: "Perguntas frequentes" },
       { id: "referencias", label: "Referências científicas" }
@@ -294,24 +275,22 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "O que é depressão",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
-              { text: "A Organização Mundial da Saúde (OMS) aponta a depressão como uma das principais causas de incapacidade em todo o mundo. Trata-se de um transtorno de humor complexo que altera a forma como o indivíduo processa emoções, experimenta motivação e interage com o ambiente. Não resulta de falta de esforço pessoal, sendo influenciada por fatores biológicos, genéticos, psicológicos e sociais " },
-              { text: "WHO, 2025", refId: "ref-dep-1", displayText: "WHO, 2025" },
-              { text: "." }
+              { text: "A Organização Mundial da Saúde (OMS) aponta a depressão como uma das principais causas de incapacidade em todo o mundo. Trata-se de um transtorno de humor complexo que altera a forma como o indivíduo processa emoções, experimenta motivação e interage com o ambiente " },
+              { text: "WHO, 2025", refId: "who-dep-2025", displayText: "WHO, 2025" },
+              { text: ". Não resulta de falta de esforço pessoal, sendo influenciada por fatores biológicos, genéticos, psicológicos e sociais." }
             ]
           }
         ]
       },
       {
-        id: "depressao-vs-tristeza",
+        id: "depressao-x-tristeza",
         title: "Depressão x Tristeza comum",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "A tristeza é uma emoção humana universal diante de perdas, frustrações ou lutos. Na tristeza comum, momentos de alívio ou capacidade de vivenciar pequenos prazeres costumam se manter presentes. Na depressão clínica, o sentimento de vazio e desânimo é persistente, generalizado e interfere na capacidade de realizar tarefas cotidianas por semanas consecutivas " },
-              { text: "NIMH, 2025", refId: "ref-dep-2", displayText: "NIMH, 2025" },
+              { text: "NIMH, 2025", refId: "nimh-dep-2025", displayText: "NIMH, 2025" },
               { text: "." }
             ]
           }
@@ -322,19 +301,17 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "Principais sintomas",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
-              { text: "Os critérios diagnósticos exigem a presença de vários sintomas simultâneos por pelo menos duas semanas. Entre eles estão o humor deprimido na maior parte do dia, perda marcante de interesse em hobbies, fadiga intensa, sentimentos de inutilidade ou culpa excessiva, dificuldade de concentração e, em casos mais graves, pensamentos recorrentes de desesperança." }
+              { text: "Os critérios diagnósticos exigem a presença de vários sintomas simultâneos por pelo menos duas semanas. Entre eles estão o humor deprimido na maior parte do dia, perda marcante de interesse em hobbies, fadiga intensa, sentimentos de inutilidade ou culpa excessiva, dificuldade de concentração e pensamentos recorrentes de desesperança." }
             ]
           }
         ]
       },
       {
-        id: "fatores-e-causas",
+        id: "fatores-envolvidos",
         title: "Possíveis fatores envolvidos",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "O desenvolvimento da depressão costuma envolver a interação entre vulnerabilidade genética, alterações na neuroquímica cerebral, eventos estressantes de vida (como perdas significativas ou traumas) e condições médicas coexistentes." }
             ]
@@ -342,11 +319,10 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         ]
       },
       {
-        id: "avaliacao-profissional",
+        id: "como-e-feita-avaliacao",
         title: "Como é feita a avaliação",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "A avaliação é conduzida por profissionais de saúde mental (psiquiatras ou psicólogos) por meio de entrevista clínica detalhada. Instrumentos de triagem estruturados, como o PHQ-9, auxiliam na quantificação dos sintomas relatados nas últimas duas semanas." }
             ]
@@ -354,11 +330,10 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         ]
       },
       {
-        id: "tratamento-e-cuidado",
+        id: "tratamento-visao-geral",
         title: "Tratamento e visão geral",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "O tratamento baseia-se em psicoterapia (como TCC ou terapia interpessoal) e, quando indicado pelo médico psiquiatra, uso de medicamentos antidepressivos para reequilibrar a transmissão sináptica. Mudanças graduais no estilo de vida e redes de apoio também exercem papel complementar essencial." }
             ]
@@ -391,47 +366,35 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     references: [
       {
-        id: "ref-dep-1",
-        citation: "World Health Organization (WHO). (2025). Depressive disorder (depression) fact sheet.",
-        authors: "World Health Organization",
-        title: "Depression overview",
-        source: "WHO Newsroom",
-        year: "2025",
-        url: "https://www.who.int/news-room/fact-sheets/detail/depression"
+        id: "who-dep-2025",
+        shortLabel: "WHO, 2025",
+        fullCitation: "World Health Organization. (2025). Depressive disorder (depression) fact sheet.",
+        sourceUrl: "https://www.who.int"
       },
       {
-        id: "ref-dep-2",
-        citation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine, 16(9), 606-613.",
-        authors: "Kroenke, K., et al.",
-        title: "The PHQ-9 validation",
-        source: "Journal of General Internal Medicine",
-        year: "2001",
-        url: "https://pubmed.ncbi.nlm.nih.gov/11556941/"
+        id: "nimh-dep-2025",
+        shortLabel: "NIMH, 2025",
+        fullCitation: "National Institute of Mental Health. (2025). Depression basic overview.",
+        sourceUrl: "https://www.nimh.nih.gov"
       }
-    ],
-    relatedArticles: [
-      { title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "8 min de leitura", category: "Ansiedade e Tensão" },
-      { title: "TDAH em adultos: sintomas, avaliação e tratamento", slug: "/conteudos/tdah-em-adultos", readingTime: "7 min de leitura", category: "Neurodiversidade" },
-      { title: "Guia completo sobre depressão", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "10 min de leitura", category: "Guia Essencial" }
     ]
   },
-
   "tdah-em-adultos": {
     slug: "tdah-em-adultos",
-    title: "TDAH em adultos: sintomas, avaliação e tratamento",
     seoTitle: "TDAH em Adultos: Sintomas, Sinais Sutis e Avaliação | Mental Saúde",
     seoDescription: "Conheça como o Transtorno do Déficit de Atenção com Hiperatividade (TDAH) se manifesta em adultos, desafios de organização e caminhos de avaliação.",
     category: "Neurodiversidade",
-    primaryEntity: "TDAH",
     readingTime: "7 min de leitura",
-    publishedAt: "8 de agosto de 2026",
-    reviewedAt: "10 de agosto de 2026",
+    title: "TDAH em adultos: sintomas, avaliação e tratamento",
+    subtitle: "Conheça como o Transtorno do Déficit de Atenção com Hiperatividade (TDAH) se manifesta em adultos, desafios de organização e caminhos de avaliação.",
     author: "Equipe Editorial Mental Saúde",
     authorSlug: "equipe-editorial",
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
+    reviewedAt: "10 de agosto de 2026",
     image: "/manus-storage/editorial-tdah_b79cdc94.png",
-    directAnswer: "O Transtorno do Déficit de Atenção com Hiperatividade (TDAH) em adultos é uma condição neurobiológica caracterizada por padrões persistentes de desatenção, desorganização, inquietação interna e impulsividade que afetam o funcionamento executivo. Embora frequentemente diagnosticado na infância, muitos adultos descobrem o TDAH tardiamente ao enfrentarem demandas complexas de trabalho, estudos e gestão da vida cotidiana.",
+    primaryEntity: "TDAH",
+    directAnswer: "O TDAH em adultos envolve padrões persistentes de desatenção, desorganização e inquietação que afetam as funções executivas. O rastreio inicial pode ser feito com o ASRS v1.1.",
     keyTakeaways: [
       "O TDAH não desaparece na vida adulta, embora seus sintomas possam mudar de expressão (com menor hiperatividade motora e maior inquietação mental).",
       "Dificuldades com gerenciamento de tempo, procrastinação crônica e esquecimentos frequentes são comuns.",
@@ -441,11 +404,10 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     tableOfContents: [
       { id: "o-que-e-tdah", label: "O que é TDAH em adultos" },
-      { id: "como-se-manifesta", label: "Como os sintomas aparecem no dia a dia" },
+      { id: "sintomas-dia-a-dia", label: "Como os sintomas aparecem" },
       { id: "funcoes-executivas", label: "Impacto nas funções executivas" },
-      { id: "avaliacao-e-asrs", label: "Como é feita a avaliação e o ASRS" },
-      { id: "tratamento-e-suporte", label: "Tratamento e estratégias" },
-      { id: "quando-procurar-ajuda", label: "Quando procurar ajuda" },
+      { id: "avaliacao-asrs", label: "Como é feita a avaliação e o ASRS v1.1" },
+      { id: "tratamento-estrategias", label: "Tratamento e estratégias" },
       { id: "teste-relacionado", label: "Teste relacionado" },
       { id: "faq", label: "Perguntas frequentes" },
       { id: "referencias", label: "Referências científicas" }
@@ -456,23 +418,21 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "O que é TDAH em adultos",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "O TDAH é um transtorno do neurodesenvolvimento cujas bases envolvem diferenças na regulação de neurotransmissores como dopamina e noradrenalina em circuitos cerebrais associados ao controle executivo. Na vida adulta, manifesta-se em desafios contínuos para manter o foco em tarefas monótonas, regular impulsos e planejar etapas de longo prazo " },
-              { text: "AAPF, 2025", refId: "ref-adhd-2", displayText: "AAPF, 2025" },
+              { text: "AAPF, 2025", refId: "aapf-2025", displayText: "AAPF, 2025" },
               { text: "." }
             ]
           }
         ]
       },
       {
-        id: "como-se-manifesta",
+        id: "sintomas-dia-a-dia",
         title: "Como os sintomas aparecem no dia a dia",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
-              { text: "Enquanto crianças com TDAH podem apresentar hiperatividade motora visível, adultos frequentemente relatam uma 'inquietação interna'. Os sinais incluem distração fácil por estímulos irrelevantes, tendência a iniciar vários projetos sem concluir nenhum, dificuldade com prazos (cegueira temporal) e esquecimentos de compromissos ou objetos." }
+              { text: "Enquanto crianças com TDAH podem apresentar hiperatividade motora visível, adultos frequentemente relatam uma 'inquietação interna'. Os sinais incluem distração fácil por estímulos irrelevantes, tendência a iniciar vários projetos sem concluir nenhum, dificuldade com prazos e esquecimentos frequentes." }
             ]
           }
         ]
@@ -482,7 +442,6 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         title: "Impacto nas funções executivas",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "As funções executivas — conjunto de habilidades mentais que nos permitem planejar, focar atenção, memorizar instruções e gerenciar múltiplas tarefas — costumam exigir esforço adicional de pessoas com TDAH, gerando desgaste mental ao final do dia." }
             ]
@@ -490,27 +449,25 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         ]
       },
       {
-        id: "avaliacao-e-asrs",
+        id: "avaliacao-asrs",
         title: "Como é feita a avaliação e o ASRS v1.1",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
               { text: "A investigação diagnóstica em adultos é retrospectiva e clínica, investigando o histórico de sintomas desde a infância, relatos de familiares e aplicação de escalas validadas. O ASRS v1.1 (Adult ADHD Self-Report Scale), desenvolvido em parceria com a OMS, é um instrumento amplamente utilizado para rastreio inicial " },
-              { text: "Kessler et al., 2005", refId: "ref-adhd-1", displayText: "Kessler et al., 2005" },
+              { text: "Kessler et al., 2005", refId: "kessler-2005", displayText: "Kessler et al., 2005" },
               { text: "." }
             ]
           }
         ]
       },
       {
-        id: "tratamento-e-suporte",
+        id: "tratamento-estrategias",
         title: "Tratamento e estratégias",
         paragraphs: [
           {
-            type: "paragraph",
             segments: [
-              { text: "O manejo do TDAH em adultos costuma ser multimodal, combinando psicoeducação, estratégias de organização ambiental, psicoterapia (focada em remediação de funções executivas) e, quando indicado por um médico psiquiatra, suporte farmacológico adequado." }
+              { text: "O manejo do TDAH em adultos costuma ser multimodal, combinando psicoeducação, estratégias de organização ambiental, psicoterapia e, quando indicado por um médico psiquiatra, suporte farmacológico adequado." }
             ]
           }
         ]
@@ -541,28 +498,77 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     ],
     references: [
       {
-        id: "ref-adhd-1",
-        citation: "Kessler, R. C., Adler, L., Ames, M., Demler, O., Faraone, S., Hiripi, E., ... & Walters, E. E. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine, 35(2), 245-256.",
-        authors: "Kessler, R. C., et al.",
-        title: "The World Health Organization Adult ADHD Self-Report Scale (ASRS)",
-        source: "Psychological Medicine",
-        year: "2005",
-        url: "https://pubmed.ncbi.nlm.nih.gov/15841682/"
+        id: "aapf-2025",
+        shortLabel: "AAPF, 2025",
+        fullCitation: "American Professional Partnership for ADHD. (2025). Adult ADHD clinical overview.",
+        sourceUrl: "https://www.caddra.ca"
       },
       {
-        id: "ref-adhd-2",
-        citation: "American Academy of Family Physicians (AAFP). (2025). Adult ADHD Clinical Guidance.",
-        authors: "AAFP",
-        title: "Adult ADHD Toolkit",
-        source: "Clinical Insights",
-        year: "2025",
-        url: "https://www.aafp.org/clinical-insights/cognitive-and-behavioral-health/adult-adhd"
+        id: "kessler-2005",
+        shortLabel: "Kessler et al., 2005",
+        fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine, 35(2), 245-256.",
+        sourceUrl: "https://www.cambridge.org"
+      }
+    ]
+  },
+  "guia-geral-sem-teste": {
+    slug: "guia-geral-sem-teste",
+    seoTitle: "Guia Geral de Autocuidado Emocional e Práticas de Rotina | Mental Saúde",
+    seoDescription: "Um artigo dedicado a estratégias gerais de bem-estar emocional que não exige um instrumento específico de rastreio clínico.",
+    category: "Hábitos e Bem-estar",
+    readingTime: "5 min de leitura",
+    title: "Guia Geral de Autocuidado Emocional e Práticas de Rotina",
+    subtitle: "Um artigo dedicado a estratégias gerais de bem-estar emocional que não exige um instrumento específico de rastreio clínico.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dra. Camila Mendes (CRP 06/88921)",
+    reviewerSlug: "camila-mendes",
+    reviewedAt: "09 de agosto de 2026",
+    image: "/manus-storage/editorial-autocuidado_3726f5cd.png",
+    primaryEntity: "Autocuidado",
+    directAnswer: "Práticas diárias de autocuidado, pausas estruturadas e rotinas consistentes fortalecem a resiliência emocional e o bem-estar geral.",
+    keyTakeaways: [
+      "Pequenas pausas ao longo do dia reduzem a sobrecarga cognitiva.",
+      "A consistência no sono e na hidratação impacta diretamente o humor.",
+      "Este artigo não possui teste clínico associado, servindo como demonstração de fallback robusto."
+    ],
+    tableOfContents: [
+      { id: "praticas-diarias", label: "Práticas cotidianas" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "praticas-diarias",
+        title: "Práticas cotidianas de autocuidado",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O autocuidado não se resume a grandes pausas ou retiros, mas à microgestão do estresse e à atenção plena às necessidades básicas do corpo e da mente." }
+            ]
+          }
+        ]
       }
     ],
-    relatedArticles: [
-      { title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "8 min de leitura", category: "Ansiedade e Tensão" },
-      { title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda", slug: "/conteudos/depressao-sintomas-causas-tratamento", readingTime: "9 min de leitura", category: "Humor e Energia" },
-      { title: "O que os testes de autoavaliação podem (e não podem) dizer sobre você", slug: "/conteudos/ansiedade-o-que-e-sintomas-causas", readingTime: "4 min de leitura", category: "Metodologia" }
+    evidenceBox: {
+      whatWeKnow: "Rotinas estruturadas de descanso reduzem marcadores biológicos de estresse.",
+      whatEvidenceSuggests: "Estabelecer horários consistentes de descanso e desconexão.",
+      whatWeDontKnowYet: "Guias gerais não substituem acompanhamento psicológico em quadros clínicos graves."
+    },
+    relatedTest: null, // Testando explicitamente o fallback real: sem relatedTest, o ContextualTestCTA não renderiza
+    faqs: [
+      {
+        question: "Preciso fazer um teste para ler este guia?",
+        answer: "Não. Este artigo é informativo e não possui teste associado."
+      }
+    ],
+    references: [
+      {
+        id: "ref-general-1",
+        shortLabel: "WHO, 2025",
+        fullCitation: "World Health Organization. (2025). Mental health and well-being guidelines.",
+        sourceUrl: "https://www.who.int"
+      }
     ]
   }
 };
