@@ -102,3 +102,5 @@
 - [x] Auditar e padronizar a navbar das páginas públicas para seguir o cabeçalho visual da Home.
 - [x] Preservar links, acessibilidade, estado autenticado e responsividade no header compartilhado.
 - [x] Validar a navbar padronizada em páginas principais, desktop/mobile, testes e build.
+- [x] Consolidar o PDF canônico MentalSaúde Content Authority Engine V1 (versão 2) e o arquivo de texto complementar em uma especificação única.
+- [x] Gerar o relatório técnico estruturado MENTAL_SAUDE_CONTENT_AUTHORITY_V1_REPORT.md com reconciliação de arquitetura, backlog de 15 oportunidades para o cluster de Ansiedade, especificação da First Wave e regras de Publication Gate.
