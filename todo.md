@@ -87,3 +87,15 @@
 - [x] Criar entidade canônica de teste e rota dedicada /testes/:slug para satisfazer o fluxo ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION.
 - [x] Atualizar ContextualTestCTA.tsx para usar test.testSlug em vez de hardcoded /testes, garantindo fallback real quando relatedTest for nulo e testes sem relatedTest (ex: guia geral).
 - [x] Implementar sistema seguro de tracking com eventos reais (window.__mentalSaudeAnalytics) sem dados pessoais ou clínicos.
+- [x] Adicionar barra de progresso de leitura fixa no topo dos artigos do Hub Editorial.
+- [x] Tornar o índice dos artigos interativo, com navegação por âncoras e destaque da seção ativa.
+- [x] Validar acessibilidade, responsividade, testes e build da melhoria editorial.
+- [x] Validar manualmente acessibilidade do índice interativo e da barra de progresso: teclado, foco visível, semântica e índice mobile.
+- [x] Registrar checklist objetivo de validação responsiva e acessível da melhoria editorial.
+- [x] Validar de fato a navegação por teclado no artigo (Tab, Shift+Tab, Enter e Espaço) no índice desktop/mobile.
+- [x] Registrar evidência explícita de foco visível nos links do índice e no botão do índice mobile.
+- [x] Validar no preview a navegação por teclado do índice desktop/mobile com evidência objetiva para Tab, Shift+Tab, Enter e Espaço.
+- [x] Registrar evidência explícita do foco visível no botão do índice mobile.
+- [x] Validar no preview, com evidência objetiva, o foco por Tab até o índice desktop e até o botão do índice mobile em viewport mobile real.
+- [x] Validar explicitamente a ativação por Enter e Espaço no controle do índice mobile e registrar o resultado no checklist de acessibilidade.
+- [x] Validar no preview, com evidência objetiva, o foco por Tab até o índice desktop e registrar o resultado no checklist de acessibilidade.

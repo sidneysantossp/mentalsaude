@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
 import { getSavedArticles, saveArticle, removeSavedArticle, SavedArticle } from "@/lib/savedContentStorage";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { calculateReadingProgress, getActiveSectionId } from "@/lib/readingProgress";
 
 export default function ArticlePage() {
   const [, params] = useRoute("/conteudos/:slug");
@@ -20,6 +21,8 @@ export default function ArticlePage() {
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
   const [mobileTocOpen, setMobileTocOpen] = useState(false);
+  const [readingProgress, setReadingProgress] = useState(0);
+  const [activeSectionId, setActiveSectionId] = useState("");
 
   const userId = user?.openId ?? user?.id ?? "anonymous";
 
@@ -74,6 +77,40 @@ export default function ArticlePage() {
     }
   }, [article, userId]);
 
+  useEffect(() => {
+    if (!article) return;
+
+    let frame = 0;
+    const syncReadingState = () => {
+      const documentElement = document.documentElement;
+      setReadingProgress(calculateReadingProgress(window.scrollY, window.innerHeight, documentElement.scrollHeight));
+
+      const sectionPositions = article.tableOfContents
+        .map(item => {
+          const element = document.getElementById(item.id);
+          return element ? { id: item.id, top: element.getBoundingClientRect().top } : null;
+        })
+        .filter((section): section is { id: string; top: number } => section !== null);
+
+      setActiveSectionId(getActiveSectionId(sectionPositions));
+    };
+
+    const scheduleSync = () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(syncReadingState);
+    };
+
+    syncReadingState();
+    window.addEventListener("scroll", scheduleSync, { passive: true });
+    window.addEventListener("resize", scheduleSync);
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleSync);
+      window.removeEventListener("resize", scheduleSync);
+    };
+  }, [article]);
+
   if (!article) {
     return (
       <div className="grid min-h-screen place-items-center bg-[#f7f6ef] px-5 text-center text-[#153a36]">
@@ -112,6 +149,15 @@ export default function ArticlePage() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const handleSectionNavigation = (sectionId: string, closeMobileIndex = false) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", `${window.location.pathname}#${sectionId}`);
+    }
+    if (closeMobileIndex) setMobileTocOpen(false);
+  };
+
   // Mapeamento data-driven rigoroso ARTICLE -> CANONICAL TEST ENTITY
   const relatedTestEntity: CanonicalTestEntity | null = article.relatedTest 
     ? (getCanonicalTest(article.relatedTest.acronym) || {
@@ -135,6 +181,20 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen bg-[#f7f6ef] text-[#153a36]">
+      <div
+        className="fixed inset-x-0 top-0 z-[60] h-1 bg-[#d9ebe5]"
+        role="progressbar"
+        aria-label="Progresso de leitura do artigo"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={readingProgress}
+      >
+        <div
+          className="h-full bg-[#0a7066] transition-[width] duration-150 ease-out"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
+
       <header className="sticky top-0 z-40 border-b border-[#e2ede8] bg-[#f7f6ef]/90 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-[1240px] items-center justify-between px-5 sm:px-8">
           <Link href="/"><Brand /></Link>
@@ -233,15 +293,26 @@ export default function ArticlePage() {
               <button
                 type="button"
                 onClick={() => setMobileTocOpen(!mobileTocOpen)}
-                className="flex w-full items-center justify-between text-sm font-bold text-[#173e39]"
+                aria-expanded={mobileTocOpen}
+                aria-controls="article-mobile-toc"
+                className="flex w-full items-center justify-between text-sm font-bold text-[#173e39] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0a7066]"
               >
                 <span>Neste conteúdo</span>
                 <ChevronRight className={`h-4 w-4 transition-transform ${mobileTocOpen ? "rotate-90" : ""}`} />
               </button>
               {mobileTocOpen && (
-                <nav className="mt-4 space-y-2 border-t border-[#edf4f1] pt-3">
+                <nav id="article-mobile-toc" aria-label="Índice do artigo" className="mt-4 space-y-2 border-t border-[#edf4f1] pt-3">
                   {article.tableOfContents.map(toc => (
-                    <a key={toc.id} href={`#${toc.id}`} onClick={() => setMobileTocOpen(false)} className="block text-xs font-medium text-[#58756e] hover:text-[#0a7066]">
+                    <a
+                      key={toc.id}
+                      href={`#${toc.id}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        handleSectionNavigation(toc.id, true);
+                      }}
+                      aria-current={activeSectionId === toc.id ? "location" : undefined}
+                      className={`block rounded-lg px-2 py-1.5 text-xs font-medium transition-colors ${activeSectionId === toc.id ? "bg-[#e9f6f2] font-bold text-[#0a7066]" : "text-[#58756e] hover:bg-[#f1f8f5] hover:text-[#0a7066]"}`}
+                    >
                       {toc.label}
                     </a>
                   ))}
@@ -294,7 +365,9 @@ export default function ArticlePage() {
               )}
 
               {/* Contextual Test CTA Data-Driven com suporte a fallback real */}
-              <ContextualTestCTA test={relatedTestEntity} articleSlug={article.slug} articleId={article.slug} />
+              <section id="teste-relacionado" className="scroll-mt-28" aria-label="Teste relacionado">
+                <ContextualTestCTA test={relatedTestEntity} articleSlug={article.slug} articleId={article.slug} />
+              </section>
 
               <section id="faq" className="scroll-mt-28">
                 <h2 className="font-display text-2xl font-semibold tracking-[-.02em] text-[#173e39]">Perguntas frequentes</h2>
@@ -364,9 +437,18 @@ export default function ArticlePage() {
           <aside className="hidden lg:block sticky top-28 space-y-6">
             <div className="rounded-3xl border border-[#d9e7e2] bg-white p-6 shadow-sm">
               <h3 className="font-display text-sm font-bold uppercase tracking-[.14em] text-[#173e39]">Neste conteúdo</h3>
-              <nav className="mt-4 space-y-2 text-xs">
+              <nav aria-label="Índice do artigo" className="mt-4 space-y-2 text-xs">
                 {article.tableOfContents.map(toc => (
-                  <a key={toc.id} href={`#${toc.id}`} className="block text-[#58756e] hover:text-[#0a7066] py-1">
+                  <a
+                    key={toc.id}
+                    href={`#${toc.id}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      handleSectionNavigation(toc.id);
+                    }}
+                    aria-current={activeSectionId === toc.id ? "location" : undefined}
+                    className={`block rounded-lg px-2 py-1.5 transition-colors ${activeSectionId === toc.id ? "bg-[#e9f6f2] font-bold text-[#0a7066]" : "text-[#58756e] hover:bg-[#f1f8f5] hover:text-[#0a7066]"}`}
+                  >
                     {toc.label}
                   </a>
                 ))}
