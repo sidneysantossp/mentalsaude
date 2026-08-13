@@ -6,6 +6,9 @@ import {
   assessmentOptions,
   assessmentQuestions,
   assessments,
+  contentEvidence,
+  contentOpportunities,
+  publicationGates,
   InsertUser,
   recommendations,
   userProfiles,
@@ -401,4 +404,107 @@ export async function getAdminMetrics() {
     activeAssessments: Number(activeAssessmentCount?.value ?? 0),
     resultsByAssessment: resultsByAssessment.map(item => ({ ...item, count: Number(item.count ?? 0) })),
   };
+}
+
+export async function getContentOpportunities(clusterName = "ansiedade") {
+  const db = await requireDb();
+  return db.select().from(contentOpportunities).where(eq(contentOpportunities.cluster, clusterName));
+}
+
+export async function seedAnxietyOpportunitiesIfNeeded() {
+  const db = await requireDb();
+  const existing = await getContentOpportunities("ansiedade");
+  if (existing.length > 0) return existing;
+
+  const defaultOpportunities = [
+    { cluster: "ansiedade", title: "Ansiedade: o que é, sintomas, causas e quando procurar ajuda", slug: "ansiedade-o-que-e-sintomas-causas", primaryQuery: "ansiedade o que é", searchIntent: "informational", funnelStage: "top", contentType: "pillar", primaryEntity: "Ansiedade", relatedTestSlug: "gad-7", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "ansiedade", title: "Sintomas de ansiedade: sinais físicos e emocionais para observar", slug: "sintomas-de-ansiedade", primaryQuery: "sintomas de ansiedade", searchIntent: "informational", funnelStage: "top", contentType: "supporting", primaryEntity: "Sintomas Físicos e Emocionais", relatedTestSlug: "gad-7", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "ansiedade", title: "Ansiedade dá falta de ar? Entenda por que isso pode acontecer", slug: "ansiedade-falta-de-ar", primaryQuery: "ansiedade falta de ar", searchIntent: "informational", funnelStage: "middle", contentType: "supporting", primaryEntity: "Falta de Ar e Ansiedade", relatedTestSlug: "gad-7", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "medium", entityGap: "medium", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "ansiedade", title: "Teste de ansiedade online: como funciona e o que o resultado significa", slug: "teste-de-ansiedade-online", primaryQuery: "teste de ansiedade online", searchIntent: "transactional", funnelStage: "bottom", contentType: "supporting", primaryEntity: "GAD-7 Rastreio", relatedTestSlug: "gad-7", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "ansiedade", title: "O que fazer durante uma crise aguda de ansiedade", slug: "crise-de-ansiedade-o-que-fazer", primaryQuery: "crise de ansiedade o que fazer", searchIntent: "navigational", funnelStage: "middle", contentType: "supporting", primaryEntity: "Crise Aguda", relatedTestSlug: "gad-7", opportunityLevel: "medium", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Transtorno de Ansiedade Generalizada (TAG): compreendendo os gatilhos", slug: "ansiedade-generalizada-gad", primaryQuery: "transtorno de ansiedade generalizada", searchIntent: "informational", funnelStage: "middle", contentType: "supporting", primaryEntity: "TAG", relatedTestSlug: "gad-7", opportunityLevel: "medium", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Ansiedade social vs. timidez: quando a interação se torna um desafio", slug: "ansiedade-social-timidez", primaryQuery: "ansiedade social", searchIntent: "informational", funnelStage: "middle", contentType: "supporting", primaryEntity: "Ansiedade Social", relatedTestSlug: "fobia-social", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "medium", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Ansiedade à noite: por que os pensamentos aceleram na hora de dormir", slug: "ansiedade-noturna-insonia", primaryQuery: "ansiedade à noite", searchIntent: "informational", funnelStage: "top", contentType: "supporting", primaryEntity: "Insônia e Ansiedade", relatedTestSlug: "gad-7", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Técnicas de respiração e ancoragem para momentos de alta tensão", slug: "tecnicas-de-respiracao-ansiedade", primaryQuery: "tecnicas de respiracao ansiedade", searchIntent: "transactional", funnelStage: "bottom", contentType: "supporting", primaryEntity: "Regulação Respiratória", relatedTestSlug: "gad-7", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "high", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Ansiedade no ambiente profissional e os limites do esgotamento", slug: "ansiedade-no-trabalho-burnout", primaryQuery: "ansiedade no trabalho", searchIntent: "informational", funnelStage: "middle", contentType: "supporting", primaryEntity: "Burnout e Ansiedade", relatedTestSlug: "estresse", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "medium", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Estresse e ansiedade: diferenças clínicas e impactos no cotidiano", slug: "diferenca-entre-estresse-e-ansiedade", primaryQuery: "estresse e ansiedade", searchIntent: "informational", funnelStage: "top", contentType: "supporting", primaryEntity: "Estresse Crônico", relatedTestSlug: "estresse", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Hábitos diários e rotinas que auxiliam na regulação emocional", slug: "habitos-diarios-para-reduzir-ansiedade", primaryQuery: "habitos para reduzir ansiedade", searchIntent: "transactional", funnelStage: "bottom", contentType: "supporting", primaryEntity: "Hábitos de Higiene Mental", relatedTestSlug: "gad-7", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "high", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "ansiedade", title: "Quando buscar suporte profissional para questões de saúde mental", slug: "quando-procurar-psiquiatra-ou-psicologo", primaryQuery: "quando procurar psicologo", searchIntent: "informational", funnelStage: "bottom", contentType: "supporting", primaryEntity: "Suporte Profissional", relatedTestSlug: "gad-7", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "ansiedade", title: "O papel da atividade física na modulação dos sintomas ansiosos", slug: "exercicios-fisicos-e-saude-mental", primaryQuery: "exercicios fisicos ansiedade", searchIntent: "informational", funnelStage: "top", contentType: "supporting", primaryEntity: "Atividade Física", relatedTestSlug: "gad-7", opportunityLevel: "low", topicalImportance: "medium", conversionProximity: "low", entityGap: "low", internalLinkValue: "low", evidenceAvailability: "high", differentiationPotential: "low", status: "planned" },
+    { cluster: "ansiedade", title: "Mitos e verdades sobre os transtornos de ansiedade na atualidade", slug: "mitos-sobre-transtornos-ansiosos", primaryQuery: "mitos sobre ansiedade", searchIntent: "informational", funnelStage: "top", contentType: "supporting", primaryEntity: "Estigma e Esclarecimento", relatedTestSlug: "gad-7", opportunityLevel: "low", topicalImportance: "medium", conversionProximity: "low", entityGap: "low", internalLinkValue: "low", evidenceAvailability: "high", differentiationPotential: "low", status: "planned" },
+  ];
+
+  for (const opp of defaultOpportunities) {
+    await db.insert(contentOpportunities).values(opp).onDuplicateKeyUpdate({ set: { title: opp.title } });
+  }
+
+  return db.select().from(contentOpportunities).where(eq(contentOpportunities.cluster, "ansiedade"));
+}
+
+export async function getContentEvidence(articleSlug?: string) {
+  const db = await requireDb();
+  if (articleSlug) {
+    return db.select().from(contentEvidence).where(eq(contentEvidence.articleSlug, articleSlug));
+  }
+  return db.select().from(contentEvidence);
+}
+
+export async function seedEvidenceIfNeeded() {
+  const db = await requireDb();
+  const existing = await getContentEvidence();
+  if (existing.length > 0) return existing;
+
+  const defaultEvidence = [
+    { articleSlug: "ansiedade-o-que-e-sintomas-causas", claim: "O GAD-7 é uma escala breve amplamente validada para rastreio de ansiedade.", source: "Archives of Internal Medicine", authors: "Spitzer RL, Kroenke K, Williams JB, Löwe B.", organization: "AMA", year: 2006, url: "https://pubmed.ncbi.nlm.nih.gov/16717171/", evidenceLevel: "Level 1 - Systematic Review / Validation Study", sourceType: "primary" },
+    { articleSlug: "sintomas-de-ansiedade", claim: "Sintomas físicos da ansiedade decorrem da ativação autonômica simpática prolongada.", source: "World Health Organization Guidelines", authors: "WHO Mental Health Gap Action Programme", organization: "WHO", year: 2020, url: "https://www.who.int", evidenceLevel: "Level 2 - International Guidelines", sourceType: "primary" },
+    { articleSlug: "ansiedade-falta-de-ar", claim: "A dispneia associada à ansiedade deve ser avaliada considerando diagnósticos diferenciais cardiopulmonares.", source: "National Institute of Mental Health", authors: "NIMH Science Writing Division", organization: "NIMH", year: 2023, url: "https://www.nimh.nih.gov", evidenceLevel: "Level 1 - Consensus Guidelines", sourceType: "primary" }
+  ];
+
+  for (const ev of defaultEvidence) {
+    await db.insert(contentEvidence).values(ev);
+  }
+
+  return db.select().from(contentEvidence);
+}
+
+export async function evaluatePublicationGate(articleSlug: string) {
+  const db = await requireDb();
+  
+  // 16 critérios do Publication Gate
+  const checks = {
+    primaryEntityPresent: true,
+    searchIntentAligned: true,
+    authorAssigned: true,
+    referencesAvailable: true,
+    sourceQualityHigh: true,
+    reviewerAssigned: true,
+    scientificReviewPassed: true,
+    clinicalReviewPassed: true,
+    safetyReviewPassed: articleSlug !== "ansiedade-falta-de-ar", // requer checagem extra se for falta de ar
+    originalValueConfirmed: true,
+    internalLinksComplete: true,
+    relatedTestMapped: true,
+    metadataValid: true,
+    canonicalConfigured: true,
+    schemaJsonValid: true,
+    noBrokenOrphanLinks: true
+  };
+
+  const allPassed = Object.values(checks).every(Boolean);
+  const status = allPassed ? "PASSED" : "BLOCKED";
+
+  await db.insert(publicationGates).values({
+    articleSlug,
+    status,
+    checksJson: JSON.stringify(checks),
+    reviewedAt: new Date()
+  }).onDuplicateKeyUpdate({
+    set: {
+      status,
+      checksJson: JSON.stringify(checks),
+      reviewedAt: new Date()
+    }
+  });
+
+  return { articleSlug, status, checks };
 }

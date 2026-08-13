@@ -14,6 +14,7 @@ import MethodologyPage from "./pages/MethodologyPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminTests from "./pages/AdminTests";
 import AdminUsers from "./pages/AdminUsers";
+import AdminContentAuthority from "./pages/AdminContentAuthority";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import TestCatalog from "./pages/TestCatalog";
@@ -37,7 +38,7 @@ function LoginRedirect() {
 }
 
 function Router() {
-  return <Switch><Route path="/" component={Home} /><Route path="/conteudos" component={EditorialHub} /><Route path="/conteudos/:slug" component={ArticlePage} /><Route path="/especialistas/:slug" component={ExpertProfilePage} /><Route path="/metodologia" component={MethodologyPage} /><Route path="/testes" component={TestCatalog} /><Route path="/testes/:slug" component={CanonicalTestDetailPage} /><Route path="/termos">{() => <LegalPage kind="terms" />}</Route><Route path="/privacidade">{() => <LegalPage kind="privacy" />}</Route><Route path="/avaliacao/:id">{params => <AssessmentFlow id={params.id} />}</Route><Route path="/dashboard" component={UserDashboard} /><Route path="/perfil" component={Profile} /><Route path="/admin" component={AdminDashboard} /><Route path="/admin/testes" component={AdminTests} /><Route path="/admin/usuarios" component={AdminUsers} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
+  return <Switch><Route path="/" component={Home} /><Route path="/conteudos" component={EditorialHub} /><Route path="/conteudos/:slug" component={ArticlePage} /><Route path="/especialistas/:slug" component={ExpertProfilePage} /><Route path="/metodologia" component={MethodologyPage} /><Route path="/testes" component={TestCatalog} /><Route path="/testes/:slug" component={CanonicalTestDetailPage} /><Route path="/termos">{() => <LegalPage kind="terms" />}</Route><Route path="/privacidade">{() => <LegalPage kind="privacy" />}</Route><Route path="/avaliacao/:id">{params => <AssessmentFlow id={params.id} />}</Route><Route path="/dashboard" component={UserDashboard} /><Route path="/perfil" component={Profile} /><Route path="/admin" component={AdminDashboard} /><Route path="/admin/testes" component={AdminTests} /><Route path="/admin/usuarios" component={AdminUsers} /><Route path="/admin/content-authority" component={AdminContentAuthority} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {

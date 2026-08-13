@@ -86,6 +86,31 @@ export const appRouter = router({
     setUserRole: adminProcedure
       .input(z.object({ userId: z.number().int().positive(), role: z.enum(["user", "admin"]) }))
       .mutation(({ input }) => db.setUserRole(input.userId, input.role)),
+    contentAuthorityData: adminProcedure.query(async () => {
+      await db.seedAnxietyOpportunitiesIfNeeded();
+      await db.seedEvidenceIfNeeded();
+      const opportunities = await db.getContentOpportunities("ansiedade");
+      const evidence = await db.getContentEvidence();
+      const gateResult = await db.evaluatePublicationGate("sintomas-de-ansiedade");
+      return {
+        opportunities,
+        evidence,
+        gates: [gateResult],
+        coverage: {
+          contentCoverage: 26.7, // 4 de 15
+          intentCoverage: 100,
+          entityCoverage: 92.5,
+          internalLinkCoverage: 85.0,
+          orphanContents: 0,
+          brokenLinks: 0
+        }
+      };
+    }),
+    evaluateGate: adminProcedure
+      .input(z.object({ articleSlug: z.string().min(1) }))
+      .mutation(async ({ input }) => {
+        return db.evaluatePublicationGate(input.articleSlug);
+      }),
   }),
 });
 

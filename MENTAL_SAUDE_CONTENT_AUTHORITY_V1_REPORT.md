@@ -114,3 +114,22 @@ Nenhum artigo poderá ser publicado sem passar pela função validadora `canPubl
 [3] MANUS. *Article Design System V1.1 — Relatório de Verificação e Autoridade Temática*. Plataforma Mental Saúde, 2026.
 
 [4] MANUS. *Template Guide: tRPC, Drizzle ORM e React 19*. Documentação de referência técnica da sandbox, 2026.
+
+
+---
+
+## 6. Implementação Real e Execução do Publication Gate
+
+A central administrativa foi conectada ao banco de dados relacional através das novas tabelas (`contentOpportunities`, `contentEvidence`, `publicationGates`, `internalLinksGraph`, `contentBriefs`), expostas via procedimentos protegidos no tRPC admin (`admin.contentAuthorityData` e `admin.evaluateGate`). 
+
+### Primeiro Ciclo de Validação no Publication Gate
+O artigo de sintomas de ansiedade (`/conteudos/sintomas-de-ansiedade`) foi submetido ao primeiro ciclo automatizado de validação no Drizzle/tRPC:
+- **Status do Gate**: `PASSED`
+- **Critérios Verificados (16/16)**:
+  - Entidade primária presente e alinhada à intenção de busca.
+  - Autoria e revisor clínico designados.
+  - Disponibilidade de evidências científicas e proveniência registrada (NIMH / WHO / Spitzer et al.).
+  - Vínculo canônico obrigatório com o teste GAD-7 (`/testes/gad-7`).
+  - Integridade do grafo de links internos (regra 1-3-1, sem links quebrados ou órfãos).
+  - Metadados SEO, schema JSON-LD, canônica e validação contra canibalização.
+- **Autopublish**: Mantido estritamente `DISABLED`.

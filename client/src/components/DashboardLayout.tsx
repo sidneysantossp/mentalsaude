@@ -30,6 +30,7 @@ const adminNavigation = [
   { path: "/admin", label: "Visão geral", icon: LayoutDashboard },
   { path: "/admin/testes", label: "Gerenciar testes", icon: BookOpenCheck },
   { path: "/admin/usuarios", label: "Usuários", icon: UsersRound },
+  { path: "/admin/content-authority", label: "Content Authority", icon: ShieldCheck },
   { path: "/dashboard", label: "Área do usuário", icon: ChevronLeft },
 ];
 

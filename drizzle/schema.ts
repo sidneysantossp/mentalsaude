@@ -142,3 +142,119 @@ export type Assessment = typeof assessments.$inferSelect;
 export type AssessmentQuestion = typeof assessmentQuestions.$inferSelect;
 export type AssessmentOption = typeof assessmentOptions.$inferSelect;
 export type AssessmentAttempt = typeof assessmentAttempts.$inferSelect;
+
+export const contentOpportunities = mysqlTable(
+  "contentOpportunities",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    cluster: varchar("cluster", { length: 64 }).notNull(),
+    title: varchar("title", { length: 255 }).notNull(),
+    slug: varchar("slug", { length: 255 }).notNull().unique(),
+    primaryQuery: varchar("primaryQuery", { length: 255 }).notNull(),
+    secondaryQueries: text("secondaryQueries"), // JSON string
+    searchIntent: varchar("searchIntent", { length: 64 }).notNull(),
+    funnelStage: varchar("funnelStage", { length: 64 }).notNull(),
+    contentType: varchar("contentType", { length: 64 }).notNull(),
+    primaryEntity: varchar("primaryEntity", { length: 128 }).notNull(),
+    secondaryEntities: text("secondaryEntities"), // JSON string
+    relatedTestSlug: varchar("relatedTestSlug", { length: 64 }),
+    opportunityLevel: varchar("opportunityLevel", { length: 32 }).notNull(),
+    topicalImportance: varchar("topicalImportance", { length: 32 }).notNull(),
+    conversionProximity: varchar("conversionProximity", { length: 32 }).notNull(),
+    entityGap: varchar("entityGap", { length: 32 }).notNull(),
+    internalLinkValue: varchar("internalLinkValue", { length: 32 }).notNull(),
+    evidenceAvailability: varchar("evidenceAvailability", { length: 32 }).notNull(),
+    differentiationPotential: varchar("differentiationPotential", { length: 32 }).notNull(),
+    status: varchar("status", { length: 64 }).default("planned").notNull(),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  }
+);
+
+export const contentBriefs = mysqlTable(
+  "contentBriefs",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    opportunityId: int("opportunityId").notNull(),
+    workingTitle: varchar("workingTitle", { length: 255 }).notNull(),
+    h1: varchar("h1", { length: 255 }).notNull(),
+    intent: varchar("intent", { length: 128 }).notNull(),
+    readerProblem: text("readerProblem").notNull(),
+    readerOutcome: text("readerOutcome").notNull(),
+    directAnswerGoal: text("directAnswerGoal").notNull(),
+    primaryEntity: varchar("primaryEntity", { length: 128 }).notNull(),
+    secondaryEntities: text("secondaryEntities"),
+    requiredSections: text("requiredSections"),
+    questionsToAnswer: text("questionsToAnswer"),
+    referencesRequired: text("referencesRequired"),
+    relatedTestSlug: varchar("relatedTestSlug", { length: 64 }),
+    internalLinksIn: text("internalLinksIn"),
+    internalLinksOut: text("internalLinksOut"),
+    originalValueRequirement: text("originalValueRequirement"),
+    ymylClassification: varchar("ymylClassification", { length: 64 }).default("EDUCATIONAL").notNull(),
+    reviewRequirements: text("reviewRequirements"),
+    seoNotes: text("seoNotes"),
+    aiCitabilityNotes: text("aiCitabilityNotes"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  }
+);
+
+export const contentEvidence = mysqlTable(
+  "contentEvidence",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    opportunityId: int("opportunityId"),
+    articleSlug: varchar("articleSlug", { length: 255 }),
+    claim: text("claim").notNull(),
+    source: varchar("source", { length: 255 }).notNull(),
+    authors: varchar("authors", { length: 255 }),
+    organization: varchar("organization", { length: 255 }),
+    year: int("year"),
+    url: text("url"),
+    evidenceLevel: varchar("evidenceLevel", { length: 64 }).notNull(),
+    sourceType: varchar("sourceType", { length: 64 }).notNull(), // primary / secondary
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  }
+);
+
+export const internalLinksGraph = mysqlTable(
+  "internalLinksGraph",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    sourceSlug: varchar("sourceSlug", { length: 255 }).notNull(),
+    targetSlug: varchar("targetSlug", { length: 255 }).notNull(),
+    anchorText: varchar("anchorText", { length: 255 }).notNull(),
+    linkType: varchar("linkType", { length: 64 }).notNull(), // pillar_to_supporting, supporting_to_pillar, supporting_to_test, etc.
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  }
+);
+
+export const publicationGates = mysqlTable(
+  "publicationGates",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    articleSlug: varchar("articleSlug", { length: 255 }).notNull().unique(),
+    status: varchar("status", { length: 64 }).default("BLOCKED").notNull(), // BLOCKED, PASSED, PUBLISHED
+    checksJson: text("checksJson").notNull(), // JSON com os 16 critérios validados
+    reviewedByUserId: int("reviewedByUserId"),
+    reviewedAt: timestamp("reviewedAt"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  }
+);
+
+export const articleVersions = mysqlTable(
+  "articleVersions",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    articleSlug: varchar("articleSlug", { length: 255 }).notNull(),
+    versionId: varchar("versionId", { length: 64 }).notNull(),
+    publishedAt: timestamp("publishedAt").notNull(),
+    modifiedAt: timestamp("modifiedAt").defaultNow().notNull(),
+    reviewedAt: timestamp("reviewedAt"),
+    referencesVersion: varchar("referencesVersion", { length: 64 }),
+    reviewerId: int("reviewerId"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  }
+);
