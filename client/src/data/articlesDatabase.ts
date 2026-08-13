@@ -570,5 +570,429 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://www.who.int"
       }
     ]
+  },
+  "ansiedade-ou-preocupacao": {
+    slug: "ansiedade-ou-preocupacao",
+    seoTitle: "Como saber se tenho ansiedade ou estou apenas preocupado? | Mental Saúde",
+    seoDescription: "Entenda as distinções clínicas entre a preocupação cotidiana e os sintomas persistentes do transtorno de ansiedade generalizada.",
+    category: "Transtornos de Ansiedade",
+    readingTime: "6 min de leitura",
+    title: "Como saber se tenho ansiedade ou estou apenas preocupado?",
+    subtitle: "Entenda as distinções clínicas entre a preocupação cotidiana e os sintomas persistentes do transtorno de ansiedade.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Preocupação vs Ansiedade",
+    directAnswer: "Enquanto a preocupação comum é focada em problemas específicos e controláveis com impacto limitado, a ansiedade patológica é difusa, excessiva, difícil de controlar e interfere na rotina por semanas.",
+    keyTakeaways: [
+      "A preocupação cotidiana costuma ser proporcional a desafios reais e cessa quando a situação é resolvida.",
+      "A ansiedade clínica manifesta-se de forma persistente, antecipatória e desproporcional aos eventos.",
+      "Sintomas físicos como tensão muscular, irritabilidade e fadiga acompanham frequentemente o quadro ansioso.",
+      "O GAD-7 é uma ferramenta validada de rastreio que auxilia a diferenciar flutuações cotidianas de quadros clínicos.",
+      "Busque orientação profissional quando o sofrimento emocional prejudicar o trabalho, o sono ou os relacionamentos."
+    ],
+    tableOfContents: [
+      { id: "o-que-e-preocupacao", label: "O que é preocupação comum" },
+      { id: "quando-vira-ansiedade", label: "Quando a ansiedade se torna clínica" },
+      { id: "diferencas-chave", label: "Tabela comparativa principal" },
+      { id: "papel-do-rastreio", label: "O papel do rastreio clínico" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "o-que-e-preocupacao",
+        title: "O que é preocupação comum",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A preocupação é uma resposta cognitiva normal a desafios, incertezas e planejamentos futuros. Ela nos ajuda a antecipar riscos e encontrar soluções práticas. No entanto, na preocupação cotidiana, os pensamentos tendem a ser solucionáveis e não paralisam o funcionamento diário " },
+              { text: "Kessler et al., 2015", refId: "kessler-2015", displayText: "Kessler et al., 2015" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-vira-ansiedade",
+        title: "Quando a ansiedade se torna clínica",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Quando a preocupação passa a ser incontrolável, persistente por mais de seis meses e desproporcional à realidade, ela caracteriza o quadro clínico do Transtorno de Ansiedade Generalizada (TAG). Os indivíduos experimentam tensão constante, irritabilidade e fadiga mental inexplicada " },
+              { text: "APA, 2022", refId: "apa-2022", displayText: "APA, 2022" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "diferencas-chave",
+        title: "Tabela comparativa principal",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Abaixo destacamos as distinções observadas em ambiente clínico entre preocupação funcional e ansiedade clínica:" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-do-rastreio",
+        title: "O papel do rastreio clínico",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O uso de instrumentos padronizados como o GAD-7 permite quantificar a gravidade dos sintomas recentes, servindo como ponto de partida para um diálogo produtivo com profissionais de saúde mental." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "A preocupação excessiva e crônica esgota recursos cognitivos e afeta o bem-estar.",
+      whatEvidenceSuggests: "Avaliar frequência, intensidade e impacto funcional com escalas validadas.",
+      whatWeDontKnowYet: "Autoteste não substitui avaliação psiquiátrica presencial."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Como saber se minha preocupação é normal?",
+        answer: "A preocupação normal cessa após a resolução do problema; a ansiedade clínica é difusa e persistente."
+      },
+      {
+        question: "O GAD-7 fornece diagnóstico definitivo?",
+        answer: "Não. O GAD-7 é uma ferramenta de rastreio educativo e clínico que requer validação por um profissional habilitado."
+      }
+    ],
+    references: [
+      {
+        id: "kessler-2015",
+        shortLabel: "Kessler et al., 2015",
+        fullCitation: "Kessler, R. C., et al. (2015). Prevalence and clinical features of generalized anxiety disorder. American Journal of Psychiatry.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      },
+      {
+        id: "apa-2022",
+        shortLabel: "APA, 2022",
+        fullCitation: "American Psychiatric Association. (2022). Diagnostic and Statistical Manual of Mental Disorders (DSM-5-TR).",
+        sourceUrl: "https://www.psychiatry.org"
+      }
+    ]
+  },
+  "ansiedade-a-noite": {
+    slug: "ansiedade-a-noite",
+    seoTitle: "Ansiedade à noite: por que os sintomas pioram antes de dormir | Mental Saúde",
+    seoDescription: "Compreenda os fatores biológicos, cognitivos e ambientais que intensificam a ansiedade no período noturno.",
+    category: "Sintomas e Manifestações",
+    readingTime: "6 min de leitura",
+    title: "Ansiedade à noite: por que os sintomas podem piorar antes de dormir",
+    subtitle: "Compreenda os fatores biológicos, cognitivos e ambientais que intensificam a ansiedade no período noturno.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Ansiedade Noturna",
+    directAnswer: "A piora da ansiedade à noite ocorre devido à ausência de distrações diurnas, à queda natural de cortisol e à tendência de ruminação mental no silêncio do descanso.",
+    keyTakeaways: [
+      "A diminuição de estímulos externos no período noturno torna pensamentos e sensações físicas mais perceptíveis.",
+      "A ruminação sobre acontecimentos do dia anterior ou preocupações futuras ativa o sistema de alerta.",
+      "Higiene do sono rigorosa e técnicas de desaceleração cognitiva ajudam a modular a ativação noturna.",
+      "O GAD-7 pode ser utilizado para monitorar a carga global de ansiedade que reverbera nos horários de descanso.",
+      "Persistindo insônia severa associada a pânico ou taquicardia noturna, procure avaliação médica."
+    ],
+    tableOfContents: [
+      { id: "por-que-piora", label: "Por que a ansiedade piora à noite" },
+      { id: "ruminacao-mental", label: "O papel da ruminação e do silêncio" },
+      { id: "estrategias-manejo", label: "Estratégias de desaceleração" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "por-que-piora",
+        title: "Por que a ansiedade piora à noite",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Durante o dia, compromissos laborais, interações sociais e tarefas práticas ocupam o foco atencional. Ao anoitecer, com a redução de estímulos externos, o cérebro humano tende a voltar-se para o mundo interno, amplificando a percepção de desconfortos físicos, batimentos cardíacos e preocupações pendentes " },
+              { text: "Harvey AG, 2018", refId: "harvey-2018", displayText: "Harvey AG, 2018" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "ruminacao-mental",
+        title: "O papel da ruminação e do silêncio",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A ruminação noturna — o ato de repassar mentalmente falhas, obrigações e cenários catastróficos — impede o desligamento fisiológico necessário para a indução do sono. Isso gera um ciclo vicioso entre privação de sono e exacerbação dos sintomas ansiosos no dia seguinte." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estrategias-manejo",
+        title: "Estratégias de desaceleração",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Estabelecer uma rotina de transição sem telas luminosas 1 hora antes de deitar, anotar pendências em um diário de bordo e praticar respiração diafragmática são condutas recomendadas para modular o sistema nervoso simpático antes do repouso." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O silêncio noturno e a fadiga acumulada amplificam respostas de alerta cognitivo.",
+      whatEvidenceSuggests: "Práticas estruturadas de desligamento e horários fixos de sono.",
+      whatWeDontKnowYet: "Variações genéticas exatas na resposta circadiana à ansiedade."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "É normal sentir falta de ar ou palpitações ao deitar por causa da ansiedade?",
+        answer: "Sim, mas sintomas novos ou intensos exigem investigação médica para excluir causas orgânicas."
+      },
+      {
+        question: "O que fazer se acordar no meio da noite com pensamentos acelerados?",
+        answer: "Evite telas luminosas, levante-se se necessário para uma atividade calma e pratique respiração lenta."
+      }
+    ],
+    references: [
+      {
+        id: "harvey-2018",
+        shortLabel: "Harvey AG, 2018",
+        fullCitation: "Harvey, A. G. (2018). Sleep and circadian regulation in severe mental illness. Journal of Clinical Sleep Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
+  },
+  "qual-profissional-procurar-ansiedade": {
+    slug: "qual-profissional-procurar-ansiedade",
+    seoTitle: "Qual profissional procurar para ansiedade: psicólogo ou psiquiatra? | Mental Saúde",
+    seoDescription: "Entenda as atribuições, abordagens e quando buscar cada especialista no cuidado da saúde mental e ansiedade.",
+    category: "Orientação e Ajuda Profissional",
+    readingTime: "7 min de leitura",
+    title: "Qual profissional procurar para ansiedade: psicólogo ou psiquiatra?",
+    subtitle: "Entenda as atribuições, abordagens e quando buscar cada especialista no cuidado da saúde mental.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Psicólogo vs Psiquiatra",
+    directAnswer: "Psicólogos são especializados em psicoterapias baseadas em evidências para reestruturação emocional e comportamental, enquanto médicos psiquiatras realizam diagnóstico médico diferencial e prescrição farmacológica quando necessário.",
+    keyTakeaways: [
+      "O psicólogo conduz processos psicoterápicos para desenvolver estratégias de enfrentamento e regulação emocional.",
+      "O psiquiatra avalia a necessidade de intervenção medicamentosa e investiga comorbidades clínicas.",
+      "Em quadros moderados a severos, a abordagem integrada (psicoterapia + psiquiatria) apresenta os melhores desfechos clínicos.",
+      "O GAD-7 pode ser apresentado na primeira consulta para ilustrar objetivamente a intensidade dos sintomas.",
+      "Dar o primeiro passo com qualquer um desses profissionais já representa um avanço fundamental no cuidado."
+    ],
+    tableOfContents: [
+      { id: "o-papel-do-psicologo", label: "O papel do psicólogo clínico" },
+      { id: "o-papel-do-psiquiatra", label: "O papel do médico psiquiatra" },
+      { id: "quando-combinar", label: "Quando combinar ambas as abordagens" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "o-papel-do-psicologo",
+        title: "O papel do psicólogo clínico",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psicólogo é o profissional graduado em Psicologia com formação clínica em psicoterapias validadas, como a Terapia Cognitivo-Comportamental (TCC). Seu foco é ajudar o paciente a identificar padrões de pensamento disfuncionais, desenvolver repertório comportamental e lidar com gatilhos emocionais " },
+              { text: "NICE, 2022", refId: "nice-2022", displayText: "NICE, 2022" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "o-papel-do-psiquiatra",
+        title: "O papel do médico psiquiatra",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psiquiatra é um médico especializado em saúde mental. Ele realiza exames clínicos para descartar condições orgânicas (como disfunções tireoidianas que mimetizam ansiedade), define diagnósticos formais e prescreve fármacos reguladores de neurotransmissores quando indicado clinicamente." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-combinar",
+        title: "Quando combinar ambas as abordagens",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Diretrizes internacionais reforçam que, para transtornos de ansiedade moderados a graves, a associação sinérgica entre psicoterapia regular e tratamento farmacológico monitorado acelera a remissão dos sintomas e previne recaídas." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O tratamento combinado reduz recidivas e melhora a qualidade de vida em transtornos ansiosos.",
+      whatEvidenceSuggests: "Encaminhamento integrado baseado em diretrizes clínicas validadas.",
+      whatWeDontKnowYet: "Respostas individuais a fármacos específicos sem teste clínico prévio."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Preciso de encaminhamento médico para ir ao psicólogo?",
+        answer: "Não. Você pode procurar um psicólogo clínico diretamente."
+      },
+      {
+        question: "Todo tratamento de ansiedade exige remédio?",
+        answer: "Não. Casos leves a moderados respondem muito bem apenas à psicoterapia baseada em evidências."
+      }
+    ],
+    references: [
+      {
+        id: "nice-2022",
+        shortLabel: "NICE, 2022",
+        fullCitation: "National Institute for Health and Care Excellence. (2022). Generalized anxiety disorder and panic disorder in adults: management. NICE Guideline.",
+        sourceUrl: "https://www.nice.org.uk"
+      }
+    ]
+  },
+  "tratamento-ansiedade": {
+    slug: "tratamento-ansiedade",
+    seoTitle: "Ansiedade tem tratamento? Conheça as principais abordagens | Mental Saúde",
+    seoDescription: "Conheça os tratamentos baseados em evidências científicas para os transtornos de ansiedade, incluindo TCC e suporte médico.",
+    category: "Tratamento e Abordagens",
+    readingTime: "8 min de leitura",
+    title: "Ansiedade tem tratamento? Conheça as principais abordagens",
+    subtitle: "Conheça os tratamentos baseados em evidências científicas para os transtornos de ansiedade.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Tratamento da Ansiedade",
+    directAnswer: "Sim, os transtornos de ansiedade são altamente tratáveis por meio de psicoterapias estruturadas, acompanhamento médico especializado e mudanças sustentáveis no estilo de vida.",
+    keyTakeaways: [
+      "A Terapia Cognitivo-Comportamental (TCC) é considerada padrão-ouro entre as psicoterapias para ansiedade.",
+      "A farmacoterapia com inibidores seletivos de recaptação de serotonina (ISRS) auxilia na regulação neuroquímica.",
+      "A adesão ao tratamento e a paciência com o tempo de resposta são determinantes para o sucesso clínico.",
+      "O GAD-7 é amplamente empregado no acompanhamento longitudinal para mensurar a eficácia das intervenções.",
+      "O autocuidado, exercício físico regular e higiene do sono complementam de forma poderosa o tratamento profissional."
+    ],
+    tableOfContents: [
+      { id: "ansiedade-tem-cura", label: "A ansiedade tem tratamento eficaz" },
+      { id: "psicoterapia-tcc", label: "Psicoterapia e TCC" },
+      { id: "farmacoterapia", label: "Abordagem farmacológica" },
+      { id: "estilo-de-vida", label: "Hábitos e estilo de vida" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "ansiedade-tem-cura",
+        title: "A ansiedade tem tratamento eficaz",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Estudos de grande escala demonstram que os transtornos de ansiedade respondem muito bem a intervenções terapêuticas cientificamente validadas, permitindo que os pacientes recuperem o bem-estar e a funcionalidade plena " },
+              { text: "Cipriani et al., 2018", refId: "cipriani-2018", displayText: "Cipriani et al., 2018" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "psicoterapia-tcc",
+        title: "Psicoterapia e TCC",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A Terapia Cognitivo-Comportamental capacita o paciente a identificar distorções cognitivas, testar crenças ansiogênicas na realidade e praticar exposição gradual a situações evitadas, promovendo neuroplasticidade e resiliência emocional." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "farmacoterapia",
+        title: "Abordagem farmacológica",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Quando necessário, fármacos modernos como os ISRS oferecem perfil seguro e excelente tolerabilidade, auxiliando a reequilibrar sistemas serotoninérgicos sem causar dependência química." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estilo-de-vida",
+        title: "Hábitos e estilo de vida",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Atividade física aeróbica regular, redução do consumo excessivo de cafeína e manutenção de horários regulares de sono atuam como coadjuvantes indispensáveis na estabilização do humor." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "A combinação de TCC e farmacoterapia baseada em evidências apresenta taxas elevadas de remissão.",
+      whatEvidenceSuggests: "Plano terapêutico individualizado conduzido por equipe multidisciplinar.",
+      whatWeDontKnowYet: "Duração exata ideal do tratamento medicamentoso para cada perfil genético particular."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Quanto tempo dura o tratamento para ansiedade?",
+        answer: "O tempo varia conforme a gravidade e a adesão ao plano terapêutico, frequentemente situando-se entre 6 a 12 meses."
+      },
+      {
+        question: "Os remédios para ansiedade causam dependência?",
+        answer: "Os antidepressivos modernos (como os ISRS) não causam dependência química."
+      }
+    ],
+    references: [
+      {
+        id: "cipriani-2018",
+        shortLabel: "Cipriani et al., 2018",
+        fullCitation: "Cipriani, A., et al. (2018). Comparative efficacy and acceptability of 21 antidepressant drugs for the acute treatment of adults with major depressive disorder: a systematic review and network meta-analysis. World Psychiatry.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
   }
 };

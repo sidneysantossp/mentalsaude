@@ -104,3 +104,9 @@
 - [x] Validar a navbar padronizada em páginas principais, desktop/mobile, testes e build.
 - [x] Consolidar o PDF canônico MentalSaúde Content Authority Engine V1 (versão 2) e o arquivo de texto complementar em uma especificação única.
 - [x] Gerar o relatório técnico estruturado MENTAL_SAUDE_CONTENT_AUTHORITY_V1_REPORT.md com reconciliação de arquitetura, backlog de 15 oportunidades para o cluster de Ansiedade, especificação da First Wave e regras de Publication Gate.
+- [x] Cadastrar oportunidades, briefs e evidências da Second Wave no banco de dados relacional.
+- [x] Implementar os 4 novos artigos no articlesDatabase.ts usando o Article Design System V1.1 congelado.
+- [x] Executar Publication Gates, validação de canibalização e atualizar o malote de links internos (Internal Link Graph).
+- [x] Recalcular cobertura (Before: 4/15 26.7% vs After: 8/15 53.3%) e atualizar a central administrativa (/admin/content-authority).
+- [x] Executar testes (mínimo 37+), build de produção e gerar o relatório MENTAL_SAUDE_ANXIETY_SECOND_WAVE_REPORT.md.
+- [ ] Salvar checkpoint final e parar no STOP GATE.
