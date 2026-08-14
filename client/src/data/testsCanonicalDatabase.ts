@@ -64,6 +64,7 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
 
 export function getCanonicalTest(slugOrAcronym: string): CanonicalTestEntity | undefined {
   const normalized = slugOrAcronym.toLowerCase().trim();
+  if (normalized === "asrs") return CANONICAL_TESTS["asrs-v1-1"];
   if (CANONICAL_TESTS[normalized]) return CANONICAL_TESTS[normalized];
   return Object.values(CANONICAL_TESTS).find(
     t => t.slug === normalized || t.acronym.toLowerCase().replace(/[^a-z0-9]/g, "") === normalized.replace(/[^a-z0-9]/g, "")

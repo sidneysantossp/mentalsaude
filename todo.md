@@ -207,3 +207,13 @@
 - [x] Validar SEO, schema BreadcrumbList, privacidade (noindex em resultados), safety screening vs. diagnóstico e Article Design System V1.1 FROZEN.
 - [x] Executar suíte de testes (45+ testes) e build de produção.
 - [x] Gerar MENTAL_SAUDE_TDAH_FOUNDATION_ACTIVATION_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH First Wave (pasted_content_29.txt)
+- [x] Executar pre-check físico e reconciliar /conteudos/tdah-em-adultos como Article 01 (Condition).
+- [x] Implementar /conteudos/sintomas-de-tdah-em-adultos como Article 02 (Symptom, ASRS, Symptom Map table).
+- [x] Implementar /conteudos/teste-de-tdah-online como Article 03 (Test, ASRS intent, Funnel BOFU).
+- [x] Registrar oportunidades, briefs, evidence provenance, internal link graph e publication gates da TDAH First Wave no Content Authority Engine.
+- [x] Executar análise de canibalização global, validar High Overlap = 0, orphan contents = 0 e broken internal links = 0.
+- [x] Validar YMYL, safety clínica, diagnostic shortcuts = 0 e screening vs. diagnóstico.
+- [x] Executar suíte de testes (48+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.

@@ -1197,13 +1197,18 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       whatEvidenceSuggests: "Abordagens combinando treino de habilidades organizacionais e suporte médico traz ganhos expressivos na produtividade e bem-estar.",
       whatWeDontKnowYet: "A eficácia a longuíssimo prazo de intervenções digitais isoladas para manejo executivo ainda requer ensaios clínicos robustos adicionais."
     },
+    originalValue: [
+      { type: "ADULT_ADHD_MANIFESTATION_FRAMEWORK", description: "Framework estruturado de manifestação do TDAH em adultos abrangendo domínios executivos e funcionais sem atalhos diagnósticos." },
+      { type: "ORIGINAL_TABLE", description: "Tabela original de mapeamento de domínios, manifestações e impactos funcionais." }
+    ],
+    relatedTestSlug: "asrs",
     relatedTest: {
       title: "Adult ADHD Self-Report Scale (ASRS v1.1)",
       acronym: "ASRS v1.1",
       description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
       questionCount: 6,
       durationMinutes: 2,
-      testSlug: "/testes"
+      testSlug: "/testes/asrs-v1-1"
     },
     faqs: [
       {
@@ -1227,6 +1232,252 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         shortLabel: "Kessler et al., 2005",
         fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine, 35(2), 245-256.",
         sourceUrl: "https://www.cambridge.org"
+      }
+    ]
+  },
+  "sintomas-de-tdah-em-adultos": {
+    slug: "sintomas-de-tdah-em-adultos",
+    seoTitle: "Sintomas de TDAH em Adultos: Desatenção e Hiperatividade | Mental Saúde",
+    seoDescription: "Conheça os sinais e manifestações dos sintomas de TDAH em adultos, diferenças funcionais e importância de avaliação profissional.",
+    category: "Neurodiversidade",
+    readingTime: "8 min de leitura",
+    title: "Sintomas de TDAH em adultos: sinais de desatenção, impulsividade e hiperatividade",
+    subtitle: "Uma análise detalhada das manifestações comportamentais e executivas do TDAH na vida adulta, com foco em diferenciação sintomática e segurança clínica.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    primaryEntity: "Sintomas de TDAH",
+    directAnswer: "Os sintomas de TDAH em adultos incluem desatenção persistente, dificuldade de organização, esquecimentos frequentes, impulsividade e inquietação interna, exigindo avaliação profissional e rastreio com ASRS v1.1.",
+    keyTakeaways: [
+      "A desatenção em adultos manifesta-se frequentemente como dificuldade em manter o foco em tarefas prolongadas e tendência a perder prazos.",
+      "A impulsividade pode envolver tomada de decisões precipitadas, interrupção de conversas e impaciência.",
+      "Sinais semelhantes podem ocorrer em quadros de ansiedade, estresse ou privação de sono, tornando essencial o diagnóstico diferencial.",
+      "Ferramentas de rastreio como o ASRS auxiliam na observação inicial, mas não substituem o diagnóstico clínico.",
+      "Buscar apoio especializado ajuda a estruturar intervenções adequadas para cada perfil."
+    ],
+    tableOfContents: [
+      { id: "sinais-em-adultos", label: "Como os sinais aparecem" },
+      { id: "desatencao-e-foco", label: "Desatenção e organização" },
+      { id: "impulsividade-e-inquietacao", label: "Impulsividade e inquietação" },
+      { id: "sinais-nao-exclusivos", label: "Sinais não exclusivos de TDAH" },
+      { id: "rastreio-asrs", label: "O papel do ASRS" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "sinais-em-adultos",
+        title: "Como os sinais podem aparecer em adultos",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Na vida adulta, o TDAH raramente se manifesta como hiperatividade motora infantil pura; em vez disso, costuma assumir a forma de uma intensa inquietação mental, dificuldade crônica em gerenciar o tempo e sobrecarga nas funções executivas." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "desatencao-e-foco",
+        title: "Desatenção, organização e conclusão de tarefas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Adultos com traços significativos de desatenção frequentemente relatam iniciar múltiplos projetos simultaneamente sem conseguir finalizá-los, perder objetos essenciais com frequência e ter dificuldades severas com o planejamento de prazos longos." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "impulsividade-e-inquietacao",
+        title: "Impulsividade e inquietação interna",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A impulsividade pode se traduzir em gastos por impulso, mudanças repentinas de direção profissional ou interrupções frequentes em diálogos. A inquietação interna gera sensação de estar permanentemente 'com o motor ligado'." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sinais-nao-exclusivos",
+        title: "Por que esses sinais não são exclusivos de TDAH",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Dificuldades de foco e esquecimentos podem ser provocados por transtornos de ansiedade, depressão grave, esgotamento profissional (burnout) ou privação crônica de sono. Nenhuma lista de sintomas substitui a investigação médica diferencial." }
+            ]
+          }
+        ],
+        table: {
+          headers: ["Sinal Observado", "Exemplo Cotidiano", "O que Também Pode Influenciar"],
+          rows: [
+            ["Esquecimento de compromissos", "Perder prazos ou esquecer reuniões agendadas", "Sobrecarga de trabalho, privação de sono"],
+            ["Dificuldade de foco", "Distrair-se com facilidade em tarefas rotineiras", "Ansiedade generalizada, estresse agudo"],
+            ["Inquietação", "Sensação constante de pressa ou incapacidade de relaxar", "Estados de ansiedade e hiperativação adrenérgica"]
+          ]
+        }
+      },
+      {
+        id: "rastreio-asrs",
+        title: "O papel do ASRS e a avaliação profissional",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O instrumento ASRS v1.1 ajuda a quantificar a frequência recente de sintomas. Para uma investigação aprofundada, consulte um médico psiquiatra ou psicólogo especializado." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O perfil sintomático do TDAH em adultos difere em expressão da infância, destacando-se pela desorganização e fadiga executiva.",
+      whatEvidenceSuggests: "O reconhecimento dos sintomas associado a estratégias comportamentais melhora expressivamente a autonomia diária.",
+      whatWeDontKnowYet: "A variação exata da expressão sintomática em diferentes contextos culturais e profissionais ainda demanda investigações contínuas."
+    },
+    originalValue: [
+      { type: "SYMPTOM_MAP", description: "Mapeamento estruturado dos sintomas de TDAH em adultos com diferenciação funcional." },
+      { type: "CONTEXT_TABLE", description: "Tabela comparativa entre sinais cotidiando e fatores diferenciais de confusão." }
+    ],
+    relatedTestSlug: "asrs",
+    relatedTest: {
+      title: "Adult ADHD Self-Report Scale (ASRS v1.1)",
+      acronym: "ASRS v1.1",
+      description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
+      questionCount: 6,
+      durationMinutes: 2,
+      testSlug: "/testes/asrs-v1-1"
+    },
+    faqs: [
+      {
+        question: "Todo mundo tem um pouco de TDAH?",
+        answer: "Todos experimentam desatenção ocasional diante de estresse ou cansaço. No TDAH, os sintomas são crônicos, onipresentes e geram prejuízo funcional significativo."
+      },
+      {
+        question: "Como posso investigar meus sintomas?",
+        answer: "Você pode iniciar com o rastreio ASRS e buscar uma consulta com especialista para avaliação diagnóstica formal."
+      }
+    ],
+    references: [
+      {
+        id: "kessler-2005-symptoms",
+        shortLabel: "Kessler et al., 2005",
+        fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine.",
+        sourceUrl: "https://www.cambridge.org"
+      }
+    ]
+  },
+  "teste-de-tdah-online": {
+    slug: "teste-de-tdah-online",
+    seoTitle: "Teste de TDAH Online: Como Funciona o ASRS | Mental Saúde",
+    seoDescription: "Entenda como funciona o teste de TDAH online baseado no ASRS v1.1, para que serve o rastreio e como interpretar os resultados com segurança.",
+    category: "Ferramentas e Testes",
+    readingTime: "6 min de leitura",
+    title: "Teste de TDAH online: como funciona o ASRS e o que o resultado significa",
+    subtitle: "Conheça a metodologia do rastreio de TDAH em adultos, o papel do questionário ASRS e os limites éticos da autoavaliação digital.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    primaryEntity: "Teste de TDAH",
+    directAnswer: "O teste de TDAH online na Mental Saúde utiliza a escala validada ASRS v1.1 para rastreio de sintomas em adultos. Ele indica a necessidade de investigação profissional, mas não substitui o diagnóstico clínico.",
+    keyTakeaways: [
+      "O ASRS é um instrumento oficial de rastreio desenvolvido pela OMS e Harvard.",
+      "O teste auxilia na organização de percepções sobre desatenção e hiperatividade recentes.",
+      "Resultados elevados sinalizam a conveniência de agendar uma avaliação com médico ou psicólogo.",
+      "A plataforma protege a privacidade das respostas por meio de salvamento local e restrição de indexação no resultado."
+    ],
+    tableOfContents: [
+      { id: "o-que-e-o-teste", label: "O que é o teste de TDAH online" },
+      { id: "como-funciona-asrs", label: "Como o ASRS funciona" },
+      { id: "significado-do-resultado", label: "O que o resultado significa" },
+      { id: "privacidade-e-sigilo", label: "Privacidade e sigilo" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "o-que-e-o-teste",
+        title: "O que é o teste de TDAH online",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Testes online de saúde mental funcionam como ferramentas educacionais e de rastreio inicial. No caso do TDAH em adultos, o padrão-ouro internacional é a escala ASRS v1.1." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "como-funciona-asrs",
+        title: "Como o ASRS avalia os sintomas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O questionário aborda a frequência de comportamentos típicos nos últimos seis meses, pontuando domínios de desatenção e hiperatividade-impulsividade." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "significado-do-resultado",
+        title: "O que o resultado significa na prática",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Um escore acima do ponto de corte sugere forte probabilidade de sintomas consistentes com TDAH adulto, recomendando validação por avaliação clínica especializada." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "privacidade-e-sigilo",
+        title: "Privacidade e sigilo das respostas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "As respostas fornecidas durante a execução do ASRS permanecem em seu dispositivo e no painel privado, sem exposição pública ou compartilhamento de dados clínicos." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Ferramentas digitais de rastreio facilitam o acesso à psicoeducação e incentivam a busca precoce por ajuda profissional.",
+      whatEvidenceSuggests: "Questionários estruturados reduzem barreiras de engajamento na auto-observação.",
+      whatWeDontKnowYet: "A adesão a tratamentos após rastreio digital varia conforme a disponibilidade de serviços de saúde na região."
+    },
+    originalValue: [
+      { type: "TEST_INTENT_EXPLORER", description: "Explicação metodológica detalhada da intenção de busca por testes de TDAH online." }
+    ],
+    relatedTestSlug: "asrs",
+    relatedTest: {
+      title: "Adult ADHD Self-Report Scale (ASRS v1.1)",
+      acronym: "ASRS v1.1",
+      description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
+      questionCount: 6,
+      durationMinutes: 2,
+      testSlug: "/testes/asrs-v1-1"
+    },
+    faqs: [
+      {
+        question: "O teste online dá diagnóstico de TDAH?",
+        answer: "Não. Nenhum teste digital substitui a avaliação clínica presencial ou remota conduzida por profissional habilitado."
+      },
+      {
+        question: "Preciso pagar para fazer o ASRS?",
+        answer: "Não. Todos os testes na Mental Saúde são gratuitos e abertos."
+      }
+    ],
+    references: [
+      {
+        id: "who-asrs-ref",
+        shortLabel: "WHO / Harvard ASRS",
+        fullCitation: "World Health Organization & Harvard Medical School. Adult ADHD Self-Report Scale (ASRS).",
+        sourceUrl: "https://www.hcp.med.harvard.edu/ncs/asrs.php"
       }
     ]
   },
