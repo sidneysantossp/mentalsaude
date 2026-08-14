@@ -994,5 +994,284 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
       }
     ]
+  },
+  "ansiedade-tontura-enjoo-palpitacao": {
+    slug: "ansiedade-tontura-enjoo-palpitacao",
+    seoTitle: "Ansiedade pode causar tontura, enjoo e palpitação? | Mental Saúde",
+    seoDescription: "Entenda a relação entre ansiedade e manifestações somáticas como palpitações, tonturas e enjoos, e quando buscar avaliação médica.",
+    category: "Sintomas e Manifestações",
+    readingTime: "6 min de leitura",
+    title: "Ansiedade pode causar tontura, enjoo e palpitação?",
+    subtitle: "Entenda a relação entre ansiedade e manifestações somáticas e quando buscar avaliação médica.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Sintomas Somáticos",
+    directAnswer: "Sim, a ansiedade severa ativa o sistema nervoso simpático, provocando taquicardia, alteração na respiração e sensações de tontura ou enjoo. No entanto, sintomas físicos intensos exigem sempre investigação médica diferencial para excluir causas orgânicas.",
+    keyTakeaways: [
+      "A hiperativação simpática e a respiração acelerada (hiperventilação) geram tonturas e palpitações.",
+      "O eixo cérebro-intestino explica enjoos e desconfortos gástricos em momentos de pico de estresse.",
+      "Todo sintoma somático novo ou recorrente deve ser avaliado por um médico para excluir condições clínicas.",
+      "O GAD-7 auxilia na mensuração da carga global de ansiedade que pode estar repercutindo no corpo.",
+      "Técnicas de respiração diafragmática ajudam a modular a intensidade das reações somáticas agudas."
+    ],
+    tableOfContents: [
+      { id: "como-o-corpo-reage", label: "Como o corpo reage à ansiedade" },
+      { id: "tontura-e-palpituacao", label: "Palpitações e tontura: o que acontece" },
+      { id: "investigacao-medica", label: "A importância da investigação médica" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "como-o-corpo-reage",
+        title: "Como o corpo reage à ansiedade",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A resposta de luta ou fuga aciona uma descarga de adrenalina e cortisol, redirecionando o fluxo sanguíneo e alterando a frequência cardíaca e respiratória " },
+              { text: "Katon W et al., 2020", refId: "katon-2020", displayText: "Katon W et al., 2020" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Manifestações somáticas são frequentes em transtornos ansiosos.",
+      whatEvidenceSuggests: "Investigação clínica rigorosa precede qualquer atribuição exclusiva à ansiedade.",
+      whatWeDontKnowYet: "Variações individuais exatas na sensibilidade interoceptiva."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Palpitação por ansiedade é perigosa?",
+        answer: "Geralmente benigna se investigada, mas exige avaliação cardiológica."
+      }
+    ],
+    references: [
+      {
+        id: "katon-2020",
+        shortLabel: "Katon et al., 2020",
+        fullCitation: "Katon, W., et al. (2020). Somatic symptoms and anxiety disorders. Journal of Psychosomatic Research.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
+  },
+  "ansiedade-no-trabalho": {
+    slug: "ansiedade-no-trabalho",
+    seoTitle: "Ansiedade no trabalho: sinais e impacto na rotina | Mental Saúde",
+    seoDescription: "Identifique os sinais de que a ansiedade e o estresse profissional estão prejudicando seu desempenho e bem-estar.",
+    category: "Ambiente Profissional",
+    readingTime: "6 min de leitura",
+    title: "Ansiedade no trabalho: sinais de que ela está afetando sua rotina",
+    subtitle: "Identifique os sinais de que a ansiedade profissional está prejudicando seu desempenho e bem-estar.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Ansiedade Ocupacional",
+    directAnswer: "A ansiedade no trabalho manifesta-se por procrastinação crônica, exaustão mental ao fim do expediente, irritabilidade com colegas e queda de rendimento impulsionada pelo perfeccionismo.",
+    keyTakeaways: [
+      "Altas exigências e baixo controle no trabalho elevam o risco de esgotamento.",
+      "Estabelecer limites claros entre expediente e descanso é essencial para a saúde mental.",
+      "O GAD-7 pode ajudar a mapear o nível de tensão acumulada."
+    ],
+    tableOfContents: [
+      { id: "sinais-no-trabalho", label: "Sinais de alerta no ambiente laboral" },
+      { id: "estrategias", label: "Estratégias de preservação" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "sinais-no-trabalho",
+        title: "Sinais de alerta no ambiente laboral",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Ambientes com sobrecarga crônica e falta de autonomia deterioram o bem-estar psicológico " },
+              { text: "Hasson D et al., 2019", refId: "hasson-2019", displayText: "Hasson D et al., 2019" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O estresse ocupacional crônico impacta a produtividade e a saúde.",
+      whatEvidenceSuggests: "Intervenções organizacionais e apoio psicológico individual.",
+      whatWeDontKnowYet: "Eficácia de políticas remotas isoladas sem suporte clínico."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Como lidar com prazos sufocantes?",
+        answer: "Dividir tarefas em etapas menores e comunicar limites de forma assertiva."
+      }
+    ],
+    references: [
+      {
+        id: "hasson-2019",
+        shortLabel: "Hasson et al., 2019",
+        fullCitation: "Hasson, D., et al. (2019). Occupational stress and mental health. Occupational and Environmental Medicine.",
+        sourceUrl: "https://oem.bmj.com"
+      }
+    ]
+  },
+  "terapia-para-ansiedade": {
+    slug: "terapia-para-ansiedade",
+    seoTitle: "Terapia para ansiedade: como funciona e abordagens | Mental Saúde",
+    seoDescription: "Conheça como a psicoterapia baseada em evidências atua na reestruturação de quadros de ansiedade.",
+    category: "Tratamento e Abordagens",
+    readingTime: "7 min de leitura",
+    title: "Terapia para ansiedade: como funciona e quais abordagens são utilizadas",
+    subtitle: "Conheça como a psicoterapia baseada em evidências atua na reestruturação de quadros ansiosos.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Psicoterapia para Ansiedade",
+    directAnswer: "A psicoterapia, especialmente a Terapia Cognitivo-Comportamental (TCC), capacita o paciente a identificar distorções cognitivas, enfrentar gradualmente medos e desenvolver estratégias duradouras de regulação emocional.",
+    keyTakeaways: [
+      "A TCC possui eficácia robusta e duradoura respaldada por meta-análises internacionais.",
+      "O processo terapêutico é colaborativo e centrado em metas práticas.",
+      "O GAD-7 pode ser monitorado em conjunto com o terapeuta para avaliar progressos."
+    ],
+    tableOfContents: [
+      { id: "como-funciona", label: "Como a psicoterapia atua na ansiedade" },
+      { id: "abordagens", label: "Principais abordagens validadas" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "como-funciona",
+        title: "Como a psicoterapia atua na ansiedade",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Ensaios clínicos randomizados demonstram que abordagens estruturadas reduzem significativamente os escores de ansiedade a médio e longo prazo " },
+              { text: "Cuijpers P et al., 2021", refId: "cuijpers-2021", displayText: "Cuijpers P et al., 2021" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Psicoterapia estruturada altera padrões cognitivos disfuncionais.",
+      whatEvidenceSuggests: "Sessões semanais regulares com profissionais habilitados.",
+      whatWeDontKnowYet: "Comparação exata de duração ótima para manutenção de ganhos."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "Quanto tempo leva para a terapia fazer efeito?",
+        answer: "Muitos pacientes percebem melhorias funcionais entre 8 a 12 semanas de sessões regulares."
+      }
+    ],
+    references: [
+      {
+        id: "cuijpers-2021",
+        shortLabel: "Cuijpers et al., 2021",
+        fullCitation: "Cuijpers, P., et al. (2021). Psychotherapy for anxiety disorders: a meta-analysis. Lancet Psychiatry.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
+  },
+  "ansiedade-ou-depressao": {
+    slug: "ansiedade-ou-depressao",
+    seoTitle: "Ansiedade ou depressão: como diferenciar sinais e buscar ajuda | Mental Saúde",
+    seoDescription: "Entenda a sobreposição clínica, as diferenças essenciais e a importância da avaliação profissional entre ansiedade e depressão.",
+    category: "Diagnóstico e Diferenciação",
+    readingTime: "7 min de leitura",
+    title: "Ansiedade ou depressão: como diferenciar sinais e quando buscar avaliação",
+    subtitle: "Entenda a sobreposição clínica, as diferenças essenciais e a importância da avaliação profissional.",
+    author: "Dra. Camila Ribeiro",
+    authorSlug: "camila-ribeiro",
+    reviewer: "Dr. Roberto Sampaio",
+    reviewerSlug: "roberto-sampaio",
+    reviewedAt: "13 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    primaryEntity: "Diagnóstico Diferencial Ansiedade e Depressão",
+    directAnswer: "Embora frequentemente coexistam devido à alta comorbidade, a ansiedade caracteriza-se predominantemente por hiperativação, medo antecipatório e tensão, enquanto a depressão destaca-se por humor deprimido persistente, anedonia e perda de energia.",
+    keyTakeaways: [
+      "A comorbidade entre ansiedade e depressão é frequente em contextos clínicos.",
+      "A avaliação por um profissional habilitado é indispensável para um diagnóstico preciso.",
+      "O uso de ferramentas como o GAD-7 e PHQ-9 auxilia na triagem inicial de ambos os quadros."
+    ],
+    tableOfContents: [
+      { id: "sobreposicao", label: "Sobreposição e comorbidade clínica" },
+      { id: "diferencas", label: "Distinções principais entre os quadros" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "sobreposicao",
+        title: "Sobreposição e comorbidade clínica",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Estudos longitudinais de coorte evidenciam que a presença de sintomas ansiosos crônicos eleva o risco de desenvolvimento de comorbidades depressivas ao longo da vida " },
+              { text: "Moffitt TE et al., 2017", refId: "moffitt-2017", displayText: "Moffitt TE et al., 2017" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Ansiedade e depressão compartilham vulnerabilidades genéticas e ambientais.",
+      whatEvidenceSuggests: "Avaliação clínica integrada para abranger ambos os espectros sintomáticos.",
+      whatWeDontKnowYet: "Mecanismos moleculares específicos que determinam a transição entre os quadros."
+    },
+    relatedTest: {
+      title: "Escala de Transtorno de Ansiedade Generalizada (GAD-7)",
+      acronym: "GAD-7",
+      description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
+      questionCount: 7,
+      durationMinutes: 3,
+      testSlug: "gad-7"
+    },
+    faqs: [
+      {
+        question: "É possível ter ansiedade e depressão ao mesmo tempo?",
+        answer: "Sim, a comorbidade é altamente prevalente na prática clínica."
+      }
+    ],
+    references: [
+      {
+        id: "moffitt-2017",
+        shortLabel: "Moffitt et al., 2017",
+        fullCitation: "Moffitt, T. E., et al. (2017). A longitudinal study of anxiety and depression comorbidity. American Journal of Psychiatry.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
   }
 };

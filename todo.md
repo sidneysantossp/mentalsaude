@@ -124,3 +124,11 @@
 - [x] Validar que o Article Design System V1.1 permanece FROZEN, o Content Authority Engine V1 está ativo e a First/Second Waves estão verificadas.
 - [x] Executar com sucesso a suíte de 37 testes automatizados e o build de produção.
 - [x] Atingir o STOP GATE.
+
+# Anxiety Third Wave (pasted_content_21.txt)
+- [ ] Cadastrar oportunidades, briefs e evidências dos Articles 08–11 no banco de dados.
+- [ ] Implementar as 4 novas URLs em articlesDatabase.ts usando o Article Design System V1.1 congelado.
+- [ ] Executar publication gates, verificação de canibalização e prova de segurança clínica (Article 08, 10, 11).
+- [ ] Recalcular cobertura (Before vs After) para Content, Intent, Entity, Internal Link e Test Conversion.
+- [ ] Executar a suíte de testes (37+ tests) e o build de produção.
+- [ ] Gerar o relatório MENTAL_SAUDE_ANXIETY_THIRD_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
