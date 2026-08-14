@@ -172,14 +172,14 @@
 
 # Depression Cluster System Audit (Pre-Third-Wave Gate - pasted_content_26.txt)
 - [x] Ler e reconciliar integralmente a especificação canônica pasted_content_26.txt.
-- [ ] Executar inventário completo das 7 URLs publicadas do cluster Depressão.
-- [ ] Executar Semantic Ownership Audit para cada URL (intent, entity, search need, role, test, ymyl, evidence).
-- [ ] Executar Global Cannibalization Matrix (15+ pares) e validar High Overlap Unresolved = 0.
-- [ ] Auditar o artigo geral /conteudos/depressao-sintomas-causas-tratamento e classificar como HEALTHY GENERAL GUIDE.
-- [ ] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, under/overlinked, Pillar links, PHQ-9).
-- [ ] Auditar a Pillar /depressao e classificar como PASS ou ADJUST.
-- [ ] Auditar o fluxo PHQ-9 Conversion e classificar o CTA de cada artigo.
-- [ ] Auditar YMYL e Evidence Provenance para sintomas, tratamento, ajuda profissional e teste online.
-- [ ] Avaliar individualmente as oportunidades remanescentes (Gaps A a E: sono, cansaço, motivação, terapia, antidepressivos).
-- [ ] Executar testes (45/45) e build de produção.
-- [ ] Gerar o relatório canônico MENTAL_SAUDE_DEPRESSION_CLUSTER_SYSTEM_AUDIT_REPORT.md, salvar checkpoint e parar no Pre-Third-Wave Gate.
+- [x] Executar inventário completo das 7 URLs publicadas do cluster Depressão.
+- [x] Executar Semantic Ownership Audit para cada URL (intent, entity, search need, role, test, ymyl, evidence).
+- [x] Executar Global Cannibalization Matrix (15+ pares) e validar High Overlap Unresolved = 0.
+- [x] Auditar o artigo geral /conteudos/depressao-sintomas-causas-tratamento e classificar como HEALTHY GENERAL GUIDE.
+- [x] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, under/overlinked, Pillar links, PHQ-9).
+- [x] Auditar a Pillar /depressao e classificar como PASS ou ADJUST.
+- [x] Auditar o fluxo PHQ-9 Conversion e classificar o CTA de cada artigo.
+- [x] Auditar YMYL e Evidence Provenance para sintomas, tratamento, ajuda profissional e teste online.
+- [x] Avaliar individualmente as oportunidades remanescentes (Gaps A a E: sono, cansaço, motivação, terapia, antidepressivos).
+- [x] Executar testes (45/45) e build de produção.
+- [x] Gerar o relatório canônico MENTAL_SAUDE_DEPRESSION_CLUSTER_SYSTEM_AUDIT_REPORT.md, salvar checkpoint e parar no Pre-Third-Wave Gate.
