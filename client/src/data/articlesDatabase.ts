@@ -1273,5 +1273,216 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
       }
     ]
+  },
+  "tristeza-ou-depressao": {
+    slug: "tristeza-ou-depressao",
+    seoTitle: "Tristeza ou Depressão: Como Entender a Diferença? | Mental Saúde",
+    seoDescription: "Saiba diferenciar a tristeza como experiência emocional humana comum da depressão como condição clínica que requer avaliação profissional.",
+    category: "Comparação",
+    readingTime: "6 min de leitura",
+    title: "Tristeza ou depressão: como entender a diferença?",
+    subtitle: "Compreenda os limites entre a vivência emocional passageira e os critérios clínicos que exigem atenção especializada.",
+    author: "Dra. Mariana Costa",
+    authorSlug: "dra-mariana-costa",
+    reviewer: "Dr. Carlos Eduardo Mendes",
+    reviewerSlug: "dr-carlos-eduardo-mendes",
+    reviewedAt: "Agosto de 2026",
+    image: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?auto=format&fit=crop&w=1200&q=80",
+    primaryEntity: "DEPRESSION",
+    directAnswer: "A tristeza é uma emoção humana natural e passageira diante de perdas ou frustrações, enquanto a depressão clínica é uma condição persistente que afeta o humor, a energia, a cognição e o funcionamento global por duas semanas ou mais.",
+    keyTakeaways: [
+      "A tristeza comum oscila e mantém a capacidade de vivenciar momentos de prazer.",
+      "A depressão clínica envolve sintomas persistentes como anedonia e fadiga intensa.",
+      "O rastreio com o PHQ-9 auxilia na organização de percepções, mas não substitui o diagnóstico médico."
+    ],
+    tableOfContents: [
+      { id: "emocao", label: "O que é tristeza" },
+      { id: "condicao", label: "O que entendemos por depressão" },
+      { id: "comparativo", label: "Quadro Comparativo" },
+      { id: "phq9", label: "O papel do PHQ-9" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "emocao",
+        title: "O que é tristeza",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A tristeza é uma resposta emocional fundamental e adaptativa a eventos adversos, perdas ou decepções do cotidiano. Embora desconfortável, ela tende a ser transitória e não impede de forma absoluta o engajamento em atividades essenciais ou a vivência de momentos de alívio e afeto " },
+              { text: "WHO, 2023", refId: "who-depression", displayText: "WHO, 2023" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "condicao",
+        title: "O que entendemos por depressão",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Em contraste, a depressão é um transtorno do humor caracterizado por humor deprimido persistente, perda de interesse ou prazer em atividades habituais (anedonia), alterações no sono e apetite, e fadiga crônica com duração superior a duas semanas " },
+              { text: "NIMH, 2024", refId: "nimh-depression", displayText: "NIMH, 2024" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "comparativo",
+        title: "Quadro Comparativo entre Tristeza e Depressão",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A tabela abaixo sintetiza aspectos centrais que diferenciam a vivência emocional comum do quadro clínico:" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "phq9",
+        title: "O papel do PHQ-9 no rastreio",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Ferramentas como o " },
+              { text: "PHQ-9", refId: "phq9-ref", displayText: "PHQ-9" },
+              { text: " auxiliam na mensuração da intensidade dos sintomas nas últimas duas semanas, servindo como suporte para reflexão e diálogo com profissionais de saúde mental " },
+              { text: "Kroenke K et al., 2001", refId: "kroenke-2001", displayText: "Kroenke K et al., 2001" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Tristeza é uma emoção passageira; depressão é uma condição clínica persistente.",
+      whatEvidenceSuggests: "Avaliação profissional especializada para diferenciar oscilações de humor de transtornos.",
+      whatWeDontKnowYet: "Marcadores biológicos definitivos para subtipos específicos de depressão."
+    },
+    relatedTest: {
+      title: "Questionário de Saúde do Paciente (PHQ-9)",
+      acronym: "PHQ-9",
+      description: "Instrumento validado de 9 itens para rastreio e avaliação da severidade de sintomas depressivos.",
+      questionCount: 9,
+      durationMinutes: 3,
+      testSlug: "phq-9"
+    },
+    faqs: [
+      {
+        question: "Toda tristeza prolongada é depressão?",
+        answer: "Não necessariamente. Eventos estressantes prolongados podem gerar luto ou tristeza profunda sem configurar transtorno depressivo, embora mereçam acolhimento."
+      }
+    ],
+    references: [
+      {
+        id: "who-depression",
+        shortLabel: "WHO, 2023",
+        fullCitation: "World Health Organization. (2023). Depressive disorder (depression): Key facts.",
+        sourceUrl: "https://www.who.int"
+      },
+      {
+        id: "nimh-depression",
+        shortLabel: "NIMH, 2024",
+        fullCitation: "National Institute of Mental Health. (2024). Depression basics and clinical overview.",
+        sourceUrl: "https://www.nimh.nih.gov"
+      },
+      {
+        id: "kroenke-2001",
+        shortLabel: "Kroenke et al., 2001",
+        fullCitation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
+  },
+  "teste-de-depressao-online": {
+    slug: "teste-de-depressao-online",
+    seoTitle: "Teste de Depressão Online: Como Funciona o PHQ-9 | Mental Saúde",
+    seoDescription: "Entenda como funciona o questionário PHQ-9 para rastreio de sintomas depressivos, como interpretar os resultados e quando buscar ajuda profissional.",
+    category: "Rastreio e Avaliação",
+    readingTime: "5 min de leitura",
+    title: "Teste de depressão online: como funciona o PHQ-9 e o que o resultado significa",
+    subtitle: "Conheça o instrumento validado de rastreio, sua estrutura e a importância de uma avaliação clínica profissional.",
+    author: "Dra. Mariana Costa",
+    authorSlug: "dra-mariana-costa",
+    reviewer: "Dr. Carlos Eduardo Mendes",
+    reviewerSlug: "dr-carlos-eduardo-mendes",
+    reviewedAt: "Agosto de 2026",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80",
+    primaryEntity: "DEPRESSION",
+    directAnswer: "O teste de depressão online baseado no PHQ-9 é uma ferramenta de autoavaliação com 9 perguntas que auxilia a mensurar a frequência e gravidade de sintomas depressivos nas últimas duas semanas, servindo como ponto de partida para reflexão, sem substituir o diagnóstico médico.",
+    keyTakeaways: [
+      "O PHQ-9 baseia-se nos critérios diagnósticos do DSM para transtornos depressivos.",
+      "Resultados elevados indicam necessidade de consulta com psicólogo ou psiquiatra.",
+      "A plataforma protege a privacidade dos dados de autoavaliação com armazenamento local seguro."
+    ],
+    tableOfContents: [
+      { id: "o-que-e", label: "O que é o teste online" },
+      { id: "phq9-estrutura", label: "Como o PHQ-9 funciona" },
+      { id: "interpretacao", label: "Interpretação e limitações" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "o-que-e",
+        title: "O que é um teste de depressão online",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Testes de rastreio online oferecem um meio acessível para que indivíduos organizem suas percepções sobre o próprio bem-estar emocional. Instrumentos validados como o PHQ-9 transformam critérios clínicos em questões diretas " },
+              { text: "Spitzer RL et al., 1999", refId: "spitzer-1999", displayText: "Spitzer RL et al., 1999" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "phq9-estrutura",
+        title: "Como funciona o PHQ-9",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O questionário avalia 9 critérios centrais de sintomas depressivos com pontuações de 0 (nenhuma vez) a 3 (quase todos os dias). A soma total indica a gravidade estimada dos sintomas " },
+              { text: "Kroenke K et al., 2001", refId: "kroenke-2001", displayText: "Kroenke K et al., 2001" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O PHQ-9 é um instrumento de rastreio validado internacionalmente para sintomas depressivos.",
+      whatEvidenceSuggests: "Escores elevados requerem validação diagnóstica por profissional qualificado.",
+      whatWeDontKnowYet: "Variações de resposta em subgrupos populacionais específicos sem acompanhamento."
+    },
+    relatedTest: {
+      title: "Questionário de Saúde do Paciente (PHQ-9)",
+      acronym: "PHQ-9",
+      description: "Instrumento validado de 9 itens para rastreio e avaliação da severidade de sintomas depressivos.",
+      questionCount: 9,
+      durationMinutes: 3,
+      testSlug: "phq-9"
+    },
+    faqs: [
+      {
+        question: "Fazer o teste online substitui o diagnóstico?",
+        answer: "Não. Questionários de rastreio servem para autoobservação e orientação, exigindo avaliação clínica para qualquer diagnóstico."
+      }
+    ],
+    references: [
+      {
+        id: "spitzer-1999",
+        shortLabel: "Spitzer et al., 1999",
+        fullCitation: "Spitzer, R. L., Kroenke, K., & Williams, J. B. (1999). Validation and utility of a self-report version of PRIME-MD: the PHQ primary care study. JAMA.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      },
+      {
+        id: "kroenke-2001",
+        shortLabel: "Kroenke et al., 2001",
+        fullCitation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
+      }
+    ]
   }
 };

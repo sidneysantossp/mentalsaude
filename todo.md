@@ -142,9 +142,9 @@
 - [x] Gerar o relatório MENTAL_SAUDE_ANXIETY_CLUSTER_SYSTEM_AUDIT.md, salvar checkpoint e parar no STOP GATE.
 
 # Depression Cluster Foundation Audit (pasted_content_23.txt)
-- [ ] Inventariar rotas, status, HTTP e indexabilidade para Depressão e PHQ-9.
-- [ ] Auditar o artigo existente /conteudos/depressao-sintomas-causas-tratamento, o Pilar /depressao e a entidade PHQ-9.
-- [ ] Mapear o modelo de entidade, intents, matriz prévia de canibalização e backlog de 15 oportunidades.
-- [ ] Avaliar Safety Architecture, YMYL, Evidence Provenance e Internal Link Architecture.
-- [ ] Executar suíte de testes (37/37) e build de produção.
-- [ ] Gerar MENTAL_SAUDE_DEPRESSION_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no Pre-Content-Production Gate.
+- [x] Inventariar rotas, status, HTTP e indexabilidade para Depressão e PHQ-9.
+- [x] Auditar o artigo existente /conteudos/depressao-sintomas-causas-tratamento, o Pilar /depressao e a entidade PHQ-9.
+- [x] Mapear o modelo de entidade, intents, matriz prévia de canibalização e backlog de 15 oportunidades.
+- [x] Avaliar Safety Architecture, YMYL, Evidence Provenance e Internal Link Architecture.
+- [x] Executar suíte de testes (37/37) e build de produção.
+- [x] Gerar MENTAL_SAUDE_DEPRESSION_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no Pre-Content-Production Gate.
