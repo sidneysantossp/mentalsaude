@@ -198,3 +198,12 @@
 - [x] Preservar Article Design System V1.1 FROZEN, Content Authority Engine V1, Admin e User Dashboard sem alterações de escopo.
 - [x] Executar testes (45/45) e production build.
 - [x] Gerar MENTAL_SAUDE_TDAH_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH Foundation Activation (Pre-First-Wave Public Foundation Gate - pasted_content_28.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_28.txt.
+- [x] Criar /tdah como Condition Pillar (Entity Hub) focado em adultos, com semantic ownership distinto do artigo editorial.
+- [x] Criar /testes/asrs como Test Entity Page pública com dados canônicos validados (ASRS v1.1, OMS/Harvard, screening ≠ diagnóstico).
+- [x] Registrar /tdah e /testes/asrs no Content Authority Engine e validar canibalização zero e grafo de links internos bidirecional.
+- [x] Validar SEO, schema BreadcrumbList, privacidade (noindex em resultados), safety screening vs. diagnóstico e Article Design System V1.1 FROZEN.
+- [x] Executar suíte de testes (45+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_FOUNDATION_ACTIVATION_REPORT.md, salvar checkpoint e parar no STOP GATE.
