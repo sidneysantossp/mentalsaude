@@ -1,0 +1,54 @@
+{
+  "inventoryCount": 7,
+  "inventory": [
+    {
+      "slug": "/depressao",
+      "role": "Condition Pillar",
+      "intent": "CONDITION",
+      "entity": "DEPRESSION"
+    },
+    {
+      "slug": "/conteudos/depressao-sintomas-causas-tratamento",
+      "role": "General Editorial Guide",
+      "intent": "CONDITION",
+      "entity": "DEPRESSION"
+    },
+    {
+      "slug": "/conteudos/tristeza-ou-depressao",
+      "role": "Sadness vs Depression",
+      "intent": "COMPARISON",
+      "entity": "SADNESS_VS_DEPRESSION"
+    },
+    {
+      "slug": "/conteudos/teste-de-depressao-online",
+      "role": "Test Intent / PHQ-9 Explainer",
+      "intent": "TEST",
+      "entity": "PHQ9"
+    },
+    {
+      "slug": "/conteudos/sintomas-de-depressao",
+      "role": "Depression Symptoms",
+      "intent": "SYMPTOM",
+      "entity": "DEPRESSIVE_SYMPTOMS"
+    },
+    {
+      "slug": "/conteudos/qual-profissional-procurar-depressao",
+      "role": "Professional Help",
+      "intent": "PROFESSIONAL_HELP",
+      "entity": "DEPRESSION_CARE"
+    },
+    {
+      "slug": "/conteudos/tratamento-depressao",
+      "role": "Depression Treatment Overview",
+      "intent": "TREATMENT",
+      "entity": "DEPRESSION_TREATMENT"
+    }
+  ],
+  "orphanedContents": 0,
+  "totalLinks": 18,
+  "generalGuideStatus": "HEALTHY GENERAL GUIDE",
+  "pillarStatus": "PASS",
+  "cannibalizationUnresolved": 0,
+  "unsupportedCriticalClaims": 0,
+  "recommendation": "NO THIRD WAVE REQUIRED AT THIS STAGE. REPOSITION REMAINING GAPS OR MERGE INTO EXISTING PILLARS."
+}
