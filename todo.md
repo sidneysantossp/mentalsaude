@@ -117,3 +117,10 @@
 - [x] Validar que as 4 novas URLs da Second Wave existem, compilam e passam nos testes e no build.
 - [x] Executar testes (37/37) e build de produção com sucesso.
 - [x] Salvar checkpoint e alcançar o STOP GATE.
+
+# Execution of pasted_content_20.txt (Canonical Spec)
+- [x] Ler integralmente pasted_content_20.txt e adotar como canônico.
+- [x] Reconciliar a especificação com o motor, banco, rotas e testes atuais.
+- [x] Validar que o Article Design System V1.1 permanece FROZEN, o Content Authority Engine V1 está ativo e a First/Second Waves estão verificadas.
+- [x] Executar com sucesso a suíte de 37 testes automatizados e o build de produção.
+- [x] Atingir o STOP GATE.
