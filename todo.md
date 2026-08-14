@@ -217,3 +217,33 @@
 - [x] Validar YMYL, safety clínica, diagnostic shortcuts = 0 e screening vs. diagnóstico.
 - [x] Executar suíte de testes (48+ testes) e build de produção.
 - [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH First Wave Integrity Closeout (pasted_content_30.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_30.txt.
+- [ ] Auditar e atualizar /tdah para incluir links reais e semânticos (Entenda -> tdah-em-adultos, Sintomas -> sintomas-de-tdah-em-adultos, Avaliação/Testes -> teste-de-tdah-online e /testes/asrs).
+- [ ] Verificar e enriquecer links bidirecionais dos três artigos de TDAH de volta para /tdah e /testes/asrs.
+- [ ] Integrar os três conteúdos de TDAH ao Hub Editorial (/conteudos).
+- [ ] Verificar registro no Content Authority Engine, orphan contents = 0 e broken links = 0.
+- [ ] Executar visual QA em /tdah (desktop e mobile) e verificar cliques reais.
+- [x] Executar suíte de testes (51+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_INTEGRITY_CLOSEOUT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH First Wave Integrity Closeout (pasted_content_30.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_30.txt.
+- [x] Auditar e atualizar /tdah para incluir links reais e semânticos para os três artigos e /testes/asrs.
+- [x] Verificar links bidirecionais dos três artigos de TDAH para /tdah e, quando adequado, /testes/asrs.
+- [x] Integrar os três conteúdos de TDAH ao Hub Editorial (/conteudos) sem tornar todos Featured.
+- [x] Verificar registro no Content Authority Engine, orphan contents = 0 e broken internal links = 0.
+- [x] Executar visual QA desktop/mobile em /tdah e /conteudos e validar cliques reais.
+- [x] Executar suíte de testes (51+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_INTEGRITY_CLOSEOUT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH First Wave Integrity Closeout (pasted_content_30.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_30.txt.
+- [x] Auditar e atualizar /tdah para incluir links reais e semânticos para os três artigos e /testes/asrs.
+- [x] Verificar links bidirecionais dos três artigos de TDAH para /tdah e, quando adequado, /testes/asrs.
+- [x] Integrar os três conteúdos de TDAH ao Hub Editorial (/conteudos) sem tornar todos Featured.
+- [x] Verificar registro no Content Authority Engine, orphan contents = 0 e broken internal links = 0.
+- [x] Executar visual QA desktop/mobile em /tdah e /conteudos e validar cliques reais.
+- [x] Executar suíte de testes (51+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_INTEGRITY_CLOSEOUT.md, salvar checkpoint e parar no STOP GATE.

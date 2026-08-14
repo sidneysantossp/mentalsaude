@@ -1175,6 +1175,8 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
             segments: [
               { text: "A investigação diagnóstica em adultos é retrospectiva e clínica, investigando o histórico de sintomas desde a infância, relatos de familiares e aplicação de escalas validadas. O ASRS v1.1 (Adult ADHD Self-Report Scale), desenvolvido em parceria com a OMS, é um instrumento amplamente utilizado para rastreio inicial " },
               { text: "Kessler et al., 2005", refId: "kessler-2005", displayText: "Kessler et al., 2005" },
+              { text: ". " },
+              { text: "Conheça a entidade do ASRS v1.1", displayText: "Conheça a entidade do ASRS v1.1", href: "/testes/asrs" },
               { text: "." }
             ]
           }
@@ -1187,6 +1189,19 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
           {
             segments: [
               { text: "O manejo do TDAH em adultos costuma ser multimodal, combinando psicoeducação, estratégias de organização ambiental, psicoterapia e, quando indicado por um médico psiquiatra, suporte farmacológico adequado." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "continue-explorando",
+        title: "Continue explorando o cluster TDAH",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Volte ao " },
+              { text: "hub de TDAH em adultos", displayText: "hub de TDAH em adultos", href: "/tdah" },
+              { text: " para escolher conteúdos sobre sintomas e avaliação." }
             ]
           }
         ]
@@ -1326,7 +1341,22 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         paragraphs: [
           {
             segments: [
-              { text: "O instrumento ASRS v1.1 ajuda a quantificar a frequência recente de sintomas. Para uma investigação aprofundada, consulte um médico psiquiatra ou psicólogo especializado." }
+              { text: "O instrumento ASRS v1.1 ajuda a quantificar a frequência recente de sintomas. Para uma investigação aprofundada, consulte um médico psiquiatra ou psicólogo especializado. " },
+              { text: "Conheça a entidade do ASRS v1.1", displayText: "Conheça a entidade do ASRS v1.1", href: "/testes/asrs" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "continue-explorando",
+        title: "Continue explorando o cluster TDAH",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Consulte o " },
+              { text: "hub de TDAH em adultos", displayText: "hub de TDAH em adultos", href: "/tdah" },
+              { text: " para conhecer o guia geral e o rastreio ASRS." }
             ]
           }
         ]
@@ -1366,6 +1396,12 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         shortLabel: "Kessler et al., 2005",
         fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine.",
         sourceUrl: "https://www.cambridge.org"
+      },
+      {
+        id: "who-asrs-symptoms",
+        shortLabel: "WHO / Harvard ASRS",
+        fullCitation: "World Health Organization & Harvard Medical School. Adult ADHD Self-Report Scale (ASRS) Symptom Checklist.",
+        sourceUrl: "https://www.hcp.med.harvard.edu/ncs/asrs.php"
       }
     ]
   },
@@ -1443,6 +1479,21 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
             ]
           }
         ]
+      },
+      {
+        id: "continue-explorando",
+        title: "Continue explorando o cluster TDAH",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Antes de iniciar, conheça a " },
+              { text: "entidade pública do ASRS", displayText: "entidade pública do ASRS", href: "/testes/asrs" },
+              { text: " e retorne ao " },
+              { text: "hub de TDAH em adultos", displayText: "hub de TDAH em adultos", href: "/tdah" },
+              { text: " para ler os conteúdos do cluster." }
+            ]
+          }
+        ]
       }
     ],
     evidenceBox: {
@@ -1478,6 +1529,12 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         shortLabel: "WHO / Harvard ASRS",
         fullCitation: "World Health Organization & Harvard Medical School. Adult ADHD Self-Report Scale (ASRS).",
         sourceUrl: "https://www.hcp.med.harvard.edu/ncs/asrs.php"
+      },
+      {
+        id: "kessler-2005-test",
+        shortLabel: "Kessler et al., 2005",
+        fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov/16102997/"
       }
     ]
   },

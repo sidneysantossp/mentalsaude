@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useEffect } from "react";
+import { trpc } from "@/lib/trpc";
 import PublicHeader from "@/components/PublicHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Activity, ShieldAlert, CheckCircle2, ArrowRight, BookOpen, FileCheck } from "lucide-react";
+import { Activity, ShieldAlert, CheckCircle2, ArrowRight, BookOpen, FileCheck, LoaderCircle } from "lucide-react";
 
 export function AsrsEntityPage() {
   return (
@@ -116,6 +118,31 @@ export function AsrsEntityPage() {
           <p>© 2026 Mental Saúde. Ciência, Cuidado e Equilíbrio.</p>
         </div>
       </footer>
+    </div>
+  );
+}
+
+
+export function AsrsExecutionLaunchPage() {
+  const [, setLocation] = useLocation();
+  const { data: assessments, isLoading, error } = trpc.assessments.listPublished.useQuery();
+
+  useEffect(() => {
+    const assessment = assessments?.find(item => item.slug.includes("asrs") || item.title.toLowerCase().includes("asrs"));
+    if (assessment) setLocation(`/avaliacao/${assessment.id}`);
+  }, [assessments, setLocation]);
+
+  return (
+    <div className="grid min-h-screen place-items-center bg-background px-6 text-foreground">
+      <div className="max-w-md text-center">
+        {isLoading && <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-primary" aria-label="Carregando execução do ASRS" />}
+        <h1 className="mt-5 font-serif text-3xl font-semibold">Preparando o ASRS v1.1</h1>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">
+          Você será encaminhado para a execução privada do instrumento. O ASRS é um rastreio e não confirma diagnóstico.
+        </p>
+        {error && <p className="mt-4 text-sm text-destructive">Não foi possível localizar a execução publicada. Volte ao catálogo de testes.</p>}
+        <Link href="/testes" className="mt-6 inline-flex font-semibold text-primary underline underline-offset-4">Voltar ao catálogo</Link>
+      </div>
     </div>
   );
 }

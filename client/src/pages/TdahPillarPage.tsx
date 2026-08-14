@@ -62,65 +62,49 @@ export function TdahPillarPage() {
           {/* Core Sections */}
           <div className="grid md:grid-cols-2 gap-6">
             
-            <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6 space-y-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">
-                  01
-                </div>
-                <h3 className="text-xl font-semibold text-foreground">Principais Grupos de Sinais</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Compreenda a manifestação dos sintomas cardinais: desatenção crônica, dificuldade em iniciar e concluir tarefas, desorganização espacial e mental, e impulsividade comportamental ou decisória.
-                </p>
-                <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1">
-                  <span>Sinais e Critérios Funcionais</span>
-                </div>
-              </CardContent>
-            </Card>
+            <Link href="/conteudos/tdah-em-adultos" className="group block">
+              <Card className="h-full hover:shadow-md transition-shadow">
+                <CardContent className="p-6 space-y-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">01</div>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary">Entenda o TDAH em adultos</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">Guia editorial geral sobre sinais, avaliação, funções executivas e impactos do TDAH na vida adulta.</p>
+                  <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1"><span>Leia o guia geral</span><ArrowRight className="w-3 h-3" /></div>
+                </CardContent>
+              </Card>
+            </Link>
 
-            <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6 space-y-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">
-                  02
-                </div>
-                <h3 className="text-xl font-semibold text-foreground">Avaliação vs. Rastreio</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Diferencie rigorosamente o rastreio padronizado (como a escala ASRS) do diagnóstico clínico formal, conduzido por médicos psiquiatras ou psicólogos especializados.
-                </p>
-                <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1">
-                  <span>Screening ≠ Diagnóstico</span>
-                </div>
-              </CardContent>
-            </Card>
+            <Link href="/conteudos/sintomas-de-tdah-em-adultos" className="group block">
+              <Card className="h-full hover:shadow-md transition-shadow">
+                <CardContent className="p-6 space-y-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">02</div>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary">Sintomas de TDAH em adultos</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">Aprofundamento em desatenção, impulsividade, hiperatividade e sinais que não são exclusivos de TDAH.</p>
+                  <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1"><span>Explorar sintomas</span><ArrowRight className="w-3 h-3" /></div>
+                </CardContent>
+              </Card>
+            </Link>
 
-            <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6 space-y-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">
-                  03
-                </div>
-                <h3 className="text-xl font-semibold text-foreground">Impactos na Vida Adulta</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Como a disfunção executiva afeta o desempenho profissional, a consistência nos estudos, a gestão da rotina doméstica e a dinâmica dos relacionamentos interpessoais.
-                </p>
-                <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1">
-                  <span>Rotina e Trabalho</span>
-                </div>
-              </CardContent>
-            </Card>
+            <Link href="/conteudos/teste-de-tdah-online" className="group block">
+              <Card className="h-full hover:shadow-md transition-shadow">
+                <CardContent className="p-6 space-y-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">03</div>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary">Avaliação e teste de TDAH</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">Entenda a diferença entre rastreio e diagnóstico e conheça o teste de TDAH online baseado no ASRS.</p>
+                  <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1"><span>Conhecer o teste</span><ArrowRight className="w-3 h-3" /></div>
+                </CardContent>
+              </Card>
+            </Link>
 
-            <Card className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6 space-y-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">
-                  04
-                </div>
-                <h3 className="text-xl font-semibold text-foreground">Tratamento e Suporte</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Visão geral das abordagens multimodais baseadas em evidências, incluindo psicoterapia cognitivo-comportamental (TCC), psicoeducação e suporte farmacológico supervisionado.
-                </p>
-                <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1">
-                  <span>Abordagem Multimodal</span>
-                </div>
-              </CardContent>
-            </Card>
+            <Link href="/testes/asrs" className="group block">
+              <Card className="h-full hover:shadow-md transition-shadow">
+                <CardContent className="p-6 space-y-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold">04</div>
+                  <h3 className="text-xl font-semibold text-foreground group-hover:text-primary">ASRS: instrumento de rastreio</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">Conheça a entidade do ASRS v1.1 e seus limites antes de iniciar a execução privada.</p>
+                  <div className="pt-2 text-xs text-primary font-medium flex items-center gap-1"><span>Conhecer o ASRS</span><ArrowRight className="w-3 h-3" /></div>
+                </CardContent>
+              </Card>
+            </Link>
 
           </div>
 

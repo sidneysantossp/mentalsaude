@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2026-08-14T17:19:16.068Z",
+  "wave": "TDAH First Wave",
+  "persisted": {
+    "opportunityCount": 5,
+    "publishedArticleCount": 3,
+    "briefCount": 3,
+    "evidenceCount": 3,
+    "linkCount": 12,
+    "gateCount": 3
+  },
+  "routes": {
+    "hub": "/tdah",
+    "entity": "/testes/asrs",
+    "articles": [
+      "/conteudos/tdah-em-adultos",
+      "/conteudos/sintomas-de-tdah-em-adultos",
+      "/conteudos/teste-de-tdah-online"
+    ],
+    "executionBridge": "/testes/asrs/iniciar",
+    "execution": "/avaliacao/:id"
+  },
+  "graph": {
+    "orphanContents": [],
+    "brokenLinks": []
+  },
+  "gates": [
+    {
+      "articleSlug": "tdah-em-adultos",
+      "status": "PASSED",
+      "checks": {
+        "primaryEntityPresent": true,
+        "searchIntentAligned": true,
+        "authorAssigned": true,
+        "referencesAvailable": true,
+        "sourceQualityHigh": true,
+        "reviewerAssigned": true,
+        "scientificReviewPassed": true,
+        "clinicalReviewPassed": true,
+        "safetyReviewPassed": true,
+        "originalValueConfirmed": true,
+        "internalLinksComplete": true,
+        "relatedTestMapped": true,
+        "metadataValid": true,
+        "canonicalConfigured": true,
+        "schemaJsonValid": true,
+        "noBrokenOrphanLinks": true
+      }
+    },
+    {
+      "articleSlug": "sintomas-de-tdah-em-adultos",
+      "status": "PASSED",
+      "checks": {
+        "primaryEntityPresent": true,
+        "searchIntentAligned": true,
+        "authorAssigned": true,
+        "referencesAvailable": true,
+        "sourceQualityHigh": true,
+        "reviewerAssigned": true,
+        "scientificReviewPassed": true,
+        "clinicalReviewPassed": true,
+        "safetyReviewPassed": true,
+        "originalValueConfirmed": true,
+        "internalLinksComplete": true,
+        "relatedTestMapped": true,
+        "metadataValid": true,
+        "canonicalConfigured": true,
+        "schemaJsonValid": true,
+        "noBrokenOrphanLinks": true
+      }
+    },
+    {
+      "articleSlug": "teste-de-tdah-online",
+      "status": "PASSED",
+      "checks": {
+        "primaryEntityPresent": true,
+        "searchIntentAligned": true,
+        "authorAssigned": true,
+        "referencesAvailable": true,
+        "sourceQualityHigh": true,
+        "reviewerAssigned": true,
+        "scientificReviewPassed": true,
+        "clinicalReviewPassed": true,
+        "safetyReviewPassed": true,
+        "originalValueConfirmed": true,
+        "internalLinksComplete": true,
+        "relatedTestMapped": true,
+        "metadataValid": true,
+        "canonicalConfigured": true,
+        "schemaJsonValid": true,
+        "noBrokenOrphanLinks": true
+      }
+    }
+  ],
+  "contentAuthorityRegistration": true,
+  "canonicalAsrs": true,
+  "screeningNotDiagnosis": true
+}

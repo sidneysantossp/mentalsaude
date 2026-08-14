@@ -52,6 +52,21 @@ function AssessmentContent({ assessmentId }: { assessmentId: number }) {
   const hasConsent = Boolean(consent.data?.accepted || termsAcceptedLocally);
 
   useEffect(() => {
+    if (!result) return;
+    const existingRobots = document.querySelector('meta[name="robots"]');
+    const createdRobots = !existingRobots;
+    const previousContent = existingRobots?.getAttribute("content") ?? "";
+    const robots = existingRobots ?? document.createElement("meta");
+    robots.setAttribute("name", "robots");
+    robots.setAttribute("content", "noindex,nofollow,noarchive");
+    if (createdRobots) document.head.appendChild(robots);
+    return () => {
+      if (createdRobots) robots.remove();
+      else robots.setAttribute("content", previousContent);
+    };
+  }, [result]);
+
+  useEffect(() => {
     if (!assessment.data || !hasConsent || (isAsrs && !ageAcknowledged) || startedRef.current) return;
     startedRef.current = true;
     createAttempt({ assessmentId }, { onSuccess: setAttemptId, onError: issue => setBlockingError(issue.message) });
