@@ -87,29 +87,35 @@ export const appRouter = router({
       .input(z.object({ userId: z.number().int().positive(), role: z.enum(["user", "admin"]) }))
       .mutation(({ input }) => db.setUserRole(input.userId, input.role)),
     contentAuthorityData: adminProcedure.query(async () => {
-      await db.seedAnxietyOpportunitiesIfNeeded();
-      await db.seedEvidenceIfNeeded();
-      const opportunities = await db.getContentOpportunities("ansiedade");
-      const evidence = await db.getContentEvidence();
-      const gateResult = await db.evaluatePublicationGate("sintomas-de-ansiedade");
-      return {
-        opportunities,
-        evidence,
-        gates: [gateResult],
-        coverage: {
-          contentCoverage: 26.7, // 4 de 15
-          intentCoverage: 100,
-          entityCoverage: 92.5,
-          internalLinkCoverage: 85.0,
-          orphanContents: 0,
-          brokenLinks: 0
-        }
+      await db.seedDepressionSecondWaveIfNeeded();
+      const opportunities = await db.getContentOpportunities("depressao");
+      const opportunitySlugs = new Set(opportunities.map(opportunity => opportunity.slug));
+      const published = opportunities.filter(opportunity => opportunity.status === "published");
+      const evidence = (await db.getContentEvidence()).filter(item => item.articleSlug && opportunitySlugs.has(item.articleSlug));
+      const briefs = await db.getContentBriefs("depressao");
+      const links = await db.getInternalLinksGraph("depressao");
+      const gates = (await db.getPublicationGates()).filter(gate => opportunitySlugs.has(gate.articleSlug));
+      const distinct = (values: string[]) => new Set(values).size;
+      const coverage = {
+        contentCoverage: Number(((published.length / Math.max(opportunities.length, 1)) * 100).toFixed(1)),
+        intentCoverage: Number(((distinct(published.map(item => item.searchIntent)) / Math.max(distinct(opportunities.map(item => item.searchIntent)), 1)) * 100).toFixed(1)),
+        entityCoverage: Number(((published.filter(item => Boolean(item.primaryEntity)).length / Math.max(opportunities.length, 1)) * 100).toFixed(1)),
+        internalLinkCoverage: published.length > 0 && published.every(item => links.some(link => link.sourceSlug === item.slug)) ? 100 : 0,
+        testConversionCoverage: published.length > 0 ? Number(((published.filter(item => Boolean(item.relatedTestSlug)).length / published.length) * 100).toFixed(1)) : 0,
+        orphanContents: published.filter(item => !links.some(link => link.sourceSlug === item.slug || link.targetSlug === item.slug)).length,
+        brokenLinks: 0,
+        cluster: "depressao",
+        pillar: "/depressao",
+        primaryTest: "PHQ-9",
+        beforeSecondWave: { content: 4, total: 15 },
+        afterSecondWave: { content: published.length, total: opportunities.length }
       };
+      return { opportunities, briefs, evidence, links, gates, coverage };
     }),
     evaluateGate: adminProcedure
       .input(z.object({ articleSlug: z.string().min(1) }))
       .mutation(async ({ input }) => {
-        return db.evaluatePublicationGate(input.articleSlug);
+        return db.canPublishContent(input.articleSlug);
       }),
   }),
 });

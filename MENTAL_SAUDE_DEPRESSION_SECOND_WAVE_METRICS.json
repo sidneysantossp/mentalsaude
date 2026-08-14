@@ -1,0 +1,79 @@
+{
+  "before": {
+    "opportunities": 14,
+    "published": 4,
+    "contentCoverage": 28.6,
+    "intentCoverage": 50,
+    "entityCoverage": 28.6
+  },
+  "after": {
+    "opportunities": 17,
+    "published": 7,
+    "contentCoverage": 41.2,
+    "intentCoverage": 85.7,
+    "entityCoverage": 41.2
+  },
+  "internalLinkCoverage": 100,
+  "testConversionCoverage": 100,
+  "publishedSlugs": [
+    "depressao",
+    "depressao-sintomas-causas-tratamento",
+    "tristeza-ou-depressao",
+    "teste-de-depressao-online",
+    "sintomas-de-depressao",
+    "qual-profissional-procurar-depressao",
+    "tratamento-depressao"
+  ],
+  "remainingBacklog": [
+    {
+      "slug": "depressao-e-sono",
+      "intent": "informational",
+      "entity": "SLEEP"
+    },
+    {
+      "slug": "falta-de-energia-depressao",
+      "intent": "symptom",
+      "entity": "FATIGUE"
+    },
+    {
+      "slug": "falta-de-motivacao-depressao",
+      "intent": "symptom",
+      "entity": "ANHEDONIA"
+    },
+    {
+      "slug": "terapia-para-depressao",
+      "intent": "treatment",
+      "entity": "PSYCHOTHERAPY"
+    },
+    {
+      "slug": "medicamentos-antidepressivos",
+      "intent": "treatment",
+      "entity": "MEDICATION"
+    },
+    {
+      "slug": "depressao-tem-cura",
+      "intent": "informational",
+      "entity": "DEPRESSION"
+    },
+    {
+      "slug": "como-ajudar-alguem-com-depressao",
+      "intent": "support",
+      "entity": "SOCIAL_SUPPORT"
+    },
+    {
+      "slug": "depressao-trabalho-estudos",
+      "intent": "informational",
+      "entity": "FUNCTIONAL_IMPACT"
+    },
+    {
+      "slug": "depressao-e-ansiedade-juntas",
+      "intent": "comparison",
+      "entity": "CROSS_CLUSTER"
+    },
+    {
+      "slug": "depressao-fases-da-vida",
+      "intent": "informational",
+      "entity": "LIFE_STAGE"
+    }
+  ]
+}

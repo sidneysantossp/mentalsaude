@@ -220,49 +220,77 @@ export function DepressionPillarPage() {
           </div>
         </section>
 
-        {/* Cluster Navigation / Explore */}
-        <section className="border-t border-border/60 pt-12 space-y-6">
-          <h3 className="text-xl font-serif font-bold text-foreground">Explore o Cluster de Depressão</h3>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <Link href="/conteudos/depressao-sintomas-causas-tratamento">
-              <div className="p-4 rounded-xl border border-border/60 hover:border-teal-600 transition-colors bg-card cursor-pointer space-y-2">
-                <span className="text-xs font-semibold text-teal-700 dark:text-teal-300 uppercase">Guia Geral</span>
-                <h5 className="font-semibold text-foreground">Sintomas, Causas e Tratamento</h5>
-                <p className="text-xs text-muted-foreground">Visão aprofundada sobre a condição clínica.</p>
-              </div>
-            </Link>
+        {/* Cluster Navigation / Explore: grupos semânticos, não lista plana */}
+        <section className="border-t border-border/60 pt-12 space-y-8">
+          <div>
+            <h3 className="text-xl font-serif font-bold text-foreground">Explore o Cluster de Depressão</h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">Navegue por intenção: primeiro compreenda a condição, depois explore sinais, avaliação, comparação, cuidado e busca de ajuda.</p>
+          </div>
 
-            <Link href="/conteudos/tristeza-ou-depressao">
-              <div className="p-4 rounded-xl border border-border/60 hover:border-teal-600 transition-colors bg-card cursor-pointer space-y-2">
-                <span className="text-xs font-semibold text-teal-700 dark:text-teal-300 uppercase">Comparação</span>
-                <h5 className="font-semibold text-foreground">Tristeza ou Depressão</h5>
-                <p className="text-xs text-muted-foreground">Como diferenciar a experiência e o transtorno.</p>
-              </div>
-            </Link>
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><BookOpen className="h-4 w-4" /> Entenda a depressão</h4>
+              <Link href="/conteudos/depressao-sintomas-causas-tratamento" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">Guia geral</span>
+                <h5 className="mt-1 font-semibold text-foreground">Sintomas, causas, tratamento e quando procurar ajuda</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Visão ampla da condição clínica.</p>
+              </Link>
+            </div>
 
-            <Link href="/conteudos/teste-de-depressao-online">
-              <div className="p-4 rounded-xl border border-border/60 hover:border-teal-600 transition-colors bg-card cursor-pointer space-y-2">
-                <span className="text-xs font-semibold text-teal-700 dark:text-teal-300 uppercase">Rastreio</span>
-                <h5 className="font-semibold text-foreground">Teste de Depressão Online (PHQ-9)</h5>
-                <p className="text-xs text-muted-foreground">Entenda o questionário e como utilizá-lo.</p>
-              </div>
-            </Link>
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><Heart className="h-4 w-4" /> Sintomas</h4>
+              <Link href="/conteudos/sintomas-de-depressao" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">SYMPTOM</span>
+                <h5 className="mt-1 font-semibold text-foreground">Sintomas de depressão</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Sinais emocionais, cognitivos e físicos sem diagnóstico automático.</p>
+              </Link>
+            </div>
 
-            <Link href="/conteudos/ansiedade-ou-depressao">
-              <div className="p-4 rounded-xl border border-border/60 hover:border-teal-600 transition-colors bg-card cursor-pointer space-y-2">
-                <span className="text-xs font-semibold text-teal-700 dark:text-teal-300 uppercase">Ponte Cross-Cluster</span>
-                <h5 className="font-semibold text-foreground">Ansiedade ou Depressão</h5>
-                <p className="text-xs text-muted-foreground">Comorbidade e diferenciação clínica.</p>
-              </div>
-            </Link>
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><FileText className="h-4 w-4" /> Avaliação</h4>
+              <Link href="/conteudos/teste-de-depressao-online" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">Rastreio</span>
+                <h5 className="mt-1 font-semibold text-foreground">Teste de Depressão Online (PHQ-9)</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Entenda o instrumento antes de iniciar a autoavaliação.</p>
+              </Link>
+              <Link href="/testes/phq-9" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">Entidade canônica</span>
+                <h5 className="mt-1 font-semibold text-foreground">Página do PHQ-9</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Metodologia, limites e fluxo de execução.</p>
+              </Link>
+            </div>
 
-            <Link href="/testes/phq-9">
-              <div className="p-4 rounded-xl border border-border/60 hover:border-teal-600 transition-colors bg-card cursor-pointer space-y-2">
-                <span className="text-xs font-semibold text-teal-700 dark:text-teal-300 uppercase">Instrumento</span>
-                <h5 className="font-semibold text-foreground">Página Canônica do PHQ-9</h5>
-                <p className="text-xs text-muted-foreground">Detalhes técnicos e início do teste.</p>
-              </div>
-            </Link>
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><Compass className="h-4 w-4" /> Comparações</h4>
+              <Link href="/conteudos/tristeza-ou-depressao" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">Comparison</span>
+                <h5 className="mt-1 font-semibold text-foreground">Tristeza ou depressão</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Diferenças entre uma emoção humana e uma condição clínica.</p>
+              </Link>
+              <Link href="/conteudos/ansiedade-ou-depressao" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">Ponte cross-cluster</span>
+                <h5 className="mt-1 font-semibold text-foreground">Ansiedade ou depressão</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Conteúdo de diferenciação entre clusters preservado.</p>
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><ShieldCheck className="h-4 w-4" /> Tratamento</h4>
+              <Link href="/conteudos/tratamento-depressao" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">TREATMENT</span>
+                <h5 className="mt-1 font-semibold text-foreground">Depressão tem tratamento?</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Abordagens gerais, acompanhamento e limites de segurança.</p>
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300"><PhoneCall className="h-4 w-4" /> Ajuda profissional</h4>
+              <Link href="/conteudos/qual-profissional-procurar-depressao" className="block rounded-xl border border-border/60 bg-card p-4 transition-colors hover:border-teal-600">
+                <span className="text-xs font-semibold uppercase text-teal-700 dark:text-teal-300">PROFESSIONAL_HELP</span>
+                <h5 className="mt-1 font-semibold text-foreground">Qual profissional procurar?</h5>
+                <p className="mt-1 text-xs text-muted-foreground">Como psicólogo, psiquiatra e atenção primária podem participar do cuidado.</p>
+              </Link>
+            </div>
           </div>
         </section>
 

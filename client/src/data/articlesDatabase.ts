@@ -2,16 +2,23 @@ export type ParagraphSegment = {
   text: string;
   refId?: string;
   displayText?: string;
+  href?: string;
 };
 
 export type ArticleParagraph = {
   segments: ParagraphSegment[];
 };
 
+export type ArticleTable = {
+  headers: string[];
+  rows: string[][];
+};
+
 export type ArticleSection = {
   id: string;
   title: string;
   paragraphs: ArticleParagraph[];
+  table?: ArticleTable;
 };
 
 export type ScientificReference = {
@@ -30,6 +37,11 @@ export type EvidenceBoxModel = {
   whatWeKnow: string;
   whatEvidenceSuggests: string;
   whatWeDontKnowYet: string;
+};
+
+export type OriginalValueModel = {
+  type: string;
+  description: string;
 };
 
 export type RelatedTestModel = {
@@ -61,7 +73,9 @@ export type ArticleModel = {
   tableOfContents: { id: string; label: string }[];
   sections: ArticleSection[];
   evidenceBox: EvidenceBoxModel;
+  originalValue?: OriginalValueModel[];
   relatedTest?: RelatedTestModel | null; // Nullable para testar o fallback real quando omitido
+  relatedTestSlug?: string; // Referência canônica sem duplicar metadados do instrumento
   faqs: FAQItem[];
   references: ScientificReference[];
 };
@@ -376,6 +390,711 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         shortLabel: "NIMH, 2025",
         fullCitation: "National Institute of Mental Health. (2025). Depression basic overview.",
         sourceUrl: "https://www.nimh.nih.gov"
+      }
+    ]
+  },
+  "sintomas-de-depressao": {
+    slug: "sintomas-de-depressao",
+    seoTitle: "Sintomas de depressão: sinais emocionais, cognitivos e físicos | Mental Saúde",
+    seoDescription: "Conheça como sintomas de depressão podem aparecer nas emoções, pensamentos, comportamento, energia, sono e apetite — sem transformar sinais em diagnóstico automático.",
+    category: "Sintomas e Manifestações",
+    readingTime: "8 min de leitura",
+    title: "Sintomas de depressão: sinais emocionais, cognitivos e físicos",
+    subtitle: "Os sinais podem aparecer em diferentes áreas da vida. Entenda padrões de manifestação, impacto funcional e os limites do auto-rastreio.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    primaryEntity: "Sintomas de Depressão",
+    directAnswer: "Sintomas de depressão podem envolver humor, interesse, pensamentos, energia, sono, apetite, concentração e funcionamento diário. A presença de um ou mais sinais não confirma depressão: frequência, duração, contexto e impacto precisam ser avaliados por um profissional.",
+    keyTakeaways: [
+      "Os sinais podem ser emocionais, cognitivos, comportamentais e físicos, e não aparecem da mesma forma em todas as pessoas.",
+      "Perda de interesse ou prazer, alterações persistentes de energia, sono ou apetite e dificuldade de concentração merecem atenção quando afetam a rotina.",
+      "Um sintoma isolado pode ter várias explicações, incluindo estresse, luto, condições médicas, uso de substâncias ou outros quadros de saúde mental.",
+      "O PHQ-9 organiza a percepção de sintomas nas últimas duas semanas, mas é um instrumento de rastreio e não fecha diagnóstico.",
+      "Buscar avaliação é especialmente importante quando o sofrimento persiste, aumenta ou interfere no autocuidado, trabalho, estudos e relações."
+    ],
+    tableOfContents: [
+      { id: "como-os-sintomas-podem-aparecer", label: "Como os sintomas podem aparecer" },
+      { id: "sintomas-emocionais", label: "Sintomas emocionais" },
+      { id: "sintomas-cognitivos", label: "Sintomas cognitivos" },
+      { id: "perda-de-interesse", label: "Perda de interesse ou prazer" },
+      { id: "alteracoes-de-energia", label: "Alterações de energia" },
+      { id: "sono", label: "Sono" },
+      { id: "apetite", label: "Apetite" },
+      { id: "concentracao", label: "Concentração" },
+      { id: "impacto-na-rotina", label: "Impacto na rotina" },
+      { id: "sintomas-variam", label: "Sintomas podem variar entre pessoas?" },
+      { id: "sintomas-nao-percebidos", label: "É possível ter sintomas sem perceber claramente?" },
+      { id: "quando-merecem-avaliacao", label: "Quando merecem avaliação" },
+      { id: "papel-phq9", label: "Papel do PHQ-9 e limites" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "como-os-sintomas-podem-aparecer",
+        title: "Como os sintomas de depressão podem aparecer",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Os sinais associados à depressão podem aparecer em mais de uma dimensão da experiência: emoções, pensamentos, comportamento e funcionamento do corpo. O padrão relevante não é uma contagem automática, mas a combinação de frequência, duração, intensidade, contexto e impacto na vida cotidiana. A Organização Mundial da Saúde descreve a depressão como uma condição que pode afetar humor, interesse, energia, sono, apetite e concentração ", },
+              { text: "WHO, 2023", refId: "who-depression-2023", displayText: "WHO, 2023" },
+              { text: "." }
+            ]
+          },
+          {
+            segments: [
+              { text: "Este artigo aprofunda manifestações sintomáticas. Para uma visão ampla sobre a condição, causas, avaliação e cuidado, consulte o ", },
+              { text: "guia geral sobre depressão", displayText: "guia geral sobre depressão", href: "/conteudos/depressao-sintomas-causas-tratamento" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sintomas-emocionais",
+        title: "Sintomas emocionais",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Entre as manifestações emocionais podem estar tristeza persistente, sensação de vazio, desesperança, irritabilidade ou redução da capacidade de sentir prazer. A experiência pode ser descrita de maneiras diferentes conforme a pessoa, sua idade, cultura, história e contexto; por isso, uma descrição acolhedora e detalhada é mais útil do que uma conclusão baseada em uma palavra-chave." }
+            ]
+          },
+          {
+            segments: [
+              { text: "A perda de interesse ou prazer, chamada anedonia, pode aparecer como menor vontade de realizar atividades antes significativas. Ela não deve ser interpretada isoladamente: é importante observar quando começou, quanto dura e se mudou a participação na rotina." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sintomas-cognitivos",
+        title: "Sintomas cognitivos",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Algumas pessoas percebem dificuldade de concentração, lentificação para tomar decisões, esquecimento de tarefas ou pensamentos autocríticos intensos. Esses sinais também podem ocorrer em privação de sono, estresse, ansiedade, condições médicas ou uso de substâncias, o que reforça a necessidade de avaliação contextual." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "perda-de-interesse",
+        title: "Perda de interesse ou prazer",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A perda de interesse ou prazer, chamada anedonia, pode aparecer como menor vontade de realizar atividades antes significativas. Ela não deve ser interpretada isoladamente: é importante observar quando começou, quanto dura e se mudou a participação na rotina." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "alteracoes-de-energia",
+        title: "Alterações de energia",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Fadiga ou sensação de pouca energia podem tornar tarefas simples mais difíceis, reduzir o ritmo e aumentar o esforço necessário para começar ou concluir atividades. Esse sinal também pode ter outras causas, como sono inadequado, condições clínicas ou uso de substâncias." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sono",
+        title: "Sono",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Alterações no sono podem incluir dificuldade para dormir, despertares frequentes, sono não reparador ou aumento do tempo dormido. Observar horários, qualidade e mudança em relação ao padrão habitual pode ajudar na conversa profissional." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "apetite",
+        title: "Apetite",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Mudanças de apetite e peso podem ocorrer, mas sua presença e direção variam. O contexto alimentar, condições médicas e medicamentos também precisam ser considerados; por isso, uma alteração não deve ser interpretada como prova isolada de depressão." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "concentracao",
+        title: "Concentração",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A concentração pode ser prejudicada pela própria alteração de humor, pelo sono inadequado, pela ansiedade, pelo estresse ou por outras condições. Exemplos concretos de tarefas afetadas são mais úteis do que tentar atribuir uma causa sem avaliação." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "impacto-na-rotina",
+        title: "Impacto na rotina",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A combinação de perda de interesse, pouca energia ou alterações cognitivas pode afetar trabalho, estudos, autocuidado, responsabilidades domésticas e convivência, sem significar falta de esforço ou de caráter. O impacto funcional é uma parte importante da avaliação, mas não determina sozinho uma causa." }
+            ]
+          },
+          {
+            segments: [
+              { text: "A tabela abaixo é um mapa de observação para organizar conversa e não um instrumento diagnóstico." }
+            ]
+          }
+        ],
+        table: {
+          headers: ["Área", "Exemplos de sinais", "Impacto possível"],
+          rows: [
+            ["Emocional", "Tristeza, vazio, irritabilidade ou menor prazer", "Menor envolvimento com pessoas e atividades"],
+            ["Cognitiva", "Dificuldade de concentração, indecisão ou autocrítica", "Mais esforço para estudar, trabalhar e decidir"],
+            ["Física e rotina", "Fadiga, sono ou apetite alterados", "Mudança no autocuidado, ritmo e responsabilidades"]
+          ]
+        }
+      },
+      {
+        id: "sintomas-variam",
+        title: "Sintomas podem variar entre pessoas?",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Sim. Algumas pessoas relatam principalmente tristeza; outras percebem irritabilidade, perda de interesse, cansaço, queixas físicas ou afastamento social. A idade, a cultura, condições de saúde coexistentes e o momento de vida podem influenciar a forma como o sofrimento é percebido e comunicado." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sintomas-nao-percebidos",
+        title: "É possível ter sintomas sem perceber claramente?",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Sim. Mudanças graduais podem parecer parte da rotina até que alguém note afastamento, queda de rendimento ou dificuldade de autocuidado. Relatos de pessoas próximas podem ser úteis quando oferecidos com cuidado, sem rotular ou pressionar." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-merecem-avaliacao",
+        title: "Quando os sinais merecem avaliação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Considere buscar avaliação quando os sinais persistirem, se repetirem, estiverem se intensificando ou produzirem prejuízo no trabalho, nos estudos, no autocuidado, no sono ou nos relacionamentos. Um profissional pode investigar o conjunto de sintomas, o histórico, medicamentos, condições clínicas e outras explicações possíveis." }
+            ]
+          },
+          {
+            segments: [
+              { text: "Se surgirem pensamentos de morte, autoagressão ou risco imediato, use o protocolo de apoio urgente já indicado pela plataforma e procure ajuda imediata. Este artigo não substitui atendimento em situação de crise." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-phq9",
+        title: "Papel do PHQ-9 e limitações do auto-rastreio",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O PHQ-9 é um questionário de nove itens que pergunta sobre a frequência de sintomas depressivos nas últimas duas semanas. Ele pode ajudar a organizar percepções e apoiar uma conversa profissional, mas não identifica sozinho a causa dos sintomas, não substitui entrevista clínica e não deve ser usado como diagnóstico automático. Conheça o ", },
+              { text: "guia do teste de depressão online", displayText: "guia do teste de depressão online", href: "/conteudos/teste-de-depressao-online" },
+              { text: " antes de iniciar qualquer autoavaliação." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Depressão pode envolver mudanças persistentes em humor, interesse, energia, sono, apetite e concentração, com apresentação variável entre pessoas.",
+      whatEvidenceSuggests: "Mapear frequência, duração e impacto funcional ajuda a produzir um relato mais útil para avaliação profissional; instrumentos como o PHQ-9 podem complementar essa organização.",
+      whatWeDontKnowYet: "Nenhum conjunto de sinais isolado permite determinar a causa do sofrimento sem avaliação clínica e consideração de diagnósticos diferenciais."
+    },
+    originalValue: [
+      { type: "SYMPTOM_MAP", description: "Mapa de manifestações emocionais, cognitivas, comportamentais e físicas para organizar observações sem diagnosticar." },
+      { type: "ORIGINAL_TABLE", description: "Tabela por área, exemplo de sinal e impacto possível, explicitamente não diagnóstica." }
+    ],
+    relatedTestSlug: "phq-9",
+    faqs: [
+      {
+        question: "Ter alguns desses sintomas significa que tenho depressão?",
+        answer: "Não. Sintomas podem ter várias causas e não devem ser convertidos em diagnóstico por contagem. A persistência, o contexto e o impacto funcional precisam ser avaliados por um profissional."
+      },
+      {
+        question: "É possível ter depressão sem sentir tristeza o tempo todo?",
+        answer: "A apresentação varia. Algumas pessoas percebem mais perda de interesse, irritabilidade, fadiga, alterações de sono ou concentração. Uma avaliação considera o conjunto e a evolução dos sinais."
+      },
+      {
+        question: "O PHQ-9 confirma depressão?",
+        answer: "Não. Ele é um instrumento de rastreio e acompanhamento de sintomas, não um diagnóstico independente."
+      }
+    ],
+    references: [
+      {
+        id: "who-depression-2023",
+        shortLabel: "WHO, 2023",
+        fullCitation: "World Health Organization. (2023). Depressive disorder (depression): fact sheet.",
+        sourceUrl: "https://www.who.int/news-room/fact-sheets/detail/depression"
+      },
+      {
+        id: "nimh-depression",
+        shortLabel: "NIMH, 2025",
+        fullCitation: "National Institute of Mental Health. Depression: overview of symptoms, causes and treatment.",
+        sourceUrl: "https://www.nimh.nih.gov/health/topics/depression"
+      },
+      {
+        id: "kroenke-2001-symptoms",
+        shortLabel: "Kroenke et al., 2001",
+        fullCitation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov/11556941/"
+      }
+    ]
+  },
+  "qual-profissional-procurar-depressao": {
+    slug: "qual-profissional-procurar-depressao",
+    seoTitle: "Qual profissional procurar para depressão: psicólogo ou psiquiatra? | Mental Saúde",
+    seoDescription: "Entenda o papel de psicólogo, psiquiatra, atenção primária e outros profissionais no cuidado relacionado à depressão, sem regras universais.",
+    category: "Orientação e Ajuda Profissional",
+    readingTime: "8 min de leitura",
+    title: "Qual profissional procurar para depressão: psicólogo ou psiquiatra?",
+    subtitle: "Conheça caminhos possíveis para buscar cuidado e o que costuma acontecer em uma primeira avaliação, respeitando contexto, acesso e necessidade.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    primaryEntity: "Busca de Ajuda Profissional para Depressão",
+    directAnswer: "Psicólogos, psiquiatras, profissionais da atenção primária e outras equipes de saúde podem participar do cuidado relacionado à depressão. Não existe uma ordem universal: o caminho adequado depende dos sinais, do impacto funcional, do histórico, da necessidade de avaliação e do acesso disponível.",
+    keyTakeaways: [
+      "O psicólogo pode realizar avaliação psicológica e oferecer psicoterapia conforme sua formação e abordagem.",
+      "O psiquiatra é médico, avalia aspectos clínicos e pode prescrever e acompanhar medicamentos quando indicados.",
+      "A atenção primária pode ser uma porta de entrada para avaliação, orientação, encaminhamento e acompanhamento compartilhado.",
+      "Em algumas situações, psicoterapia e acompanhamento médico fazem parte do mesmo plano de cuidado, sem que isso signifique uma regra para todas as pessoas.",
+      "O PHQ-9 pode organizar informações para a consulta, mas não escolhe o profissional nem define tratamento individual."
+    ],
+    tableOfContents: [
+      { id: "quem-pode-avaliar", label: "Quem pode avaliar sinais" },
+      { id: "papel-psicologo", label: "Papel do psicólogo" },
+      { id: "papel-psiquiatra", label: "Papel do psiquiatra" },
+      { id: "quando-combinar", label: "Quando os cuidados podem se combinar" },
+      { id: "atencao-primaria", label: "Atenção primária e outros caminhos" },
+      { id: "encaminhamento", label: "Preciso de encaminhamento?" },
+      { id: "primeira-avaliacao", label: "Como costuma ser a avaliação" },
+      { id: "preparar-consulta", label: "Como se preparar" },
+      { id: "quando-mais-rapido", label: "Quando buscar ajuda mais rapidamente" },
+      { id: "papel-phq9-profissional", label: "O papel do PHQ-9" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "quem-pode-avaliar",
+        title: "Quem pode avaliar sinais de depressão",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A busca por ajuda pode começar por diferentes portas. Psicólogos e psiquiatras têm formações e atribuições distintas, enquanto equipes de atenção primária podem avaliar a situação geral, investigar condições clínicas, orientar e encaminhar quando necessário. O ponto de partida deve considerar a necessidade da pessoa, a urgência, o histórico e o acesso local, não uma regra fixa." }
+            ]
+          },
+          {
+            segments: [
+              { text: "Para compreender os sinais que podem motivar essa busca, consulte também ", },
+              { text: "sintomas de depressão", displayText: "sintomas de depressão", href: "/conteudos/sintomas-de-depressao" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-psicologo",
+        title: "O papel do psicólogo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psicólogo pode conduzir avaliação psicológica e psicoterapia dentro de sua formação profissional. O trabalho pode envolver compreensão de pensamentos, emoções, comportamentos, relações e contexto, além do desenvolvimento de estratégias terapêuticas baseadas em evidências. A abordagem e o plano são definidos na relação profissional, após avaliação." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-psiquiatra",
+        title: "O papel do psiquiatra",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psiquiatra é médico e pode avaliar sintomas de saúde mental junto a histórico clínico, uso de substâncias, medicamentos e possíveis condições que influenciem o quadro. Quando indicado, pode prescrever e acompanhar medicamentos, explicando benefícios, efeitos adversos, acompanhamento e necessidade de revisão. Este artigo não recomenda medicamento específico nem substitui consulta." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-combinar",
+        title: "Quando os dois profissionais podem participar do cuidado",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Em algumas situações, psicoterapia e acompanhamento médico podem ser combinados. A decisão depende da avaliação individual, das preferências, dos riscos, do histórico, da resposta ao cuidado e da disponibilidade de serviços. Participação conjunta não é obrigatória para todas as pessoas e não deve ser apresentada como uma prescrição universal." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "atencao-primaria",
+        title: "Atenção primária e outros caminhos possíveis",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Unidades básicas, médicos de família e outras equipes de saúde podem ser uma porta de entrada, sobretudo quando há sintomas físicos, uso de medicamentos, condições clínicas ou dificuldade para acessar especialistas. Serviços comunitários e equipes multiprofissionais também podem participar conforme a rede local." }
+            ]
+          }
+        ],
+        table: {
+          headers: ["Necessidade", "Profissional que pode participar", "O que esperar"],
+          rows: [
+            ["Organizar sinais e impacto na rotina", "Atenção primária, psicólogo ou psiquiatra", "Escuta, avaliação inicial e orientação de próximos passos"],
+            ["Explorar psicoterapia", "Psicólogo", "Avaliação psicológica e construção de um plano terapêutico"],
+            ["Investigar aspectos médicos ou medicamentos", "Psiquiatra ou atenção primária", "Avaliação clínica, discussão de opções e acompanhamento quando indicado"],
+            ["Cuidado compartilhado", "Equipe multiprofissional", "Coordenação entre profissionais conforme a necessidade"]
+          ]
+        }
+      },
+      {
+        id: "encaminhamento",
+        title: "Preciso de encaminhamento?",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A necessidade de encaminhamento varia conforme o sistema de saúde, o convênio, o serviço escolhido e a região. Antes de marcar, confirme diretamente com o local de atendimento quais documentos e formas de acesso são necessários. Se o primeiro caminho não funcionar, a atenção primária ou um serviço de orientação pode ajudar a encontrar outra porta de entrada." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "primeira-avaliacao",
+        title: "Como costuma acontecer uma avaliação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Uma primeira conversa costuma abordar o que mudou, quando começou, frequência dos sinais, sono, apetite, energia, concentração, uso de substâncias, histórico de saúde, tratamentos anteriores e impacto funcional. O profissional também pode perguntar sobre segurança e risco. Responder com honestidade ajuda, e não é necessário chegar com um diagnóstico pronto." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "preparar-consulta",
+        title: "O que levar e como falar sobre os sintomas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Anote exemplos concretos, datas aproximadas, mudanças de sono e apetite, medicamentos em uso, diagnósticos prévios e perguntas. Se você utilizou o PHQ-9, pode levar o resultado como informação adicional; ele não substitui avaliação e não determina sozinho a conduta." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-mais-rapido",
+        title: "Quando procurar ajuda mais rapidamente",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Procure atendimento com mais urgência quando houver piora rápida, incapacidade de manter necessidades básicas, sofrimento intenso, sintomas físicos preocupantes, pensamentos de morte ou autoagressão e risco imediato. Em uma emergência, acione o serviço local de emergência e não permaneça sozinho." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-phq9-profissional",
+        title: "O papel de instrumentos como PHQ-9",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O PHQ-9 pode organizar a frequência de sintomas recentes e oferecer um ponto de partida para a conversa, mas não escolhe entre psicólogo, psiquiatra ou atenção primária. O resultado não substitui avaliação clínica e deve ser interpretado junto com contexto, impacto funcional, histórico e segurança." }
+            ]
+          },
+          {
+            segments: [
+              { text: "Conheça a página do ", },
+              { text: "PHQ-9", displayText: "PHQ-9", href: "/testes/phq-9" },
+              { text: " antes de iniciar o fluxo de autoavaliação." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Diferentes profissionais podem participar da avaliação e do cuidado, com atribuições próprias e possibilidade de coordenação conforme a necessidade.",
+      whatEvidenceSuggests: "Planos de cuidado compartilhados e baseados em avaliação tendem a ser mais adequados do que uma regra única de encaminhamento para todas as pessoas.",
+      whatWeDontKnowYet: "A melhor porta de entrada depende do contexto individual, da rede disponível, da urgência e das preferências; nenhum conteúdo online consegue decidir isso sozinho."
+    },
+    originalValue: [
+      { type: "DECISION_FRAMEWORK", description: "Framework de decisão para organizar contexto, intensidade, impacto, histórico, necessidade e acesso sem selecionar tratamento." }
+    ],
+    relatedTestSlug: "phq-9",
+    faqs: [
+      {
+        question: "Devo procurar primeiro um psicólogo ou um psiquiatra?",
+        answer: "Não há uma ordem universal. Considere os sinais, o impacto, o histórico, a urgência, as condições de acesso e a porta de entrada disponível. Qualquer um dos caminhos pode orientar o próximo passo."
+      },
+      {
+        question: "O psicólogo pode diagnosticar depressão?",
+        answer: "A atuação e as atribuições dependem da formação, da legislação e do contexto de atendimento. O mais seguro é conversar diretamente sobre o tipo de avaliação oferecida e, quando necessário, coordenar o cuidado com um médico."
+      },
+      {
+        question: "Posso levar o resultado do PHQ-9 para a consulta?",
+        answer: "Sim. Ele pode ajudar a organizar percepções recentes, desde que seja apresentado como rastreio e não como diagnóstico."
+      }
+    ],
+    references: [
+      {
+        id: "nice-ng222-help",
+        shortLabel: "NICE, NG222",
+        fullCitation: "National Institute for Health and Care Excellence. (2022). Depression in adults: treatment and management (NG222).",
+        sourceUrl: "https://www.nice.org.uk/guidance/ng222"
+      },
+      {
+        id: "who-mhgap",
+        shortLabel: "WHO mhGAP",
+        fullCitation: "World Health Organization. Mental Health Gap Action Programme (mhGAP): depression care guidance.",
+        sourceUrl: "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/mental-health-gap-action-programme"
+      },
+      {
+        id: "kroenke-2001-help",
+        shortLabel: "Kroenke et al., 2001",
+        fullCitation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov/11556941/"
+      }
+    ]
+  },
+  "tratamento-depressao": {
+    slug: "tratamento-depressao",
+    seoTitle: "Depressão tem tratamento? Conheça as principais abordagens | Mental Saúde",
+    seoDescription: "Entenda, de forma geral e segura, como psicoterapia, acompanhamento médico, medicamentos quando indicados e suporte podem participar do cuidado da depressão.",
+    category: "Tratamento e Cuidado",
+    readingTime: "9 min de leitura",
+    title: "Depressão tem tratamento? Conheça as principais abordagens",
+    subtitle: "Uma visão geral das possibilidades de cuidado, sem prescrição individual, comparação de medicamentos ou promessa de resultado garantido.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    primaryEntity: "Tratamento da Depressão",
+    directAnswer: "A depressão pode ser tratada, mas o cuidado varia conforme sintomas, gravidade, histórico, condições de saúde, preferências e acesso. Psicoterapia, acompanhamento médico, medicamentos quando clinicamente indicados, hábitos e suporte podem participar do plano, sempre com avaliação profissional.",
+    keyTakeaways: [
+      "Tratamento não é uma receita única: ele é definido e revisado com base na avaliação e na evolução de cada pessoa.",
+      "Psicoterapia pode ajudar no cuidado psicológico, enquanto profissionais médicos avaliam aspectos clínicos e medicamentos quando indicados.",
+      "Hábitos, rotina, sono, atividade física possível e suporte social podem complementar o cuidado, mas não substituem atendimento quando necessário.",
+      "A ausência de melhora percebida deve ser conversada com a equipe; não é motivo para ajustar, interromper ou trocar tratamento por conta própria.",
+      "O PHQ-9 pode acompanhar a frequência de sintomas ao longo do tempo, mas não define sozinho a resposta nem o próximo tratamento."
+    ],
+    tableOfContents: [
+      { id: "depressao-pode-ser-tratada", label: "Depressão pode ser tratada?" },
+      { id: "como-tratamento-e-definido", label: "Como o tratamento é definido" },
+      { id: "por-que-tratamento-varia", label: "Por que o tratamento varia entre pessoas" },
+      { id: "psicoterapia", label: "Psicoterapia" },
+      { id: "acompanhamento-profissional", label: "Acompanhamento profissional" },
+      { id: "medicamentos-indicados", label: "Medicamentos quando indicados" },
+      { id: "combinacao-abordagens", label: "Combinação de abordagens" },
+      { id: "habitos-e-suporte", label: "Hábitos e suporte" },
+      { id: "evolucao-e-phq9", label: "Acompanhamento da evolução" },
+      { id: "quando-nao-melhora", label: "Quando não há melhora percebida" },
+      { id: "quando-buscar-avaliacao", label: "Quando buscar avaliação profissional" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "depressao-pode-ser-tratada",
+        title: "Depressão pode ser tratada?",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Sim. A depressão é uma condição tratável, mas o caminho e a evolução variam entre pessoas. O objetivo do cuidado pode envolver reduzir sofrimento, recuperar funcionamento, fortalecer segurança e prevenir novas dificuldades, sempre com metas discutidas com profissionais. Tratável não significa promessa de cura imediata nem garante um tempo único de resposta." }
+            ]
+          },
+          {
+            segments: [
+              { text: "Este artigo apresenta um panorama. Para entender como buscar cuidado, consulte também ", },
+              { text: "qual profissional procurar para depressão", displayText: "qual profissional procurar para depressão", href: "/conteudos/qual-profissional-procurar-depressao" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "como-tratamento-e-definido",
+        title: "Como o tratamento é definido",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A definição considera sintomas atuais, duração, impacto funcional, histórico pessoal e familiar, condições clínicas, outros medicamentos, experiências anteriores, preferências, segurança e recursos disponíveis. A equipe pode revisar hipóteses e ajustar o plano com o tempo; o tratamento é um processo acompanhado, não um pacote fixo." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "por-que-tratamento-varia",
+        title: "Por que o tratamento varia entre pessoas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A mesma abordagem pode participar de planos diferentes porque sintomas, duração, impacto funcional, histórico, condições coexistentes, preferências, segurança e acesso não são iguais. A equipe pode revisar objetivos e opções conforme novas informações aparecem." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "psicoterapia",
+        title: "Psicoterapia",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Psicoterapias baseadas em evidências podem trabalhar padrões de pensamento, emoções, comportamentos, relações, resolução de problemas e ativação gradual de atividades, de acordo com a abordagem e os objetivos acordados. A escolha da modalidade, frequência e duração precisa ser individualizada com um profissional habilitado." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "acompanhamento-profissional",
+        title: "Acompanhamento profissional",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O acompanhamento médico pode investigar condições clínicas, revisar medicamentos, avaliar riscos e coordenar decisões quando necessário. Psicólogos, psiquiatras, atenção primária e outras equipes podem participar em diferentes momentos. O papel de cada profissional deve ser explicado na consulta." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "medicamentos-indicados",
+        title: "Medicamentos quando clinicamente indicados",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Medicamentos podem fazer parte do cuidado quando um profissional médico avalia que são apropriados. A escolha, o acompanhamento, os efeitos adversos, as interações, a duração e qualquer mudança dependem da situação individual. Não é seguro iniciar, interromper, alterar dose ou comparar antidepressivos com base neste artigo." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "combinacao-abordagens",
+        title: "Combinação de abordagens",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Em algumas situações, uma combinação de psicoterapia, acompanhamento médico e suporte psicossocial pode ser considerada. Isso não significa que todas as pessoas precisarão das mesmas intervenções. A equipe e a pessoa avaliam possibilidades, prioridades, riscos e preferências em conjunto." }
+            ]
+          }
+        ],
+        table: {
+          headers: ["Abordagem", "Objetivo geral", "Como pode participar do cuidado"],
+          rows: [
+            ["Psicoterapia", "Trabalhar sofrimento, pensamentos, comportamentos e relações", "Processo estruturado com profissional habilitado e metas acordadas"],
+            ["Acompanhamento médico", "Avaliar aspectos clínicos, segurança e comorbidades", "Monitoramento, investigação e coordenação do cuidado"],
+            ["Medicamentos quando indicados", "Participar da redução de sintomas conforme avaliação médica", "Prescrição, seguimento e revisão profissional; nunca automanejo"],
+            ["Suporte e hábitos", "Apoiar rotina, vínculo, sono e funcionamento possível", "Componente complementar, sem substituir tratamento necessário"]
+          ]
+        }
+      },
+      {
+        id: "habitos-e-suporte",
+        title: "Hábitos e suporte como componentes complementares",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Rotinas de sono, alimentação possível, movimento compatível com a condição, contato social e apoio de pessoas de confiança podem contribuir para o bem-estar. Quando a depressão reduz energia e iniciativa, metas pequenas e realistas podem ser mais sustentáveis. Esses componentes não devem ser usados para culpabilizar a pessoa nem para substituir avaliação e tratamento." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "evolucao-e-phq9",
+        title: "Como a evolução pode ser acompanhada",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A evolução pode ser acompanhada por relatos sobre humor, interesse, energia, sono, apetite, concentração, funcionamento, efeitos adversos e segurança. O PHQ-9 pode oferecer uma medida estruturada de sintomas recentes e ajudar a observar tendências, mas a interpretação precisa considerar o contexto e a avaliação clínica." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-nao-melhora",
+        title: "O que fazer quando não há melhora percebida",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Converse com a equipe se os sintomas não melhorarem, piorarem ou se os efeitos do cuidado forem difíceis de manejar. A resposta pode exigir reavaliação de diagnóstico, adesão, condições coexistentes, expectativas, suporte e plano. Não faça mudanças por conta própria." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-buscar-avaliacao",
+        title: "Quando buscar avaliação profissional",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Busque avaliação quando o sofrimento persistir, aumentar, comprometer o funcionamento ou dificultar autocuidado, trabalho, estudos e relações. Se houver pensamentos de morte, autoagressão ou risco imediato, procure ajuda urgente conforme o protocolo de apoio da plataforma e os serviços locais." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Diretrizes reconhecem psicoterapia, acompanhamento clínico e, quando indicados, medicamentos como componentes possíveis do cuidado da depressão.",
+      whatEvidenceSuggests: "A escolha compartilhada e a revisão periódica permitem adaptar o cuidado à resposta, aos riscos, às preferências e ao contexto da pessoa.",
+      whatWeDontKnowYet: "Não existe uma abordagem única, um medicamento universalmente melhor ou um tempo garantido de resposta para todas as pessoas."
+    },
+    originalValue: [
+      { type: "EVIDENCE_SYNTHESIS", description: "Síntese de guidelines e fontes institucionais para separar consenso, evidência e limites." },
+      { type: "TREATMENT_OVERVIEW_FRAMEWORK", description: "Panorama das abordagens com boundaries explícitos para futuros artigos de psicoterapia e medicamentos." }
+    ],
+    relatedTestSlug: "phq-9",
+    faqs: [
+      {
+        question: "Qual é o melhor tratamento para depressão?",
+        answer: "Não há uma opção universalmente melhor. O cuidado depende da avaliação, do histórico, das preferências, da segurança e do acompanhamento da resposta."
+      },
+      {
+        question: "Preciso usar antidepressivo?",
+        answer: "Somente um profissional médico pode avaliar se medicamento é indicado para uma situação individual. Não é seguro decidir isso por um artigo ou iniciar e interromper por conta própria."
+      },
+      {
+        question: "O PHQ-9 mostra se o tratamento funcionou?",
+        answer: "Ele pode ajudar a acompanhar sintomas recentes, mas não deve ser interpretado sozinho. A evolução clínica e o funcionamento precisam ser discutidos com a equipe."
+      }
+    ],
+    references: [
+      {
+        id: "nice-ng222-treatment",
+        shortLabel: "NICE, NG222",
+        fullCitation: "National Institute for Health and Care Excellence. (2022). Depression in adults: treatment and management (NG222).",
+        sourceUrl: "https://www.nice.org.uk/guidance/ng222"
+      },
+      {
+        id: "who-depression-treatment",
+        shortLabel: "WHO, 2023",
+        fullCitation: "World Health Organization. (2023). Depressive disorder (depression): fact sheet and treatment overview.",
+        sourceUrl: "https://www.who.int/news-room/fact-sheets/detail/depression"
+      },
+      {
+        id: "apa-dsm5tr",
+        shortLabel: "APA, DSM-5-TR",
+        fullCitation: "American Psychiatric Association. (2022). Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition, Text Revision.",
+        sourceUrl: "https://www.psychiatry.org/psychiatrists/practice/dsm"
+      },
+      {
+        id: "kroenke-2001-treatment",
+        shortLabel: "Kroenke et al., 2001",
+        fullCitation: "Kroenke, K., Spitzer, R. L., & Williams, J. B. (2001). The PHQ-9: validity of a brief depression severity measure. Journal of General Internal Medicine.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov/11556941/"
       }
     ]
   },

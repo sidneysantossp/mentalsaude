@@ -158,24 +158,27 @@ export default function ArticlePage() {
     if (closeMobileIndex) setMobileTocOpen(false);
   };
 
-  // Mapeamento data-driven rigoroso ARTICLE -> CANONICAL TEST ENTITY
-  const relatedTestEntity: CanonicalTestEntity | null = article.relatedTest 
-    ? (getCanonicalTest(article.relatedTest.acronym) || {
-        id: article.relatedTest.acronym.toLowerCase(),
-        slug: article.relatedTest.acronym.toLowerCase(),
-        title: article.relatedTest.title,
-        acronym: article.relatedTest.acronym,
-        category: article.category,
-        description: article.relatedTest.description,
-        fullOverview: article.relatedTest.description,
-        questionCount: article.relatedTest.questionCount,
-        durationMinutes: article.relatedTest.durationMinutes,
-        difficulty: "Leve",
-        targetRoute: `/testes/${article.relatedTest.acronym.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
-        executionRoute: "/testes",
-        methodologyNotes: article.relatedTest.description
-      })
-    : null; // Fallback real: se relatedTest for null ou omitido, retorna null e o ContextualTestCTA não renderiza
+  // Mapeamento data-driven rigoroso ARTICLE -> CANONICAL TEST ENTITY.
+  // Artigos novos usam somente relatedTestSlug; metadados vêm da entidade canônica.
+  const relatedTestEntity: CanonicalTestEntity | null = article.relatedTestSlug
+    ? (getCanonicalTest(article.relatedTestSlug) || null)
+    : article.relatedTest
+      ? (getCanonicalTest(article.relatedTest.acronym) || {
+          id: article.relatedTest.acronym.toLowerCase(),
+          slug: article.relatedTest.acronym.toLowerCase(),
+          title: article.relatedTest.title,
+          acronym: article.relatedTest.acronym,
+          category: article.category,
+          description: article.relatedTest.description,
+          fullOverview: article.relatedTest.description,
+          questionCount: article.relatedTest.questionCount,
+          durationMinutes: article.relatedTest.durationMinutes,
+          difficulty: "Leve",
+          targetRoute: `/testes/${article.relatedTest.acronym.toLowerCase().replace(/[^a-z0-9]/g, "")}`,
+          executionRoute: "/testes",
+          methodologyNotes: article.relatedTest.description
+        })
+      : null; // Fallback real: sem associação editorial explícita, o CTA não renderiza
 
   const relatedArticles = Object.values(ARTICLES_DATABASE).filter(a => a.slug !== article.slug).slice(0, 3);
 
@@ -314,8 +317,12 @@ export default function ArticlePage() {
                   <div className="mt-4 space-y-4 text-base leading-[1.8] text-[#4f6e67]">
                     {sec.paragraphs.map((p, pIdx) => (
                       <p key={pIdx}>
-                        {p.segments.map((seg, sIdx) => 
-                          seg.refId ? (
+                        {p.segments.map((seg, sIdx) =>
+                          seg.href ? (
+                            <Link key={sIdx} href={seg.href} className="font-semibold text-[#0a7066] underline decoration-[#8bcfc0] underline-offset-2 hover:text-[#064c46]">
+                              {seg.displayText ?? seg.text}
+                            </Link>
+                          ) : seg.refId ? (
                             <ScientificCitation key={sIdx} refId={seg.refId} references={article.references} displayText={seg.displayText} />
                           ) : (
                             <span key={sIdx}>{seg.text}</span>
@@ -324,6 +331,28 @@ export default function ArticlePage() {
                       </p>
                     ))}
                   </div>
+                  {sec.table && (
+                    <div className="mt-6 overflow-x-auto rounded-2xl border border-[#d9e7e2] bg-white">
+                      <table className="min-w-full text-left text-sm">
+                        <thead className="bg-[#eef8f4] text-[#173e39]">
+                          <tr>
+                            {sec.table.headers.map((header) => (
+                              <th key={header} scope="col" className="px-4 py-3 font-semibold">{header}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-[#e5efeb] text-[#527068]">
+                          {sec.table.rows.map((row, rowIndex) => (
+                            <tr key={rowIndex} className="align-top">
+                              {row.map((cell, cellIndex) => (
+                                <td key={`${rowIndex}-${cellIndex}`} className="px-4 py-3 leading-6">{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </section>
               ))}
 

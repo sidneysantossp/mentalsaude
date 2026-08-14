@@ -1,0 +1,170 @@
+{
+  "matrix": [
+    {
+      "source": "/depressao",
+      "candidate": "/conteudos/sintomas-de-depressao",
+      "primaryIntent": "CONDITION → SYMPTOM",
+      "semanticOwnership": "guia amplo do cluster e navegação ≠ manifestações emocionais, cognitivas, comportamentais e físicas",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.013,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/depressao",
+      "candidate": "/conteudos/qual-profissional-procurar-depressao",
+      "primaryIntent": "CONDITION → PROFESSIONAL_HELP",
+      "semanticOwnership": "guia amplo do cluster e navegação ≠ navegação e decisão sobre busca de cuidado",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.012,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/depressao",
+      "candidate": "/conteudos/tratamento-depressao",
+      "primaryIntent": "CONDITION → TREATMENT",
+      "semanticOwnership": "guia amplo do cluster e navegação ≠ aprofundamento sintético da intenção tratamento",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.011,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/depressao-sintomas-causas-tratamento",
+      "candidate": "/conteudos/sintomas-de-depressao",
+      "primaryIntent": "CONDITION → SYMPTOM",
+      "semanticOwnership": "guia editorial amplo da condição ≠ manifestações emocionais, cognitivas, comportamentais e físicas",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.16,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/depressao-sintomas-causas-tratamento",
+      "candidate": "/conteudos/qual-profissional-procurar-depressao",
+      "primaryIntent": "CONDITION → PROFESSIONAL_HELP",
+      "semanticOwnership": "guia editorial amplo da condição ≠ navegação e decisão sobre busca de cuidado",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.117,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/depressao-sintomas-causas-tratamento",
+      "candidate": "/conteudos/tratamento-depressao",
+      "primaryIntent": "CONDITION → TREATMENT",
+      "semanticOwnership": "guia editorial amplo da condição ≠ aprofundamento sintético da intenção tratamento",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.121,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/tristeza-ou-depressao",
+      "candidate": "/conteudos/sintomas-de-depressao",
+      "primaryIntent": "COMPARISON → SYMPTOM",
+      "semanticOwnership": "tristeza versus depressão ≠ manifestações emocionais, cognitivas, comportamentais e físicas",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.112,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/tristeza-ou-depressao",
+      "candidate": "/conteudos/qual-profissional-procurar-depressao",
+      "primaryIntent": "COMPARISON → PROFESSIONAL_HELP",
+      "semanticOwnership": "tristeza versus depressão ≠ navegação e decisão sobre busca de cuidado",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.063,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/tristeza-ou-depressao",
+      "candidate": "/conteudos/tratamento-depressao",
+      "primaryIntent": "COMPARISON → TREATMENT",
+      "semanticOwnership": "tristeza versus depressão ≠ aprofundamento sintético da intenção tratamento",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.081,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/teste-de-depressao-online",
+      "candidate": "/conteudos/sintomas-de-depressao",
+      "primaryIntent": "TEST → SYMPTOM",
+      "semanticOwnership": "intenção de rastreio e explicação do PHQ-9 ≠ manifestações emocionais, cognitivas, comportamentais e físicas",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.059,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/teste-de-depressao-online",
+      "candidate": "/conteudos/qual-profissional-procurar-depressao",
+      "primaryIntent": "TEST → PROFESSIONAL_HELP",
+      "semanticOwnership": "intenção de rastreio e explicação do PHQ-9 ≠ navegação e decisão sobre busca de cuidado",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.065,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/teste-de-depressao-online",
+      "candidate": "/conteudos/tratamento-depressao",
+      "primaryIntent": "TEST → TREATMENT",
+      "semanticOwnership": "intenção de rastreio e explicação do PHQ-9 ≠ aprofundamento sintético da intenção tratamento",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.056,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/ansiedade-ou-depressao",
+      "candidate": "/conteudos/sintomas-de-depressao",
+      "primaryIntent": "COMPARISON → SYMPTOM",
+      "semanticOwnership": "ponte ansiedade versus depressão ≠ manifestações emocionais, cognitivas, comportamentais e físicas",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.062,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/ansiedade-ou-depressao",
+      "candidate": "/conteudos/qual-profissional-procurar-depressao",
+      "primaryIntent": "COMPARISON → PROFESSIONAL_HELP",
+      "semanticOwnership": "ponte ansiedade versus depressão ≠ navegação e decisão sobre busca de cuidado",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.046,
+      "risk": "LOW",
+      "action": "PASS"
+    },
+    {
+      "source": "/conteudos/ansiedade-ou-depressao",
+      "candidate": "/conteudos/tratamento-depressao",
+      "primaryIntent": "COMPARISON → TREATMENT",
+      "semanticOwnership": "ponte ansiedade versus depressão ≠ aprofundamento sintético da intenção tratamento",
+      "intentOverlap": "LOW",
+      "entityOverlap": "LOW",
+      "similarity": 0.05,
+      "risk": "LOW",
+      "action": "PASS"
+    }
+  ],
+  "unresolvedHighOverlap": 0
+}

@@ -148,3 +148,24 @@
 - [x] Avaliar Safety Architecture, YMYL, Evidence Provenance e Internal Link Architecture.
 - [x] Executar suíte de testes (37/37) e build de produção.
 - [x] Gerar MENTAL_SAUDE_DEPRESSION_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no Pre-Content-Production Gate.
+
+# Depression First Wave (pasted_content_24.txt)
+- [x] Criar o Topic Hub /depressao (Condition Pillar).
+- [x] Criar o artigo de comparação /conteudos/tristeza-ou-depressao.
+- [x] Criar o artigo de intenção TEST /conteudos/teste-de-depressao-online vinculado ao PHQ-9.
+- [x] Executar canibalização global (High Overlap = 0), Internal Link Graph e Publication Gates.
+- [x] Executar suíte de testes (37/37) e build de produção.
+- [x] Gerar MENTAL_SAUDE_DEPRESSION_FIRST_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# Depression Second Wave (pasted_content_25.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_25.txt com o código atual.
+- [x] Implementar Article 04 /conteudos/sintomas-de-depressao com intent SYMPTOM, PHQ-9, SYMPTOM_MAP/ORIGINAL_TABLE e safety YMYL.
+- [x] Implementar Article 05 /conteudos/qual-profissional-procurar-depressao com intent PROFESSIONAL_HELP, PHQ-9 e DECISION_FRAMEWORK.
+- [x] Implementar Article 06 /conteudos/tratamento-depressao com intent TREATMENT, PHQ-9 e boundaries para conteúdos futuros.
+- [x] Registrar opportunities, briefs, evidence provenance, internal link graph e publication gates da Second Wave no Content Authority Engine.
+- [x] Executar análise de canibalização global, validar High Overlap = 0, orphan contents = 0 e broken internal links = 0.
+- [x] Validar YMYL, safety clínica, diagnostic shortcuts = 0, unsupported critical claims = 0 e critical treatment claims without source = 0.
+- [x] Executar suíte de testes atualizada com 37+ testes e build de produção.
+- [x] Gerar MENTAL_SAUDE_DEPRESSION_SECOND_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+- [x] Auditar explicitamente cada target do Internal Link Graph contra rotas editoriais e registrar broken internal links = 0.
+- [x] Auditar claims clínicos críticos dos Articles 04–06 contra Evidence Provenance e registrar unsupported critical claims = 0 e critical treatment claims without source = 0.

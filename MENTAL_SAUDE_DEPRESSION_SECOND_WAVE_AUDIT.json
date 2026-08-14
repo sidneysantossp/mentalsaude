@@ -1,0 +1,84 @@
+{
+  "linkAudit": {
+    "totalLinks": 18,
+    "brokenInternalLinks": 0,
+    "broken": []
+  },
+  "claimsAudit": {
+    "totalCriticalClaims": 7,
+    "unsupportedCriticalClaims": 0,
+    "criticalTreatmentClaimsWithoutSource": 0,
+    "claims": [
+      {
+        "articleSlug": "sintomas-de-depressao",
+        "claim": "Depressão pode afetar humor, interesse, energia, sono, apetite e concentração, com apresentação variável entre pessoas.",
+        "category": "symptoms",
+        "supported": true,
+        "evidenceId": 1,
+        "source": "Depressive disorder (depression) fact sheet",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+        "evidenceLevel": "Level 1 - Institutional Guidance"
+      },
+      {
+        "articleSlug": "sintomas-de-depressao",
+        "claim": "O PHQ-9 mede a frequência de sintomas depressivos nas últimas duas semanas e não substitui avaliação clínica.",
+        "category": "screening",
+        "supported": true,
+        "evidenceId": 2,
+        "source": "The PHQ-9: validity of a brief depression severity measure",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11556941/",
+        "evidenceLevel": "Level 1 - Validation Study"
+      },
+      {
+        "articleSlug": "qual-profissional-procurar-depressao",
+        "claim": "Diretrizes de depressão orientam avaliação e cuidado conforme necessidades, preferências, gravidade e contexto, sem uma porta de entrada universal.",
+        "category": "professional_help",
+        "supported": true,
+        "evidenceId": 3,
+        "source": "Depression in adults: treatment and management (NG222)",
+        "url": "https://www.nice.org.uk/guidance/ng222",
+        "evidenceLevel": "Level 1 - National Clinical Guideline"
+      },
+      {
+        "articleSlug": "qual-profissional-procurar-depressao",
+        "claim": "Instrumentos como o PHQ-9 podem apoiar a organização de sintomas, mas o resultado precisa ser interpretado no contexto clínico.",
+        "category": "screening",
+        "supported": true,
+        "evidenceId": 4,
+        "source": "The PHQ-9: validity of a brief depression severity measure",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11556941/",
+        "evidenceLevel": "Level 1 - Validation Study"
+      },
+      {
+        "articleSlug": "tratamento-depressao",
+        "claim": "Diretrizes reconhecem psicoterapia, acompanhamento clínico e, quando indicados, medicamentos como componentes possíveis do cuidado da depressão.",
+        "category": "treatment",
+        "supported": true,
+        "evidenceId": 5,
+        "source": "Depression in adults: treatment and management (NG222)",
+        "url": "https://www.nice.org.uk/guidance/ng222",
+        "evidenceLevel": "Level 1 - National Clinical Guideline"
+      },
+      {
+        "articleSlug": "tratamento-depressao",
+        "claim": "A escolha e a revisão do cuidado devem considerar resposta, efeitos adversos, segurança, histórico, preferências e contexto individual.",
+        "category": "treatment",
+        "supported": true,
+        "evidenceId": 6,
+        "source": "Depressive disorder (depression) fact sheet",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+        "evidenceLevel": "Level 1 - Institutional Guidance"
+      },
+      {
+        "articleSlug": "tratamento-depressao",
+        "claim": "O PHQ-9 pode ser utilizado para mensurar sintomas depressivos ao longo do tempo, sem definir sozinho resposta ou tratamento.",
+        "category": "treatment",
+        "supported": true,
+        "evidenceId": 7,
+        "source": "The PHQ-9: validity of a brief depression severity measure",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11556941/",
+        "evidenceLevel": "Level 1 - Validation Study"
+      }
+    ]
+  }
+}

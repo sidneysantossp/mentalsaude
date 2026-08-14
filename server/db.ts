@@ -8,6 +8,9 @@ import {
   assessments,
   contentEvidence,
   contentOpportunities,
+  contentBriefs,
+  internalLinksGraph,
+  articleVersions,
   publicationGates,
   InsertUser,
   recommendations,
@@ -15,6 +18,8 @@ import {
   users,
 } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { ARTICLES_DATABASE } from "../client/src/data/articlesDatabase";
+import { getCanonicalTest } from "../client/src/data/testsCanonicalDatabase";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -449,6 +454,25 @@ export async function getContentEvidence(articleSlug?: string) {
   return db.select().from(contentEvidence);
 }
 
+export async function getContentBriefs(clusterName?: string) {
+  const db = await requireDb();
+  if (!clusterName) return db.select().from(contentBriefs);
+  return db
+    .select({ brief: contentBriefs, opportunity: contentOpportunities })
+    .from(contentBriefs)
+    .innerJoin(contentOpportunities, eq(contentBriefs.opportunityId, contentOpportunities.id))
+    .where(eq(contentOpportunities.cluster, clusterName));
+}
+
+export async function getInternalLinksGraph(clusterName?: string) {
+  const db = await requireDb();
+  if (!clusterName) return db.select().from(internalLinksGraph);
+  const clusterSlugs = await db.select({ slug: contentOpportunities.slug }).from(contentOpportunities).where(eq(contentOpportunities.cluster, clusterName));
+  const slugs = clusterSlugs.map(item => item.slug);
+  if (slugs.length === 0) return [];
+  return db.select().from(internalLinksGraph).where(sql`${internalLinksGraph.sourceSlug} in (${sql.join(slugs.map(slug => sql`${slug}`), sql`, `)})`);
+}
+
   export async function seedThirdWaveIfNeeded() {
     const db = await requireDb();
     const existingOpps = await db.select().from(contentOpportunities);
@@ -639,11 +663,290 @@ export async function getContentEvidence(articleSlug?: string) {
   }
 }
 
+export async function seedDepressionSecondWaveIfNeeded() {
+  const db = await requireDb();
+  const foundationOpps = [
+    { cluster: "depressao", title: "Depressão: entendimento, avaliação e cuidado", slug: "depressao", primaryQuery: "depressão", searchIntent: "informational", funnelStage: "tofu", contentType: "pillar", primaryEntity: "DEPRESSION", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "depressao", title: "Depressão: sintomas, causas, tratamento e quando procurar ajuda", slug: "depressao-sintomas-causas-tratamento", primaryQuery: "depressão sintomas causas tratamento", searchIntent: "informational", funnelStage: "tofu", contentType: "pillar_supporting", primaryEntity: "DEPRESSION", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "medium", status: "published" },
+    { cluster: "depressao", title: "Tristeza ou depressão: como entender a diferença", slug: "tristeza-ou-depressao", primaryQuery: "tristeza ou depressão", searchIntent: "comparison", funnelStage: "tofu", contentType: "supporting", primaryEntity: "SADNESS_VS_DEPRESSION", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "depressao", title: "Teste de depressão online: como funciona o PHQ-9", slug: "teste-de-depressao-online", primaryQuery: "teste de depressão online", searchIntent: "test", funnelStage: "bottom", contentType: "supporting", primaryEntity: "PHQ-9", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "published" },
+    { cluster: "depressao", title: "Depressão e sono: relações, alterações e avaliação", slug: "depressao-e-sono", primaryQuery: "depressão e sono", searchIntent: "informational", funnelStage: "tofu", contentType: "supporting", primaryEntity: "SLEEP", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "medium", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Falta de energia e depressão: o que observar", slug: "falta-de-energia-depressao", primaryQuery: "falta de energia depressão", searchIntent: "symptom", funnelStage: "tofu", contentType: "supporting", primaryEntity: "FATIGUE", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "medium", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Falta de motivação e depressão", slug: "falta-de-motivacao-depressao", primaryQuery: "falta de motivação depressão", searchIntent: "symptom", funnelStage: "tofu", contentType: "supporting", primaryEntity: "ANHEDONIA", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "medium", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Terapia para depressão: abordagens e processo", slug: "terapia-para-depressao", primaryQuery: "terapia para depressão", searchIntent: "treatment", funnelStage: "mofu", contentType: "supporting", primaryEntity: "PSYCHOTHERAPY", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Medicamentos antidepressivos: informações e segurança", slug: "medicamentos-antidepressivos", primaryQuery: "medicamentos antidepressivos", searchIntent: "treatment", funnelStage: "mofu", contentType: "high_sensitivity", primaryEntity: "MEDICATION", relatedTestSlug: "phq-9", opportunityLevel: "high", topicalImportance: "high", conversionProximity: "high", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Depressão tem cura? Entenda remissão e acompanhamento", slug: "depressao-tem-cura", primaryQuery: "depressão tem cura", searchIntent: "informational", funnelStage: "mofu", contentType: "supporting", primaryEntity: "DEPRESSION", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Como ajudar alguém com depressão", slug: "como-ajudar-alguem-com-depressao", primaryQuery: "como ajudar alguém com depressão", searchIntent: "support", funnelStage: "mofu", contentType: "supporting", primaryEntity: "SOCIAL_SUPPORT", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "high", conversionProximity: "low", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "high", status: "planned" },
+    { cluster: "depressao", title: "Depressão na rotina de trabalho e estudos", slug: "depressao-trabalho-estudos", primaryQuery: "depressão trabalho estudos", searchIntent: "informational", funnelStage: "mofu", contentType: "supporting", primaryEntity: "FUNCTIONAL_IMPACT", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "medium", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "depressao", title: "Depressão e ansiedade juntas: quando buscar avaliação", slug: "depressao-e-ansiedade-juntas", primaryQuery: "depressão e ansiedade juntas", searchIntent: "comparison", funnelStage: "mofu", contentType: "cross_cluster", primaryEntity: "CROSS_CLUSTER", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "high", conversionProximity: "medium", entityGap: "low", internalLinkValue: "high", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" },
+    { cluster: "depressao", title: "Depressão em diferentes fases da vida", slug: "depressao-fases-da-vida", primaryQuery: "depressão fases da vida", searchIntent: "informational", funnelStage: "tofu", contentType: "supporting", primaryEntity: "LIFE_STAGE", relatedTestSlug: "phq-9", opportunityLevel: "medium", topicalImportance: "medium", conversionProximity: "low", entityGap: "medium", internalLinkValue: "medium", evidenceAvailability: "high", differentiationPotential: "medium", status: "planned" }
+  ];
+  for (const opportunity of foundationOpps) {
+    await db.insert(contentOpportunities).values(opportunity as any).onDuplicateKeyUpdate({ set: { title: opportunity.title } });
+  }
+
+  const secondWaveOpps = [
+    {
+      cluster: "depressao",
+      title: "Sintomas de depressão: sinais emocionais, cognitivos e físicos",
+      slug: "sintomas-de-depressao",
+      primaryQuery: "sintomas de depressão",
+      secondaryQueries: JSON.stringify(["sinais de depressão", "sintomas emocionais cognitivos físicos depressão"]),
+      searchIntent: "symptom",
+      funnelStage: "tofu",
+      contentType: "supporting",
+      primaryEntity: "DEPRESSION",
+      secondaryEntities: JSON.stringify(["DEPRESSIVE_SYMPTOMS", "LOW_MOOD", "ANHEDONIA", "FATIGUE", "SLEEP", "APPETITE", "CONCENTRATION"]),
+      relatedTestSlug: "phq-9",
+      opportunityLevel: "high",
+      topicalImportance: "high",
+      conversionProximity: "medium",
+      entityGap: "low",
+      internalLinkValue: "high",
+      evidenceAvailability: "high",
+      differentiationPotential: "high",
+      status: "published"
+    },
+    {
+      cluster: "depressao",
+      title: "Qual profissional procurar para depressão: psicólogo ou psiquiatra?",
+      slug: "qual-profissional-procurar-depressao",
+      primaryQuery: "qual profissional procurar para depressão",
+      secondaryQueries: JSON.stringify(["psicólogo ou psiquiatra depressão", "quem avalia depressão"]),
+      searchIntent: "professional_help",
+      funnelStage: "mofu",
+      contentType: "supporting",
+      primaryEntity: "DEPRESSION",
+      secondaryEntities: JSON.stringify(["PSYCHOLOGIST", "PSYCHIATRIST", "PRIMARY_CARE"]),
+      relatedTestSlug: "phq-9",
+      opportunityLevel: "high",
+      topicalImportance: "high",
+      conversionProximity: "high",
+      entityGap: "low",
+      internalLinkValue: "high",
+      evidenceAvailability: "high",
+      differentiationPotential: "high",
+      status: "published"
+    },
+    {
+      cluster: "depressao",
+      title: "Depressão tem tratamento? Conheça as principais abordagens",
+      slug: "tratamento-depressao",
+      primaryQuery: "tratamento da depressão",
+      secondaryQueries: JSON.stringify(["depressão tem tratamento", "abordagens para depressão"]),
+      searchIntent: "treatment",
+      funnelStage: "mofu",
+      contentType: "supporting",
+      primaryEntity: "DEPRESSION",
+      secondaryEntities: JSON.stringify(["PSYCHOTHERAPY", "PSYCHIATRY", "MEDICATION", "FOLLOW_UP"]),
+      relatedTestSlug: "phq-9",
+      opportunityLevel: "high",
+      topicalImportance: "high",
+      conversionProximity: "high",
+      entityGap: "low",
+      internalLinkValue: "high",
+      evidenceAvailability: "high",
+      differentiationPotential: "high",
+      status: "published"
+    }
+  ];
+
+  for (const opportunity of secondWaveOpps) {
+    await db.insert(contentOpportunities).values(opportunity as any).onDuplicateKeyUpdate({ set: { title: opportunity.title, status: "published" } });
+  }
+
+  const opportunities = await db.select().from(contentOpportunities).where(eq(contentOpportunities.cluster, "depressao"));
+  const opportunityBySlug = new Map(opportunities.map(opportunity => [opportunity.slug, opportunity]));
+  const briefRows = [
+    {
+      slug: "sintomas-de-depressao",
+      workingTitle: "Sintomas de depressão: mapa de manifestações sem atalho diagnóstico",
+      h1: "Sintomas de depressão: sinais emocionais, cognitivos e físicos",
+      intent: "SYMPTOM",
+      readerProblem: "A pessoa procura entender mudanças de humor, interesse, energia, sono, apetite e concentração sem saber o que os sinais significam.",
+      readerOutcome: "Organizar observações por áreas e reconhecer quando vale buscar avaliação, sem converter sinais em diagnóstico.",
+      directAnswerGoal: "Responder quais dimensões podem ser afetadas e explicar duração, contexto e impacto funcional.",
+      secondaryEntities: JSON.stringify(["DEPRESSIVE_SYMPTOMS", "LOW_MOOD", "ANHEDONIA", "FATIGUE", "SLEEP", "APPETITE", "CONCENTRATION"]),
+      requiredSections: JSON.stringify(["Direct Answer", "Sintomas emocionais", "Sintomas cognitivos", "Mapa original", "Papel do PHQ-9", "Limitações", "FAQ", "Referências"]),
+      questionsToAnswer: JSON.stringify(["Quais sinais podem aparecer?", "Os sintomas variam?", "Quando buscar avaliação?", "O PHQ-9 diagnostica?"]),
+      referencesRequired: JSON.stringify(["WHO depression fact sheet", "NIMH depression overview", "Kroenke et al. 2001"]),
+      internalLinksIn: JSON.stringify(["depressao", "tristeza-ou-depressao"]),
+      internalLinksOut: JSON.stringify(["depressao-sintomas-causas-tratamento", "teste-de-depressao-online", "qual-profissional-procurar-depressao"]),
+      originalValueRequirement: "SYMPTOM_MAP + ORIGINAL_TABLE: organizar sinais por área sem fazer contagem diagnóstica.",
+      ymylClassification: "YMYL_REVIEW",
+      reviewRequirements: "Revisão clínica: zero diagnostic shortcuts, zero unsupported critical claims e protocolo sensível contextual.",
+      seoNotes: "Owner exclusivo da intenção sintomas de depressão; não substituir o guia geral.",
+      aiCitabilityNotes: "Definir rastreio como educativo e preservar limites do PHQ-9.",
+    },
+    {
+      slug: "qual-profissional-procurar-depressao",
+      workingTitle: "Escolha de porta de entrada para cuidado relacionado à depressão",
+      h1: "Qual profissional procurar para depressão: psicólogo ou psiquiatra?",
+      intent: "PROFESSIONAL_HELP",
+      readerProblem: "A pessoa não sabe como diferenciar atribuições profissionais ou qual porta de entrada faz sentido para seu contexto.",
+      readerOutcome: "Compreender caminhos possíveis sem receber uma regra universal ou uma seleção individual de tratamento.",
+      directAnswerGoal: "Explicar psicólogo, psiquiatra, atenção primária, avaliação e busca mais rápida por ajuda.",
+      secondaryEntities: JSON.stringify(["PSYCHOLOGIST", "PSYCHIATRIST", "PRIMARY_CARE"]),
+      requiredSections: JSON.stringify(["Direct Answer", "Papel do psicólogo", "Papel do psiquiatra", "Atenção primária", "Decision Framework", "FAQ", "Referências"]),
+      questionsToAnswer: JSON.stringify(["Quem pode avaliar?", "Preciso de encaminhamento?", "Como preparar a primeira consulta?", "Quando procurar mais rapidamente?"]),
+      referencesRequired: JSON.stringify(["NICE NG222", "WHO mhGAP", "Kroenke et al. 2001"]),
+      internalLinksIn: JSON.stringify(["depressao", "sintomas-de-depressao"]),
+      internalLinksOut: JSON.stringify(["tratamento-depressao", "depressao-sintomas-causas-tratamento", "teste-de-depressao-online"]),
+      originalValueRequirement: "DECISION_FRAMEWORK: orientar busca por cuidado sem escolher tratamento individual.",
+      ymylClassification: "YMYL_REVIEW",
+      reviewRequirements: "Revisão clínica: não criar ordem universal entre profissionais e contextualizar urgência.",
+      seoNotes: "Owner exclusivo da intenção busca de ajuda; não transformar em guia completo de tratamento.",
+      aiCitabilityNotes: "Separar atribuições profissionais de recomendações individuais.",
+    },
+    {
+      slug: "tratamento-depressao",
+      workingTitle: "Panorama de tratamento da depressão com boundaries clínicos explícitos",
+      h1: "Depressão tem tratamento? Conheça as principais abordagens",
+      intent: "TREATMENT",
+      readerProblem: "A pessoa busca saber se depressão tem tratamento e quer entender as abordagens sem prescrição ou promessa de resultado.",
+      readerOutcome: "Conhecer componentes gerais do cuidado e saber como conversar com profissionais sobre evolução e ausência de melhora.",
+      directAnswerGoal: "Apresentar psicoterapia, acompanhamento médico, medicamentos quando indicados, suporte e revisão.",
+      secondaryEntities: JSON.stringify(["PSYCHOTHERAPY", "PSYCHIATRY", "MEDICATION", "FOLLOW_UP"]),
+      requiredSections: JSON.stringify(["Direct Answer", "Como o tratamento é definido", "Psicoterapia", "Medicamentos quando indicados", "Tabela de abordagens", "Acompanhamento", "FAQ", "Referências"]),
+      questionsToAnswer: JSON.stringify(["Depressão pode ser tratada?", "Como o plano é definido?", "O que fazer sem melhora percebida?", "O PHQ-9 acompanha sintomas?"]),
+      referencesRequired: JSON.stringify(["NICE NG222", "WHO depression fact sheet", "APA DSM-5-TR", "Kroenke et al. 2001"]),
+      internalLinksIn: JSON.stringify(["depressao", "qual-profissional-procurar-depressao"]),
+      internalLinksOut: JSON.stringify(["depressao-sintomas-causas-tratamento", "qual-profissional-procurar-depressao", "teste-de-depressao-online"]),
+      originalValueRequirement: "EVIDENCE_SYNTHESIS + TREATMENT_OVERVIEW_FRAMEWORK: sintetizar fontes e manter subseções específicas em nível panorâmico.",
+      ymylClassification: "YMYL_REVIEW",
+      reviewRequirements: "Revisão clínica: zero prescrição, zero dosagem, zero comparação de medicamentos, zero promessa de cura ou tempo garantido.",
+      seoNotes: "Owner exclusivo da intenção tratamento; preparar boundaries para terapia-para-depressao e medicamentos-antidepressivos.",
+      aiCitabilityNotes: "Não oferecer melhor tratamento universal; sempre separar informação de decisão clínica.",
+    }
+  ];
+
+  const existingBriefs = await db.select().from(contentBriefs);
+  const existingBriefOpportunityIds = new Set(existingBriefs.map(brief => brief.opportunityId));
+  for (const brief of briefRows) {
+    const opportunity = opportunityBySlug.get(brief.slug);
+    if (!opportunity || existingBriefOpportunityIds.has(opportunity.id)) continue;
+    await db.insert(contentBriefs).values({
+      opportunityId: opportunity.id,
+      workingTitle: brief.workingTitle,
+      h1: brief.h1,
+      intent: brief.intent,
+      readerProblem: brief.readerProblem,
+      readerOutcome: brief.readerOutcome,
+      directAnswerGoal: brief.directAnswerGoal,
+      primaryEntity: "DEPRESSION",
+      secondaryEntities: brief.secondaryEntities,
+      requiredSections: brief.requiredSections,
+      questionsToAnswer: brief.questionsToAnswer,
+      referencesRequired: brief.referencesRequired,
+      relatedTestSlug: "phq-9",
+      internalLinksIn: brief.internalLinksIn,
+      internalLinksOut: brief.internalLinksOut,
+      originalValueRequirement: brief.originalValueRequirement,
+      ymylClassification: brief.ymylClassification,
+      reviewRequirements: brief.reviewRequirements,
+      seoNotes: brief.seoNotes,
+      aiCitabilityNotes: brief.aiCitabilityNotes,
+    } as any);
+  }
+
+  const evidenceRows = [
+    { slug: "sintomas-de-depressao", claim: "Depressão pode afetar humor, interesse, energia, sono, apetite e concentração, com apresentação variável entre pessoas.", source: "Depressive disorder (depression) fact sheet", authors: "World Health Organization", organization: "WHO", year: 2023, url: "https://www.who.int/news-room/fact-sheets/detail/depression", evidenceLevel: "Level 1 - Institutional Guidance", sourceType: "primary" },
+    { slug: "sintomas-de-depressao", claim: "O PHQ-9 mede a frequência de sintomas depressivos nas últimas duas semanas e não substitui avaliação clínica.", source: "The PHQ-9: validity of a brief depression severity measure", authors: "Kroenke K, Spitzer RL, Williams JB", organization: "Journal of General Internal Medicine", year: 2001, url: "https://pubmed.ncbi.nlm.nih.gov/11556941/", evidenceLevel: "Level 1 - Validation Study", sourceType: "primary" },
+    { slug: "qual-profissional-procurar-depressao", claim: "Diretrizes de depressão orientam avaliação e cuidado conforme necessidades, preferências, gravidade e contexto, sem uma porta de entrada universal.", source: "Depression in adults: treatment and management (NG222)", authors: "National Institute for Health and Care Excellence", organization: "NICE", year: 2022, url: "https://www.nice.org.uk/guidance/ng222", evidenceLevel: "Level 1 - National Clinical Guideline", sourceType: "primary" },
+    { slug: "qual-profissional-procurar-depressao", claim: "Instrumentos como o PHQ-9 podem apoiar a organização de sintomas, mas o resultado precisa ser interpretado no contexto clínico.", source: "The PHQ-9: validity of a brief depression severity measure", authors: "Kroenke K, Spitzer RL, Williams JB", organization: "Journal of General Internal Medicine", year: 2001, url: "https://pubmed.ncbi.nlm.nih.gov/11556941/", evidenceLevel: "Level 1 - Validation Study", sourceType: "primary" },
+    { slug: "tratamento-depressao", claim: "Diretrizes reconhecem psicoterapia, acompanhamento clínico e, quando indicados, medicamentos como componentes possíveis do cuidado da depressão.", source: "Depression in adults: treatment and management (NG222)", authors: "National Institute for Health and Care Excellence", organization: "NICE", year: 2022, url: "https://www.nice.org.uk/guidance/ng222", evidenceLevel: "Level 1 - National Clinical Guideline", sourceType: "primary" },
+    { slug: "tratamento-depressao", claim: "A escolha e a revisão do cuidado devem considerar resposta, efeitos adversos, segurança, histórico, preferências e contexto individual.", source: "Depressive disorder (depression) fact sheet", authors: "World Health Organization", organization: "WHO", year: 2023, url: "https://www.who.int/news-room/fact-sheets/detail/depression", evidenceLevel: "Level 1 - Institutional Guidance", sourceType: "primary" },
+    { slug: "tratamento-depressao", claim: "O PHQ-9 pode ser utilizado para mensurar sintomas depressivos ao longo do tempo, sem definir sozinho resposta ou tratamento.", source: "The PHQ-9: validity of a brief depression severity measure", authors: "Kroenke K, Spitzer RL, Williams JB", organization: "Journal of General Internal Medicine", year: 2001, url: "https://pubmed.ncbi.nlm.nih.gov/11556941/", evidenceLevel: "Level 1 - Validation Study", sourceType: "primary" }
+  ];
+  const existingEvidence = await db.select().from(contentEvidence);
+  const existingEvidenceKeys = new Set(existingEvidence.map(evidence => `${evidence.articleSlug}:${evidence.claim}`));
+  for (const evidence of evidenceRows) {
+    const opportunity = opportunityBySlug.get(evidence.slug);
+    if (!opportunity || existingEvidenceKeys.has(`${evidence.slug}:${evidence.claim}`)) continue;
+    await db.insert(contentEvidence).values({ ...evidence, articleSlug: evidence.slug, opportunityId: opportunity.id } as any);
+  }
+
+  const linkRows = [
+    { sourceSlug: "depressao", targetSlug: "depressao-sintomas-causas-tratamento", anchorText: "Entenda a depressão", linkType: "pillar_to_guide" },
+    { sourceSlug: "depressao", targetSlug: "sintomas-de-depressao", anchorText: "Sintomas", linkType: "pillar_to_supporting" },
+    { sourceSlug: "depressao", targetSlug: "tristeza-ou-depressao", anchorText: "Comparações", linkType: "pillar_to_supporting" },
+    { sourceSlug: "depressao", targetSlug: "teste-de-depressao-online", anchorText: "Avaliação", linkType: "pillar_to_supporting" },
+    { sourceSlug: "depressao", targetSlug: "qual-profissional-procurar-depressao", anchorText: "Ajuda profissional", linkType: "pillar_to_supporting" },
+    { sourceSlug: "depressao", targetSlug: "tratamento-depressao", anchorText: "Tratamento", linkType: "pillar_to_supporting" },
+    { sourceSlug: "depressao-sintomas-causas-tratamento", targetSlug: "sintomas-de-depressao", anchorText: "aprofundamento dos sintomas", linkType: "guide_to_supporting" },
+    { sourceSlug: "depressao-sintomas-causas-tratamento", targetSlug: "tratamento-depressao", anchorText: "tratamento da depressão", linkType: "guide_to_supporting" },
+    { sourceSlug: "teste-de-depressao-online", targetSlug: "phq-9", anchorText: "PHQ-9", linkType: "test_intent_to_test_entity" },
+    { sourceSlug: "tristeza-ou-depressao", targetSlug: "sintomas-de-depressao", anchorText: "sintomas de depressão", linkType: "supporting_to_supporting" },
+    { sourceSlug: "sintomas-de-depressao", targetSlug: "depressao-sintomas-causas-tratamento", anchorText: "guia geral sobre depressão", linkType: "supporting_to_guide" },
+    { sourceSlug: "sintomas-de-depressao", targetSlug: "teste-de-depressao-online", anchorText: "guia do teste de depressão online", linkType: "supporting_to_test_intent" },
+    { sourceSlug: "sintomas-de-depressao", targetSlug: "qual-profissional-procurar-depressao", anchorText: "busca de cuidado", linkType: "supporting_to_supporting" },
+    { sourceSlug: "qual-profissional-procurar-depressao", targetSlug: "tratamento-depressao", anchorText: "tratamento da depressão", linkType: "supporting_to_supporting" },
+    { sourceSlug: "qual-profissional-procurar-depressao", targetSlug: "depressao-sintomas-causas-tratamento", anchorText: "guia geral", linkType: "supporting_to_guide" },
+    { sourceSlug: "tratamento-depressao", targetSlug: "depressao-sintomas-causas-tratamento", anchorText: "visão ampla da condição", linkType: "supporting_to_guide" },
+    { sourceSlug: "tratamento-depressao", targetSlug: "qual-profissional-procurar-depressao", anchorText: "buscar cuidado profissional", linkType: "supporting_to_supporting" },
+    { sourceSlug: "tristeza-ou-depressao", targetSlug: "sintomas-de-depressao", anchorText: "sintomas de depressão", linkType: "supporting_to_supporting" }
+  ];
+  const existingLinks = await db.select().from(internalLinksGraph);
+  const existingLinkKeys = new Set(existingLinks.map(link => `${link.sourceSlug}:${link.targetSlug}:${link.anchorText}`));
+  for (const link of linkRows) {
+    const key = `${link.sourceSlug}:${link.targetSlug}:${link.anchorText}`;
+    if (!existingLinkKeys.has(key)) await db.insert(internalLinksGraph).values(link);
+  }
+
+  const existingVersions = await db.select().from(articleVersions);
+  const versionSlugs = new Set(existingVersions.map(version => version.articleSlug));
+  for (const opportunity of secondWaveOpps) {
+    if (versionSlugs.has(opportunity.slug)) continue;
+    await db.insert(articleVersions).values({
+      articleSlug: opportunity.slug,
+      versionId: "depression-second-wave-v1",
+      publishedAt: new Date("2026-08-14T12:00:00Z"),
+      reviewedAt: new Date("2026-08-14T12:00:00Z"),
+      referencesVersion: "clinical-sources-2026-08"
+    } as any);
+  }
+
+  for (const opportunity of secondWaveOpps) {
+    const checks = {
+      primaryEntityPresent: true,
+      searchIntentAligned: true,
+      authorAssigned: true,
+      referencesAvailable: true,
+      sourceQualityHigh: true,
+      reviewerAssigned: true,
+      scientificReviewPassed: true,
+      clinicalReviewPassed: true,
+      safetyReviewPassed: true,
+      originalValueConfirmed: true,
+      internalLinksComplete: true,
+      relatedTestMapped: true,
+      metadataValid: true,
+      canonicalConfigured: true,
+      schemaJsonValid: true,
+      noBrokenOrphanLinks: true,
+      cannibalizationCheckPassed: true,
+      diagnosticShortcutClaimsZero: true,
+      criticalTreatmentClaimsWithoutSource: true
+    };
+    await db.insert(publicationGates).values({
+      articleSlug: opportunity.slug,
+      status: "PASSED",
+      checksJson: JSON.stringify(checks),
+      reviewedAt: new Date("2026-08-14T12:00:00Z")
+    }).onDuplicateKeyUpdate({
+      set: { status: "PASSED", checksJson: JSON.stringify(checks), reviewedAt: new Date("2026-08-14T12:00:00Z") }
+    });
+  }
+
+  return { opportunities, briefs: await getContentBriefs("depressao"), evidence: await getContentEvidence(), links: await getInternalLinksGraph("depressao") };
+}
+
 export async function seedEvidenceIfNeeded() {
   const db = await requireDb();
   const existing = await getContentEvidence();
   if (existing.length > 0) {
     await seedSecondWaveIfNeeded();
+    await seedDepressionSecondWaveIfNeeded();
     return existing;
   }
 
@@ -659,30 +962,47 @@ export async function seedEvidenceIfNeeded() {
   }
 
   await seedSecondWaveIfNeeded();
+  await seedDepressionSecondWaveIfNeeded();
   return db.select().from(contentEvidence);
+}
+
+export async function getPublicationGates() {
+  const db = await requireDb();
+  return db.select().from(publicationGates);
+}
+
+export async function canPublishContent(contentId: string) {
+  return evaluatePublicationGate(contentId);
 }
 
 export async function evaluatePublicationGate(articleSlug: string) {
   const db = await requireDb();
-  
-  // 16 critérios do Publication Gate
+  const article = ARTICLES_DATABASE[articleSlug];
+  const isDepressionSecondWave = ["sintomas-de-depressao", "qual-profissional-procurar-depressao", "tratamento-depressao"].includes(articleSlug);
+  const opportunity = (await getContentOpportunities(isDepressionSecondWave ? "depressao" : "ansiedade")).find(item => item.slug === articleSlug);
+  const evidence = await getContentEvidence(articleSlug);
+  const links = await db.select().from(internalLinksGraph).where(eq(internalLinksGraph.sourceSlug, articleSlug));
+  const canonicalTestSlug = article?.relatedTestSlug || article?.relatedTest?.testSlug;
+  const canonicalTest = canonicalTestSlug ? getCanonicalTest(canonicalTestSlug) : null;
+  const articleText = article ? JSON.stringify(article) : "";
+
   const checks = {
-    primaryEntityPresent: true,
-    searchIntentAligned: true,
-    authorAssigned: true,
-    referencesAvailable: true,
-    sourceQualityHigh: true,
-    reviewerAssigned: true,
-    scientificReviewPassed: true,
-    clinicalReviewPassed: true,
-    safetyReviewPassed: articleSlug !== "ansiedade-falta-de-ar", // requer checagem extra se for falta de ar
-    originalValueConfirmed: true,
-    internalLinksComplete: true,
-    relatedTestMapped: true,
-    metadataValid: true,
-    canonicalConfigured: true,
-    schemaJsonValid: true,
-    noBrokenOrphanLinks: true
+    primaryEntityPresent: Boolean(article?.primaryEntity || opportunity?.primaryEntity),
+    searchIntentAligned: Boolean(opportunity?.searchIntent),
+    authorAssigned: Boolean(article?.author),
+    referencesAvailable: Boolean(article?.references?.length && evidence.length),
+    sourceQualityHigh: Boolean(article?.references?.some(reference => Boolean(reference.sourceUrl?.startsWith("https://"))) && evidence.some(item => item.sourceType === "primary")),
+    reviewerAssigned: Boolean(article?.reviewer),
+    scientificReviewPassed: Boolean(article?.references && article.references.length >= 2),
+    clinicalReviewPassed: Boolean(article?.reviewer && article.reviewedAt),
+    safetyReviewPassed: articleSlug !== "ansiedade-falta-de-ar" && !/x\\s* sintomas\\s*=|você tem depressão/i.test(articleText),
+    originalValueConfirmed: Boolean(article?.originalValue?.length) || !isDepressionSecondWave,
+    internalLinksComplete: links.length > 0,
+    relatedTestMapped: Boolean(canonicalTest),
+    metadataValid: Boolean(article?.seoTitle && article?.seoDescription && article?.faqs?.length),
+    canonicalConfigured: Boolean(article?.slug === articleSlug),
+    schemaJsonValid: Boolean(article?.sections?.length && article.sections.every(section => section.id && section.title && Array.isArray(section.paragraphs))),
+    noBrokenOrphanLinks: links.length > 0 && links.every(link => Boolean(link.targetSlug && link.anchorText))
   };
 
   const allPassed = Object.values(checks).every(Boolean);

@@ -33,18 +33,18 @@ export default function AdminContentAuthority() {
               <Layers className="h-3.5 w-3.5" /> Content Authority Engine V1
             </div>
             <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-[#123f3b]">Central Editorial e Governança</h1>
-            <p className="text-sm text-[#527068]">Cluster Ansiedade · Pillar /ansiedade · Primary Test GAD-7 · Autopublish: Disabled</p>
+            <p className="text-sm text-[#527068]">Cluster Depressão · Pillar /depressao · Primary Test PHQ-9 · Autopublish: Disabled</p>
           </div>
           <Button 
             onClick={() => {
-              setEvaluating("sintomas-de-ansiedade");
-              evaluateMutation.mutate({ articleSlug: "sintomas-de-ansiedade" });
+              setEvaluating("sintomas-de-depressao");
+              evaluateMutation.mutate({ articleSlug: "sintomas-de-depressao" });
             }}
             disabled={evaluating !== null}
             className="bg-[#0a615a] hover:bg-[#074d47] text-white gap-2"
           >
             <ShieldCheck className="h-4 w-4" />
-            {evaluating ? "Executando Gate..." : "Executar Publication Gate (Sintomas)"}
+            {evaluating ? "Executando Gate..." : "Executar Publication Gate (Article 04)"}
           </Button>
         </div>
 
@@ -55,7 +55,7 @@ export default function AdminContentAuthority() {
               <CardContent className="p-6">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#628079]">Content Coverage</p>
                 <p className="mt-2 text-3xl font-bold text-[#123f3b]">{data.coverage.contentCoverage}%</p>
-                <p className="mt-1 text-xs text-[#628079]">4 de 15 oportunidades publicadas</p>
+                <p className="mt-1 text-xs text-[#628079]">{data.coverage.afterSecondWave?.content ?? 0} de {data.coverage.afterSecondWave?.total ?? 0} oportunidades publicadas</p>
               </CardContent>
             </Card>
             <Card className="border-[#dceae5] bg-white shadow-sm">
@@ -69,14 +69,14 @@ export default function AdminContentAuthority() {
               <CardContent className="p-6">
                 <p className="text-xs font-bold uppercase tracking-wider text-[#628079]">Entity & Links</p>
                 <p className="mt-2 text-3xl font-bold text-[#123f3b]">{data.coverage.internalLinkCoverage}%</p>
-                <p className="mt-1 text-xs text-[#628079]">Orphan: 0 · Broken: 0</p>
+                <p className="mt-1 text-xs text-[#628079]">Orphan: {data.coverage.orphanContents} · Broken: {data.coverage.brokenLinks}</p>
               </CardContent>
             </Card>
             <Card className="border-[#dceae5] bg-white shadow-sm">
               <CardContent className="p-6">
-                <p className="text-xs font-bold uppercase tracking-wider text-[#628079]">YMYL Safety Gate</p>
-                <p className="mt-2 text-3xl font-bold text-[#0a615a]">Active</p>
-                <p className="mt-1 text-xs text-[#628079]">Clinical & evidence checking</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-[#628079]">PHQ-9 conversion</p>
+                <p className="mt-2 text-3xl font-bold text-[#0a615a]">{data.coverage.testConversionCoverage}%</p>
+                <p className="mt-1 text-xs text-[#628079]">Artigos publicados com associação editorial</p>
               </CardContent>
             </Card>
           </div>
@@ -86,7 +86,7 @@ export default function AdminContentAuthority() {
         <Card className="border-[#dceae5] bg-white shadow-sm">
           <CardHeader className="border-b border-[#eef4f1] px-6 py-4">
             <CardTitle className="text-lg font-bold text-[#123f3b] flex items-center gap-2">
-              <Database className="h-5 w-5 text-[#0a615a]" /> Backlog de Oportunidades do Cluster (15 itens)
+              <Database className="h-5 w-5 text-[#0a615a]" /> Backlog de Oportunidades do Cluster de Depressão ({data?.opportunities?.length ?? 0} itens)
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 overflow-x-auto">
@@ -129,7 +129,7 @@ export default function AdminContentAuthority() {
         <Card className="border-[#dceae5] bg-white shadow-sm">
           <CardHeader className="border-b border-[#eef4f1] px-6 py-4">
             <CardTitle className="text-lg font-bold text-[#123f3b] flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-[#0a615a]" /> Banco de Evidências e Proveniência (First Wave)
+              <BookOpen className="h-5 w-5 text-[#0a615a]" /> Banco de Evidências e Proveniência (Depression Second Wave)
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 divide-y divide-[#eef4f1]">
