@@ -183,3 +183,18 @@
 - [x] Avaliar individualmente as oportunidades remanescentes (Gaps A a E: sono, cansaço, motivação, terapia, antidepressivos).
 - [x] Executar testes (45/45) e build de produção.
 - [x] Gerar o relatório canônico MENTAL_SAUDE_DEPRESSION_CLUSTER_SYSTEM_AUDIT_REPORT.md, salvar checkpoint e parar no Pre-Third-Wave Gate.
+
+# TDAH Cluster Foundation Audit (Pre-Content-Production Gate - pasted_content_27.txt)
+- [x] Ler e reconciliar integralmente a especificação canônica pasted_content_27.txt.
+- [ ] Executar inventário físico real de todas as rotas, conteúdos, entidades, testes, código, HTTP, indexabilidade, canonical, schema, Article Design System, Content Authority e Internal Link Graph relacionados a TDAH/ADHD/ASRS.
+- [ ] Auditar /conteudos/tdah-em-adultos e classificar status, ownership e qualidade editorial sem reescrever.
+- [ ] Verificar a verdade física da Pillar /tdah sem criar rota nesta missão.
+- [ ] Auditar ASRS: entidade, execução, scoring, versão/proveniência, licenciamento, review, mapping, privacidade, noindex e Content Authority.
+- [ ] Validar safety SCREENING ≠ DIAGNOSIS e readiness YMYL do cluster TDAH.
+- [ ] Modelar a entidade primária ADHD, entidades secundárias e escopo adulto versus infantil sem criar novos artigos.
+- [ ] Mapear intents, criar backlog de até 15 oportunidades e classificar candidatos, risco de canibalização e relações cross-cluster.
+- [ ] Definir requisitos de evidence architecture, ASRS conversion model, pillar strategy e baseline de coverage real.
+- [ ] Selecionar no máximo 3 candidatos para futura TDAH First Wave sem publicar.
+- [ ] Preservar Article Design System V1.1 FROZEN, Content Authority Engine V1, Admin e User Dashboard sem alterações de escopo.
+- [ ] Executar testes (45/45) e production build.
+- [ ] Gerar MENTAL_SAUDE_TDAH_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no STOP GATE.

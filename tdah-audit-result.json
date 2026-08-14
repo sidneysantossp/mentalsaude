@@ -1,0 +1,30 @@
+{
+  "currentRoutes": 1,
+  "tdahPillar": "MISSING",
+  "tdahAdultArticle": "PUBLISHED",
+  "currentScope": "ADULT",
+  "asrsEntityPage": "MISSING",
+  "asrsExecution": "MISSING",
+  "asrsScoring": "VERIFIED",
+  "asrsVersionProvenance": "VERIFIED",
+  "asrsLicensingStatus": "VERIFIED",
+  "screeningVsDiagnosisSafety": "PASS",
+  "tdahSafetyArchitecture": "READY",
+  "tdahMedicationContent": "BLOCKED",
+  "contentCoverage": "0.0%",
+  "intentCoverage": "0.0%",
+  "entityCoverage": "12.5%",
+  "internalLinkCoverage": "0.0%",
+  "testConversionCoverage": "0.0%",
+  "opportunitiesMapped": 15,
+  "highCannibalizationRisks": 2,
+  "firstWaveCandidates": [
+    "TDAH em adultos: o que é, sintomas e como é avaliado",
+    "Sintomas de TDAH em adultos",
+    "Teste de TDAH online: como funciona o ASRS"
+  ],
+  "articleDesignSystemChanged": "NO",
+  "autopublish": "DISABLED",
+  "testsPass": "45/45",
+  "buildStatus": "PASS"
+}
