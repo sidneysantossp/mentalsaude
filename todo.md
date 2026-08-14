@@ -279,3 +279,16 @@
 - [x] Avaliar individualmente os Gaps A a H (recomendações de Publish, Reposition, Merge ou Drop).
 - [x] Executar suíte de testes (63+ testes) e build de produção.
 - [x] Gerar MENTAL_SAUDE_TDAH_CLUSTER_SYSTEM_AUDIT_REPORT.md, salvar checkpoint e parar no Pre-Third-Wave Gate.
+
+# Stress Cluster Foundation Audit (Pre-Content-Production Gate - pasted_content_33.txt)
+- [x] Reconciliar especificação canônica pasted_content_33.txt.
+- [x] Executar inventário físico real de rotas, artigos, testes e entidades relacionadas a STRESS e DASS-21.
+- [x] Auditar verdade do Pillar /estresse (STRESS PILLAR: MISSING).
+- [x] Auditar conteúdo existente e Semantic Ownership para estresse e burnout.
+- [x] Auditar DASS-21 (Entity Page, execução, scoring, versionamento, licença, Content Authority e noindex).
+- [x] Auditar DASS-21 Multi-Domain Risk (screening vs diagnóstico para depression/anxiety/stress).
+- [x] Modelar Entity Model, boundaries de Stress vs Anxiety e Stress vs Burnout.
+- [x] Mapear Search Intent Architecture e criar backlog inicial de 15 oportunidades.
+- [x] Avaliar pré-matriz de canibalização e estratégia de sintomas físicos.
+- [x] Executar suíte de testes (63+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_STRESS_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no Pre-Content-Production Gate.
