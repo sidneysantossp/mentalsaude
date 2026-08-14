@@ -134,9 +134,17 @@
 - [x] Gerar o relatório MENTAL_SAUDE_ANXIETY_THIRD_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
 
 # Anxiety Cluster System Audit (pasted_content_22.txt)
-- [ ] Inventariar as 12 URLs publicadas no cluster Ansiedade e avaliar ownership, intent e YMYL.
-- [ ] Executar matriz de canibalização global e verificar se High Overlap Unresolved = 0.
-- [ ] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, link coverage).
-- [ ] Avaliar as 3 oportunidades restantes (Gap A: Ansiedade e sono, Gap B: Medicamentos, Gap C: Ansiedade tem cura) e decidir sobre a Fourth Wave.
-- [ ] Executar a suíte de testes (37/37) e o build de produção.
-- [ ] Gerar o relatório MENTAL_SAUDE_ANXIETY_CLUSTER_SYSTEM_AUDIT.md, salvar checkpoint e parar no STOP GATE.
+- [x] Inventariar as 12 URLs publicadas no cluster Ansiedade e avaliar ownership, intent e YMYL.
+- [x] Executar matriz de canibalização global e verificar se High Overlap Unresolved = 0.
+- [x] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, link coverage).
+- [x] Avaliar as 3 oportunidades restantes (Gap A: Ansiedade e sono, Gap B: Medicamentos, Gap C: Ansiedade tem cura) e decidir sobre a Fourth Wave.
+- [x] Executar a suíte de testes (37/37) e o build de produção.
+- [x] Gerar o relatório MENTAL_SAUDE_ANXIETY_CLUSTER_SYSTEM_AUDIT.md, salvar checkpoint e parar no STOP GATE.
+
+# Depression Cluster Foundation Audit (pasted_content_23.txt)
+- [ ] Inventariar rotas, status, HTTP e indexabilidade para Depressão e PHQ-9.
+- [ ] Auditar o artigo existente /conteudos/depressao-sintomas-causas-tratamento, o Pilar /depressao e a entidade PHQ-9.
+- [ ] Mapear o modelo de entidade, intents, matriz prévia de canibalização e backlog de 15 oportunidades.
+- [ ] Avaliar Safety Architecture, YMYL, Evidence Provenance e Internal Link Architecture.
+- [ ] Executar suíte de testes (37/37) e build de produção.
+- [ ] Gerar MENTAL_SAUDE_DEPRESSION_CLUSTER_FOUNDATION_AUDIT.md, salvar checkpoint e parar no Pre-Content-Production Gate.
