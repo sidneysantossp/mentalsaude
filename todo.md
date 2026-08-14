@@ -247,3 +247,21 @@
 - [x] Executar visual QA desktop/mobile em /tdah e /conteudos e validar cliques reais.
 - [x] Executar suíte de testes (51+ testes) e build de produção.
 - [x] Gerar MENTAL_SAUDE_TDAH_FIRST_WAVE_INTEGRITY_CLOSEOUT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH Second Wave (pasted_content_31.txt)
+- [ ] Implementar Article 04 /conteudos/tdah-ou-procrastinacao (COMPARISON, ASRS, original value).
+- [ ] Implementar Article 05 /conteudos/qual-profissional-procurar-tdah (PROFESSIONAL_HELP, care pathway).
+- [ ] Implementar Article 06 /conteudos/tratamento-tdah-adultos (TREATMENT, medication boundaries, evidence).
+- [ ] Registrar briefs, evidence, links e publication gates no Content Authority Engine.
+- [ ] Validar canibalização global (High Overlap = 0), orphan contents = 0 e broken links = 0.
+- [ ] Executar suíte de testes (57+ testes) e build de produção.
+- [ ] Gerar MENTAL_SAUDE_TDAH_SECOND_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH Second Wave (pasted_content_31.txt)
+- [x] Reconciliar especificação e inventário físico dos três slugs da TDAH Second Wave.
+- [x] Implementar Article 04 /conteudos/tdah-ou-procrastinacao com intent COMPARISON, ASRS e COMPARISON_FRAMEWORK.
+- [x] Implementar Article 05 /conteudos/qual-profissional-procurar-tdah com intent PROFESSIONAL_HELP, ASRS e CARE_PATHWAY_FRAMEWORK.
+- [x] Implementar Article 06 /conteudos/tratamento-tdah-adultos com intent TREATMENT, ASRS e MULTIMODAL_CARE_FRAMEWORK.
+- [x] Registrar oportunidades, briefs, evidence, gates e validar canibalização, links e segurança.
+- [x] Executar testes (63+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_SECOND_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.

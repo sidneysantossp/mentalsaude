@@ -2511,5 +2511,351 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://pubmed.ncbi.nlm.nih.gov"
       }
     ]
+  },
+  "tdah-ou-procrastinacao": {
+    slug: "tdah-ou-procrastinacao",
+    seoTitle: "TDAH ou Procrastinação: Relação, Diferenças e O Que Observar | Mental Saúde",
+    seoDescription: "Entenda a diferença entre procrastinação comportamental e dificuldades executivas persistentes associadas ao TDAH em adultos.",
+    category: "Neurodiversidade",
+    readingTime: "7 min de leitura",
+    title: "TDAH ou procrastinação: qual é a relação e o que observar?",
+    subtitle: "Entenda a diferença entre procrastinação comportamental e dificuldades executivas persistentes associadas ao TDAH em adultos.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    primaryEntity: "TDAH",
+    directAnswer: "A procrastinação pode ocorrer por cansaço ou estresse pontual, mas quando as dificuldades de início de tarefas e organização são crônicas, podem indicar disfunções executivas associadas ao TDAH.",
+    keyTakeaways: [
+      "A procrastinação é um comportamento comum de adiamento que afeta a população geral por motivos diversos.",
+      "No TDAH, a dificuldade de iniciar tarefas decorre de desregulação executiva em circuitos frontais.",
+      "Instrumentos como o ASRS v1.1 auxiliam no rastreio inicial de sintomas, mas não dão diagnóstico isolado.",
+      "Condições como ansiedade, depressão e burnout também afetam a concentração e exigem avaliação diferencial."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "o-que-e-procrastinacao", label: "O que é procrastinação" },
+      { id: "dificuldades-executivas", label: "Dificuldades executivas" },
+      { id: "quando-nao-e-tdah", label: "Quando não é TDAH" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A procrastinação consiste no adiamento voluntário de tarefas. Embora comum, quando se torna crônica e associada a déficits de atenção e organização, requer investigação cuidadosa." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "o-que-e-procrastinacao",
+        title: "O que é procrastinação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A procrastinação envolve adiar ações apesar de saber que haverá prejuízos. Pode estar ligada ao perfeccionismo, medo de falhar ou exaustão, sem representar uma condição neurobiológica " },
+              { text: "WHO, 2025", refId: "who-2025", displayText: "WHO, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "dificuldades-executivas",
+        title: "Dificuldades executivas e início de tarefas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "No TDAH em adultos, o desafio para iniciar tarefas monótonas decorre de diferenças na regulação da dopamina e ativação cortical, gerando forte resistência a atividades sem recompensa imediata." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-nao-e-tdah",
+        title: "Quando procrastinação não significa TDAH",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Quadros de ansiedade, esgotamento profissional e depressão também prejudicam a concentração, tornando indispensável a avaliação diferencial " },
+              { text: "Kessler et al., 2005", refId: "kessler-2005", displayText: "Kessler et al., 2005" },
+              { text: ". " },
+              { text: "Conheça o rastreio com o ASRS v1.1", displayText: "Conheça o rastreio com o ASRS v1.1", href: "/testes/asrs" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Estudos de neuroimagem indicam que circuitos fronto-estriatais envolvidos na motivação diferem em adultos com TDAH.",
+      whatEvidenceSuggests: "Abordagens de fragmentação de tarefas reduzem a barreira de ativação executiva.",
+      whatWeDontKnowYet: "A extensão exata em que fatores ambientais isolados mimetizam déficits executivos congênitos."
+    },
+    originalValue: [
+      { type: "COMPARISON_FRAMEWORK", description: "Framework de comparação entre procrastinação comportamental e disfunções executivas." }
+    ],
+    relatedTestSlug: "asrs",
+    relatedTest: {
+      title: "Escala de Autorrelato ASRS v1.1 para TDAH em Adultos",
+      acronym: "ASRS v1.1",
+      description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
+      questionCount: 6,
+      durationMinutes: 2,
+      testSlug: "/testes/asrs"
+    },
+    faqs: [
+      {
+        question: "Toda procrastinação é TDAH?",
+        answer: "Não. A procrastinação é um comportamento universal, enquanto o TDAH é um transtorno do neurodesenvolvimento."
+      }
+    ],
+    references: [
+      {
+        id: "who-2025",
+        shortLabel: "WHO, 2025",
+        fullCitation: "World Health Organization. (2025). Mental health resources.",
+        sourceUrl: "https://www.who.int"
+      },
+      {
+        id: "kessler-2005",
+        shortLabel: "Kessler et al., 2005",
+        fullCitation: "Kessler, R. C., et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS). Psychological Medicine, 35(2), 245-256.",
+        sourceUrl: "https://pubmed.ncbi.nlm.nih.gov/15842036/"
+      }
+    ]
+  },
+  "qual-profissional-procurar-tdah": {
+    slug: "qual-profissional-procurar-tdah",
+    seoTitle: "Qual Profissional Procurar para Avaliar TDAH em Adultos? | Mental Saúde",
+    seoDescription: "Conheça os papéis de psicólogos e psiquiatras na avaliação diagnóstica de TDAH em adultos e o que esperar do processo clínico.",
+    category: "Neurodiversidade",
+    readingTime: "7 min de leitura",
+    title: "Qual profissional procurar para avaliar TDAH em adultos?",
+    subtitle: "Conheça os papéis de psicólogos e psiquiatras na avaliação diagnóstica de TDAH em adultos e o que esperar do processo clínico.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    primaryEntity: "TDAH",
+    directAnswer: "A investigação de TDAH em adultos é realizada por profissionais habilitados, como médicos psiquiatras e psicólogos clínicos especializados, frequentemente em atuação multiprofissional.",
+    keyTakeaways: [
+      "Médicos psiquiatras realizam o diagnóstico diferencial e avaliam suporte farmacológico.",
+      "Psicólogos conduzem avaliação neuropsicológica e entrevistas clínicas detalhadas.",
+      "O processo investiga o histórico de sintomas desde a infância e o impacto funcional atual."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "quem-pode-participar", label: "Quem pode participar" },
+      { id: "papel-psicologo", label: "Papel do psicólogo" },
+      { id: "papel-psiquiatra", label: "Papel do psiquiatra" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A avaliação de TDAH em adultos envolve médicos psiquiatras e psicólogos especializados em neurodiversidade." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quem-pode-participar",
+        title: "Quem pode participar da avaliação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O cuidado envolve uma equipe multiprofissional para garantir precisão diagnóstica e plano terapêutico adequado " },
+              { text: "APPD, 2025", refId: "appd-2025", displayText: "APPD, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-psicologo",
+        title: "O papel do psicólogo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psicólogo realiza testagem neuropsicológica e investigação de histórico funcional." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "papel-psiquiatra",
+        title: "O papel do psiquiatra",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O psiquiatra conduz o diagnóstico médico e avalia tratamentos, incluindo medicação quando necessário. " },
+              { text: "Conheça a entidade ASRS v1.1", displayText: "Conheça a entidade ASRS v1.1", href: "/testes/asrs" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Diretrizes internacionais recomendam avaliação multidisciplinar para adultos com suspeita de TDAH.",
+      whatEvidenceSuggests: "A combinação de entrevistas semiestruturadas e escalas reduz erros diagnósticos.",
+      whatWeDontKnowYet: "A acurácia de ferramentas exclusivamente digitais sem validação presencial."
+    },
+    originalValue: [
+      { type: "CARE_PATHWAY_FRAMEWORK", description: "Framework estruturado de caminhos de cuidado e avaliação profissional." }
+    ],
+    relatedTestSlug: "asrs",
+    relatedTest: {
+      title: "Escala de Autorrelato ASRS v1.1 para TDAH em Adultos",
+      acronym: "ASRS v1.1",
+      description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
+      questionCount: 6,
+      durationMinutes: 2,
+      testSlug: "/testes/asrs"
+    },
+    faqs: [
+      {
+        question: "Preciso de encaminhamento para consulta?",
+        answer: "Geralmente não é necessário para atendimento particular com especialistas."
+      }
+    ],
+    references: [
+      {
+        id: "appd-2025",
+        shortLabel: "APPD, 2025",
+        fullCitation: "American Professional Partnership for ADHD. Adult ADHD clinical guidelines.",
+        sourceUrl: "https://www.adhdconsensus.org/"
+      }
+    ]
+  },
+  "tratamento-tdah-adultos": {
+    slug: "tratamento-tdah-adultos",
+    seoTitle: "TDAH em Adultos Tem Tratamento? Abordagens e Cuidado | Mental Saúde",
+    seoDescription: "Conheça as principais abordagens multimodais baseadas em evidências para o manejo e tratamento do TDAH em adultos.",
+    category: "Neurodiversidade",
+    readingTime: "8 min de leitura",
+    title: "TDAH em adultos tem tratamento? Conheça as principais abordagens",
+    subtitle: "Conheça as principais abordagens multimodais baseadas em evidências para o manejo e tratamento do TDAH em adultos.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "14 de agosto de 2026",
+    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    primaryEntity: "TDAH",
+    directAnswer: "Sim, o TDAH em adultos possui tratamento eficaz baseado em abordagens multimodais que combinam psicoeducação, psicoterapia, estratégias ambientais e suporte farmacológico quando indicado.",
+    keyTakeaways: [
+      "O plano terapêutico é multimodal e personalizado para cada adulto.",
+      "A psicoeducação e a psicoterapia auxiliam no manejo da rotina e regulação executiva.",
+      "O suporte medicamentoso, quando prescrito por médico, modula a atenção e o foco.",
+      "O acompanhamento contínuo assegura adaptação às demandas da vida pessoal e profissional."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "abordagem-multimodal", label: "Abordagem multimodal" },
+      { id: "psicoterapia-estrategias", label: "Psicoterapia e estratégias" },
+      { id: "suporte-medicamentoso", label: "Suporte medicamentoso" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O tratamento do TDAH em adultos combina intervenções comportamentais, psicoterapia e acompanhamento médico." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "abordagem-multimodal",
+        title: "Abordagem multimodal",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Diretrizes do NICE destacam que o cuidado integrado produz os melhores desfechos a longo prazo para adultos diagnosticados " },
+              { text: "NICE, 2025", refId: "nice-2025", displayText: "NICE, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "psicoterapia-estrategias",
+        title: "Psicoterapia e estratégias comportamentais",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A Terapia Cognitivo-Comportamental (TCC) auxilia na organização de tarefas e no manejo da impulsividade." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "suporte-medicamentoso",
+        title: "Suporte medicamentoso quando indicado",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O uso de medicamentos é avaliado individualmente pelo médico assistente. " },
+              { text: "Conheça o rastreio com o ASRS v1.1", displayText: "Conheça o rastreio com o ASRS v1.1", href: "/testes/asrs" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O tratamento combinado reduz prejuízos ocupacionais e melhora a autonomia.",
+      whatEvidenceSuggests: "Adesão regular a consultas e rotinas terapêuticas sustenta os ganhos funcionais.",
+      whatWeDontKnowYet: "Respostas de longo prazo a intervenções digitais isoladas."
+    },
+    originalValue: [
+      { type: "MULTIMODAL_CARE_FRAMEWORK", description: "Framework integrado de cuidado multimodal para TDAH em adultos." }
+    ],
+    relatedTestSlug: "asrs",
+    relatedTest: {
+      title: "Escala de Autorrelato ASRS v1.1 para TDAH em Adultos",
+      acronym: "ASRS v1.1",
+      description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
+      questionCount: 6,
+      durationMinutes: 2,
+      testSlug: "/testes/asrs"
+    },
+    faqs: [
+      {
+        question: "O tratamento cura o TDAH?",
+        answer: "O TDAH é crônico, mas o tratamento adequado reduz drasticamente o impacto na rotina."
+      }
+    ],
+    references: [
+      {
+        id: "nice-2025",
+        shortLabel: "NICE, 2025",
+        fullCitation: "National Institute for Health and Care Excellence. ADHD diagnosis and management.",
+        sourceUrl: "https://www.nice.org.uk"
+      }
+    ]
   }
 };
