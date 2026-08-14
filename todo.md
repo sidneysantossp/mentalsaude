@@ -126,9 +126,17 @@
 - [x] Atingir o STOP GATE.
 
 # Anxiety Third Wave (pasted_content_21.txt)
-- [ ] Cadastrar oportunidades, briefs e evidências dos Articles 08–11 no banco de dados.
-- [ ] Implementar as 4 novas URLs em articlesDatabase.ts usando o Article Design System V1.1 congelado.
-- [ ] Executar publication gates, verificação de canibalização e prova de segurança clínica (Article 08, 10, 11).
-- [ ] Recalcular cobertura (Before vs After) para Content, Intent, Entity, Internal Link e Test Conversion.
-- [ ] Executar a suíte de testes (37+ tests) e o build de produção.
-- [ ] Gerar o relatório MENTAL_SAUDE_ANXIETY_THIRD_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+- [x] Cadastrar oportunidades, briefs e evidências dos Articles 08–11 no banco de dados.
+- [x] Implementar as 4 novas URLs em articlesDatabase.ts usando o Article Design System V1.1 congelado.
+- [x] Executar publication gates, verificação de canibalização e prova de segurança clínica (Article 08, 10, 11).
+- [x] Recalcular cobertura (Before vs After) para Content, Intent, Entity, Internal Link e Test Conversion.
+- [x] Executar a suíte de testes (37+ tests) e o build de produção.
+- [x] Gerar o relatório MENTAL_SAUDE_ANXIETY_THIRD_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# Anxiety Cluster System Audit (pasted_content_22.txt)
+- [ ] Inventariar as 12 URLs publicadas no cluster Ansiedade e avaliar ownership, intent e YMYL.
+- [ ] Executar matriz de canibalização global e verificar se High Overlap Unresolved = 0.
+- [ ] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, link coverage).
+- [ ] Avaliar as 3 oportunidades restantes (Gap A: Ansiedade e sono, Gap B: Medicamentos, Gap C: Ansiedade tem cura) e decidir sobre a Fourth Wave.
+- [ ] Executar a suíte de testes (37/37) e o build de produção.
+- [ ] Gerar o relatório MENTAL_SAUDE_ANXIETY_CLUSTER_SYSTEM_AUDIT.md, salvar checkpoint e parar no STOP GATE.
