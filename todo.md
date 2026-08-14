@@ -265,3 +265,17 @@
 - [x] Registrar oportunidades, briefs, evidence, gates e validar canibalização, links e segurança.
 - [x] Executar testes (63+ testes) e build de produção.
 - [x] Gerar MENTAL_SAUDE_TDAH_SECOND_WAVE_REPORT.md, salvar checkpoint e parar no STOP GATE.
+
+# TDAH Cluster System Audit (Pre-Third-Wave Gate - pasted_content_32.txt)
+- [x] Reconciliar a especificação canônica pasted_content_32.txt.
+- [x] Realizar inventário físico completo das 8 URLs do cluster TDAH.
+- [x] Executar Semantic Ownership Audit (intent, entity, search need, role, test, ymyl, evidence) para cada URL.
+- [x] Executar Global Cannibalization Matrix e garantir High Overlap Unresolved = 0.
+- [x] Auditar o Internal Link Graph (Orphan = 0, Broken = 0, Pillar links, ASRS links).
+- [x] Auditar o Condition Hub /tdah (PILLAR ARCHITECTURE: PASS).
+- [x] Auditar ASRS Conversion Coverage e classificar CTAs de cada artigo.
+- [x] Auditar YMYL, evidence provenance e ausência de atalhos diagnósticos (Unsupported Critical Claims = 0).
+- [x] Auditar escopo estritamente adulto (Scope Violations = 0).
+- [x] Avaliar individualmente os Gaps A a H (recomendações de Publish, Reposition, Merge ou Drop).
+- [x] Executar suíte de testes (63+ testes) e build de produção.
+- [x] Gerar MENTAL_SAUDE_TDAH_CLUSTER_SYSTEM_AUDIT_REPORT.md, salvar checkpoint e parar no Pre-Third-Wave Gate.
