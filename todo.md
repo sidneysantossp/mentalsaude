@@ -130,3 +130,10 @@
 - [x] Definir o Evidence & Clinical Safety Contract e arquitetura de links.
 - [x] Estabelecer o Publication Gate Pack (PG-0 a PG-7) em modo HOLD.
 - [x] Gerar o relatório MENTAL_SAUDE_STRESS_FIRST_WAVE_SPECIFICATION.md e reportar ao ChatGPT.
+
+# Autorização de Implementação SF-01 (ChatGPT Project)
+- [x] Obter autorização máxima do ChatGPT para implementação da Stress First Wave.
+- [ ] Implementar os 3 artigos aprovados na spec SF-01 usando Article Design System V1.1 FROZEN.
+- [ ] Conectar os novos artigos ao Hub /estresse e ao teste DASS-21.
+- [ ] Executar suíte de testes (63+ testes) e build de produção.
+- [ ] Gerar relatório de conclusão e salvar checkpoint final.
