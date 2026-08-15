@@ -137,3 +137,11 @@
 - [x] Conectar os novos artigos ao Hub /estresse e ao teste DASS-21.
 - [x] Executar suíte de testes (63+ testes) e build de produção.
 - [x] Gerar relatório de conclusão e salvar checkpoint final.
+
+# Missão SF-02 — Stress First Wave Pre-Publication Validation & Remediation
+- [x] Auditar Specification Fidelity para os 3 artigos de estresse implementados.
+- [x] Conduzir auditoria clínica/YMYL (claim-by-claim) garantindo ausência de diagnóstico e sustentação por evidência.
+- [x] Executar o Special Gate para /teste-de-estresse-online garantindo que ele atue como guia editorial e encaminhe para /testes/dass-21.
+- [x] Validar Cannibalization Matrix e Internal Link Graph (Hub /estresse, DASS-21 e clusters congelados).
+- [x] Confirmar regressão técnica (63/63 testes PASS, build PASS, ADS V1.1 FROZEN, AUTOPUBLISH = DISABLED).
+- [x] Gerar o relatório MENTAL_SAUDE_STRESS_FIRST_WAVE_VALIDATION_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
