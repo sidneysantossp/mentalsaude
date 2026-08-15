@@ -162,3 +162,14 @@
 - [x] Integrar os novos artigos ao Hub /estresse e ao DASS-21 via ContextualTestCTA com canibalização zero.
 - [x] Executar suíte de testes (63+) e build de produção.
 - [x] Gerar relatório MENTAL_SAUDE_STRESS_SECOND_WAVE_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
+
+# Reporte SF-04 & Próximas Ações (ChatGPT Project)
+- [x] Consolidar o reporte da SF-04 para envio ao ChatGPT do projeto.
+- [ ] Enviar reporte ao ChatGPT e solicitar próximas instruções.
+- [ ] Registrar nova missão autorizada.
+
+# Missão SF-05 — Stress Cluster Consolidation & Authority Audit
+- [x] Auditar e consolidar o Hub /estresse e a listagem de todos os 6 artigos do cluster.
+- [x] Auditar a saturação de CTAs do DASS-21, garantindo contexto e proporção equilibrada.
+- [x] Executar suíte de testes (63+) e build de produção.
+- [x] Gerar o relatório MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
