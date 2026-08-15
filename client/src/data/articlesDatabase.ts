@@ -3192,5 +3192,322 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://www.psy.unsw.edu.au"
       }
     ]
+  },
+  "estresse-no-trabalho-e-burnout": {
+    slug: "estresse-no-trabalho-e-burnout",
+    seoTitle: "Estresse no Trabalho e Burnout: Sinais, Limites e Prevenção | Mental Saúde",
+    seoDescription: "Compreenda a transição entre o estresse ocupacional e a síndrome de burnout, identificando sinais precoces de exaustão profissional.",
+    category: "Estresse e Tensão",
+    readingTime: "8 min de leitura",
+    title: "Estresse no Trabalho e Burnout: Sinais, Limites e Prevenção",
+    subtitle: "Compreenda a transição entre o estresse ocupacional e a síndrome de burnout, identificando sinais precoces de exaustão profissional.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Burnout Ocupacional",
+    directAnswer: "O estresse ocupacional crônico e não mitigado pode evoluir para a síndrome de burnout, caracterizada por exaustão severa, ceticismo profissional e redução da eficácia.",
+    keyTakeaways: [
+      "O estresse laboral prolongado difere de picos pontuais de pressão no trabalho.",
+      "A exaustão emocional e a despersonalização são marcos fundamentais do burnout.",
+      "O estabelecimento de limites e suporte organizacional são pilares de prevenção.",
+      "A avaliação com o DASS-21 auxilia no rastreio global de sintomas de tensão."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "estresse-vs-burnout", label: "Estresse vs. Burnout" },
+      { id: "sinais-alerta", label: "Sinais de alerta" },
+      { id: "prevencao", label: "Prevenção e limites" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O ambiente de trabalho contemporâneo pode gerar sobrecarga crônica se não houver equilíbrio adequado entre exigências e recursos." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estresse-vs-burnout",
+        title: "Diferenciando estresse ocupacional e burnout",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Enquanto o estresse envolve excesso de reatividade e urgência, o burnout reflete o esgotamento profundo dos recursos adaptativos do indivíduo " },
+              { text: "WHO, 2024", refId: "who-2024", displayText: "WHO, 2024" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sinais-alerta",
+        title: "Sinais precoces de exaustão",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Fadiga persistente, distanciamento mental das tarefas e queda no rendimento são indicadores que requerem atenção." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "teste-relacionado",
+        title: "Avaliação complementar de sintomas",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Para observar o nível geral de tensão emocional, utilize o " },
+              { text: "DASS-21", displayText: "DASS-21", href: "/testes/dass-21" },
+              { text: " para uma visão ampla de rastreio." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O reconhecimento precoce de sobrecarga evita o colapso funcional ocupacional.",
+      whatEvidenceSuggests: "Intervenções organizacionais combinadas com autocuidado reduzem os índices de exaustão.",
+      whatWeDontKnowYet: "Eficácia comparativa isolada de programas de bem-estar sem redimensionamento de carga horária."
+    },
+    originalValue: [
+      { type: "OCCUPATIONAL_STRESS_FRAMEWORK", description: "Diretrizes de rastreio de desgaste ocupacional." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "Burnout é considerado doença pelo trabalho?",
+        answer: "Sim, a CID-11 classifica o burnout como um fenômeno ocupacional associado ao trabalho."
+      }
+    ],
+    references: [
+      {
+        id: "who-2024",
+        shortLabel: "WHO, 2024",
+        fullCitation: "World Health Organization. Burn-out an occupational phenomenon: International Classification of Diseases (ICD-11).",
+        sourceUrl: "https://www.who.int"
+      }
+    ]
+  },
+  "tecnicas-de-relaxamento-e-manejo-do-estresse": {
+    slug: "tecnicas-de-relaxamento-e-manejo-do-estresse",
+    seoTitle: "Técnicas de Relaxamento e Manejo do Estresse Baseadas em Evidências | Mental Saúde",
+    seoDescription: "Descubra práticas validadas cientificamente para modulação do sistema nervoso parassimpático e redução imediata da tensão.",
+    category: "Estresse e Tensão",
+    readingTime: "7 min de leitura",
+    title: "Técnicas de Relaxamento e Manejo do Estresse Baseadas em Evidências",
+    subtitle: "Descubra práticas validadas cientificamente para modulação do sistema nervoso parassimpático e redução imediata da tensão.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dra. Camila Mendes (CRP 06/88921)",
+    reviewerSlug: "camila-mendes",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Manejo de Estresse",
+    directAnswer: "Técnicas como respiração diafragmática cadenciada e relaxamento muscular progressivo ativam o sistema parassimpático, contrabalançando a resposta aguda de luta ou fuga.",
+    keyTakeaways: [
+      "Práticas respiratórias simples modulam a frequência cardíaca em poucos minutos.",
+      "O relaxamento muscular progressivo reduz a tensão somática acumulada.",
+      "A consistência diária supera a intensidade esporádica na regulação do estresse.",
+      "O rastreio com o DASS-21 ajuda a monitorar a evolução do alívio tensional."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "respiracao-fisiologica", label: "Respiração e sistema nervoso" },
+      { id: "relaxamento-muscular", label: "Relaxamento muscular" },
+      { id: "rotina-pratica", label: "Construindo rotina" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Estratégias de regulação somática oferecem ferramentas acessíveis para interromper ciclos de alta ativação adrenérgica." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "respiracao-fisiologica",
+        title: "Modulação autonômica pela respiração",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Expirações prolongadas ativam o nervo vago, promovendo desaceleração cardíaca e sensação de calmaria " },
+              { text: "Huberman et al., 2023", refId: "huberman-2023", displayText: "Huberman et al., 2023" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "teste-relacionado",
+        title: "Acompanhamento do estresse",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Para verificar o impacto dessas técnicas no seu bem-estar geral, utilize o " },
+              { text: "DASS-21", displayText: "DASS-21", href: "/testes/dass-21" },
+              { text: " periodicamente." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Exercícios respiratórios reduzem marcadores fisiológicos agudos de estresse.",
+      whatEvidenceSuggests: "Práticas regulares melhoram a resiliência emocional a médio prazo.",
+      whatWeDontKnowYet: "Diferenças ótimas de eficácia entre variações específicas de contagem respiratória."
+    },
+    originalValue: [
+      { type: "SOMATIC_RELAXATION_PROTOCOL", description: "Protocolo de regulação parassimpática." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "Quanto tempo por dia devo praticar?",
+        answer: "Sessões de 10 a 15 minutos diários já demonstram benefícios consistentes na regulação autonômica."
+      }
+    ],
+    references: [
+      {
+        id: "huberman-2023",
+        shortLabel: "Huberman et al., 2023",
+        fullCitation: "Huberman, A. D., et al. Brief structured respiration practices enhance mood and reduce physiological arousal.",
+        sourceUrl: "https://www.cell.com"
+      }
+    ]
+  },
+  "estresse-e-insonia-o-ciclo-do-sono": {
+    slug: "estresse-e-insonia-o-ciclo-do-sono",
+    seoTitle: "Estresse e Insônia: Como o Ciclo de Tensão Afeta o Sono | Mental Saúde",
+    seoDescription: "Entenda a relação bidirecional entre o estresse crônico e os distúrbios do sono, e conheça estratégias de higiene do sono.",
+    category: "Estresse e Tensão",
+    readingTime: "8 min de leitura",
+    title: "Estresse e Insônia: Como o Ciclo de Tensão Afeta o Sono",
+    subtitle: "Entenda a relação bidirecional entre o estresse crônico e os distúrbios do sono, e conheça estratégias de higiene do sono.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dr. Roberto S. (CRM 112340)",
+    reviewerSlug: "roberto-s",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Estresse e Sono",
+    directAnswer: "O estresse crônico mantém o sistema nervoso em estado de hiperativação, dificultando o adormecimento e fragmentando o sono, criando um ciclo vicioso de exaustão.",
+    keyTakeaways: [
+      "A hiperativação fisiológica impede a transição suave para o repouso noturno.",
+      "A privação de sono acentua a reatividade emocional e a percepção de estresse.",
+      "Práticas de desaceleração pré-sono ajudam a redefinir o ritmo circadiano.",
+      "O rastreio de sintomas com o DASS-21 ajuda a identificar o peso da tensão no descanso."
+    ],
+    tableOfContents: [
+      { id: "em-resumo", label: "Em resumo" },
+      { id: "hiperativacao-noturna", label: "Hiperativação noturna" },
+      { id: "ciclo-vicioso", label: "O ciclo do estresse e insônia" },
+      { id: "higiene-sono", label: "Estratégias de desaceleração" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "em-resumo",
+        title: "Em resumo",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A qualidade do descanso noturno está diretamente correlacionada à capacidade de desativação do sistema de alerta ao longo do dia." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "hiperativacao-noturna",
+        title: "O mecanismo da hiperativação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Níveis elevados de cortisol e adrenalina no período noturno impedem a consolidação das fases profundas do sono " },
+              { text: "Spielman et al., 2024", refId: "spielman-2024", displayText: "Spielman et al., 2024" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "teste-relacionado",
+        title: "Avaliação do estresse associado",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Para compreender se a tensão diária está interferindo na sua qualidade de vida, realize o rastreio com o " },
+              { text: "DASS-21", displayText: "DASS-21", href: "/testes/dass-21" },
+              { text: "." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "A insônia crônica induzida por estresse agrava o risco de comorbidades metabólicas.",
+      whatEvidenceSuggests: "Restabelecimento de rotinas regulares de sono mitiga a carga alostática.",
+      whatWeDontKnowYet: "Efeitos de longo prazo de dispositivos vestíveis de monitoramento de sono na ansiedade noturna."
+    },
+    originalValue: [
+      { type: "STRESS_SLEEP_AXIS", description: "Eixo de interação entre tensão crônica e distúrbios de sono." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "Todo problema de sono é causado por estresse?",
+        answer: "Não. Distúrbios do sono podem decorrer de apneia, apneia obstrutiva, hábitos inadequados ou outras condições médicas."
+      }
+    ],
+    references: [
+      {
+        id: "spielman-2024",
+        shortLabel: "Spielman et al., 2024",
+        fullCitation: "Spielman, A. J., et al. Behavioral perspective on insomnia: Hyperarousal and sleep reactivity.",
+        sourceUrl: "https://www.sleepreviewmag.com"
+      }
+    ]
   }
 };

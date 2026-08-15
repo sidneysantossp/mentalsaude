@@ -145,3 +145,20 @@
 - [x] Validar Cannibalization Matrix e Internal Link Graph (Hub /estresse, DASS-21 e clusters congelados).
 - [x] Confirmar regressão técnica (63/63 testes PASS, build PASS, ADS V1.1 FROZEN, AUTOPUBLISH = DISABLED).
 - [x] Gerar o relatório MENTAL_SAUDE_STRESS_FIRST_WAVE_VALIDATION_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
+
+# Reporte SF-02 & Solicitação de Próximas Ações (ChatGPT Project)
+- [x] Consolidar sumário executivo da SF-02 e status do PG-14 (HOLD).
+- [ ] Enviar reporte ao ChatGPT do projeto e solicitar diretrizes para o próximo estágio.
+- [ ] Registrar nova missão autorizada.
+
+# Execução Contínua sem Gates Intermediários (Autorização do Usuário)
+- [x] Ajustar fluxo para prosseguir com implementações sem pausa em revisões humanas intermediárias.
+- [ ] Informar o projeto no ChatGPT sobre a dispensa de revisões parciais.
+- [ ] Executar a próxima onda de desenvolvimento ou conteúdos programados.
+
+# Missão SF-04 — Stress Second Wave Expansion
+- [x] Selecionar e especificar os 3 novos artigos da Second Wave de Estresse (/conteudos/estresse-no-trabalho-e-burnout, /conteudos/tecnicas-de-relaxamento-e-manejo-do-estresse, /conteudos/estresse-e-insonia-o-ciclo-do-sono).
+- [x] Implementar os 3 artigos em articlesDatabase.ts usando o Article Design System V1.1 (FROZEN).
+- [x] Integrar os novos artigos ao Hub /estresse e ao DASS-21 via ContextualTestCTA com canibalização zero.
+- [x] Executar suíte de testes (63+) e build de produção.
+- [x] Gerar relatório MENTAL_SAUDE_STRESS_SECOND_WAVE_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
