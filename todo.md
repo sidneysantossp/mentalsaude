@@ -120,3 +120,13 @@
 - [x] Configurar rotas, metadados SEO, schema e breadcrumbs para /estresse e /testes/dass-21.
 - [x] Executar suíte de testes (63+ testes) e build de produção.
 - [x] Gerar relatório canônico MENTAL_SAUDE_STRESS_FOUNDATION_ACTIVATION_REPORT.md e salvar checkpoint.
+
+# Missão SF-01 — Stress First Wave Specification & Publication Gate Pack
+- [x] Validar baseline técnico (checkpoint 6312aa9e, 63/63 testes PASS, build PASS, AUTOPUBLISH = DISABLED).
+- [x] Reavaliar as 15 oportunidades de Estresse e classificar intenção, risco e utilidade clínica.
+- [x] Selecionar exatamente 3 candidatos principais e até 2 reservas para a Stress First Wave.
+- [x] Produzir especificações detalhadas por candidato (slug, escopo positivo/negativo, claims, YMYL).
+- [x] Construir a Cannibalization Matrix da Stress First Wave (/estresse, DASS-21 e clusters congelados).
+- [x] Definir o Evidence & Clinical Safety Contract e arquitetura de links.
+- [x] Estabelecer o Publication Gate Pack (PG-0 a PG-7) em modo HOLD.
+- [x] Gerar o relatório MENTAL_SAUDE_STRESS_FIRST_WAVE_SPECIFICATION.md e reportar ao ChatGPT.
