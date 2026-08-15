@@ -133,7 +133,7 @@
 
 # Autorização de Implementação SF-01 (ChatGPT Project)
 - [x] Obter autorização máxima do ChatGPT para implementação da Stress First Wave.
-- [ ] Implementar os 3 artigos aprovados na spec SF-01 usando Article Design System V1.1 FROZEN.
-- [ ] Conectar os novos artigos ao Hub /estresse e ao teste DASS-21.
-- [ ] Executar suíte de testes (63+ testes) e build de produção.
-- [ ] Gerar relatório de conclusão e salvar checkpoint final.
+- [x] Implementar os 3 artigos aprovados na spec SF-01 usando Article Design System V1.1 FROZEN.
+- [x] Conectar os novos artigos ao Hub /estresse e ao teste DASS-21.
+- [x] Executar suíte de testes (63+ testes) e build de produção.
+- [x] Gerar relatório de conclusão e salvar checkpoint final.

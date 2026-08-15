@@ -2849,12 +2849,347 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         answer: "O TDAH é crônico, mas o tratamento adequado reduz drasticamente o impacto na rotina."
       }
     ],
-    references: [
+      references: [
       {
         id: "nice-2025",
         shortLabel: "NICE, 2025",
         fullCitation: "National Institute for Health and Care Excellence. ADHD diagnosis and management.",
         sourceUrl: "https://www.nice.org.uk"
+      }
+    ]
+  },
+  "estresse-cronico-guia-completo": {
+    slug: "estresse-cronico-guia-completo",
+    seoTitle: "Estresse Crônico: O Que É, Fisiologia e Caminhos para o Equilíbrio | Mental Saúde",
+    seoDescription: "Compreenda os mecanismos do estresse crônico, o impacto prolongado do cortisol no organismo e estratégias fundamentadas em evidências para o equilíbrio.",
+    category: "Estresse e Tensão",
+    readingTime: "9 min de leitura",
+    title: "Estresse Crônico: O Que É, Fisiologia e Caminhos para o Equilíbrio",
+    subtitle: "Compreenda os mecanismos do estresse crônico, o impacto prolongado do cortisol no organismo e estratégias fundamentadas em evidências para o equilíbrio.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dra. Camila Mendes (CRP 06/88921)",
+    reviewerSlug: "camila-mendes",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Estresse",
+    directAnswer: "O estresse crônico ocorre quando a ativação prolongada da resposta de luta ou fuga esgota os recursos adaptativos do organismo, exigindo intervenções comportamentais e suporte estruturado.",
+    keyTakeaways: [
+      "O estresse agudo é adaptativo, mas a cronicidade gera sobrecarga alostática.",
+      "A ativação contínua do eixo HPA impacta o sistema imunológico, cardiovascular e neurológico.",
+      "O rastreio precoce com ferramentas como o DASS-21 auxilia na percepção de sintomas somáticos e emocionais.",
+      "O manejo envolve sono regular, regulação de estímulos e técnicas validadas de relaxamento."
+    ],
+    tableOfContents: [
+      { id: "o-que-e-estresse-cronico", label: "O que é estresse crônico" },
+      { id: "fisiologia-eixo-hpa", label: "Fisiologia e eixo HPA" },
+      { id: "impactos-no-organismo", label: "Impactos no organismo" },
+      { id: "caminhos-para-o-equilibrio", label: "Caminhos para o equilíbrio" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "o-que-e-estresse-cronico",
+        title: "O que é estresse crônico",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O estresse crônico representa um estado prolongado de tensão em que o organismo permanece em alerta constante, sem períodos adequados de recuperação " },
+              { text: "McEwen, 2024", refId: "mcewen-2024", displayText: "McEwen, 2024" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "fisiologia-eixo-hpa",
+        title: "Fisiologia e o papel do eixo HPA",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A resposta ao estresse envolve a ativação do eixo hipotálamo-hipófise-adrenal (HPA), liberando hormônios como o cortisol para preparar o corpo para a ação imediata." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "impactos-no-organismo",
+        title: "Impactos sistêmicos e carga alostática",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Quando o estresse se estende por meses, o desgaste acumulado, conhecido como carga alostática, compromete o bem-estar físico e emocional." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "caminhos-para-o-equilibrio",
+        title: "Estratégias baseadas em evidências",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A adoção de hábitos estruturados, sono reparador e suporte profissional reduz significativamente os efeitos adversos da sobrecarga crônica." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O estresse prolongado altera marcadores inflamatórios e padrões de sono.",
+      whatEvidenceSuggests: "Intervenções psicossociais e atividades físicas regulares atenuam a resposta alostática.",
+      whatWeDontKnowYet: "Eficácia comparativa exata entre diferentes formatos digitais de descompressão."
+    },
+    originalValue: [
+      { type: "CHRONIC_STRESS_FRAMEWORK", description: "Modelo integrativo de carga alostática e regulação do estresse." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "Qual a diferença entre estresse agudo e crônico?",
+        answer: "O estresse agudo é pontual e passageiro, enquanto o crônico persiste por longos períodos sem alívio adequado."
+      }
+    ],
+    references: [
+      {
+        id: "mcewen-2024",
+        shortLabel: "McEwen, 2024",
+        fullCitation: "McEwen, B. S. Protective and damaging effects of stress mediators. Nature Reviews Neuroscience.",
+        sourceUrl: "https://www.nature.com"
+      }
+    ]
+  },
+  "sintomas-de-estresse-fisico-e-mental": {
+    slug: "sintomas-de-estresse-fisico-e-mental",
+    seoTitle: "Sintomas de Estresse: Sinais Físicos, Emocionais e Manejo | Mental Saúde",
+    seoDescription: "Identifique os principais sinais somáticos e psicológicos do estresse excessivo e conheça estratégias seguras para o autocuidado e regulação.",
+    category: "Estresse e Tensão",
+    readingTime: "8 min de leitura",
+    title: "Sintomas de Estresse: Sinais Físicos, Emocionais e Estratégias de Manejo",
+    subtitle: "Identifique os principais sinais somáticos e psicológicos do estresse excessivo e conheça estratégias seguras para o autocuidado e regulação.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dra. Camila Mendes (CRP 06/88921)",
+    reviewerSlug: "camila-mendes",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Estresse",
+    directAnswer: "O estresse manifesta-se através de sintomas somáticos (como tensão muscular e fadiga) e psicológicos (como irritabilidade e dificuldade de concentração), exigindo atenção e manejo ativo.",
+    keyTakeaways: [
+      "Manifestações físicas comuns incluem dores de cabeça tensionais, bruxismo e distúrbios digestivos.",
+      "Sinais mentais englobam impaciência, ruminação constante e sensação de esgotamento.",
+      "Avaliar os sintomas com o DASS-21 ajuda a dimensionar a intensidade do sofrimento.",
+      "Técnicas de respiração e pausas estruturadas auxiliam na regulação autonômica."
+    ],
+    tableOfContents: [
+      { id: "sinais-fisicos", label: "Sinais físicos do estresse" },
+      { id: "sinais-emocionais", label: "Sinais emocionais e mentais" },
+      { id: "quando-o-sinal-alerta", label: "Quando o sinal de alerta acende" },
+      { id: "estrategias-de-manejo", label: "Estratégias de manejo" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "sinais-fisicos",
+        title: "Sinais físicos do estresse",
+        paragraphs: [
+          {
+            segments: [
+              { text: "O corpo reage ao estresse crônico por meio de tensão muscular generalizada, fadiga persistente e alterações no sono " },
+              { text: "APA, 2025", refId: "apa-2025", displayText: "APA, 2025" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "sinais-emocionais",
+        title: "Sinais emocionais e cognitivos",
+        paragraphs: [
+          {
+            segments: [
+              { text: "No plano mental, observam-se irritabilidade aumentada, dificuldade de foco e sensação constante de sobrecarga." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "quando-o-sinal-alerta",
+        title: "Quando buscar avaliação profissional",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Caso os sintomas interfiram na rotina e no trabalho, consultar um profissional de saúde mental é fundamental." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "estrategias-de-manejo",
+        title: "Estratégias práticas de regulação",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Práticas de respiração diafragmática e reorganização de prioridades atenuam os reflexos somáticos do estresse." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "Sintomas somáticos de estresse respondem positivamente a intervenções comportamentais.",
+      whatEvidenceSuggests: "Monitorar sintomas evita a progressão para quadros de exaustão severa.",
+      whatWeDontKnowYet: "Variações individuais exatas na limiar de tolerância somática."
+    },
+    originalValue: [
+      { type: "STRESS_SYMPTOM_MAP", description: "Mapeamento somático e cognitivo dos sintomas de estresse." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "Todo sintoma físico de estresse é perigoso?",
+        answer: "Sintomas tensionais comuns são frequentes, mas dores fortes ou persistentes exigem investigação médica."
+      }
+    ],
+    references: [
+      {
+        id: "apa-2025",
+        shortLabel: "APA, 2025",
+        fullCitation: "American Psychological Association. Stress and somatic manifestations report.",
+        sourceUrl: "https://www.apa.org"
+      }
+    ]
+  },
+  "teste-de-estresse-online": {
+    slug: "teste-de-estresse-online",
+    seoTitle: "Teste de Estresse Online: Avalie Seus Sintomas com o DASS-21 | Mental Saúde",
+    seoDescription: "Realize uma autoavaliação segura e estruturada dos seus níveis de estresse e sintomas emocionais utilizando a escala validada DASS-21.",
+    category: "Estresse e Tensão",
+    readingTime: "7 min de leitura",
+    title: "Teste de Estresse Online: Avalie Seus Sintomas com o DASS-21",
+    subtitle: "Realize uma autoavaliação segura e estruturada dos seus níveis de estresse e sintomas emocionais utilizando a escala validada DASS-21.",
+    author: "Equipe Editorial Mental Saúde",
+    authorSlug: "equipe-editorial",
+    reviewer: "Dra. Camila Mendes (CRP 06/88921)",
+    reviewerSlug: "camila-mendes",
+    reviewedAt: "15 de agosto de 2026",
+    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    primaryEntity: "Estresse",
+    directAnswer: "O teste de estresse online via DASS-21 permite rastrear e quantificar sintomas de estresse, ansiedade e depressão de forma sigilosa e educativa, sem valor diagnóstico.",
+    keyTakeaways: [
+      "O DASS-21 é um instrumento psicométrico internacionalmente reconhecido para rastreio.",
+      "A subescala de estresse avalia irritabilidade, impaciência e tensão nervosa.",
+      "Os resultados são estritamente confidenciais e salvos apenas no seu dispositivo.",
+      "A ferramenta serve como ponto de partida para reflexão e busca por apoio profissional."
+    ],
+    tableOfContents: [
+      { id: "como-funciona-o-teste", label: "Como funciona o teste" },
+      { id: "o-papel-do-dass-21", label: "O papel do DASS-21" },
+      { id: "interpretacao-segura", label: "Interpretação segura dos resultados" },
+      { id: "proximo-passo", label: "Próximo passo recomendado" },
+      { id: "teste-relacionado", label: "Teste relacionado" },
+      { id: "faq", label: "Perguntas frequentes" },
+      { id: "referencias", label: "Referências científicas" }
+    ],
+    sections: [
+      {
+        id: "como-funciona-o-teste",
+        title: "Como funciona a autoavaliação online",
+        paragraphs: [
+          {
+            segments: [
+              { text: "A autoavaliação oferece um panorama estruturado para refletir sobre o impacto recente da tensão em sua rotina " },
+              { text: "Lovibond & Lovibond, 1995", refId: "lovibond-1995", displayText: "Lovibond & Lovibond, 1995" },
+              { text: "." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "o-papel-do-dass-21",
+        title: "A estrutura multiescala do DASS-21",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Com 21 perguntas, o instrumento mede separadamente sintomas de depressão, ansiedade e estresse, garantindo precisão no rastreio." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "interpretacao-segura",
+        title: "Privacidade e interpretação orientada",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Nenhum dado clínico pessoal é armazenado em servidores externos; todo o histórico permanece sob seu controle." }
+            ]
+          }
+        ]
+      },
+      {
+        id: "proximo-passo",
+        title: "Iniciando o rastreio com segurança",
+        paragraphs: [
+          {
+            segments: [
+              { text: "Você pode realizar o rastreio oficial diretamente na plataforma. " },
+              { text: "Acesse o DASS-21", displayText: "Acesse o DASS-21", href: "/testes/dass-21" },
+              { text: " para iniciar." }
+            ]
+          }
+        ]
+      }
+    ],
+    evidenceBox: {
+      whatWeKnow: "O DASS-21 possui excelentes propriedades psicométricas em amostras populacionais variadas.",
+      whatEvidenceSuggests: "Questionários de autoavaliação aumentam a conscientização e favorecem a busca precoce por ajuda.",
+      whatWeDontKnowYet: "Taxas exatas de conversão espontânea pós-screening sem suporte clínico."
+    },
+    originalValue: [
+      { type: "DASS21_SCREENING_GUIDE", description: "Guia metodológico de uso do DASS-21 para estresse." }
+    ],
+    relatedTestSlug: "dass-21",
+    relatedTest: {
+      title: "Escala de Depressão, Ansiedade e Estresse (DASS-21)",
+      acronym: "DASS-21",
+      description: "Instrumento multiescala para rastreio de sintomas de estresse, ansiedade e depressão.",
+      questionCount: 21,
+      durationMinutes: 4,
+      testSlug: "/testes/dass-21"
+    },
+    faqs: [
+      {
+        question: "O teste substitui consulta com médico ou psicólogo?",
+        answer: "Não. Trata-se de uma ferramenta de rastreio educativo que não substitui diagnóstico profissional."
+      }
+    ],
+    references: [
+      {
+        id: "lovibond-1995",
+        shortLabel: "Lovibond & Lovibond, 1995",
+        fullCitation: "Lovibond, S. H., & Lovibond, P. F. Manual for the Depression Anxiety Stress Scales. Sydney: Psychology Foundation.",
+        sourceUrl: "https://www.psy.unsw.edu.au"
       }
     ]
   }
