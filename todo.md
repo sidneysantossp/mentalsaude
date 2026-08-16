@@ -173,3 +173,14 @@
 - [x] Auditar a saturação de CTAs do DASS-21, garantindo contexto e proporção equilibrada.
 - [x] Executar suíte de testes (63+) e build de produção.
 - [x] Gerar o relatório MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md, salvar checkpoint e reportar ao ChatGPT.
+
+# Reporte SF-05 & Próxima Missão (ChatGPT Project)
+- [x] Consolidar e enviar o reporte da SF-05 ao ChatGPT do projeto.
+- [ ] Ler a próxima missão emitida pelo ChatGPT.
+- [ ] Executar a implementação autorizada e reportar o resultado.
+
+# Missão CR-01 — Cross-Cluster Audit & Final Release Readiness
+- [x] Conduzir auditoria cross-cluster de inventário, rotas e canibalização global (Ansiedade, Depressão, TDAH, Estresse e Sono/Transversais).
+- [x] Auditar matriz de instrumentos GAD-7, PHQ-9, ASRS e DASS-21.
+- [x] Executar suíte de testes (63+) e build de produção com sucesso.
+- [x] Gerar o relatório canônico MENTAL_SAUDE_CROSS_CLUSTER_AUDIT_REPORT.md e salvar checkpoint CR-01.
