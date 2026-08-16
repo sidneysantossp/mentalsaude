@@ -204,3 +204,12 @@
 - [x] Consolidar smoke matrix, auditoria de CTAs, privacidade e acessibilidade.
 - [x] Executar suíte de testes (63+) e build de produção com sucesso.
 - [x] Gerar o relatório canônico MENTAL_SAUDE_RELEASE_CANDIDATE_AUDIT_REPORT.md, salvar checkpoint RC-01 e reportar exclusivamente ao ChatGPT.
+
+# Missão RC-01 — Pre-Production Release Candidate Assembly
+- [ ] Reconciliar linhagem de repositório (1c869a62 → 18626026) e taxonomia (Sono/Transversais classificado como CROSS_CLUSTER_TOPIC / EDITORIAL_AXIS).
+- [ ] Criar o Release Scope Freeze (manifesto canônico de todas as URLs indexáveis e noindex).
+- [ ] Compilar o Psychometric Release Manifest (GAD-7, PHQ-9, ASRS v1.1, DASS-21).
+- [ ] Executar Privacy & Result-State Verification e Final CTA Pass.
+- [ ] Executar Final User-Journey Smoke Matrix e YMYL Exception Register.
+- [ ] Gerar Release Artifact Integrity Package, executar regressão completa (testes + build) e salvar novo checkpoint.
+- [ ] Gerar MENTAL_SAUDE_PRE_PRODUCTION_RELEASE_CANDIDATE_REPORT.md e reportar exclusivamente ao ChatGPT (sem publicar).
