@@ -184,3 +184,16 @@
 - [x] Auditar matriz de instrumentos GAD-7, PHQ-9, ASRS e DASS-21.
 - [x] Executar suíte de testes (63+) e build de produção com sucesso.
 - [x] Gerar o relatório canônico MENTAL_SAUDE_CROSS_CLUSTER_AUDIT_REPORT.md e salvar checkpoint CR-01.
+
+# Reporte CR-01 & Ciclo Contínuo (ChatGPT Project)
+- [x] Consolidar e enviar o reporte da CR-01 ao ChatGPT do projeto.
+- [ ] Obter e executar a próxima missão emitida pelo ChatGPT.
+- [ ] Manter comunicação exclusiva com o projeto no ChatGPT.
+
+# Missão SF-05 — Stress Cluster Consolidation & Authority Audit
+- [x] Reconciliar a missão SF-05, registrar o escopo e auditar o estado físico do cluster de Estresse.
+- [x] Auditar e consolidar o Hub /estresse e a listagem dos 6 artigos do cluster.
+- [x] Auditar saturação de CTAs do DASS-21 (RETAIN nos guias principais, REPLACE_WITH_LINK em relaxamento e sono, evitando sobrecarga).
+- [x] Consolidar Ownership Matrix V2, Internal Link Graph V2, Evidence Ledger e boundaries de burnout e insônia.
+- [x] Executar testes automatizados (63+) e build de produção com sucesso.
+- [x] Gerar o relatório MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md, salvar checkpoint CR-05 e reportar ao ChatGPT.
