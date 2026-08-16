@@ -262,3 +262,10 @@
 - [x] Compilar o Final YMYL Exception Register para revisão humana.
 - [x] Gerar o Release Artifact Integrity Package e executar regressão completa (63/63 testes + build).
 - [x] Certificar gates RC-1 a RC-11, salvar checkpoint, gerar relatório canônico e reportar ao ChatGPT sem publicar.
+
+# Missão PD-01 — Controlled First Production Deployment
+- [x] Reconciliar autorização do ChatGPT para o deploy controlado do artefato aprovado `94354619`.
+- [x] Executar checklist pré-deploy (rotas, instrumentos, privacidade, runtime, sem secrets).
+- [x] Validar portões PD-1 a PD-12.
+- [x] Gerar relatório canônico MENTAL_SAUDE_PD01_PRODUCTION_DEPLOYMENT_REPORT.md.
+- [ ] Orientar o usuário a clicar no botão Publish da interface de gerenciamento para ativar a publicação pública do artefato `94354619`.
