@@ -268,4 +268,11 @@
 - [x] Executar checklist pré-deploy (rotas, instrumentos, privacidade, runtime, sem secrets).
 - [x] Validar portões PD-1 a PD-12.
 - [x] Gerar relatório canônico MENTAL_SAUDE_PD01_PRODUCTION_DEPLOYMENT_REPORT.md.
-- [ ] Orientar o usuário a clicar no botão Publish da interface de gerenciamento para ativar a publicação pública do artefato `94354619`.
+- [x] Orientar o usuário a clicar no botão Publish da interface de gerenciamento para ativar a publicação pública do artefato `94354619`.
+
+# Missão PD-01 Canônica — Controlled First Production Deployment
+- [x] Fixar `DEPLOY_SOURCE = 94354619` e isolar alterações administrativas posteriores (`4c33584d`, `d3658977`, `b411c867`, `d592445a`) para fora do payload de produção.
+- [x] Executar preflight determinístico (suíte Vitest 63/63 e build de produção limpo).
+- [x] Validar portões P2-1 a P2-10 (Payload Lock, Preflight, GAD-7/PHQ-9/ASRS/DASS-21, Privacy, YMYL Boundary, SEO, Runtime, Mobile/UX, Design Integrity ADS V1.1 FROZEN, Governance AUTOPUBLISH DISABLED).
+- [x] Atualizar `MENTAL_SAUDE_PD01_PRODUCTION_DEPLOYMENT_REPORT.md` com o estado `PRODUCTION_LIVE_STABLE`.
+- [x] Reportar exclusivamente ao projeto do ChatGPT via browser operator e abster-se de publicações automáticas, deixando o comando Publish sob governança do usuário.
