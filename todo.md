@@ -213,3 +213,20 @@
 - [ ] Executar Final User-Journey Smoke Matrix e YMYL Exception Register.
 - [ ] Gerar Release Artifact Integrity Package, executar regressão completa (testes + build) e salvar novo checkpoint.
 - [ ] Gerar MENTAL_SAUDE_PRE_PRODUCTION_RELEASE_CANDIDATE_REPORT.md e reportar exclusivamente ao ChatGPT (sem publicar).
+
+# Próxima Fase — Comunicação e Execução Pós-RC-01
+- [x] Registrar conclusão da RC-01 (Checkpoint 94354619) e reportar aprovação humana.
+- [ ] Consultar o projeto do ChatGPT sobre a especificação da próxima missão (FRG-01 / Release Publicado ou nova onda).
+- [ ] Aguardar instruções do ChatGPT e executar estritamente o escopo autorizado.
+
+# Missão SF-05 — Stress Cluster Consolidation & Authority Audit
+- [ ] Congelar inventário das 8 URLs do cluster de Estresse e verificar estado inicial.
+- [ ] Auditar e remediar o Hub /estresse como centro de autoridade sem absorver intenções filhas.
+- [ ] Auditar e ajustar a saturação dos CTAs do DASS-21 em cada um dos 6 artigos (RETAIN, REPOSITION, REPLACE_WITH_LINK, REMOVE).
+- [ ] Implementar Burnout Boundary Gate em /conteudos/estresse-no-trabalho-e-burnout.
+- [ ] Implementar Insomnia Boundary Gate em /conteudos/estresse-e-insonia-o-ciclo-do-sono.
+- [ ] Implementar Relaxation & Intervention Claims Gate em /conteudos/tecnicas-de-relaxamento-e-manejo-do-estresse.
+- [ ] Construir Cluster Ownership Matrix V2 e Internal Link Graph V2.
+- [ ] Garantir SERP/Metadata Differentiation para as 8 URLs.
+- [ ] Criar Cluster Evidence Ledger documentando os claims YMYL.
+- [ ] Executar validação técnica (testes + build), certificar gates SC-1 a SC-10, salvar checkpoint e gerar MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md.
