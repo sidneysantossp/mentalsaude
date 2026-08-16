@@ -220,13 +220,13 @@
 - [ ] Aguardar instruções do ChatGPT e executar estritamente o escopo autorizado.
 
 # Missão SF-05 — Stress Cluster Consolidation & Authority Audit
-- [ ] Congelar inventário das 8 URLs do cluster de Estresse e verificar estado inicial.
-- [ ] Auditar e remediar o Hub /estresse como centro de autoridade sem absorver intenções filhas.
-- [ ] Auditar e ajustar a saturação dos CTAs do DASS-21 em cada um dos 6 artigos (RETAIN, REPOSITION, REPLACE_WITH_LINK, REMOVE).
-- [ ] Implementar Burnout Boundary Gate em /conteudos/estresse-no-trabalho-e-burnout.
-- [ ] Implementar Insomnia Boundary Gate em /conteudos/estresse-e-insonia-o-ciclo-do-sono.
-- [ ] Implementar Relaxation & Intervention Claims Gate em /conteudos/tecnicas-de-relaxamento-e-manejo-do-estresse.
-- [ ] Construir Cluster Ownership Matrix V2 e Internal Link Graph V2.
-- [ ] Garantir SERP/Metadata Differentiation para as 8 URLs.
-- [ ] Criar Cluster Evidence Ledger documentando os claims YMYL.
-- [ ] Executar validação técnica (testes + build), certificar gates SC-1 a SC-10, salvar checkpoint e gerar MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md.
+- [x] Congelar inventário das 8 URLs do cluster de Estresse e verificar estado inicial.
+- [x] Auditar e remediar o Hub /estresse como centro de autoridade sem absorver intenções filhas.
+- [x] Auditar e ajustar a saturação dos CTAs do DASS-21 em cada um dos 6 artigos (RETAIN, REPOSITION, REPLACE_WITH_LINK, REMOVE).
+- [x] Implementar Burnout Boundary Gate em /conteudos/estresse-no-trabalho-e-burnout.
+- [x] Implementar Insomnia Boundary Gate em /conteudos/estresse-e-insonia-o-ciclo-do-sono.
+- [x] Implementar Relaxation & Intervention Claims Gate em /conteudos/tecnicas-de-relaxamento-e-manejo-do-estresse.
+- [x] Construir Cluster Ownership Matrix V2 e Internal Link Graph V2.
+- [x] Garantir SERP/Metadata Differentiation para as 8 URLs.
+- [x] Criar Cluster Evidence Ledger documentando os claims YMYL.
+- [x] Executar validação técnica (testes + build), certificar gates SC-1 a SC-10, salvar checkpoint e gerar MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md.
