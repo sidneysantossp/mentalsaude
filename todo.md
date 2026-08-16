@@ -252,13 +252,13 @@
 - [x] Emitir decisão final `RELEASE_READY`, gerar MENTAL_SAUDE_FINAL_RELEASE_GATE_REPORT.md e reportar ao projeto do ChatGPT sem publicar.
 
 # Missão RC-01 Canônica — Pre-Production Release Candidate Assembly
-- [ ] Documentar a linhagem de repositório `1c869a62 → [transição por SF-05 e CR-01] → 18626026`.
-- [ ] Classificar formalmente "Sono/Transversais" como `CROSS_CLUSTER_TOPIC` / `EDITORIAL_AXIS`, preservando os 4 clusters formais.
-- [ ] Compilar o Release Scope Freeze com o inventário definitivo de todas as 42 URLs indexáveis e noindex.
-- [ ] Consolidar o Psychometric Release Manifest para GAD-7, PHQ-9, ASRS v1.1 e DASS-21.
-- [ ] Executar Privacy & Result-State Verification (zero indexação de escores, proteção contra vazamento).
-- [ ] Conduzir o Final CTA Pass (proporcionalidade em todos os CTAs dos 4 clusters).
-- [ ] Executar a Final User-Journey Smoke Matrix (Informacional, Screening, Contextual, Cross-cluster).
-- [ ] Compilar o Final YMYL Exception Register para revisão humana.
-- [ ] Gerar o Release Artifact Integrity Package e executar regressão completa (63/63 testes + build).
-- [ ] Certificar gates RC-1 a RC-11, salvar checkpoint, gerar relatório canônico e reportar ao ChatGPT sem publicar.
+- [x] Documentar a linhagem de repositório `1c869a62 → [transição por SF-05 e CR-01] → 18626026`.
+- [x] Classificar formalmente "Sono/Transversais" como `CROSS_CLUSTER_TOPIC` / `EDITORIAL_AXIS`, preservando os 4 clusters formais.
+- [x] Compilar o Release Scope Freeze com o inventário definitivo de todas as 42 URLs indexáveis e noindex.
+- [x] Consolidar o Psychometric Release Manifest para GAD-7, PHQ-9, ASRS v1.1 e DASS-21.
+- [x] Executar Privacy & Result-State Verification (zero indexação de escores, proteção contra vazamento).
+- [x] Conduzir o Final CTA Pass (proporcionalidade em todos os CTAs dos 4 clusters).
+- [x] Executar a Final User-Journey Smoke Matrix (Informacional, Screening, Contextual, Cross-cluster).
+- [x] Compilar o Final YMYL Exception Register para revisão humana.
+- [x] Gerar o Release Artifact Integrity Package e executar regressão completa (63/63 testes + build).
+- [x] Certificar gates RC-1 a RC-11, salvar checkpoint, gerar relatório canônico e reportar ao ChatGPT sem publicar.
