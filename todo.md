@@ -242,3 +242,11 @@
 - [ ] Conduzir Accessibility & Safety UX Pass.
 - [ ] Executar regressão técnica completa (63+ testes Vitest, build de produção, rotas, sitemaps, robots, schemas).
 - [ ] Certificar gates CR-1 a CR-12, salvar checkpoint, gerar relatório MENTAL_SAUDE_CROSS_CLUSTER_AUDIT_REPORT.md e reportar ao projeto do ChatGPT.
+
+# Missão FRG-01 — Final Human Release Gate
+- [ ] Reportar conclusão da CR-01 ao projeto do ChatGPT.
+- [ ] Congelar o artefato candidato `94354619` para auditoria da FRG-01.
+- [ ] Documentar versão, hash, binding da revisão humana e comparação com HEAD.
+- [ ] Compilar manifesto de release, ambiente sem secrets, migrações e gates FRG-1 a FRG-10.
+- [ ] Executar testes e build de produção finais.
+- [ ] Emitir decisão final `RELEASE_READY`, gerar MENTAL_SAUDE_FINAL_RELEASE_GATE_REPORT.md e reportar ao projeto do ChatGPT sem publicar.
