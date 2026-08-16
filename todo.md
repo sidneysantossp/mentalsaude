@@ -197,3 +197,10 @@
 - [x] Consolidar Ownership Matrix V2, Internal Link Graph V2, Evidence Ledger e boundaries de burnout e insônia.
 - [x] Executar testes automatizados (63+) e build de produção com sucesso.
 - [x] Gerar o relatório MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md, salvar checkpoint CR-05 e reportar ao ChatGPT.
+
+# Missão RC-01 — Release Candidate Audit & Final Release Readiness
+- [x] Reconciliar a RC-01 e auditar a linhagem (ce7184f9 → 18626026).
+- [x] Auditar inventário de URLs (indexáveis vs. noindex), classificação de Sono/Transversais e manifesto dos 4 instrumentos.
+- [x] Consolidar smoke matrix, auditoria de CTAs, privacidade e acessibilidade.
+- [x] Executar suíte de testes (63+) e build de produção com sucesso.
+- [x] Gerar o relatório canônico MENTAL_SAUDE_RELEASE_CANDIDATE_AUDIT_REPORT.md, salvar checkpoint RC-01 e reportar exclusivamente ao ChatGPT.
