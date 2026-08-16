@@ -230,3 +230,15 @@
 - [x] Garantir SERP/Metadata Differentiation para as 8 URLs.
 - [x] Criar Cluster Evidence Ledger documentando os claims YMYL.
 - [x] Executar validação técnica (testes + build), certificar gates SC-1 a SC-10, salvar checkpoint e gerar MENTAL_SAUDE_STRESS_CONSOLIDATION_REPORT.md.
+
+# Missão CR-01 — Cross-Cluster Release Readiness Audit
+- [ ] Compilar o inventário canônico completo de todas as URLs indexáveis (Ansiedade, Depressão, TDAH, Estresse, Hubs e Test Entities).
+- [ ] Executar Cross-Cluster Cannibalization Audit e formalizar Ownership Matrix transversal.
+- [ ] Auditar Screening Architecture para GAD-7, PHQ-9, ASRS e DASS-21.
+- [ ] Mapear e auditar o CTA Ecosystem em todas as páginas editoriais.
+- [ ] Conduzir Global YMYL Language Audit buscando formulações de alto risco.
+- [ ] Consolidar o Evidence Registry transversal dos quatro clusters.
+- [ ] Validar Information Architecture, Indexation & Privacy Boundaries e Structured Data.
+- [ ] Conduzir Accessibility & Safety UX Pass.
+- [ ] Executar regressão técnica completa (63+ testes Vitest, build de produção, rotas, sitemaps, robots, schemas).
+- [ ] Certificar gates CR-1 a CR-12, salvar checkpoint, gerar relatório MENTAL_SAUDE_CROSS_CLUSTER_AUDIT_REPORT.md e reportar ao projeto do ChatGPT.
