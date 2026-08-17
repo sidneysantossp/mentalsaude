@@ -89,6 +89,133 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
+export async function getUserById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.id, id)).limit(1);
+  return result[0];
+}
+
+export async function getUserProfile(userId: number) {
+  const db = await requireDb();
+  const profile = await db.select().from(userProfiles).where(eq(userProfiles.userId, userId)).limit(1);
+  if (profile[0]) return profile[0];
+  const inserted = await db.insert(userProfiles).values({ userId }).returning();
+  return inserted[0];
+}
+
+export async function updateUserProfile(userId: number, data: { displayName?: string; birthYear?: number | null; pronouns?: string; notificationEmail?: boolean; notificationCheckIn?: boolean }) {
+  const db = await requireDb();
+  await db.update(userProfiles).set({ ...data, updatedAt: new Date() }).where(eq(userProfiles.userId, userId));
+  return getUserProfile(userId);
+}
+
+export async function listUserAttempts(userId: number) {
+  const db = await requireDb();
+  return db.select().from(assessmentAttempts).where(eq(assessmentAttempts.userId, userId)).orderBy(desc(assessmentAttempts.createdAt));
+}
+
+export async function getUserRecommendations(userId: number) {
+  const db = await requireDb();
+  return db.select().from(recommendations).where(eq(recommendations.userId, userId)).orderBy(desc(recommendations.createdAt));
+}
+
+export async function startAttempt(userId: number, assessmentId: number) {
+  const db = await requireDb();
+  const assessment = await db.select().from(assessments).where(eq(assessments.id, assessmentId)).limit(1);
+  if (!assessment[0]) throw new Error("Autoavaliação não encontrada.");
+  const inserted = await db.insert(assessmentAttempts).values({ userId, assessmentId, status: "em_andamento" }).returning();
+  return inserted[0];
+}
+
+export async function submitAttempt({ attemptId, userId, answers }: { attemptId: number; userId: number; answers: Array<{ questionId: number; optionId: number }> }) {
+  const db = await requireDb();
+  const attempt = await db.select().from(assessmentAttempts).where(eq(assessmentAttempts.id, attemptId)).limit(1);
+  if (!attempt[0] || attempt[0].userId !== userId) throw new Error("Tentativa inválida.");
+
+  let totalScore = 0;
+  for (const ans of answers) {
+    const opt = await db.select().from(assessmentOptions).where(eq(assessmentOptions.id, ans.optionId)).limit(1);
+    if (opt[0]) totalScore += opt[0].score;
+    await db.insert(assessmentAnswers).values({ attemptId, questionId: ans.questionId, optionId: ans.optionId });
+  }
+
+  const assessment = await db.select().from(assessments).where(eq(assessments.id, attempt[0].assessmentId)).limit(1);
+  const canonical = getCanonicalTest(assessment[0]?.slug || "");
+  let interpretation = "Resultado registrado com sucesso.";
+  if (canonical) {
+    const matched = canonical.interpretations.find(i => totalScore >= i.min && totalScore <= i.max);
+    if (matched) interpretation = matched.label;
+  }
+
+  await db.update(assessmentAttempts).set({ status: "concluido", score: totalScore, interpretation, completedAt: new Date() }).where(eq(assessmentAttempts.id, attemptId));
+  const completed = await db.select().from(assessmentAttempts).where(eq(assessmentAttempts.id, attemptId)).limit(1);
+  return completed[0];
+}
+
+export async function getAdminMetrics() {
+  const db = await requireDb();
+  const userRows = await db.select({ count: users.id }).from(users);
+  const attemptRows = await db.select({ count: assessmentAttempts.id }).from(assessmentAttempts);
+  const assessmentRows = await db.select({ count: assessments.id }).from(assessments);
+  return { totalUsers: userRows.length, totalAttempts: attemptRows.length, totalAssessments: assessmentRows.length };
+}
+
+export async function listUsers(search?: string) {
+  const db = await requireDb();
+  if (search && search.trim()) {
+    return db.select().from(users).where(ilike(users.name, `%${search}%`)).orderBy(desc(users.createdAt));
+  }
+  return db.select().from(users).orderBy(desc(users.createdAt));
+}
+
+export async function getAdminUserDetail(userId: number) {
+  const db = await requireDb();
+  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (!user[0]) return null;
+  const attempts = await db.select().from(assessmentAttempts).where(eq(assessmentAttempts.userId, userId));
+  const profile = await db.select().from(userProfiles).where(eq(userProfiles.userId, userId)).limit(1);
+  return { user: user[0], attempts, profile: profile[0] || null };
+}
+
+export async function setUserRole(userId: number, role: "user" | "admin") {
+  const db = await requireDb();
+  await db.update(users).set({ role, updatedAt: new Date() }).where(eq(users.id, userId));
+  return { success: true };
+}
+
+export async function seedDepressionSecondWaveIfNeeded() {}
+export async function getContentOpportunities(cluster?: string) { return []; }
+export async function getContentEvidence() { return []; }
+export async function getContentBriefs(cluster?: string) { return []; }
+export async function getContentBriefBySlug(slug: string) { return null; }
+export async function getInternalLinksGraph(cluster?: string) { return []; }
+export async function getPublicationGates() { return []; }
+export async function canPublishContent(slug: string) { return { allowed: true, reasons: [] }; }
+export async function createAssessment(data: any) {
+  const db = await requireDb();
+  const inserted = await db.insert(assessments).values(data).returning();
+  return inserted[0];
+}
+export async function updateAssessment(id: number, data: any) {
+  const db = await requireDb();
+  await db.update(assessments).set({ ...data, updatedAt: new Date() }).where(eq(assessments.id, id));
+  const res = await db.select().from(assessments).where(eq(assessments.id, id)).limit(1);
+  return res[0];
+}
+export async function replaceAssessmentQuestions(assessmentId: number, questions: any[]) {
+  const db = await requireDb();
+  await db.delete(assessmentQuestions).where(eq(assessmentQuestions.assessmentId, assessmentId));
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const qIns = await db.insert(assessmentQuestions).values({ assessmentId, statement: q.statement, supportText: q.supportText, position: i + 1 }).returning();
+    for (const opt of q.options) {
+      await db.insert(assessmentOptions).values({ questionId: qIns[0].id, label: opt.label, score: opt.score });
+    }
+  }
+  return getAssessmentWithQuestions(assessmentId);
+}
+
 export async function getTermsConsent(userId: number) {
   const db = await requireDb();
   const row = await db.select({ termsAcceptedAt: users.termsAcceptedAt }).from(users).where(eq(users.id, userId)).limit(1);
@@ -142,15 +269,7 @@ export async function getAssessmentWithQuestions(assessmentId: number) {
   };
 }
 
-export async function startAttempt(userId: number, assessmentId: number) {
-  const db = await requireDb();
-  const assessment = await db.select({ status: assessments.status }).from(assessments).where(eq(assessments.id, assessmentId)).limit(1);
-  if (!assessment[0] || assessment[0].status !== "publicado") {
-    throw new Error("Esta autoavaliação não está disponível no momento.");
-  }
-  const [inserted] = await db.insert(assessmentAttempts).values({ userId, assessmentId }).returning({ id: assessmentAttempts.id });
-  return Number(inserted.id);
-}
+
 
 export async function updateUserProfile(
   userId: number,

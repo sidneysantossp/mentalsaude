@@ -329,3 +329,13 @@
 - [x] Reexecutar a suíte de testes (63/63 PASS) e o build de produção validado.
 - [x] Criar a tag Git imutável `v1.0.0-rc2` para a linha RC-02.
 - [x] Gerar o relatório canônico `MENTAL_SAUDE_SUPA02_INTEGRATION_REPORT.md` e reportar ao ChatGPT sem publicar.
+
+# Validação Prática do Build de Produção RC-02
+- [ ] Iniciar o servidor de produção compilado (`dist/index.js`) em porta dedicada.
+- [ ] Executar healthcheck HTTP e validar o carregamento da interface estática e rotas tRPC.
+- [ ] Salvar checkpoint de validação e reportar ao ChatGPT mantendo AUTOPUBLISH = DISABLED.
+
+# Correção de Runtime PostgreSQL para RC-02
+- [ ] Substituir o binding em `server/routers.ts` para importar `server/db-postgres.ts` (ou alias de `db`).
+- [ ] Executar build de produção atualizado e reiniciar o servidor local na porta 4173.
+- [ ] Validar rotas tRPC e interações com o Supabase PostgreSQL em runtime.
