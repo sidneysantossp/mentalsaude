@@ -308,3 +308,10 @@
 - [x] Configurar conexão com o Supabase e validar migrações/esquema via Drizzle.
 - [x] Executar suíte de testes (63/63 PASS) e build de produção.
 - [x] Atualizar o relatório canônico e reportar ao ChatGPT.
+
+# Missão SUPA-01 — PostgreSQL / Supabase Portability (RC-02)
+- [x] Fixar Decisão B: preservar 94354619 como RC histórico MySQL e criar branch/linha RC-02 para Supabase.
+- [ ] Portar `drizzle/schema.ts` e `drizzle.config.ts` para PostgreSQL (`pg-core`, `dialect: "postgresql"`).
+- [ ] Portar `server/db.ts` para `drizzle-orm/postgres-js` e adaptar upserts (`onConflictDoUpdate`).
+- [ ] Executar migrações iniciais e validar conexão com Supabase via Drizzle.
+- [ ] Executar suíte de testes (63/63 PASS) e build de produção para RC-02, gerando relatório e reportando ao ChatGPT.
