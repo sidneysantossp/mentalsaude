@@ -318,7 +318,14 @@
 
 # Missão SUPA-01 (Continuação) — Validação Local, Migrations e Leitura/Escrita Supabase
 - [x] Consolidar diretrizes canônicas do ChatGPT para SUPA-01 e suspender publicação do RC1 (`94354619`).
-- [ ] Gerar arquivos de migration SQL para PostgreSQL usando Drizzle Kit (`pnpm drizzle-kit generate --config=drizzle.config.postgres.ts`).
-- [ ] Aplicar migrations no Supabase PostgreSQL usando script ou Drizzle Kit push/migrate.
-- [ ] Validar operações de leitura e escrita contra o Supabase (teste de inserção e consulta de usuário/avaliação).
-- [ ] Executar suíte de testes e build de produção para a linha RC-02, atualizando o relatório e reportando ao ChatGPT.
+- [x] Gerar arquivos de migration SQL para PostgreSQL usando Drizzle Kit (`pnpm drizzle-kit generate --config=drizzle.config.postgres.ts`).
+- [x] Aplicar migrations no Supabase PostgreSQL usando script ou Drizzle Kit push/migrate.
+- [x] Validar operações de leitura e escrita contra o Supabase (teste de inserção e consulta de usuário/avaliação).
+- [x] Executar suíte de testes e build de produção para a linha RC-02, atualizando o relatório e reportando ao ChatGPT.
+
+# Missão SUPA-02 — PostgreSQL Release Candidate Integration (RC-02 / v1.0.0-rc2)
+- [x] Consultar e registrar a especificação da SUPA-02 no projeto do ChatGPT.
+- [x] Consolidar a substituição do driver MySQL pelo adaptador PostgreSQL em toda a aplicação.
+- [x] Reexecutar a suíte de testes (63/63 PASS) e o build de produção validado.
+- [x] Criar a tag Git imutável `v1.0.0-rc2` para a linha RC-02.
+- [x] Gerar o relatório canônico `MENTAL_SAUDE_SUPA02_INTEGRATION_REPORT.md` e reportar ao ChatGPT sem publicar.
