@@ -282,3 +282,10 @@
 - [x] Inventariar superfícies de observação e telemetria segura (sem captura de escores ou dados clínicos individuais).
 - [x] Estruturar o plano de resposta a incidentes e validação pós-launch imediata.
 - [x] Gerar o relatório canônico `MENTAL_SAUDE_PL00_OBSERVATION_READINESS_REPORT.md` e reportar ao projeto do ChatGPT.
+
+# Diretriz Canônica Pós-PL-00 — Prontidão de Ativação Manual
+- [x] Congelar absolutamente o payload de produção em `94354619` (zero alterações editoriais/funcionais).
+- [x] Preparar o Runbook de Ativação Humana (seleção do checkpoint, confirmação de ambiente, verificação de `AUTOPUBLISH = DISABLED` e acionamento do botão **Publish**).
+- [x] Preparar o Smoke Pack para os quatro instrumentos (GAD-7, PHQ-9, ASRS v1.1, DASS-21) e jornadas críticas.
+- [x] Preparar o Privacy/SEO Checklist e o Protocolo de Rollback para execução imediata após o Publish.
+- [x] Relatar ao projeto do ChatGPT a prontidão em estado `READY_FOR_MANUAL_PRODUCTION_ACTIVATION` e aguardar exclusivamente o acionamento humano do Publish.
