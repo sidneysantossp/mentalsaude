@@ -291,8 +291,20 @@
 - [x] Relatar ao projeto do ChatGPT a prontidão em estado `READY_FOR_MANUAL_PRODUCTION_ACTIVATION` e aguardar exclusivamente o acionamento humano do Publish.
 
 # Missões GIT-01 & INFRA-01 — Repositório Canônico e Arquitetura Supabase/Vercel/Cloudflare
-- [ ] Preservar o release aprovado `PRODUCTION_RELEASE_1 = 94354619` e auditar o estado Git local.
-- [ ] Auditar segurança de secrets, configuração e histórico do repositório.
-- [ ] Configurar o remote canônico para `sidneysantossp/mentalsaude.git`, branches `main` e `develop`, e tag `v1.0.0-rc1`.
-- [ ] Realizar auditoria de infraestrutura (Vercel, Cloudflare, Supabase e Drizzle ORM) sem deploy automático.
-- [ ] Executar build de produção e suíte de testes (63/63 PASS), gerar o relatório canônico e reportar ao ChatGPT.
+- [x] Preservar o release aprovado `PRODUCTION_RELEASE_1 = 94354619` e auditar o estado Git local.
+- [x] Auditar segurança de secrets, configuração e histórico do repositório.
+- [x] Configurar o remote canônico para `sidneysantossp/mentalsaude.git`, branches `main` e `develop`, e tag `v1.0.0-rc1`.
+- [x] Realizar auditoria de infraestrutura (Vercel, Cloudflare, Supabase e Drizzle ORM) sem deploy automático.
+- [x] Executar build de produção e suíte de testes (63/63 PASS), gerar o relatório canônico e reportar ao ChatGPT.
+
+# Missões de Produção Externa (GitHub + Vercel + Cloudflare + Supabase)
+- [x] Consultar e reconciliar a instrução canônica de produção do ChatGPT.
+- [x] Solicitar ao usuário as decisões e configurações necessárias do Supabase (sem expor secrets no histórico).
+- [x] Configurar GitHub, Vercel e Cloudflare de forma integrada, mantendo o release aprovado intacto.
+- [x] Executar validação técnica, testes e build (63/63 PASS), preparar o relatório e reportar ao ChatGPT.
+
+# Conexão Supabase & Validação de Produção
+- [x] Receber credenciais do Supabase e codificar URL da senha com caracteres especiais.
+- [x] Configurar conexão com o Supabase e validar migrações/esquema via Drizzle.
+- [x] Executar suíte de testes (63/63 PASS) e build de produção.
+- [x] Atualizar o relatório canônico e reportar ao ChatGPT.
