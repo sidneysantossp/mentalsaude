@@ -276,3 +276,9 @@
 - [x] Validar portões P2-1 a P2-10 (Payload Lock, Preflight, GAD-7/PHQ-9/ASRS/DASS-21, Privacy, YMYL Boundary, SEO, Runtime, Mobile/UX, Design Integrity ADS V1.1 FROZEN, Governance AUTOPUBLISH DISABLED).
 - [x] Atualizar `MENTAL_SAUDE_PD01_PRODUCTION_DEPLOYMENT_REPORT.md` com o estado `PRODUCTION_LIVE_STABLE`.
 - [x] Reportar exclusivamente ao projeto do ChatGPT via browser operator e abster-se de publicações automáticas, deixando o comando Publish sob governança do usuário.
+
+# Missão PL-00 — Production Activation Handoff & Observation Readiness
+- [x] Congelar `PRODUCTION_RELEASE_1 = 94354619` como artefato imutável de produção.
+- [x] Inventariar superfícies de observação e telemetria segura (sem captura de escores ou dados clínicos individuais).
+- [x] Estruturar o plano de resposta a incidentes e validação pós-launch imediata.
+- [x] Gerar o relatório canônico `MENTAL_SAUDE_PL00_OBSERVATION_READINESS_REPORT.md` e reportar ao projeto do ChatGPT.
