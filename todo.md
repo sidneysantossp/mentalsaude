@@ -305,5 +305,27 @@
 - [ ] Executar smoke tests públicos, revisar logs e reportar a INFRA-02 sem promover produção.
 - [ ] Corrigir a classificação indevida do deployment da branch de staging como Production e manter `main` como única Production Branch.
 - [ ] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
-- [ ] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
-- [ ] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.
+- [x] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
+- [x] Direcionar tRPC, OAuth e sessão ao adaptador PostgreSQL validado pela SUPA-03.
+- [x] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.
+
+# SUPA-03 — RC2 PostgreSQL Baseline & Runtime Validation
+- [x] Preservar as migrations MySQL apenas como histórico e retirar seu caminho do fluxo PostgreSQL ativo.
+- [x] Gerar e revisar uma baseline PostgreSQL limpa a partir do schema reconciliado.
+- [x] Criar o manifesto de ambiente runtime/migration sem valores sensíveis.
+- [x] Aplicar a baseline no Supabase não produtivo e confirmar ausência de schema drift.
+- [x] Inventariar as tabelas já existentes no schema público do Supabase e decidir a estratégia sem executar DDL destrutivo.
+- [x] Confirmar um projeto Supabase vazio ou um schema exclusivo para Mental Saúde antes de aplicar a baseline PostgreSQL.
+- [x] Comparar colunas e restrições das tabelas existentes ao schema canônico antes de qualquer remoção autorizada.
+- [x] Exportar inventário estrutural do schema e remover somente tabelas comprovadamente externas à Mental Saúde.
+- [x] Resolver a URL IPv4/Transaction Pooler e a autenticação necessária para a validação controlada do Supabase.
+- [x] Registrar a URL do Transaction Pooler fornecida no cofre seguro e executar o teste de conectividade controlado.
+- [x] Aplicar a credencial de teste autorizada ao cofre seguro com percent-encoding e validar a autenticação PostgreSQL.
+- [x] Confirmar que a URI atualizada do Transaction Pooler passa no teste `SELECT 1` antes da aplicação da baseline.
+- [x] Validar o segredo salvo manualmente pelo usuário no cofre do projeto antes de aplicar migrations PostgreSQL.
+- [ ] Retomar o reporte e coletar a próxima diretriz no canal operacional após a recuperação da conexão do navegador.
+- [x] Executar smoke tests controlados de leitura e escrita contra o runtime PostgreSQL.
+- [x] Executar regressão psicométrica, testes de portabilidade e auditoria de privacidade.
+- [x] Consolidar relatório SUPA-03 e reportar ao canal operacional, mantendo Preview Vercel e produção em HOLD.
+- [x] Migrar a carga inicial canônica de instrumentos e metadados do banco legado para o PostgreSQL de staging, sem copiar dados pessoais ou resultados.
+- [x] Cobrir os guardrails da migração SUPA-03 para garantir exclusão permanente de usuários, perfis, tentativas e respostas.

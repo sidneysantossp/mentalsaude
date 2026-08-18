@@ -52,7 +52,7 @@ const fixture = vi.hoisted(() => {
   };
 });
 
-vi.mock("./db", () => ({
+vi.mock("./db-postgres", () => ({
   ...fixture.db,
   listPublishedAssessments: vi.fn(), getUserProfile: vi.fn(), updateUserProfile: vi.fn(), listUserAttempts: vi.fn(), getUserRecommendations: vi.fn(),
   getAdminMetrics: vi.fn(), listAdminAssessments: vi.fn(), createAssessment: vi.fn(), updateAssessment: vi.fn(), replaceAssessmentQuestions: vi.fn(),
