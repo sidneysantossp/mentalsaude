@@ -65,3 +65,6 @@ Este endereço é estritamente de staging. A decisão desta fase é **revisão h
 
 O próximo trabalho permitido é a revisão humana do Preview e, se necessário, testes adicionais de OAuth e de fluxos autenticados no próprio ambiente Preview. Qualquer promoção para produção continua dependente de autorização humana explícita e de um gate separado.
 
+## Comunicação operacional
+
+O reporte SUPA-03/INFRA-02 foi transmitido ao canal operacional do projeto em 18 de agosto de 2026. O canal reconheceu o encerramento do risco técnico principal e manteve a sequência em revisão humana do Preview e smoke autenticado, com `main` e produção congelados.

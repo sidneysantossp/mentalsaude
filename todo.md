@@ -307,6 +307,24 @@
 - [x] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
 - [x] Corrigir o roteamento explícito de `/api/*` para a função Vercel e eliminar o 404 do tRPC no Preview.
 - [x] Atualizar os relatórios SUPA-03 e INFRA-02 com a validação final do Preview, preservando segredos fora do Git.
+- [x] STG-01: congelar e registrar branch, SHA, deployment e URL específica do commit em revisão.
+- [x] STG-01: reconciliar os 10 instrumentos publicados com o inventário aprovado e eliminar exposição inesperada.
+- [ ] STG-01: executar smoke tests públicos e dos quatro instrumentos psicométricos com dados sintéticos.
+- [ ] STG-01 blocker: implementar rotas específicas de execução para GAD-7, PHQ-9 e DASS-21 e corrigir a inicialização OAuth inválida no Preview.
+- [ ] STG-01 blocker: restaurar a entidade canônica DASS-21 e reconciliar os destinos `executionRoute` com rotas de execução realmente implementadas.
+- [x] STG-02: classificar o candidato `44721fa` como `STG01_FAILED_CANDIDATE` e preservá-lo apenas como evidência.
+- [x] STG-02: classificar DASS-21 como entidade editorial/informativa, sem execução pública, score automatizado ou interpretação automática.
+- [ ] STG-02: corrigir a rota de execução do ASRS v1.1 sem modificar instrumento, alternativas ou algoritmo.
+- [ ] STG-02: concluir gate de proveniência antes de habilitar rotas de execução para GAD-7 e PHQ-9.
+- [x] STG-02 safety gate: confirmar fonte canônica, licença e elegibilidade de execução pública para GAD-7, PHQ-9, ASRS v1.1 e DASS-21 antes de habilitar qualquer rota.
+- [ ] STG-02 exception: obter autorização clínica e jurídica explícita antes de disponibilizar qualquer execução pública ou devolutiva automatizada para DASS-21.
+- [ ] STG-02: corrigir a configuração OAuth do Preview sem expor segredos e validar login, consentimento e sessão.
+- [x] STG-02: tratar configuração OAuth Preview ausente ou inválida com falha controlada, sem lançar URL inválida nem expor valores de ambiente.
+- [ ] STG-02: cobrir a remediação com testes, executar fluxo sintético dos quatro instrumentos e preservar a equivalência psicométrica.
+- [ ] STG-02: gerar novo SHA, novo Preview e nova evidência de revisão humana sem tocar RC1, `main`, ADS V1.1 ou produção.
+- [ ] STG-01: validar OAuth, sessão, logout e persistência controlada sem expor ou solicitar credenciais.
+- [ ] STG-01: auditar privacidade no navegador, runtime tRPC e logs do Preview específico do commit.
+- [ ] STG-01: consolidar evidências e solicitar decisão humana vinculada ao SHA exato.
 - [x] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
 - [x] Direcionar tRPC, OAuth e sessão ao adaptador PostgreSQL validado pela SUPA-03.
 - [x] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.

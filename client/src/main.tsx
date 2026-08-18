@@ -18,7 +18,9 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
 
   if (!isUnauthorized) return;
 
-  startLogin();
+  if (!startLogin()) {
+    console.warn("[Auth] OAuth navigation skipped because Preview OAuth configuration is incomplete.");
+  }
 };
 
 queryClient.getQueryCache().subscribe(event => {
