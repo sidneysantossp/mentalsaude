@@ -301,11 +301,12 @@
 - [x] Criar o projeto `mental-saude-staging` na Vercel sem deployment automático e registrar a autorização explícita para Preview.
 - [x] Salvar `DATABASE_URL` exclusivamente no ambiente Preview da Vercel.
 - [x] Vincular o repositório GitHub canônico ao projeto de staging.
-- [ ] Disparar e monitorar somente o deployment Preview autorizado.
-- [ ] Executar smoke tests públicos, revisar logs e reportar a INFRA-02 sem promover produção.
-- [ ] Corrigir a classificação indevida do deployment da branch de staging como Production e manter `main` como única Production Branch.
-- [ ] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
-- [ ] Corrigir o roteamento explícito de `/api/*` para a função Vercel e eliminar o 404 do tRPC no Preview.
+- [x] Disparar e monitorar somente o deployment Preview autorizado.
+- [x] Executar smoke tests públicos, revisar logs e reportar a INFRA-02 sem promover produção.
+- [x] Corrigir a classificação indevida do deployment da branch de staging como Production e manter `main` como única Production Branch.
+- [x] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
+- [x] Corrigir o roteamento explícito de `/api/*` para a função Vercel e eliminar o 404 do tRPC no Preview.
+- [x] Atualizar os relatórios SUPA-03 e INFRA-02 com a validação final do Preview, preservando segredos fora do Git.
 - [x] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
 - [x] Direcionar tRPC, OAuth e sessão ao adaptador PostgreSQL validado pela SUPA-03.
 - [x] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.
