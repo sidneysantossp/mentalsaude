@@ -4,7 +4,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import * as db from "./db";
+import * as db from "./db-postgres";
 
 const assessmentInput = z.object({
   slug: z.string().min(3).max(96).regex(/^[a-z0-9-]+$/),

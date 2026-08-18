@@ -47,3 +47,11 @@ O teste direto de `/api/trpc/assessments.listPublished` retornou `404 NOT_FOUND`
 O wrapper `api/[...path].ts` foi substituído por `server.ts`, com export padrão de uma aplicação Express nativa, conforme a convenção atual da Vercel. A validação local passou com 65/65 testes, build de produção e `tsc --noEmit`. O commit `b7c07b3` foi enviado à branch de Preview e seu deployment aparece corretamente em fila, sem alteração em `main`.
 
 Após o monitoramento adicional, o deployment `b7c07b3` continuava em estado **Queued**. Nenhuma alteração de ambiente, promoção ou novo push foi realizado enquanto a Vercel não iniciar o build.
+
+A tentativa subsequente `915384e` substituiu o entrypoint TypeScript por `api/[...path].js`, para impedir a checagem de tipos incompatível aplicada pelo builder de funções. Ela foi validada localmente com 65/65 testes, build e checagem TypeScript aprovados, porém permanece em estado **Queued** no painel Vercel mesmo após mais de três minutos. O Preview funcional de interface continua disponível no deployment estático anterior `7b02768`; a validação da API e do Supabase permanece bloqueada até o processamento da fila ou uma intervenção na plataforma Vercel.
+
+Uma verificação final confirmou que `915384e` permanece em **Queued** após quatro minutos, enquanto os deployments `7b02768` e `b7c07b3` constam como Ready no ambiente Preview. Não foram realizadas novas tentativas de redeploy para evitar criar mais filas paralelas.
+
+## Reconciliação de Linhagem RC-02
+
+A auditoria de referências confirmou que o repositório local possui apenas a tag `v1.0.0-rc1` e que não há commit, branch, tag, pull request ou objeto inalcançável com referência a `SUPA`, `PostgreSQL`, `RC-02` ou `v1.0.0-rc2`. A inspeção direta da API do GitHub confirmou que o repositório público tem apenas a branch `infra/vercel-staging-preview` como default e nenhuma tag publicada. Assim, a portabilidade reportada historicamente não está presente na linhagem Git atualmente acessível. Em conformidade com a diretriz do canal operacional, a próxima ação é recuperar e inspecionar o checkpoint RC-02 arquivado, sem reconstruir a camada PostgreSQL sobre a branch de staging atual.
