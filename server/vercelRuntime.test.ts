@@ -13,6 +13,10 @@ describe("Vercel runtime configuration", () => {
 
     expect(config.outputDirectory).toBe("dist/public");
     expect(config.rewrites).toContainEqual({
+      source: "/api/:path*",
+      destination: "/api/[...path]",
+    });
+    expect(config.rewrites).toContainEqual({
       source: "/:path((?!api(?:/|$)).*)",
       destination: "/index.html",
     });

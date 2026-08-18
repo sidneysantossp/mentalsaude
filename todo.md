@@ -305,6 +305,7 @@
 - [ ] Executar smoke tests públicos, revisar logs e reportar a INFRA-02 sem promover produção.
 - [ ] Corrigir a classificação indevida do deployment da branch de staging como Production e manter `main` como única Production Branch.
 - [ ] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
+- [ ] Corrigir o roteamento explícito de `/api/*` para a função Vercel e eliminar o 404 do tRPC no Preview.
 - [x] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
 - [x] Direcionar tRPC, OAuth e sessão ao adaptador PostgreSQL validado pela SUPA-03.
 - [x] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.
