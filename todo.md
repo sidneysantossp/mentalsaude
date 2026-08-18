@@ -297,45 +297,13 @@
 - [x] Realizar auditoria de infraestrutura (Vercel, Cloudflare, Supabase e Drizzle ORM) sem deploy automático.
 - [x] Executar build de produção e suíte de testes (63/63 PASS), gerar o relatório canônico e reportar ao ChatGPT.
 
-# Missões de Produção Externa (GitHub + Vercel + Cloudflare + Supabase)
-- [x] Consultar e reconciliar a instrução canônica de produção do ChatGPT.
-- [x] Solicitar ao usuário as decisões e configurações necessárias do Supabase (sem expor secrets no histórico).
-- [x] Configurar GitHub, Vercel e Cloudflare de forma integrada, mantendo o release aprovado intacto.
-- [x] Executar validação técnica, testes e build (63/63 PASS), preparar o relatório e reportar ao ChatGPT.
-
-# Conexão Supabase & Validação de Produção
-- [x] Receber credenciais do Supabase e codificar URL da senha com caracteres especiais.
-- [x] Configurar conexão com o Supabase e validar migrações/esquema via Drizzle.
-- [x] Executar suíte de testes (63/63 PASS) e build de produção.
-- [x] Atualizar o relatório canônico e reportar ao ChatGPT.
-
-# Missão SUPA-01 — PostgreSQL / Supabase Portability (RC-02)
-- [x] Fixar Decisão B: preservar 94354619 como RC histórico MySQL e criar branch/linha RC-02 para Supabase.
-- [x] Portar `drizzle/schema.ts` e `drizzle.config.ts` para PostgreSQL (`pg-core`, `dialect: "postgresql"`).
-- [x] Portar `server/db.ts` para `drizzle-orm/postgres-js` e adaptar upserts (`onConflictDoUpdate`).
-- [x] Executar migrações iniciais e validar conexão com Supabase via Drizzle.
-- [x] Executar suíte de testes (63/63 PASS) e build de produção para RC-02, gerando relatório e reportando ao ChatGPT.
-
-# Missão SUPA-01 (Continuação) — Validação Local, Migrations e Leitura/Escrita Supabase
-- [x] Consolidar diretrizes canônicas do ChatGPT para SUPA-01 e suspender publicação do RC1 (`94354619`).
-- [x] Gerar arquivos de migration SQL para PostgreSQL usando Drizzle Kit (`pnpm drizzle-kit generate --config=drizzle.config.postgres.ts`).
-- [x] Aplicar migrations no Supabase PostgreSQL usando script ou Drizzle Kit push/migrate.
-- [x] Validar operações de leitura e escrita contra o Supabase (teste de inserção e consulta de usuário/avaliação).
-- [x] Executar suíte de testes e build de produção para a linha RC-02, atualizando o relatório e reportando ao ChatGPT.
-
-# Missão SUPA-02 — PostgreSQL Release Candidate Integration (RC-02 / v1.0.0-rc2)
-- [x] Consultar e registrar a especificação da SUPA-02 no projeto do ChatGPT.
-- [x] Consolidar a substituição do driver MySQL pelo adaptador PostgreSQL em toda a aplicação.
-- [x] Reexecutar a suíte de testes (63/63 PASS) e o build de produção validado.
-- [x] Criar a tag Git imutável `v1.0.0-rc2` para a linha RC-02.
-- [x] Gerar o relatório canônico `MENTAL_SAUDE_SUPA02_INTEGRATION_REPORT.md` e reportar ao ChatGPT sem publicar.
-
-# Validação Prática do Build de Produção RC-02
-- [ ] Iniciar o servidor de produção compilado (`dist/index.js`) em porta dedicada.
-- [ ] Executar healthcheck HTTP e validar o carregamento da interface estática e rotas tRPC.
-- [ ] Salvar checkpoint de validação e reportar ao ChatGPT mantendo AUTOPUBLISH = DISABLED.
-
-# Correção de Runtime PostgreSQL para RC-02
-- [ ] Substituir o binding em `server/routers.ts` para importar `server/db-postgres.ts` (ou alias de `db`).
-- [ ] Executar build de produção atualizado e reiniciar o servidor local na porta 4173.
-- [ ] Validar rotas tRPC e interações com o Supabase PostgreSQL em runtime.
+# INFRA-02 — Vercel Staging Deployment & Supabase Runtime Validation
+- [x] Criar o projeto `mental-saude-staging` na Vercel sem deployment automático e registrar a autorização explícita para Preview.
+- [x] Salvar `DATABASE_URL` exclusivamente no ambiente Preview da Vercel.
+- [x] Vincular o repositório GitHub canônico ao projeto de staging.
+- [ ] Disparar e monitorar somente o deployment Preview autorizado.
+- [ ] Executar smoke tests públicos, revisar logs e reportar a INFRA-02 sem promover produção.
+- [ ] Corrigir a classificação indevida do deployment da branch de staging como Production e manter `main` como única Production Branch.
+- [ ] Adicionar a adaptação Vercel para servir o frontend Vite e encaminhar apenas `/api/*` ao Express/tRPC.
+- [ ] Restaurar e validar a camada PostgreSQL/Supabase antes de conectar o runtime de staging ao banco externo.
+- [ ] Reconciliar a linhagem e localizar o artefato físico canônico da portabilidade RC-02 antes de reconstruir ou conectar o runtime PostgreSQL.
