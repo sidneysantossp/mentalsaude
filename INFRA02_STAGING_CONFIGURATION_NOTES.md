@@ -31,3 +31,15 @@ O Output Directory do projeto foi atualizado para `dist/public`. O painel mostro
 As configurações atuais de Environment não possuem nenhum ambiente customizado. A Vercel concentra o vínculo de branch de Production nesta área; a próxima ação de infraestrutura é registrar `main` como o único branch de Production, para que `infra/vercel-staging-preview` seja tratado como Preview.
 
 A revisão da área de Environments confirmou que **Production** está vinculado exclusivamente a `main`, enquanto **Preview** recebe todos os branches Git não atribuídos. Portanto, a branch `infra/vercel-staging-preview` será tratada como Preview nos próximos pushes. O deployment já existente conserva o rótulo histórico incorreto, mas nenhuma nova promoção ocorrerá a partir da branch de staging.
+
+O commit de infraestrutura `7b02768` foi enviado exclusivamente à branch `infra/vercel-staging-preview`. A Vercel criou corretamente um novo deployment no ambiente **Preview**, em estado **Building**, confirmando que a segregação de ambientes foi restaurada. O deployment anterior `e14fa9b` permanece apenas como registro histórico classificado indevidamente como Production.
+
+O Preview `7b02768` continuava em construção após mais de um minuto. A classificação permaneceu **Preview** durante o monitoramento. A próxima verificação é feita nos logs de build, sem redirecionamento ou promoção de ambiente.
+
+O deployment `7b02768` concluiu como **Ready** em 27 segundos no ambiente **Preview**. O painel exibiu uma miniatura da home renderizada, indicando que `dist/public` passou a ser servido no lugar do bundle de servidor. O alias técnico de branch é `mental-saude-staging-git-infra-69965d-admsuisso-1633s-projects.vercel.app`; o smoke test continuará por esse alias, sem utilizar domínio de Production.
+
+## Smoke Test Parcial
+
+A home do Preview renderizou corretamente, incluindo navegação pública, CTA, disclaimer de autoavaliação e controles de acessibilidade. A rota profunda `/testes` também foi atendida pelo fallback SPA, sem erro de roteamento. Entretanto, o catálogo exibiu o estado vazio de preparação em vez dos instrumentos publicados, o que é compatível com o bloqueio conhecido: o runtime ainda aponta para o adaptador MySQL e não pode operar com a `DATABASE_URL` PostgreSQL do ambiente Preview. A investigação funcional seguirá pelo endpoint de API, mas o staging Supabase não pode ser aprovado enquanto a camada PostgreSQL não for restaurada e conectada.
+
+O teste direto de `/api/trpc/assessments.listPublished` retornou `404 NOT_FOUND`. Os logs de build mostram que a Vercel identificou o arquivo `api/[...path].ts`, mas o pipeline TypeScript do runtime aplicou tipos `Request`/`Response` incompatíveis a módulos Express reutilizados, gerando erros em `oauth.ts` e `cookies.ts`. A publicação estática permanece Ready, porém a função não foi emitida; a próxima correção deve adotar o entrypoint Express nativo da Vercel, em vez de um wrapper de API que aciona essa validação incompatível.

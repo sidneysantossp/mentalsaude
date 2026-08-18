@@ -18,11 +18,13 @@ describe("Vercel runtime configuration", () => {
     });
   });
 
-  it("provides a catch-all Vercel Function for the Express API", () => {
-    const handlerPath = path.join(projectRoot, "api", "[...path].ts");
+  it("provides a native Express entrypoint for the Vercel API runtime", () => {
+    const handlerPath = path.join(projectRoot, "server.ts");
     const handler = fs.readFileSync(handlerPath, "utf8");
 
-    expect(handler).toContain('import { createApp } from "../server/_core/app"');
-    expect(handler).toContain("export default createApp()");
+    expect(handler).toContain('import express from "express"');
+    expect(handler).toContain('import { createApp } from "./server/_core/app"');
+    expect(handler).toContain("const app: ReturnType<typeof express> = createApp()");
+    expect(handler).toContain("export default app");
   });
 });
