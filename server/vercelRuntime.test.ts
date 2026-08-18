@@ -25,8 +25,13 @@ describe("Vercel runtime configuration", () => {
   it("provides a JavaScript catch-all Function for the Express API runtime", () => {
     const handlerPath = path.join(projectRoot, "api", "[...path].js");
     const handler = fs.readFileSync(handlerPath, "utf8");
+    const packageConfig = JSON.parse(fs.readFileSync(path.join(projectRoot, "package.json"), "utf8")) as {
+      scripts?: { build?: string };
+    };
 
-    expect(handler).toContain('import { createApp } from "../server/_core/app"');
+    expect(handler).toContain('import { createApp } from "./app.js"');
     expect(handler).toContain("export default createApp()");
+    expect(packageConfig.scripts?.build).toContain("esbuild server/_core/app.ts");
+    expect(packageConfig.scripts?.build).toContain("--outfile=api/app.js");
   });
 });
