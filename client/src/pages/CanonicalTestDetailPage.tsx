@@ -83,6 +83,9 @@ export function CanonicalTestDetailPage() {
                 Resultado confidencial e devolutiva educativa imediata.
               </span>
             </div>
+            <div className="mt-4 rounded-xl bg-[#18554f]/80 px-4 py-3 text-xs leading-5 text-[#ccebe3] border border-[#3e7a71]">
+              <strong>Aviso aos participantes:</strong> Os recursos de <strong>exportar o resultado em PDF</strong> ou <strong>enviar por e-mail</strong> ao finalizar a avaliação estão disponíveis exclusivamente para usuários <strong>registrados e autenticados</strong> na plataforma.
+            </div>
           </div>
         </div>
 
