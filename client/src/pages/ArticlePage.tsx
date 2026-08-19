@@ -540,7 +540,12 @@ export default function ArticlePage() {
               <div className="mt-6 grid gap-6 sm:grid-cols-3">
                 {relatedArticles.map((rel: ArticleModelType) => (
                   <Link key={rel.slug} href={`/conteudos/${rel.slug}`} className="group block rounded-3xl border border-[#d2e4df] bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0a7066]">
-                    <span className="rounded-full bg-[#e9f6f2] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0a7066]">
+                    <EditorialImage
+                      src={rel.image}
+                      alt={`Imagem de destaque do artigo: ${rel.title}`}
+                      className="h-32 w-full rounded-2xl object-cover transition-transform duration-200 group-hover:scale-[1.02] sm:h-36"
+                    />
+                    <span className="mt-4 inline-flex rounded-full bg-[#e9f6f2] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0a7066]">
                       {rel.category}
                     </span>
                     <h3 className="mt-3 font-display text-sm font-semibold text-[#123f3b] group-hover:text-[#0a7066]">

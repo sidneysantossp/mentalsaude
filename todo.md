@@ -379,3 +379,10 @@
 - [x] Corrigir regressões encontradas e cobri-las com Vitest.
 - [x] Reexecutar check, testes, build e screenshots de validação.
 - [x] Entregar relatório final da auditoria de usabilidade com evidências.
+
+# Melhoria editorial — imagens em Continue explorando
+
+- [x] Adicionar a imagem de destaque canônica aos cards da seção `Continue explorando` em `ArticlePage`.
+- [x] Preservar o fallback acessível e o link semântico de cada card.
+- [x] Validar desktop/mobile, integridade das capas, testes e build.
+- [x] Salvar checkpoint da melhoria e entregar evidência visual.

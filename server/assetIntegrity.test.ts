@@ -27,4 +27,13 @@ describe("integridade dos assets editoriais", () => {
     expect(config).toContain("/api/seo?type=sitemap");
     expect(config).toContain("/api/seo?type=feed");
   });
+
+  it("renderiza a imagem de destaque nos cards de Continue explorando", () => {
+    const articlePage = read("client/src/pages/ArticlePage.tsx");
+    expect(articlePage).toContain("{relatedArticles.map((rel: ArticleModelType) => (");
+    expect(articlePage).toContain("src={rel.image}");
+    expect(articlePage).toContain("alt={`Imagem de destaque do artigo: ${rel.title}`}");
+    expect(articlePage).toContain("className=\"h-32 w-full rounded-2xl object-cover");
+    expect(articlePage).toContain("href={`/conteudos/${rel.slug}`}");
+  });
 });
