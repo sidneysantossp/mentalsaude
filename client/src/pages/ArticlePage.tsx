@@ -238,14 +238,44 @@ export default function ArticlePage() {
                 <Bookmark className="h-3.5 w-3.5" />
                 {saved ? "Salvo" : "Salvar para depois"}
               </button>
-              <button
-                type="button"
-                onClick={handleShare}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[#bde0d6] bg-white px-3 py-1 font-semibold text-[#0a7066] hover:bg-[#e4f4ef]"
-              >
-                <Share2 className="h-3.5 w-3.5" />
-                {copied ? "Link copiado!" : "Compartilhar"}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleShare}
+                  className="inline-flex items-center gap-1 rounded-xl border border-[#bde0d6] bg-white px-2.5 py-1 font-semibold text-[#0a7066] hover:bg-[#e4f4ef]"
+                  title="Copiar link"
+                >
+                  <Share2 className="h-3.5 w-3.5" />
+                  {copied ? "Copiado!" : "Copiar"}
+                </button>
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(article.title + " - Mental Saúde: " + window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-xl border border-[#bde0d6] bg-[#e5f4ef] px-2.5 py-1 font-semibold text-[#0a7066] hover:bg-[#d0ece3]"
+                  title="Compartilhar no WhatsApp"
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-xl border border-[#bde0d6] bg-[#e5f4ef] px-2.5 py-1 font-semibold text-[#0a7066] hover:bg-[#d0ece3]"
+                  title="Compartilhar no X (Twitter)"
+                >
+                  X
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-xl border border-[#bde0d6] bg-[#e5f4ef] px-2.5 py-1 font-semibold text-[#0a7066] hover:bg-[#d0ece3]"
+                  title="Compartilhar no LinkedIn"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
         </header>

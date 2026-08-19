@@ -81,18 +81,18 @@ export function ContextualTestCTA({ test, articleSlug, articleId = "article" }: 
             </div>
 
             {/* Fluxo semântico correto: ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION */}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href={test.targetRoute}
                 onClick={() => handleTrackClick("primary_cta_to_entity_page")}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-7 font-bold text-[#123f3b] transition-all hover:bg-[#edf6f3] hover:shadow-lg"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-white px-6 font-bold text-[#123f3b] transition-all hover:bg-[#edf6f3] hover:shadow-lg"
               >
                 Conhecer o teste {test.acronym} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
                 href={test.executionRoute}
                 onClick={() => handleTrackClick("secondary_cta_to_execution")}
-                className="inline-flex h-12 items-center justify-center gap-1.5 rounded-xl px-5 text-sm font-bold text-[#a2e6dc] transition-colors hover:text-white"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl px-4 text-sm font-bold text-[#a2e6dc] transition-colors hover:text-white"
               >
                 Como funciona o {test.acronym}
               </Link>
