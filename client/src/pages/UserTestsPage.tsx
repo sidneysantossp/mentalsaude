@@ -117,19 +117,23 @@ function UserTestsContent() {
                 ))}
               </div>
             ) : filteredCatalog?.length ? (
-              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {filteredCatalog.map(assessment => (
-                  <article key={assessment.id} className="group relative overflow-hidden rounded-3xl border border-[#dce9e4] bg-[#fffefa] p-6 shadow-sm">
-                    <Badge className="border-0 bg-[#e6f4f0] text-[#0a7066] hover:bg-[#e6f4f0]">{assessment.category}</Badge>
-                    <h3 className="mt-6 font-display text-2xl font-semibold tracking-[-.035em] text-[#143e39]">{assessment.title}</h3>
-                    <p className="mt-3 min-h-12 text-sm leading-6 text-[#67827b]">{assessment.shortDescription}</p>
-                    <div className="mt-6 flex items-center gap-4 border-y border-[#e5eeeb] py-3 text-xs font-semibold text-[#618179]">
-                      <span className="flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5 text-[#0b7167]" />{assessment.durationMinutes} min</span>
-                      <span className="flex items-center gap-1.5"><Gauge className="h-3.5 w-3.5 text-[#0b7167]" />{difficultyLabel[assessment.difficulty]}</span>
+                  <article key={assessment.id} className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#dce9e4] bg-[#fffefa] p-6 shadow-sm">
+                    <div>
+                      <Badge className="border-0 bg-[#e6f4f0] text-[#0a7066] hover:bg-[#e6f4f0]">{assessment.category}</Badge>
+                      <h3 className="mt-5 font-display text-xl font-semibold leading-snug tracking-[-.02em] text-[#143e39] break-words">{assessment.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-[#67827b] break-words">{assessment.shortDescription}</p>
                     </div>
-                    <Button onClick={() => setLocation(`/avaliacao/${assessment.id}`)} className="mt-6 w-full rounded-xl bg-[#0b675f] text-white hover:bg-[#084e49]">
-                      Iniciar no Dashboard <Play className="ml-2 h-4 w-4" />
-                    </Button>
+                    <div className="mt-6">
+                      <div className="flex items-center justify-between border-y border-[#e5eeeb] py-3 text-xs font-semibold text-[#618179]">
+                        <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5 text-[#0b7167]" />{assessment.durationMinutes} min</span>
+                        <span className="inline-flex items-center gap-1.5"><Gauge className="h-3.5 w-3.5 text-[#0b7167]" />{difficultyLabel[assessment.difficulty]}</span>
+                      </div>
+                      <Button onClick={() => setLocation(`/avaliacao/${assessment.id}`)} className="mt-5 w-full rounded-xl bg-[#0b675f] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#084e49]">
+                        Iniciar no Dashboard <Play className="ml-2 h-3.5 w-3.5 shrink-0" />
+                      </Button>
+                    </div>
                   </article>
                 ))}
               </div>
