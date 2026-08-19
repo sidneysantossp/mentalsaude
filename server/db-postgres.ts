@@ -111,8 +111,14 @@ export async function updateUserProfile(
 }
 
 export async function listPublishedAssessments() {
-  const db = await requireDb();
-  return db.select().from(assessments).where(eq(assessments.status, "publicado")).orderBy(desc(assessments.updatedAt));
+  try {
+    const db = await getDb();
+    if (!db) return [];
+    return await db.select().from(assessments).where(eq(assessments.status, "publicado")).orderBy(desc(assessments.updatedAt));
+  } catch (err) {
+    console.error("[Database Postgres] listPublishedAssessments failed:", err);
+    return [];
+  }
 }
 
 export async function listAdminAssessments() {
