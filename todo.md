@@ -359,7 +359,7 @@
 
 # Auditoria de estabilidade e usabilidade — 19/08/2026
 
-- [ ] Corrigir o schema/namespace PostgreSQL usado pela aplicação para que `assessments` e tabelas relacionadas sejam encontradas no banco Supabase correto.
+- [x] Corrigir o schema/namespace PostgreSQL usado pela aplicação para que `assessments` e tabelas relacionadas sejam encontradas no banco Supabase correto.
 - [x] Validar leitura real dos assessments publicados, perguntas e opções no catálogo público.
 - [x] Corrigir o rewrite da Vercel para não transformar imagens, sitemap, feed, robots e llms.txt em `index.html`.
 - [x] Publicar assets editoriais persistentes e substituir referências quebradas `/manus-storage`.
