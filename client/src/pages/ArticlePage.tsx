@@ -307,6 +307,30 @@ export default function ArticlePage() {
               </ul>
             </section>
 
+            {/* Índice Clicável no Início do Artigo */}
+            <section className="mt-8 rounded-3xl border border-[#d2e4df] bg-[#f9fcfa] p-6 sm:p-7 shadow-sm" aria-label="Índice do artigo">
+              <div className="flex items-center justify-between">
+                <h3 className="font-display text-lg font-semibold text-[#173e39]">Neste artigo</h3>
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0a7066]">{article.readingTime}</span>
+              </div>
+              <nav aria-label="Sumário principal" className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                {article.tableOfContents.map((toc, idx) => (
+                  <a
+                    key={toc.id}
+                    href={`#${toc.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSectionNavigation(toc.id);
+                    }}
+                    className="flex items-center gap-2.5 rounded-xl border border-[#e2efe9] bg-white px-4 py-2.5 text-xs font-semibold text-[#1f4741] transition-all hover:border-[#0a7066] hover:bg-[#e9f6f2] hover:text-[#0a7066]"
+                  >
+                    <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#e5f4ef] text-[10px] font-bold text-[#0a7066]">{idx + 1}</span>
+                    <span className="truncate">{toc.label}</span>
+                  </a>
+                ))}
+              </nav>
+            </section>
+
             <div className="mt-8 lg:hidden rounded-2xl border border-[#d5e6e1] bg-white p-5">
               <button
                 type="button"
@@ -455,6 +479,51 @@ export default function ArticlePage() {
                   Este conteúdo possui finalidade educativa e não substitui avaliação clínica individual. Em caso de sofrimento intenso ou urgência, procure suporte profissional (CVV 188).
                 </p>
               </div>
+
+              {/* Formulário de Newsletter de Saúde Mental */}
+              <section className="mt-10 overflow-hidden rounded-3xl border border-[#235852] bg-[#123f3b] p-7 sm:p-8 text-white shadow-xl" aria-label="Assinar newsletter">
+                <div className="max-w-xl">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1c5d57] px-3.5 py-1 text-[11px] font-bold uppercase tracking-[.18em] text-[#82d6ca]">
+                    NEWSLETTER MENTAL SAÚDE
+                  </span>
+                  <h3 className="mt-3 font-display text-2xl font-semibold text-white">
+                    Receba conteúdos baseados em evidências científicas
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-[#c2dfd8] sm:text-sm">
+                    Inscreva seu e-mail para receber nossos guias semanais sobre saúde mental, bem-estar e artigos revisados por especialistas. Sem spam, com total privacidade.
+                  </p>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const form = e.currentTarget;
+                      const input = form.elements.namedItem("email") as HTMLInputElement;
+                      if (input && input.value) {
+                        alert(`Obrigado por se inscrever! O endereço ${input.value} foi cadastrado com sucesso em nossa newsletter.`);
+                        input.value = "";
+                      }
+                    }}
+                    className="mt-6 flex flex-col gap-3 sm:flex-row"
+                  >
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Seu melhor e-mail"
+                      className="h-12 flex-1 rounded-xl border border-[#235852] bg-[#184e48] px-4 text-sm text-white placeholder-[#8aa8a1] outline-none focus:border-[#82d6ca]"
+                    />
+                    <button
+                      type="submit"
+                      className="h-12 rounded-xl bg-white px-7 font-bold text-[#123f3b] transition-all hover:bg-[#edf6f3]"
+                    >
+                      Inscrever-se
+                    </button>
+                  </form>
+                  <p className="mt-3 text-[11px] text-[#8aa8a1]">
+                    Ao se inscrever, você concorda com nossa Política de Privacidade. Você pode cancelar a assinatura a qualquer momento.
+                  </p>
+                </div>
+              </section>
             </div>
 
             <div className="mt-16">
