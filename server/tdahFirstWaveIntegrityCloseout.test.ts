@@ -56,7 +56,8 @@ describe("TDAH First Wave Integrity Closeout", () => {
     expect(appSource).toContain('path="/avaliacao/:id"');
     expect(asrsSource).toContain('href="/testes/asrs/iniciar"');
     expect(asrsSource).toContain("assessments.listPublished.useQuery");
-    expect(asrsSource).toContain("setLocation(`/avaliacao/${assessment.id}`)");
+    expect(asrsSource).toContain("const destination = `/avaliacao/${assessment.id}`");
+    expect(asrsSource).toContain("if (user) setLocation(destination)");
   });
 
   it("marca o resultado privado como noindex e preserva screening != diagnosis", () => {

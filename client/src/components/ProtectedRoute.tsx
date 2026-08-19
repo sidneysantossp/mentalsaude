@@ -5,8 +5,8 @@ import { LoaderCircle, ShieldAlert } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 
-export function beginLogin() {
-  sessionStorage.setItem("mental-saude:post-login", "/dashboard");
+export function beginLogin(destination = "/dashboard") {
+  sessionStorage.setItem("mental-saude:post-login", destination);
   return startLogin();
 }
 

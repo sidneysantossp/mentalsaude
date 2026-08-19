@@ -37,7 +37,7 @@ describe("TDAH Second Wave", () => {
 
   it("maps all new articles to the canonical ASRS entity", () => {
     const asrs = getCanonicalTest("asrs");
-    expect(asrs?.targetRoute).toBe("/testes/asrs-v1-1");
+    expect(asrs?.targetRoute).toBe("/testes/asrs");
     for (const slug of WAVE_SLUGS) {
       const article = ARTICLES_DATABASE[slug];
       expect(article.relatedTestSlug).toBe("asrs");

@@ -34,8 +34,14 @@ describe("Article Design System V1.1 - Rigorous Validation", () => {
 
   it("3. Semantic Navigation Flow: Routes follow ARTICLE -> TEST ENTITY PAGE -> TEST EXECUTION", () => {
     const gad7 = getCanonicalTest("GAD-7");
+    const phq9 = getCanonicalTest("PHQ-9");
+    const asrs = getCanonicalTest("ASRS v1.1");
     expect(gad7?.targetRoute).toBe("/testes/gad-7");
-    expect(gad7?.executionRoute).toBe("/testes");
+    expect(gad7?.executionRoute).toBeNull();
+    expect(phq9?.targetRoute).toBe("/testes/phq-9");
+    expect(phq9?.executionRoute).toBeNull();
+    expect(asrs?.targetRoute).toBe("/testes/asrs");
+    expect(asrs?.executionRoute).toBe("/testes/asrs/iniciar");
   });
 
   it("4. Canonical Data Integrity: No manual duplication inside articles", () => {

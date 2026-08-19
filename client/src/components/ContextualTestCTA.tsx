@@ -89,13 +89,19 @@ export function ContextualTestCTA({ test, articleSlug, articleId = "article" }: 
               >
                 Conhecer o teste {test.acronym} <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <Link
-                href={test.executionRoute}
-                onClick={() => handleTrackClick("secondary_cta_to_execution")}
-                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl px-4 text-sm font-bold text-[#a2e6dc] transition-colors hover:text-white"
-              >
-                Como funciona o {test.acronym}
-              </Link>
+              {test.executionRoute ? (
+                <Link
+                  href={test.executionRoute}
+                  onClick={() => handleTrackClick("secondary_cta_to_execution")}
+                  className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl px-4 text-sm font-bold text-[#a2e6dc] transition-colors hover:text-white"
+                >
+                  Iniciar o {test.acronym}
+                </Link>
+              ) : (
+                <span className="inline-flex min-h-12 w-full sm:w-auto items-center justify-center rounded-xl px-4 text-center text-xs font-semibold leading-5 text-[#b8d8d0]">
+                  Execução pública ainda não publicada
+                </span>
+              )}
             </div>
 
             <p className="mt-6 text-[11px] leading-normal text-[#8aa8a1]">

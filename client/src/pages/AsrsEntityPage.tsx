@@ -1,7 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "wouter";
-import { useEffect } from "react";
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { beginLogin } from "@/components/ProtectedRoute";
 import PublicHeader from "@/components/PublicHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -125,12 +126,16 @@ export function AsrsEntityPage() {
 
 export function AsrsExecutionLaunchPage() {
   const [, setLocation] = useLocation();
+  const { user } = useAuth();
   const { data: assessments, isLoading, error } = trpc.assessments.listPublished.useQuery();
+  const assessment = assessments?.find(item => item.slug.includes("asrs") || item.title.toLowerCase().includes("asrs"));
 
-  useEffect(() => {
-    const assessment = assessments?.find(item => item.slug.includes("asrs") || item.title.toLowerCase().includes("asrs"));
-    if (assessment) setLocation(`/avaliacao/${assessment.id}`);
-  }, [assessments, setLocation]);
+  const startAssessment = () => {
+    if (!assessment) return;
+    const destination = `/avaliacao/${assessment.id}`;
+    if (user) setLocation(destination);
+    else beginLogin(destination);
+  };
 
   return (
     <div className="grid min-h-screen place-items-center bg-background px-6 text-foreground">
@@ -138,10 +143,10 @@ export function AsrsExecutionLaunchPage() {
         {isLoading && <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-primary" aria-label="Carregando execução do ASRS" />}
         <h1 className="mt-5 font-serif text-3xl font-semibold">Preparando o ASRS v1.1</h1>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">
-          Você será encaminhado para a execução privada do instrumento. O ASRS é um rastreio e não confirma diagnóstico.
+          O ASRS é um rastreio para adultos e não confirma diagnóstico. Para iniciar, você precisará entrar na sua conta para registrar consentimento e proteger o histórico.
         </p>
-        {error && <p className="mt-4 text-sm text-destructive">Não foi possível localizar a execução publicada. Volte ao catálogo de testes.</p>}
-        <Link href="/testes" className="mt-6 inline-flex font-semibold text-primary underline underline-offset-4">Voltar ao catálogo</Link>
+        {error || (!isLoading && !assessment) ? <p className="mt-4 text-sm text-destructive">Não foi possível localizar a execução publicada. Volte ao catálogo de testes.</p> : assessment && <Button onClick={startAssessment} className="mt-6 bg-primary text-primary-foreground hover:bg-primary/90">{user ? "Iniciar avaliação" : "Entrar e iniciar avaliação"}<ArrowRight className="ml-2 h-4 w-4" /></Button>}
+        <Link href="/testes/asrs" className="mt-6 inline-flex font-semibold text-primary underline underline-offset-4">Voltar à página do ASRS</Link>
       </div>
     </div>
   );

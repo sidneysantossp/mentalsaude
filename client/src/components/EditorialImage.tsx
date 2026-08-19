@@ -9,9 +9,8 @@ type EditorialImageProps = {
 
 export function EditorialImage({ src, alt, className }: EditorialImageProps) {
   const [failed, setFailed] = useState(false);
-  const isReservedGenerationPlaceholder = src?.includes("-retry_") ?? false;
 
-  if (!src || failed || isReservedGenerationPlaceholder) {
+  if (!src || failed) {
     return (
       <div
         role="img"

@@ -10,7 +10,7 @@ export type CanonicalTestEntity = {
   durationMinutes: number;
   difficulty: "Leve" | "Moderada" | "Profunda";
   targetRoute: string; // ex: /testes (ou /testes/gad-7)
-  executionRoute: string; // /testes
+  executionRoute: string | null; // null quando a entidade é informativa e não possui execução pública publicada
   methodologyNotes: string;
 };
 
@@ -27,7 +27,7 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     durationMinutes: 3,
     difficulty: "Leve",
     targetRoute: "/testes/gad-7",
-    executionRoute: "/testes",
+    executionRoute: null,
     methodologyNotes: "Desenvolvido por Spitzer, Kroenke, Williams e Löwe (2006). Não substitui diagnóstico clínico formal."
   },
   "phq-9": {
@@ -42,7 +42,7 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     durationMinutes: 3,
     difficulty: "Moderada",
     targetRoute: "/testes/phq-9",
-    executionRoute: "/testes",
+    executionRoute: null,
     methodologyNotes: "Validado por Kroenke, Spitzer e Williams (2001). Fornece escore de severidade indicativo."
   },
   "asrs-v1-1": {
@@ -56,8 +56,8 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     questionCount: 6,
     durationMinutes: 2,
     difficulty: "Leve",
-    targetRoute: "/testes/asrs-v1-1",
-    executionRoute: "/testes",
+    targetRoute: "/testes/asrs",
+    executionRoute: "/testes/asrs/iniciar",
     methodologyNotes: "Instrumento oficial OMS / Kessler et al. (2005). Focado em autoobservação adulta."
   }
 };

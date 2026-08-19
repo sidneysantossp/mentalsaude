@@ -367,3 +367,15 @@
 - [x] Executar auditoria de usabilidade desktop e mobile nos fluxos Home, Testes, Conteúdos, artigo, filtros, favoritos e CTA.
 - [x] Cobrir as correções com testes Vitest, typecheck, build e validação visual.
 - [x] Registrar relatório final da auditoria com evidências, bloqueios remanescentes e checkpoint.
+
+# Auditoria completa de usabilidade — carregamento de testes e mídias
+
+- [x] Inventariar rotas públicas e jornadas críticas para o teste de usabilidade.
+- [x] Executar smoke test do catálogo, detalhes, início e fluxo de perguntas dos testes.
+- [x] Executar smoke test de imagens editoriais, capas, assets e arquivos de SEO.
+- [x] Verificar navegação, links crawlable, estados de carregamento, vazio e erro.
+- [x] Verificar responsividade desktop/mobile, overflow, legibilidade e alvos de toque.
+- [x] Verificar acessibilidade estrutural, foco, teclado, nomes acessíveis e contraste.
+- [x] Corrigir regressões encontradas e cobri-las com Vitest.
+- [x] Reexecutar check, testes, build e screenshots de validação.
+- [x] Entregar relatório final da auditoria de usabilidade com evidências.

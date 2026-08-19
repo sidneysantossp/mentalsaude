@@ -74,11 +74,17 @@ export function CanonicalTestDetailPage() {
 
             {/* CTA para iniciar o questionário */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href={test.executionRoute}>
-                <Button className="h-13 rounded-xl bg-white px-8 text-base font-bold text-[#123f3b] hover:bg-[#edf6f3] shadow-lg">
-                  Iniciar Autoavaliação ({test.acronym}) <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+              {test.executionRoute ? (
+                <Link href={test.executionRoute}>
+                  <Button className="h-13 rounded-xl bg-white px-8 text-base font-bold text-[#123f3b] hover:bg-[#edf6f3] shadow-lg">
+                    Iniciar Autoavaliação ({test.acronym}) <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              ) : (
+                <span className="inline-flex min-h-13 items-center rounded-xl border border-[#4e8179] px-6 text-sm font-semibold text-[#b8d8d0]">
+                  Execução pública ainda não publicada
+                </span>
+              )}
               <span className="text-xs text-[#b8d8d0]">
                 Resultado confidencial e devolutiva educativa imediata.
               </span>
@@ -128,11 +134,17 @@ export function CanonicalTestDetailPage() {
 
         {/* Footer CTA */}
         <div className="mt-12 text-center">
-          <Link href={test.executionRoute}>
-            <Button className="h-12 bg-[#1c5d57] px-8 text-white font-bold hover:bg-[#123f3b]">
-              Ir para o ambiente de testes da plataforma <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+          {test.executionRoute ? (
+            <Link href={test.executionRoute}>
+              <Button className="h-12 bg-[#1c5d57] px-8 text-white font-bold hover:bg-[#123f3b]">
+                Ir para o ambiente de testes da plataforma <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          ) : (
+            <p className="mx-auto max-w-md text-sm leading-6 text-[#628079]">
+              Esta entidade está disponível para consulta metodológica. A execução pública ainda não foi publicada.
+            </p>
+          )}
         </div>
       </main>
     </div>
