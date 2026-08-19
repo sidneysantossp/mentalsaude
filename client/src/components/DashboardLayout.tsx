@@ -7,6 +7,7 @@ import {
   BookOpenCheck,
   ChevronLeft,
   ClipboardList,
+  ExternalLink,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -104,7 +105,18 @@ export default function DashboardLayout({ children, area = "user" }: { children:
             </button>
             <span className="text-sm font-semibold text-[#53736d]">{areaLabel}</span>
           </div>
-          {area === "admin" && <span className="hidden items-center gap-2 rounded-full bg-[#fff0e9] px-3 py-1.5 text-xs font-semibold text-[#a84b3b] sm:flex"><BarChart3 className="h-3.5 w-3.5" />Métricas da plataforma</span>}
+          <div className="flex items-center gap-3">
+            {area === "admin" && <span className="hidden items-center gap-2 rounded-full bg-[#fff0e9] px-3 py-1.5 text-xs font-semibold text-[#a84b3b] sm:flex"><BarChart3 className="h-3.5 w-3.5" />Métricas da plataforma</span>}
+            <button
+              type="button"
+              onClick={() => setLocation("/")}
+              className="inline-flex items-center gap-2 rounded-xl border border-[#d2e4df] bg-[#f2faf7] px-3 py-2 text-xs font-semibold text-[#0b7167] transition-colors hover:bg-[#e4f4ef]"
+              title="Voltar ao site público"
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span className="hidden sm:inline">Voltar ao site</span>
+            </button>
+          </div>
         </header>
         <div className="mx-auto max-w-[1500px] p-5 sm:p-8 lg:p-10">{children}</div>
       </main>
