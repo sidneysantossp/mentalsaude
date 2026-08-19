@@ -386,3 +386,10 @@
 - [x] Preservar o fallback acessível e o link semântico de cada card.
 - [x] Validar desktop/mobile, integridade das capas, testes e build.
 - [x] Salvar checkpoint da melhoria e entregar evidência visual.
+
+# Compartilhamento social em artigos
+
+- [x] Implementar botões acessíveis de WhatsApp, X, LinkedIn e copiar link nas páginas de artigos.
+- [x] Garantir URLs canônicas, `target=_blank`, `rel=noopener noreferrer` e ausência de dados clínicos ou pessoais.
+- [x] Validar interação de copiar link, acessibilidade, responsividade, testes e build.
+- [x] Salvar checkpoint da melhoria de compartilhamento e entregar evidência visual.

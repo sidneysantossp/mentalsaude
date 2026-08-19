@@ -36,4 +36,17 @@ describe("integridade dos assets editoriais", () => {
     expect(articlePage).toContain("className=\"h-32 w-full rounded-2xl object-cover");
     expect(articlePage).toContain("href={`/conteudos/${rel.slug}`}");
   });
+
+  it("mantém compartilhamento social crawlable, seguro e sem dados clínicos", () => {
+    const component = read("client/src/components/ArticleShareButtons.tsx");
+    const articlePage = read("client/src/pages/ArticlePage.tsx");
+    expect(articlePage).toContain("<ArticleShareButtons title={article.title} />");
+    expect(component).toContain("api.whatsapp.com/send");
+    expect(component).toContain("twitter.com/intent/tweet");
+    expect(component).toContain("linkedin.com/sharing/share-offsite");
+    expect(component).toContain('target=\"_blank\"');
+    expect(component).toContain('rel=\"noopener noreferrer\"');
+    expect(component).toContain("navigator.clipboard");
+    expect(component).not.toMatch(/score|respostas|dadosCl[ií]nicos|openId/);
+  });
 });
