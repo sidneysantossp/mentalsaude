@@ -393,3 +393,11 @@
 - [x] Garantir URLs canônicas, `target=_blank`, `rel=noopener noreferrer` e ausência de dados clínicos ou pessoais.
 - [x] Validar interação de copiar link, acessibilidade, responsividade, testes e build.
 - [x] Salvar checkpoint da melhoria de compartilhamento e entregar evidência visual.
+
+# Missão — 5 Artigos & Clusters com SEO de IA (GEO / AIO)
+
+- [ ] Definir a matriz estratégica dos 5 novos artigos e seus respectivos clusters (Fobia Social, Pânico, Compulsão Alimentar, Sofrimento Mental e Saúde Mental Preventiva).
+- [ ] Incorporar diretrizes modernas de GEO (Generative Engine Optimization) e IA (Entities, Direct Answers, Knowledge Graph e E-E-A-T).
+- [ ] Produzir os 5 artigos completos com parágrafos data-driven, ScientificCitation, EvidenceBox e FAQ.
+- [ ] Implementar os artigos na base editorial (`articlesDatabase.ts`) com capas otimizadas e rotas reais.
+- [ ] Executar suíte Vitest, typecheck, build e validações visuais desktop/mobile, salvando checkpoint sem publicação automática.
