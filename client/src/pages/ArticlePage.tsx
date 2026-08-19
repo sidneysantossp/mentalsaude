@@ -37,6 +37,14 @@ export default function ArticlePage() {
       }
       metaDesc.setAttribute("content", article.seoDescription);
 
+      let canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (!canonicalLink) {
+        canonicalLink = document.createElement("link");
+        canonicalLink.setAttribute("rel", "canonical");
+        document.head.appendChild(canonicalLink);
+      }
+      canonicalLink.setAttribute("href", window.location.origin + window.location.pathname);
+
       let scriptTag = document.getElementById("json-ld-article");
       if (!scriptTag) {
         scriptTag = document.createElement("script");
