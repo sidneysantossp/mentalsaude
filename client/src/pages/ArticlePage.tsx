@@ -7,7 +7,7 @@ import { ContextualTestCTA } from "@/components/ContextualTestCTA";
 import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, Info, Share2, Shield, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
-import { getSavedArticles, saveArticle, removeSavedArticle, SavedArticle } from "@/lib/savedContentStorage";
+import { addFavorite, removeFavorite, isFavorite } from "@/lib/favoritesStorage";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { calculateReadingProgress, getActiveSectionId } from "@/lib/readingProgress";
 
@@ -80,8 +80,7 @@ export default function ArticlePage() {
 
   useEffect(() => {
     if (article) {
-      const items = getSavedArticles(userId);
-      setSaved(items.some((i: SavedArticle) => i.id === article.slug));
+      setSaved(isFavorite(userId, article.slug, "article"));
     }
   }, [article, userId]);
 
@@ -136,16 +135,17 @@ export default function ArticlePage() {
 
   const handleToggleSave = () => {
     if (saved) {
-      removeSavedArticle(userId, article.slug);
+      removeFavorite(userId, article.slug, "article");
       setSaved(false);
     } else {
-      saveArticle(userId, {
+      addFavorite(userId, {
         id: article.slug,
+        type: "article",
         title: article.title,
-        excerpt: article.seoDescription,
+        description: article.seoDescription,
         category: article.category,
-        readingTime: article.readingTime,
-        slug: `/conteudos/${article.slug}`
+        meta: article.readingTime,
+        url: `/conteudos/${article.slug}`
       });
       setSaved(true);
     }
