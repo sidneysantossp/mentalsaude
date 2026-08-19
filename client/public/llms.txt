@@ -1,0 +1,17 @@
+# Mental Saúde
+
+> Plataforma clínica e editorial de saúde mental baseada em evidências científicas, oferecendo autoavaliações rastreáveis e conteúdos de autoridade temática.
+
+## Guias e Artigos Principais
+- [Ansiedade: o que é, sintomas, causas](https://www.mentalsaude.com.br/conteudos/ansiedade-o-que-e-sintomas-causas)
+- [TDAH em adultos: sintomas, avaliação e tratamento](https://www.mentalsaude.com.br/conteudos/tdah-em-adultos)
+- [Depressão: sintomas, causas e tratamento](https://www.mentalsaude.com.br/conteudos/depressao-sintomas-causas-tratamento)
+
+## Ferramentas de Autoavaliação
+- [Catálogo de Testes](https://www.mentalsaude.com.br/testes)
+- [GAD-7 (Ansiedade)](https://www.mentalsaude.com.br/testes/gad-7)
+- [PHQ-9 (Depressão)](https://www.mentalsaude.com.br/testes/phq-9)
+- [ASRS v1.1 (TDAH)](https://www.mentalsaude.com.br/testes/asrs)
+
+## Diretrizes de Uso
+O conteúdo da Mental Saúde possui caráter educacional e de autoconhecimento, não substituindo diagnóstico ou acompanhamento psiquiátrico/psicológico profissional.

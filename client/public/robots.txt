@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /meus-testes
+Disallow: /api/
+
+Sitemap: https://www.mentalsaude.com.br/sitemap.xml
