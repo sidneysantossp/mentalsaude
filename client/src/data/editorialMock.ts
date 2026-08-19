@@ -72,7 +72,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     publishedAt: "10 de agosto de 2026",
     reviewedAt: "11 de agosto de 2026",
     isFeatured: true,
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
   },
   {
     id: "f-2",
@@ -88,7 +88,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     readingTime: "5 min de leitura",
     publishedAt: "8 de agosto de 2026",
     isFeatured: false,
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
   },
   {
     id: "f-3",
@@ -103,7 +103,7 @@ export const FEATURED_ARTICLES: EditorialItem[] = [
     readingTime: "4 min de leitura",
     publishedAt: "5 de agosto de 2026",
     isFeatured: false,
-    image: "/manus-storage/editorial-autocuidado_9a946878.png",
+    image: "/manus-storage/editorial-autocuidado-2026-retry_58973d1e.png",
   },
 ];
 
@@ -122,7 +122,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "12 min de leitura",
     publishedAt: "1 de agosto de 2026",
     isGuide: true,
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
   },
   {
     id: "g-2",
@@ -138,7 +138,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "10 min de leitura",
     publishedAt: "28 de julho de 2026",
     isGuide: true,
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
   },
   {
     id: "g-3",
@@ -153,7 +153,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "9 min de leitura",
     publishedAt: "25 de julho de 2026",
     isGuide: true,
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
   },
   {
     id: "g-4",
@@ -168,7 +168,7 @@ export const ESSENTIAL_GUIDES: EditorialItem[] = [
     readingTime: "8 min de leitura",
     publishedAt: "20 de julho de 2026",
     isGuide: true,
-    image: "/manus-storage/editorial-autocuidado_9a946878.png",
+    image: "/manus-storage/editorial-autocuidado-2026-retry_58973d1e.png",
   },
 ];
 
@@ -239,7 +239,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     readingTime: "6 min de leitura",
     publishedAt: "9 de agosto de 2026",
-    image: "/manus-storage/editorial-sono_55a03275.png",
+    image: "/manus-storage/editorial-sono-2026-retry_826aa69f.png",
   },
   {
     id: "r-2",
@@ -253,7 +253,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     author: "Redação Mental Saúde",
     readingTime: "5 min de leitura",
     publishedAt: "7 de agosto de 2026",
-    image: "/manus-storage/editorial-estresse_f806d1fc.png",
+    image: "/manus-storage/editorial-estresse-2026-retry_5bbd8a13.png",
   },
   {
     id: "r-3",
@@ -267,7 +267,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     author: "Equipe Editorial Mental Saúde",
     readingTime: "6 min de leitura",
     publishedAt: "4 de agosto de 2026",
-    image: "/manus-storage/editorial-autocuidado_9a946878.png",
+    image: "/manus-storage/editorial-autocuidado-2026-retry_58973d1e.png",
   },
   {
     id: "r-4",
@@ -283,7 +283,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     readingTime: "8 min de leitura",
     publishedAt: "14 de agosto de 2026",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
   },
   {
     id: "r-5",
@@ -299,7 +299,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     readingTime: "8 min de leitura",
     publishedAt: "14 de agosto de 2026",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
   },
   {
     id: "r-6",
@@ -315,7 +315,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     readingTime: "9 min de leitura",
     publishedAt: "14 de agosto de 2026",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
   },
   {
     id: "r-7",
@@ -331,7 +331,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     readingTime: "8 min de leitura",
     publishedAt: "14 de agosto de 2026",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
   },
   {
     id: "r-8",
@@ -347,7 +347,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     readingTime: "6 min de leitura",
     publishedAt: "14 de agosto de 2026",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
   },
 ];
 

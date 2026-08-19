@@ -17,9 +17,16 @@ describe("Vercel runtime configuration", () => {
       destination: "/api/[...path]",
     });
     expect(config.rewrites).toContainEqual({
-      source: "/:path((?!api(?:/|$)).*)",
-      destination: "/index.html",
+      source: "/sitemap.xml",
+      destination: "/api/seo?type=sitemap",
     });
+    expect(config.rewrites).toContainEqual({
+      source: "/feed.xml",
+      destination: "/api/seo?type=feed",
+    });
+    const spaRewrite = config.rewrites?.find(rewrite => rewrite.destination === "/index.html");
+    expect(spaRewrite?.source).toContain("manus-storage");
+    expect(spaRewrite?.source).toContain("robots\\.txt");
   });
 
   it("provides a JavaScript catch-all Function for the Express API runtime", () => {

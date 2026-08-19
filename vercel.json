@@ -9,7 +9,15 @@
       "destination": "/api/[...path]"
     },
     {
-      "source": "/:path((?!api(?:/|$)).*)",
+      "source": "/sitemap.xml",
+      "destination": "/api/seo?type=sitemap"
+    },
+    {
+      "source": "/feed.xml",
+      "destination": "/api/seo?type=feed"
+    },
+    {
+      "source": "/:path((?!api(?:/|$)|manus-storage(?:/|$)|sitemap\\.xml$|feed\\.xml$|robots\\.txt$|llms\\.txt$|.*\\.(?:png|jpg|jpeg|webp|svg|ico|css|js|map|woff2?)).*)",
       "destination": "/index.html"
     }
   ]

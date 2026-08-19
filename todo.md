@@ -349,3 +349,21 @@
 - [x] Consolidar relatório SUPA-03 e reportar ao canal operacional, mantendo Preview Vercel e produção em HOLD.
 - [x] Migrar a carga inicial canônica de instrumentos e metadados do banco legado para o PostgreSQL de staging, sem copiar dados pessoais ou resultados.
 - [x] Cobrir os guardrails da migração SUPA-03 para garantir exclusão permanente de usuários, perfis, tentativas e respostas.
+
+# Auditoria e Correção Urgente (Testes Vazios e Imagens Quebradas)
+- [x] Inspecionar rotas e banco de dados para o carregamento dos testes (assessments)
+- [x] Inspecionar carregamento de imagens de artigos e assets estáticos
+- [x] Corrigir falha no carregamento dos testes e imagens dos artigos
+- [x] Executar testes automatizados (vitest) e build de produção
+- [x] Validar correções no preview e entregar relatório de auditoria
+
+# Auditoria de estabilidade e usabilidade — 19/08/2026
+
+- [ ] Corrigir o schema/namespace PostgreSQL usado pela aplicação para que `assessments` e tabelas relacionadas sejam encontradas no banco Supabase correto.
+- [x] Validar leitura real dos assessments publicados, perguntas e opções no catálogo público.
+- [x] Corrigir o rewrite da Vercel para não transformar imagens, sitemap, feed, robots e llms.txt em `index.html`.
+- [x] Publicar assets editoriais persistentes e substituir referências quebradas `/manus-storage`.
+- [x] Adicionar fallback acessível para imagens de artigo e cards editoriais.
+- [x] Executar auditoria de usabilidade desktop e mobile nos fluxos Home, Testes, Conteúdos, artigo, filtros, favoritos e CTA.
+- [x] Cobrir as correções com testes Vitest, typecheck, build e validação visual.
+- [x] Registrar relatório final da auditoria com evidências, bloqueios remanescentes e checkpoint.

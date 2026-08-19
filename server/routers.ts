@@ -4,7 +4,10 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import * as db from "./db-postgres";
+// O runtime usa a base gerenciada do projeto, onde o catálogo canônico está provisionado.
+// `db-postgres.ts` permanece isolado para a migração Supabase SUPA-03 e não deve ser
+// selecionado enquanto o schema externo estiver vazio.
+import * as db from "./db";
 
 const assessmentInput = z.object({
   slug: z.string().min(3).max(96).regex(/^[a-z0-9-]+$/),

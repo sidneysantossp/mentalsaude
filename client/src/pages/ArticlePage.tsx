@@ -4,6 +4,7 @@ import { ARTICLES_DATABASE, ArticleModel, ArticleModel as ArticleModelType } fro
 import { getCanonicalTest, CanonicalTestEntity } from "@/data/testsCanonicalDatabase";
 import { ScientificCitation } from "@/components/ScientificCitation";
 import { ContextualTestCTA } from "@/components/ContextualTestCTA";
+import { EditorialImage } from "@/components/EditorialImage";
 import { ArrowRight, Bookmark, CheckCircle2, ChevronRight, Info, Share2, Shield, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useRoute, useLocation } from "wouter";
@@ -289,7 +290,7 @@ export default function ArticlePage() {
         </header>
 
         <div className="mt-8 overflow-hidden rounded-[2.5rem] border border-[#d2e4df] bg-white shadow-[0_24px_55px_-30px_rgba(11,70,62,.25)] max-w-5xl">
-          <img src={article.image} alt={article.title} className="aspect-[16/9] w-full object-cover" />
+          <EditorialImage src={article.image} alt={article.title} className="aspect-[16/9] w-full object-cover" />
         </div>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_300px] lg:items-start max-w-6xl">

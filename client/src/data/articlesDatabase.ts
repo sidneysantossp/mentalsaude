@@ -94,7 +94,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "11 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Ansiedade",
     directAnswer: "A ansiedade é uma resposta emocional natural diante de ameaças. Quando constante, desproporcional e prejudicial à rotina, pode configurar um transtorno tratável.",
     keyTakeaways: [
@@ -262,7 +262,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "10 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
     primaryEntity: "Depressão",
     directAnswer: "A depressão clínica caracteriza-se por humor deprimido persistente por mais de duas semanas, com perda de interesse e fadiga. É uma condição tratável que combina psicoterapia e suporte médico.",
     keyTakeaways: [
@@ -406,7 +406,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
     primaryEntity: "Sintomas de Depressão",
     directAnswer: "Sintomas de depressão podem envolver humor, interesse, pensamentos, energia, sono, apetite, concentração e funcionamento diário. A presença de um ou mais sinais não confirma depressão: frequência, duração, contexto e impacto precisam ser avaliados por um profissional.",
     keyTakeaways: [
@@ -669,7 +669,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
     primaryEntity: "Busca de Ajuda Profissional para Depressão",
     directAnswer: "Psicólogos, psiquiatras, profissionais da atenção primária e outras equipes de saúde podem participar do cuidado relacionado à depressão. Não existe uma ordem universal: o caminho adequado depende dos sinais, do impacto funcional, do histórico, da necessidade de avaliação e do acesso disponível.",
     keyTakeaways: [
@@ -884,7 +884,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-depressao_6cf6cd6f.png",
+    image: "/manus-storage/editorial-depressao-2026-retry_518ee307.png",
     primaryEntity: "Tratamento da Depressão",
     directAnswer: "A depressão pode ser tratada, mas o cuidado varia conforme sintomas, gravidade, histórico, condições de saúde, preferências e acesso. Psicoterapia, acompanhamento médico, medicamentos quando clinicamente indicados, hábitos e suporte podem participar do plano, sempre com avaliação profissional.",
     keyTakeaways: [
@@ -1111,7 +1111,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "10 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "TDAH",
     directAnswer: "O TDAH em adultos envolve padrões persistentes de desatenção, desorganização e inquietação que afetam as funções executivas. O rastreio inicial pode ser feito com o ASRS v1.1.",
     keyTakeaways: [
@@ -1263,7 +1263,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "Sintomas de TDAH",
     directAnswer: "Os sintomas de TDAH em adultos incluem desatenção persistente, dificuldade de organização, esquecimentos frequentes, impulsividade e inquietação interna, exigindo avaliação profissional e rastreio com ASRS v1.1.",
     keyTakeaways: [
@@ -1418,7 +1418,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "Teste de TDAH",
     directAnswer: "O teste de TDAH online na Mental Saúde utiliza a escala validada ASRS v1.1 para rastreio de sintomas em adultos. Ele indica a necessidade de investigação profissional, mas não substitui o diagnóstico clínico.",
     keyTakeaways: [
@@ -1551,7 +1551,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "09 de agosto de 2026",
-    image: "/manus-storage/editorial-autocuidado_3726f5cd.png",
+    image: "/manus-storage/editorial-autocuidado-2026-retry_58973d1e.png",
     primaryEntity: "Autocuidado",
     directAnswer: "Práticas diárias de autocuidado, pausas estruturadas e rotinas consistentes fortalecem a resiliência emocional e o bem-estar geral.",
     keyTakeaways: [
@@ -1611,7 +1611,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Preocupação vs Ansiedade",
     directAnswer: "Enquanto a preocupação comum é focada em problemas específicos e controláveis com impacto limitado, a ansiedade patológica é difusa, excessiva, difícil de controlar e interfere na rotina por semanas.",
     keyTakeaways: [
@@ -1729,7 +1729,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Ansiedade Noturna",
     directAnswer: "A piora da ansiedade à noite ocorre devido à ausência de distrações diurnas, à queda natural de cortisol e à tendência de ruminação mental no silêncio do descanso.",
     keyTakeaways: [
@@ -1827,7 +1827,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Psicólogo vs Psiquiatra",
     directAnswer: "Psicólogos são especializados em psicoterapias baseadas em evidências para reestruturação emocional e comportamental, enquanto médicos psiquiatras realizam diagnóstico médico diferencial e prescrição farmacológica quando necessário.",
     keyTakeaways: [
@@ -1925,7 +1925,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Tratamento da Ansiedade",
     directAnswer: "Sim, os transtornos de ansiedade são altamente tratáveis por meio de psicoterapias estruturadas, acompanhamento médico especializado e mudanças sustentáveis no estilo de vida.",
     keyTakeaways: [
@@ -2035,7 +2035,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Sintomas Somáticos",
     directAnswer: "Sim, a ansiedade severa ativa o sistema nervoso simpático, provocando taquicardia, alteração na respiração e sensações de tontura ou enjoo. No entanto, sintomas físicos intensos exigem sempre investigação médica diferencial para excluir causas orgânicas.",
     keyTakeaways: [
@@ -2107,7 +2107,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Ansiedade Ocupacional",
     directAnswer: "A ansiedade no trabalho manifesta-se por procrastinação crônica, exaustão mental ao fim do expediente, irritabilidade com colegas e queda de rendimento impulsionada pelo perfeccionismo.",
     keyTakeaways: [
@@ -2176,7 +2176,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Psicoterapia para Ansiedade",
     directAnswer: "A psicoterapia, especialmente a Terapia Cognitivo-Comportamental (TCC), capacita o paciente a identificar distorções cognitivas, enfrentar gradualmente medos e desenvolver estratégias duradouras de regulação emocional.",
     keyTakeaways: [
@@ -2245,7 +2245,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto Sampaio",
     reviewerSlug: "roberto-sampaio",
     reviewedAt: "13 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_c01b1313.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Diagnóstico Diferencial Ansiedade e Depressão",
     directAnswer: "Embora frequentemente coexistam devido à alta comorbidade, a ansiedade caracteriza-se predominantemente por hiperativação, medo antecipatório e tensão, enquanto a depressão destaca-se por humor deprimido persistente, anedonia e perda de energia.",
     keyTakeaways: [
@@ -2525,7 +2525,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "TDAH",
     directAnswer: "A procrastinação pode ocorrer por cansaço ou estresse pontual, mas quando as dificuldades de início de tarefas e organização são crônicas, podem indicar disfunções executivas associadas ao TDAH.",
     keyTakeaways: [
@@ -2646,7 +2646,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "TDAH",
     directAnswer: "A investigação de TDAH em adultos é realizada por profissionais habilitados, como médicos psiquiatras e psicólogos clínicos especializados, frequentemente em atuação multiprofissional.",
     keyTakeaways: [
@@ -2758,7 +2758,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "14 de agosto de 2026",
-    image: "/manus-storage/editorial-tdah_b79cdc94.png",
+    image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
     primaryEntity: "TDAH",
     directAnswer: "Sim, o TDAH em adultos possui tratamento eficaz baseado em abordagens multimodais que combinam psicoeducação, psicoterapia, estratégias ambientais e suporte farmacológico quando indicado.",
     keyTakeaways: [
@@ -2871,7 +2871,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Estresse",
     directAnswer: "O estresse crônico ocorre quando a ativação prolongada da resposta de luta ou fuga esgota os recursos adaptativos do organismo, exigindo intervenções comportamentais e suporte estruturado.",
     keyTakeaways: [
@@ -2982,7 +2982,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Estresse",
     directAnswer: "O estresse manifesta-se através de sintomas somáticos (como tensão muscular e fadiga) e psicológicos (como irritabilidade e dificuldade de concentração), exigindo atenção e manejo ativo.",
     keyTakeaways: [
@@ -3093,7 +3093,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Estresse",
     directAnswer: "O teste de estresse online via DASS-21 permite rastrear e quantificar sintomas de estresse, ansiedade e depressão de forma sigilosa e educativa, sem valor diagnóstico.",
     keyTakeaways: [
@@ -3206,7 +3206,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Burnout Ocupacional",
     directAnswer: "O estresse ocupacional crônico e não mitigado pode evoluir para a síndrome de burnout, caracterizada por exaustão severa, ceticismo profissional e redução da eficácia.",
     keyTakeaways: [
@@ -3319,7 +3319,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dra. Camila Mendes (CRP 06/88921)",
     reviewerSlug: "camila-mendes",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Manejo de Estresse",
     directAnswer: "Técnicas como respiração diafragmática cadenciada e relaxamento muscular progressivo ativam o sistema parassimpático, contrabalançando a resposta aguda de luta ou fuga.",
     keyTakeaways: [
@@ -3421,7 +3421,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
     reviewer: "Dr. Roberto S. (CRM 112340)",
     reviewerSlug: "roberto-s",
     reviewedAt: "15 de agosto de 2026",
-    image: "/manus-storage/editorial-ansiedade_fbf07fd9.png",
+    image: "/manus-storage/editorial-ansiedade-2026_657da1b2.png",
     primaryEntity: "Estresse e Sono",
     directAnswer: "O estresse crônico mantém o sistema nervoso em estado de hiperativação, dificultando o adormecimento e fragmentando o sono, criando um ciclo vicioso de exaustão.",
     keyTakeaways: [
