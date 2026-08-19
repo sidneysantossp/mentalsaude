@@ -23,7 +23,7 @@ type Area = "user" | "admin";
 
 const userNavigation = [
   { path: "/dashboard", label: "Visão geral", icon: LayoutDashboard },
-  { path: "/testes", label: "Meus testes", icon: ClipboardList },
+  { path: "/meus-testes", label: "Meus testes e disponíveis", icon: ClipboardList },
   { path: "/perfil", label: "Perfil e preferências", icon: Settings2 },
 ];
 

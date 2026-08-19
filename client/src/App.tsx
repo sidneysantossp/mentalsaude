@@ -19,6 +19,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import TestCatalog from "./pages/TestCatalog";
 import UserDashboard from "./pages/UserDashboard";
+import UserTestsPage from "./pages/UserTestsPage";
 import LegalPage from "./pages/LegalPage";
 import ArticlePage from "./pages/ArticlePage";
 import ExpertProfilePage from "./pages/ExpertProfilePage";
@@ -43,7 +44,8 @@ function LoginRedirect() {
 function Router() {
   return <Switch><Route path="/" component={Home} /><Route path="/depressao" component={DepressionPillarPage} />
 <Route path="/tdah" component={TdahPillarPage} />
-<Route path="/testes/asrs/iniciar" component={AsrsExecutionLaunchPage} /><Route path="/testes/asrs" component={AsrsEntityPage} /><Route path="/conteudos" component={EditorialHub} /><Route path="/conteudos/:slug" component={ArticlePage} /><Route path="/especialistas/:slug" component={ExpertProfilePage} /><Route path="/metodologia" component={MethodologyPage} /><Route path="/testes" component={TestCatalog} /><Route path="/testes/:slug" component={CanonicalTestDetailPage} /><Route path="/termos">{() => <LegalPage kind="terms" />}</Route><Route path="/privacidade">{() => <LegalPage kind="privacy" />}</Route><Route path="/avaliacao/:id">{params => <AssessmentFlow id={params.id} />}</Route><Route path="/dashboard" component={UserDashboard} /><Route path="/perfil" component={Profile} /><Route path="/admin" component={AdminDashboard} /><Route path="/admin/testes" component={AdminTests} /><Route path="/admin/usuarios" component={AdminUsers} /><Route path="/admin/content-authority" component={AdminContentAuthority} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
+<Route path="/testes/asrs/iniciar" component={AsrsExecutionLaunchPage} /><Route path="/testes/asrs" component={AsrsEntityPage} /><Route path="/conteudos" component={EditorialHub} /><Route path="/conteudos/:slug" component={ArticlePage} /><Route path="/especialistas/:slug" component={ExpertProfilePage} /><Route path="/metodologia" component={MethodologyPage} /><Route path="/testes" component={TestCatalog} /><Route path="/testes/:slug" component={CanonicalTestDetailPage} /><Route path="/termos">{() => <LegalPage kind="terms" />}</Route><Route path="/privacidade">{() => <LegalPage kind="privacy" />}</Route><Route path="/avaliacao/:id">{params => <AssessmentFlow id={params.id} />}</Route><Route path="/dashboard" component={UserDashboard} />
+<Route path="/meus-testes" component={UserTestsPage} /><Route path="/perfil" component={Profile} /><Route path="/admin" component={AdminDashboard} /><Route path="/admin/testes" component={AdminTests} /><Route path="/admin/usuarios" component={AdminUsers} /><Route path="/admin/content-authority" component={AdminContentAuthority} /><Route path="/404" component={NotFound} /><Route component={NotFound} /></Switch>;
 }
 
 export default function App() {
