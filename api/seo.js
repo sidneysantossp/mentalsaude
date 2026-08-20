@@ -1,18 +1,6 @@
-const BASE_URL = "https://www.mentalsaude.com.br";
+import { EDITORIAL_SLUGS } from "../shared/editorialSlugs.js";
 
-const ARTICLE_SLUGS = [
-  "ansiedade-o-que-e-sintomas-causas",
-  "depressao-sintomas-causas-tratamento",
-  "tdah-em-adultos",
-  "sintomas-de-depressao",
-  "qual-profissional-procurar-depressao",
-  "tratamento-depressao",
-  "sintomas-de-tdah-em-adultos",
-  "teste-de-tdah-online",
-  "teste-de-depressao-online",
-  "tdah-ou-procrastinacao",
-  "estresse-no-trabalho-e-burnout",
-];
+const BASE_URL = "https://www.mentalsaude.com.br";
 
 const STATIC_PAGES = ["", "/conteudos", "/testes", "/metodologia", "/termos", "/privacidade"];
 
@@ -23,7 +11,7 @@ function sitemap() {
       <changefreq>weekly</changefreq>
       <priority>${path === "" ? "1.0" : "0.8"}</priority>
     </url>`).join("");
-  const articleUrls = ARTICLE_SLUGS.map(slug => `
+  const articleUrls = EDITORIAL_SLUGS.map(slug => `
     <url>
       <loc>${BASE_URL}/conteudos/${slug}</loc>
       <changefreq>monthly</changefreq>

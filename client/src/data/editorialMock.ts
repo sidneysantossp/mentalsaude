@@ -1,3 +1,5 @@
+import { EXPANDED_ARTICLES_DATABASE } from "./expandedArticlesDatabase";
+
 export type ContentType = "ARTICLE" | "GUIDE" | "EXPLAINER" | "COMPARISON" | "EVIDENCE_REVIEW" | "TEST_GUIDE" | "SYMPTOM_GUIDE";
 export type FunnelStage = "awareness" | "consideration" | "action";
 
@@ -225,6 +227,23 @@ export const START_PATHS = [
   },
 ];
 
+const EXPANDED_EDITORIAL_ITEMS: EditorialItem[] = Object.values(EXPANDED_ARTICLES_DATABASE).map((article, index) => ({
+  id: `expanded-${index + 1}-${article.slug}`,
+  slug: `/conteudos/${article.slug}`,
+  title: article.title,
+  excerpt: article.seoDescription,
+  contentType: "ARTICLE",
+  primaryEntity: article.primaryEntity,
+  category: article.category,
+  funnelStage: "awareness",
+  author: article.author,
+  reviewer: article.reviewer,
+  readingTime: article.readingTime,
+  publishedAt: article.reviewedAt,
+  reviewedAt: article.reviewedAt,
+  image: article.image,
+}));
+
 export const RECENT_ARTICLES: EditorialItem[] = [
   {
     id: "r-1",
@@ -349,6 +368,7 @@ export const RECENT_ARTICLES: EditorialItem[] = [
     reviewedAt: "14 de agosto de 2026",
     image: "/manus-storage/editorial-tdah-2026-retry_f2b4efc6.png",
   },
+  ...EXPANDED_EDITORIAL_ITEMS,
 ];
 
 export const EDITORIAL_SPECIALISTS = [

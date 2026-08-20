@@ -1,4 +1,5 @@
-import { ArticleModel } from "./articlesDatabase";
+import type { ArticleModel } from "./articlesDatabase";
+import { ADDITIONAL_ARTICLES_DATABASE } from "./expandedArticleAdditional";
 
 export const EXPANDED_ARTICLES_DATABASE: Record<string, ArticleModel> = {
   "fobia-social-timidez-excesso": {
@@ -345,5 +346,6 @@ export const EXPANDED_ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://www.who.int"
       }
     ]
-  }
+  },
+  ...ADDITIONAL_ARTICLES_DATABASE
 };

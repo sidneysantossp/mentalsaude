@@ -3,6 +3,7 @@ import { Brand } from "@/components/Brand";
 import { EditorialImage } from "@/components/EditorialImage";
 import { Button } from "@/components/ui/button";
 import { EDITORIAL_SEARCH_SUGGESTIONS, EDITORIAL_SPECIALISTS, EDITORIAL_TOPICS, ESSENTIAL_GUIDES, FEATURED_ARTICLES, RECENT_ARTICLES, START_PATHS, SYMPTOMS_LIST, EditorialItem } from "@/data/editorialMock";
+import { ARTICLES_DATABASE } from "@/data/articlesDatabase";
 import { Activity, AlertCircle, ArrowRight, BookOpen, Bookmark, CheckCircle, Compass, Flame, Heart, Moon, Search, Shield, Smile, Users, X, Zap } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import { getSavedArticles, saveArticle, removeSavedArticle, isArticleSaved } from "@/lib/savedContentStorage";
@@ -22,9 +23,26 @@ const iconMap: Record<string, typeof Activity> = {
   Smile,
 };
 
+const CANONICAL_ARTICLE_ITEMS: EditorialItem[] = Object.values(ARTICLES_DATABASE).map(article => ({
+  id: `canonical-${article.slug}`,
+  slug: `/conteudos/${article.slug}`,
+  title: article.title,
+  excerpt: article.seoDescription,
+  contentType: "ARTICLE",
+  primaryEntity: article.primaryEntity,
+  category: article.category,
+  funnelStage: "awareness",
+  author: article.author,
+  reviewer: article.reviewer,
+  readingTime: article.readingTime,
+  publishedAt: article.reviewedAt,
+  reviewedAt: article.reviewedAt,
+  image: article.image,
+}));
+
 const EDITORIAL_CONTENT = Array.from(
   new Map(
-    [...FEATURED_ARTICLES, ...ESSENTIAL_GUIDES, ...RECENT_ARTICLES].map(item => [item.id, item] as const),
+    [...FEATURED_ARTICLES, ...ESSENTIAL_GUIDES, ...RECENT_ARTICLES, ...CANONICAL_ARTICLE_ITEMS].map(item => [item.slug, item] as const),
   ).values(),
 );
 

@@ -4,6 +4,9 @@ import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
+import { ARTICLES_DATABASE } from "../../client/src/data/articlesDatabase";
+
+const escapeXml = (value: string) => value.replace(/[<>&'\"]/g, character => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", "'": "&apos;", "\"": "&quot;" }[character] ?? character));
 
 /**
  * Constrói o app Express sem iniciar uma porta. O mesmo app pode ser usado
@@ -30,19 +33,7 @@ export function createApp() {
       <priority>${path === "" ? "1.0" : "0.8"}</priority>
     </url>`).join("");
 
-    const articleSlugs = [
-      "ansiedade-o-que-e-sintomas-causas",
-      "depressao-sintomas-causas-tratamento",
-      "tdah-em-adultos",
-      "sintomas-de-depressao",
-      "qual-profissional-procurar-depressao",
-      "tratamento-depressao",
-      "sintomas-de-tdah-em-adultos",
-      "teste-de-tdah-online",
-      "teste-de-depressao-online",
-      "tdah-ou-procrastinacao",
-      "estresse-no-trabalho-e-burnout"
-    ];
+    const articleSlugs = Object.keys(ARTICLES_DATABASE);
 
     const articleUrls = articleSlugs.map(slug => `
     <url>
@@ -64,28 +55,26 @@ export function createApp() {
   // Rota Feed RSS/Atom para Google Notícias e Leitores de RSS
   app.get("/feed.xml", (req, res) => {
     const baseUrl = "https://www.mentalsaude.com.br";
+    const feedItems = Object.values(ARTICLES_DATABASE).map(article => {
+      const articleUrl = `${baseUrl}/conteudos/${article.slug}`;
+      return `
+    <item>
+      <title>${escapeXml(article.title)}</title>
+      <link>${articleUrl}</link>
+      <description>${escapeXml(article.seoDescription)}</description>
+      <pubDate>Tue, 18 Aug 2026 08:00:00 GMT</pubDate>
+      <guid>${articleUrl}</guid>
+    </item>`;
+    }).join("");
+
     const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mental Saúde - Artigos e Guias de Saúde Mental</title>
     <link>${baseUrl}/conteudos</link>
-    <description>Conteúdos baseados em evidências científicas sobre ansiedade, depressão, TDAH e bem-estar.</description>
+    <description>Conteúdos baseados em evidências científicas sobre saúde mental, autocuidado e caminhos de apoio.</description>
     <language>pt-BR</language>
-    <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Ansiedade: o que é, sintomas, causas e quando procurar ajuda</title>
-      <link>${baseUrl}/conteudos/ansiedade-o-que-e-sintomas-causas</link>
-      <description>Compreenda a diferença entre preocupação cotidiana e estados de ansiedade prolongados.</description>
-      <pubDate>Mon, 10 Aug 2026 08:00:00 GMT</pubDate>
-      <guid>${baseUrl}/conteudos/ansiedade-o-que-e-sintomas-causas</guid>
-    </item>
-    <item>
-      <title>TDAH em adultos: sintomas, avaliação e tratamento</title>
-      <link>${baseUrl}/conteudos/tdah-em-adultos</link>
-      <description>Sinais sutis que frequentemente passam despercebidos na infância e como a autoobservação pode ajudar.</description>
-      <pubDate>Sat, 08 Aug 2026 08:00:00 GMT</pubDate>
-      <guid>${baseUrl}/conteudos/tdah-em-adultos</guid>
-    </item>
+    <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />${feedItems}
   </channel>
 </rss>`;
 
