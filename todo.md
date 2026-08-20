@@ -396,18 +396,18 @@
 
 # Missão — 5 Artigos & Clusters com SEO de IA (GEO / AIO)
 
-- [ ] Definir a matriz estratégica dos 5 novos artigos e seus respectivos clusters (Fobia Social, Pânico, Compulsão Alimentar, Sofrimento Mental e Saúde Mental Preventiva).
-- [ ] Incorporar diretrizes modernas de GEO (Generative Engine Optimization) e IA (Entities, Direct Answers, Knowledge Graph e E-E-A-T).
-- [ ] Produzir os 5 artigos completos com parágrafos data-driven, ScientificCitation, EvidenceBox e FAQ.
-- [ ] Implementar os artigos na base editorial (`articlesDatabase.ts`) com capas otimizadas e rotas reais.
-- [ ] Executar suíte Vitest, typecheck, build e validações visuais desktop/mobile, salvando checkpoint sem publicação automática.
+- [x] Definir a matriz estratégica dos 5 novos artigos e seus respectivos clusters (Fobia Social, Pânico, Compulsão Alimentar, Sofrimento Mental e Saúde Mental Preventiva).
+- [x] Incorporar diretrizes modernas de GEO (Generative Engine Optimization) e IA (Entities, Direct Answers, Knowledge Graph e E-E-A-T).
+- [x] Produzir os 5 artigos completos com parágrafos data-driven, ScientificCitation, EvidenceBox e FAQ.
+- [x] Implementar os artigos na base editorial (`articlesDatabase.ts`) com capas otimizadas e rotas reais.
+- [x] Executar suíte Vitest, typecheck, build e validações visuais desktop/mobile, salvando checkpoint sem publicação automática.
 
 # Missão — Expansão Editorial 25 Artigos (5 Clusters x 5 Artigos)
 
-- [ ] Definir a taxonomia completa dos 5 clusters com 5 artigos cada (total de 25 pautas inéditas).
-- [ ] Compilar a especificação técnica e o manifesto de links internos / semânticos para os 25 artigos.
-- [ ] Gerar e validar os arquivos markdown e os registros em TypeScript para os 25 artigos.
-- [ ] Executar suíte Vitest, typecheck, build e salvar checkpoint sem publicação automática.
+- [x] Definir a taxonomia completa dos 5 clusters com 5 artigos cada (total de 25 pautas inéditas).
+- [x] Compilar a especificação técnica e o manifesto de links internos / semânticos para os 25 artigos.
+- [x] Gerar e validar os arquivos markdown e os registros em TypeScript para os 25 artigos.
+- [x] Executar suíte Vitest, typecheck, build e salvar checkpoint sem publicação automática.
 
 - [ ] Habilitar AUTOPUBLISH conforme solicitação explícita do usuário
 - [ ] Validar configuração de publicação automática e criar checkpoint auditável
@@ -421,3 +421,7 @@
 - [x] Adicionar acesso aos detalhes dos resultados concluídos no histórico do painel do usuário
 - [x] Exibir nível, recomendações, resumo e opção de download ao reabrir um resultado salvo
 - [x] Validar a abertura do resultado salvo em desktop/mobile e cobrir regressões com testes
+
+- [x] Auditar a configuração existente de Google Search Console e GA4
+- [x] Integrar ou corrigir as tags globais fornecidas sem duplicação
+- [x] Validar HTML, build e carregamento das tags de SEO/analytics
