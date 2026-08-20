@@ -433,3 +433,7 @@
 - [x] Adicionar animação de carregamento durante o salvamento da avaliação
 - [x] Exibir mensagem de sucesso clara após o resultado ser salvo no painel
 - [x] Validar estados de sucesso/erro, acessibilidade, responsividade e regressões
+
+- [x] Compilar especificação de instrumentos internacionais de autoridade para os temas ausentes
+- [x] Elaborar diretrizes clínicas contra questionários genéricos e em conformidade YMYL
+- [x] Gerar relatório técnico e encaminhar diretrizes para integração editorial com validação humana
