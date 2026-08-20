@@ -443,3 +443,7 @@
 - [x] Implementar a escala PCL-5 para TEPT com escore e salvaguardas éticas
 - [x] Atualizar sitemap.xml, feed.xml e llms.txt com as novas URLs
 - [x] Executar testes Vitest, typecheck, build e validações de produção
+
+- [ ] Verificar o repositório remoto e o estado local antes do push para o GitHub
+- [ ] Criar commit auditável com todas as atualizações atuais do projeto
+- [ ] Enviar o commit ao GitHub e confirmar a sincronização
