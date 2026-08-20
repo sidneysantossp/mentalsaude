@@ -1,3 +1,4 @@
+import { EXPANDED_ARTICLES_DATABASE } from "./expandedArticlesDatabase";
 export type ParagraphSegment = {
   text: string;
   refId?: string;
@@ -3509,5 +3510,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
         sourceUrl: "https://www.sleepreviewmag.com"
       }
     ]
-  }
+  },
+  ...EXPANDED_ARTICLES_DATABASE
 };
+

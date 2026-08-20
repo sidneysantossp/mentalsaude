@@ -401,3 +401,10 @@
 - [ ] Produzir os 5 artigos completos com parágrafos data-driven, ScientificCitation, EvidenceBox e FAQ.
 - [ ] Implementar os artigos na base editorial (`articlesDatabase.ts`) com capas otimizadas e rotas reais.
 - [ ] Executar suíte Vitest, typecheck, build e validações visuais desktop/mobile, salvando checkpoint sem publicação automática.
+
+# Missão — Expansão Editorial 25 Artigos (5 Clusters x 5 Artigos)
+
+- [ ] Definir a taxonomia completa dos 5 clusters com 5 artigos cada (total de 25 pautas inéditas).
+- [ ] Compilar a especificação técnica e o manifesto de links internos / semânticos para os 25 artigos.
+- [ ] Gerar e validar os arquivos markdown e os registros em TypeScript para os 25 artigos.
+- [ ] Executar suíte Vitest, typecheck, build e salvar checkpoint sem publicação automática.
