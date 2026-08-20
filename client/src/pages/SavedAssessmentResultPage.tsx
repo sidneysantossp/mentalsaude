@@ -45,7 +45,7 @@ function SavedAssessmentResultContent({ attemptId }: { attemptId: number }) {
     );
   }
 
-  return <ResultScreen result={result.data.result} title={result.data.attempt.title} onFinish={() => setLocation("/meus-testes")} />;
+  return <ResultScreen result={{ ...result.data.result, savedToPanel: true }} title={result.data.attempt.title} onFinish={() => setLocation("/meus-testes")} />;
 }
 
 function SavedResultState({ title, body, onBack }: { title: string; body: string; onBack: () => void }) {

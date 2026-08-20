@@ -429,3 +429,7 @@
 - [x] Definir o evento GA4 seguro para conclusão do teste de ansiedade
 - [x] Disparar o evento uma única vez após a conclusão sem enviar dados clínicos ou pessoais
 - [x] Cobrir o evento com teste, build e validação no preview
+
+- [x] Adicionar animação de carregamento durante o salvamento da avaliação
+- [x] Exibir mensagem de sucesso clara após o resultado ser salvo no painel
+- [x] Validar estados de sucesso/erro, acessibilidade, responsividade e regressões
