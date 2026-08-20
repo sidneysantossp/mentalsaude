@@ -408,3 +408,9 @@
 - [ ] Compilar a especificação técnica e o manifesto de links internos / semânticos para os 25 artigos.
 - [ ] Gerar e validar os arquivos markdown e os registros em TypeScript para os 25 artigos.
 - [ ] Executar suíte Vitest, typecheck, build e salvar checkpoint sem publicação automática.
+
+- [ ] Habilitar AUTOPUBLISH conforme solicitação explícita do usuário
+- [ ] Validar configuração de publicação automática e criar checkpoint auditável
+
+- [x] Diagnosticar e corrigir o erro OAuth callback failed ao autenticar no preview do dashboard
+- [x] Validar o login e o carregamento do dashboard após a correção
