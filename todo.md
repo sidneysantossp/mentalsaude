@@ -444,6 +444,6 @@
 - [x] Atualizar sitemap.xml, feed.xml e llms.txt com as novas URLs
 - [x] Executar testes Vitest, typecheck, build e validações de produção
 
-- [ ] Verificar o repositório remoto e o estado local antes do push para o GitHub
-- [ ] Criar commit auditável com todas as atualizações atuais do projeto
-- [ ] Enviar o commit ao GitHub e confirmar a sincronização
+- [x] Verificar o repositório remoto e o estado local antes do push para o GitHub
+- [x] Criar commit auditável com todas as atualizações atuais do projeto
+- [x] Enviar o commit ao GitHub e confirmar a sincronização
