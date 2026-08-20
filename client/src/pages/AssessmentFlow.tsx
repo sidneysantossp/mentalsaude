@@ -52,21 +52,6 @@ function AssessmentContent({ assessmentId }: { assessmentId: number }) {
   const hasConsent = Boolean(consent.data?.accepted || termsAcceptedLocally);
 
   useEffect(() => {
-    if (!result) return;
-    const existingRobots = document.querySelector('meta[name="robots"]');
-    const createdRobots = !existingRobots;
-    const previousContent = existingRobots?.getAttribute("content") ?? "";
-    const robots = existingRobots ?? document.createElement("meta");
-    robots.setAttribute("name", "robots");
-    robots.setAttribute("content", "noindex,nofollow,noarchive");
-    if (createdRobots) document.head.appendChild(robots);
-    return () => {
-      if (createdRobots) robots.remove();
-      else robots.setAttribute("content", previousContent);
-    };
-  }, [result]);
-
-  useEffect(() => {
     if (!assessment.data || !hasConsent || (isAsrs && !ageAcknowledged) || startedRef.current) return;
     startedRef.current = true;
     createAttempt({ assessmentId }, { onSuccess: setAttemptId, onError: issue => setBlockingError(issue.message) });
@@ -100,8 +85,22 @@ function LoadingScreen({ message }: { message: string }) { return <div className
 function StateScreen({ title, body, action, onAction }: { title: string; body: string; action: string; onAction: () => void }) { return <div className="grid min-h-screen place-items-center bg-[#f7f6ef] px-5"><div className="max-w-md rounded-3xl border border-[#dceae5] bg-[#fffefa] p-8 text-center"><AlertTriangle className="mx-auto h-8 w-8 text-[#b75a48]" /><h1 className="mt-5 font-display text-3xl font-semibold text-[#173e39]">{title}</h1><p className="mt-3 text-sm leading-6 text-[#66827b]">{body}</p><Button onClick={onAction} className="mt-7 rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">{action}</Button></div></div>; }
 function TermsIntro({ accepting, onAccept, onExit, error }: { accepting: boolean; onAccept: () => void; onExit: () => void; error: string | null }) { const [checked, setChecked] = useState(false); return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36]"><main className="mx-auto max-w-2xl"><Brand compact /><section className="mt-10 rounded-[2rem] border border-[#d9e9e4] bg-[#fffefa] p-7 shadow-[0_26px_55px_-46px_rgba(11,70,62,.8)] sm:p-10"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#58ab9e]">Antes de começar</p><h1 className="mt-4 font-display text-4xl font-semibold tracking-[-.04em] text-[#173e39]">Consentimento e termos de uso</h1><div className="mt-6 space-y-4 text-sm leading-6 text-[#5b7972]"><p>As autoavaliações da Mental Saúde são ferramentas educativas de autoconhecimento. Elas não substituem diagnóstico, psicoterapia, atendimento médico ou cuidado em situações de urgência.</p><p>Você poderá interromper o preenchimento a qualquer momento. O resultado será associado ao seu histórico somente quando você concluir e enviar as respostas.</p><p>Para continuar, leia a <a href="/privacidade" className="font-semibold text-[#0b7167] underline">Política de Privacidade</a> e os <a href="/termos" className="font-semibold text-[#0b7167] underline">Termos de Uso</a>.</p></div><label className="mt-7 flex cursor-pointer items-start gap-3 rounded-2xl border border-[#cce3dc] bg-[#f2faf7] p-4 text-sm font-medium text-[#315a53]"><input type="checkbox" checked={checked} onChange={event => setChecked(event.currentTarget.checked)} className="mt-0.5 h-4 w-4 accent-[#0b7167]" />Li e compreendo os Termos de Uso, a Política de Privacidade e os limites informados para esta autoavaliação.</label>{error && <p className="mt-4 text-sm text-[#a14637]">{error}</p>}<Button disabled={!checked || accepting} onClick={onAccept} className="mt-7 h-12 w-full rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">{accepting ? <><LoaderCircle className="mr-2 h-4 w-4 animate-spin" />Registrando consentimento</> : "Aceitar e continuar"}</Button><Button variant="ghost" onClick={onExit} className="mt-3 w-full text-[#4f716a]"><ArrowLeft className="mr-2 h-4 w-4" />Voltar ao painel</Button></section></main></div>; }
 function AsrsIntro({ title, onContinue, onExit }: { title: string; onContinue: () => void; onExit: () => void }) { return <div className="min-h-screen bg-[#f7f6ef] px-5 py-12 text-[#153a36]"><main className="mx-auto max-w-2xl"><Brand compact /><section className="mt-10 rounded-[2rem] border border-[#d9e9e4] bg-[#fffefa] p-7 shadow-[0_26px_55px_-46px_rgba(11,70,62,.8)] sm:p-10"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#58ab9e]">Antes de começar</p><h1 className="mt-4 font-display text-4xl font-semibold tracking-[-.04em] text-[#173e39]">{title}</h1><div className="mt-6 space-y-4 text-sm leading-6 text-[#5b7972]"><p>Esta versão do ASRS v1.1 é destinada apenas a pessoas com <strong>18 anos ou mais</strong> e considera como você tem se sentido e se comportado nos últimos seis meses.</p><p>O resultado é um rastreio inicial: ele não confirma nem exclui TDAH. Um diagnóstico depende de avaliação clínica completa por profissional habilitado.</p><p>Se você estiver preocupado(a) com seus sintomas ou com a sua segurança, procure atendimento profissional ou um serviço de urgência da sua região.</p></div><div className="mt-6 rounded-2xl border border-[#d7e8e2] bg-[#f4faf8] p-4 text-xs leading-5 text-[#54766f]"><strong>Referência:</strong> Kessler RC et al. (2005), <em>Psychological Medicine</em>, 35(2), 245–256. Tradução brasileira: Maria Carmen Viana. <br /><strong>Direitos:</strong> © New York University e Ronald C. Kessler, PhD. Todos os direitos reservados.</div><label className="mt-7 flex cursor-pointer items-start gap-3 rounded-2xl border border-[#cce3dc] bg-[#f2faf7] p-4 text-sm font-medium text-[#315a53]"><input type="checkbox" onChange={event => { if (event.currentTarget.checked) onContinue(); }} className="mt-0.5 h-4 w-4 accent-[#0b7167]" />Confirmo que tenho 18 anos ou mais e compreendo que este screener não é diagnóstico.</label><Button variant="ghost" onClick={onExit} className="mt-5 text-[#4f716a]"><ArrowLeft className="mr-2 h-4 w-4" />Voltar ao painel</Button></section></main></div>; }
-function ResultScreen({ result, title, onFinish }: { result: Result; title: string; onFinish: () => void }) {
+export function ResultScreen({ result, title, onFinish }: { result: Result; title: string; onFinish: () => void }) {
   const [exporting, setExporting] = useState(false);
+
+  useEffect(() => {
+    const existingRobots = document.querySelector('meta[name="robots"]');
+    const createdRobots = !existingRobots;
+    const previousContent = existingRobots?.getAttribute("content") ?? "";
+    const robots = existingRobots ?? document.createElement("meta");
+    robots.setAttribute("name", "robots");
+    robots.setAttribute("content", "noindex,nofollow,noarchive");
+    if (createdRobots) document.head.appendChild(robots);
+    return () => {
+      if (createdRobots) robots.remove();
+      else robots.setAttribute("content", previousContent);
+    };
+  }, []);
   const [exportError, setExportError] = useState<string | null>(null);
   const exportPdf = async () => {
     setExporting(true);

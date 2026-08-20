@@ -4,7 +4,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { trpc } from "@/lib/trpc";
-import { ArrowRight, CheckCircle2, Clock3, Gauge, History, ListChecks, Play } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock3, Eye, Gauge, History, ListChecks, Play } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 
@@ -75,11 +75,22 @@ function UserTestsContent() {
                       <span className="text-xs text-[#738f89]">{item.completedAt ? new Date(item.completedAt).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" }) : "Em andamento"}</span>
                     </div>
                     <h3 className="mt-4 font-display text-xl font-semibold text-[#173e39]">{item.title}</h3>
-                    <div className="mt-6 flex items-center justify-between border-t border-[#eaf2f0] pt-4">
+                    <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#eaf2f0] pt-4">
                       <span className="text-xs font-semibold text-[#5a7b73]">Pontuação: <strong>{item.score ?? 0}</strong></span>
-                      <Button size="sm" onClick={() => setLocation(`/avaliacao/${item.assessmentId}`)} className="rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">
-                        {item.status === "concluido" ? "Refazer teste" : "Continuar"} <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-                      </Button>
+                      {item.status === "concluido" ? (
+                        <div className="flex flex-wrap justify-end gap-2">
+                          <Button size="sm" variant="outline" onClick={() => setLocation(`/avaliacao/${item.assessmentId}/resultado/${item.id}`)} className="rounded-xl border-[#9bcac0] bg-white text-[#0a615a] hover:bg-[#eef8f5]">
+                            <Eye className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Ver resultado
+                          </Button>
+                          <Button size="sm" onClick={() => setLocation(`/avaliacao/${item.assessmentId}`)} className="rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">
+                            Refazer teste <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <Button size="sm" onClick={() => setLocation(`/avaliacao/${item.assessmentId}`)} className="rounded-xl bg-[#0a615a] text-white hover:bg-[#074d47]">
+                          Continuar <ArrowRight className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" />
+                        </Button>
+                      )}
                     </div>
                   </article>
                 ))}

@@ -71,6 +71,13 @@ export const appRouter = router({
       }))
       .mutation(({ ctx, input }) => db.updateUserProfile(ctx.user.id, input)),
     attempts: protectedProcedure.query(({ ctx }) => db.listUserAttempts(ctx.user.id)),
+    attemptResult: protectedProcedure
+      .input(z.object({ attemptId: z.number().int().positive() }))
+      .query(async ({ ctx, input }) => {
+        const result = await db.getUserAttemptResult(ctx.user.id, input.attemptId);
+        if (!result) throw new TRPCError({ code: "NOT_FOUND", message: "Resultado não encontrado ou ainda não concluído." });
+        return result;
+      }),
     recommendations: protectedProcedure.query(({ ctx }) => db.getUserRecommendations(ctx.user.id)),
   }),
   admin: router({

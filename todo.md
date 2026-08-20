@@ -417,3 +417,7 @@
 
 - [x] Executar teste de usabilidade autenticado do teste de ansiedade com respostas aleatórias do início ao fim
 - [x] Confirmar persistência do resultado no painel do usuário e disponibilidade do download
+
+- [x] Adicionar acesso aos detalhes dos resultados concluídos no histórico do painel do usuário
+- [x] Exibir nível, recomendações, resumo e opção de download ao reabrir um resultado salvo
+- [x] Validar a abertura do resultado salvo em desktop/mobile e cobrir regressões com testes

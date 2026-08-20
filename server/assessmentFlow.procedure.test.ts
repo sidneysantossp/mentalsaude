@@ -48,6 +48,21 @@ const fixture = vi.hoisted(() => {
           recommendations: [{ id: 2, title: "Avaliação clínica", body: "Converse com profissional habilitado.", actionLabel: null, actionUrl: null, minScore: 4, maxScore: 6, isActive: true, createdAt: new Date(), updatedAt: new Date() }],
         };
       }),
+      getUserAttemptResult: vi.fn(async (userId: number, attemptId: number) => {
+        if (userId !== 7 || attemptId !== 700) throw new Error("Tentativa fora do escopo da fixture");
+        return {
+          attempt: { id: 700, assessmentId: 1, title: assessment.title, category: assessment.category, completedAt: new Date() },
+          result: {
+            score: 4,
+            percentage: 67,
+            displayValue: "4 de 6",
+            metricLabel: "respostas na faixa destacada",
+            band: "Converse com profissional habilitado",
+            summary: "Resultado salvo de fixture.",
+            recommendations: [{ id: 2, title: "Avaliação clínica", body: "Converse com profissional habilitado.", actionLabel: null, actionUrl: null }],
+          },
+        };
+      }),
     },
   };
 });
@@ -78,5 +93,15 @@ describe("fluxo autenticado de ASRS", () => {
     expect(result.score).toBe(4);
     expect(result.recommendations.map(item => item.title)).toEqual(["Avaliação clínica"]);
     expect(fixture.db.submitAttempt).toHaveBeenCalledTimes(1);
+  });
+
+  it("reabre a devolutiva de uma tentativa concluída no escopo do usuário autenticado", async () => {
+    const caller = appRouter.createCaller(createContext());
+    const saved = await caller.user.attemptResult({ attemptId: 700 });
+
+    expect(saved.attempt.id).toBe(700);
+    expect(saved.result.band).toBe("Converse com profissional habilitado");
+    expect(saved.result.recommendations.map(item => item.title)).toEqual(["Avaliação clínica"]);
+    expect(fixture.db.getUserAttemptResult).toHaveBeenCalledWith(7, 700);
   });
 });

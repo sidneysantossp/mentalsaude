@@ -266,6 +266,70 @@ export async function submitAttempt(input: {
   return { ...prepared.outcome, recommendations: prepared.recommendations };
 }
 
+export async function getUserAttemptResult(userId: number, attemptId: number) {
+  const db = await requireDb();
+  const rows = await db
+    .select({
+      id: assessmentAttempts.id,
+      status: assessmentAttempts.status,
+      score: assessmentAttempts.score,
+      resultBand: assessmentAttempts.resultBand,
+      resultSummary: assessmentAttempts.resultSummary,
+      completedAt: assessmentAttempts.completedAt,
+      assessmentId: assessments.id,
+      title: assessments.title,
+      category: assessments.category,
+    })
+    .from(assessmentAttempts)
+    .innerJoin(assessments, eq(assessmentAttempts.assessmentId, assessments.id))
+    .where(and(eq(assessmentAttempts.id, attemptId), eq(assessmentAttempts.userId, userId)))
+    .limit(1);
+
+  const attempt = rows[0];
+  if (!attempt || attempt.status !== "concluido" || attempt.score === null) return null;
+
+  const content = await getAssessmentWithQuestions(attempt.assessmentId);
+  if (!content) return null;
+
+  const maximumScore = content.questions.reduce(
+    (sum, question) => sum + Math.max(...question.options.map(option => option.score), 0),
+    0,
+  );
+  const percentage = maximumScore > 0 ? Math.round((attempt.score / maximumScore) * 100) : 0;
+  const scoringGuide = content.scoringGuide as { kind?: string } | null | undefined;
+  const isAsrs = scoringGuide?.kind === "asrs-v1-1-6";
+  const recommendationRows = await db
+    .select()
+    .from(recommendations)
+    .where(
+      and(
+        eq(recommendations.isActive, true),
+        sql`(${recommendations.assessmentId} IS NULL OR ${recommendations.assessmentId} = ${attempt.assessmentId})`,
+        sql`(${recommendations.minScore} IS NULL OR ${recommendations.minScore} <= ${attempt.score})`,
+        sql`(${recommendations.maxScore} IS NULL OR ${recommendations.maxScore} >= ${attempt.score})`,
+      ),
+    );
+
+  return {
+    attempt: {
+      id: attempt.id,
+      assessmentId: attempt.assessmentId,
+      title: attempt.title,
+      category: attempt.category,
+      completedAt: attempt.completedAt,
+    },
+    result: {
+      score: attempt.score,
+      percentage,
+      displayValue: isAsrs ? `${attempt.score} de 6` : undefined,
+      metricLabel: isAsrs ? "respostas na faixa destacada" : undefined,
+      band: attempt.resultBand ?? "Resultado registrado",
+      summary: attempt.resultSummary ?? "Seu resultado foi salvo no histórico pessoal.",
+      recommendations: recommendationRows,
+    },
+  };
+}
+
 export async function listUserAttempts(userId: number) {
   const db = await requireDb();
   return db
