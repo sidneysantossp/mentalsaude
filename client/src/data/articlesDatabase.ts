@@ -1,4 +1,5 @@
 import { EXPANDED_ARTICLES_DATABASE } from "./expandedArticlesDatabase";
+import { EXPANDED_MISSING_11_ARTICLES } from "./expandedArticlesMissing11";
 export type ParagraphSegment = {
   text: string;
   refId?: string;
@@ -3511,6 +3512,7 @@ export const ARTICLES_DATABASE: Record<string, ArticleModel> = {
       }
     ]
   },
-  ...EXPANDED_ARTICLES_DATABASE
+  ...EXPANDED_ARTICLES_DATABASE,
+  ...EXPANDED_MISSING_11_ARTICLES
 };
 

@@ -48,7 +48,7 @@ describe("expanded editorial clusters", () => {
   it("exposes all 25 new articles through the canonical article database", () => {
     const allNewSlugs = [...firstWaveSlugs, ...ADDITIONAL_ARTICLE_SLUGS];
 
-    expect(Object.keys(ARTICLES_DATABASE)).toHaveLength(53);
+    expect(Object.keys(ARTICLES_DATABASE)).toHaveLength(64);
 
     expect(allNewSlugs).toHaveLength(25);
     expect(new Set(allNewSlugs).size).toBe(25);

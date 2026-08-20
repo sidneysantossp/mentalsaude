@@ -68,6 +68,15 @@ function isAsrsV11SixQuestionScreener(guide: unknown): guide is AssessmentScorin
   );
 }
 
+function isPcl5Scorer(guide: unknown): boolean {
+  return Boolean(
+    guide &&
+      typeof guide === "object" &&
+      "kind" in guide &&
+      (guide as any).kind === "pcl-5-standard",
+  );
+}
+
 export function calculateAssessmentResult(scores: number[], maximumScore: number, scoringGuide?: unknown): AssessmentResult {
   const score = scores.reduce((total, current) => total + current, 0);
   const percentage = maximumScore > 0 ? Math.round((score / maximumScore) * 100) : 0;
@@ -83,6 +92,20 @@ export function calculateAssessmentResult(scores: number[], maximumScore: number
       summary: reachedScreeningThreshold
         ? "Quatro ou mais respostas ficaram nas faixas destacadas pelo ASRS v1.1. Isso não confirma TDAH, mas indica que pode ser útil conversar com profissional habilitado para uma avaliação clínica."
         : "Menos de quatro respostas ficaram nas faixas destacadas pelo ASRS v1.1. Este resultado não confirma nem exclui TDAH e não substitui uma avaliação clínica.",
+    };
+  }
+
+  if (isPcl5Scorer(scoringGuide)) {
+    const reachedCutoff = score >= 33;
+    return {
+      score,
+      percentage,
+      displayValue: `${score} de 80`,
+      metricLabel: "pontuação total PCL-5",
+      band: reachedCutoff ? "Atenção Prioritária (Sintomas Elevados de TEPT)" : "Baixo Indicador de Sintomas de TEPT",
+      summary: reachedCutoff
+        ? "Sua pontuação total atingiu ou ultrapassou o ponto de corte indicativo do PCL-5 (33 pontos). Isso sugere sintomas significativos de estresse pós-traumático no último mês e aponta para a importância de buscar avaliação especializada com psicólogo ou psiquiatra."
+        : "Sua pontuação total ficou abaixo do ponto de corte indicativo do PCL-5. Isso indica baixa frequência de sintomas de estresse pós-traumático no último período, mas caso sinta desconforto persistente, converse com um profissional.",
     };
   }
 

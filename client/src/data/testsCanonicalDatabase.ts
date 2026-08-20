@@ -1,3 +1,5 @@
+import { PCL5_ASSESSMENT } from "./pcl5TestData";
+
 export type CanonicalTestEntity = {
   id: string;
   slug: string;
@@ -9,9 +11,11 @@ export type CanonicalTestEntity = {
   questionCount: number;
   durationMinutes: number;
   difficulty: "Leve" | "Moderada" | "Profunda";
-  targetRoute: string; // ex: /testes (ou /testes/gad-7)
-  executionRoute: string | null; // null quando a entidade é informativa e não possui execução pública publicada
+  targetRoute: string;
+  executionRoute: string | null;
   methodologyNotes: string;
+  scoringGuide?: any;
+  questions?: Array<{ id: number; statement: string; options: Array<{ id: number; label: string; score: number }> }>;
 };
 
 export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
@@ -22,7 +26,7 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     acronym: "GAD-7",
     category: "Ansiedade e Tensão",
     description: "Instrumento breve de 7 perguntas para rastreio e mensuração da gravidade de sintomas ansiosos.",
-    fullOverview: "O GAD-7 é uma ferramenta de autoavaliação amplamente validada internacionalmente para quantificar a gravidade dos sintomas de ansiedade nos últimos 14 dias. Ele auxilia na organização das percepções do indivíduo, servindo como ponto de partida para um diálogo produtivo com profissionais de saúde mental.",
+    fullOverview: "O GAD-7 é uma ferramenta de autoavaliação amplamente validada internacionalmente para quantificar a gravidade dos sintomas de ansiedade nos últimos 14 dias.",
     questionCount: 7,
     durationMinutes: 3,
     difficulty: "Leve",
@@ -37,7 +41,7 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     acronym: "PHQ-9",
     category: "Humor e Energia",
     description: "Instrumento validado de 9 itens para rastreio e avaliação da severidade de sintomas depressivos.",
-    fullOverview: "O PHQ-9 é a seção de depressão do PRIME-MD, avaliando a frequência de sintomas depressivos nas últimas duas semanas. É amplamente utilizado na prática clínica e em pesquisas para monitorar o bem-estar emocional.",
+    fullOverview: "O PHQ-9 é a seção de depressão do PRIME-MD, avaliando a frequência de sintomas depressivos nas últimas duas semanas.",
     questionCount: 9,
     durationMinutes: 3,
     difficulty: "Moderada",
@@ -52,19 +56,37 @@ export const CANONICAL_TESTS: Record<string, CanonicalTestEntity> = {
     acronym: "ASRS v1.1",
     category: "Atenção e Foco",
     description: "Screener oficial de 6 perguntas da OMS para rastreio de sintomas de TDAH em adultos.",
-    fullOverview: "Desenvolvido em conjunto com a Organização Mundial da Saúde (OMS), o ASRS v1.1 rastreia sintomas de desatenção e hiperatividade/impulsividade em adultos, considerando o funcionamento nos últimos seis meses.",
+    fullOverview: "Desenvolvido em conjunto com a Organização Mundial da Saúde (OMS), o ASRS v1.1 rastreia sintomas de desatenção e hiperatividade/impulsividade em adultos.",
     questionCount: 6,
     durationMinutes: 2,
     difficulty: "Leve",
     targetRoute: "/testes/asrs",
     executionRoute: "/testes/asrs/iniciar",
     methodologyNotes: "Instrumento oficial OMS / Kessler et al. (2005). Focado em autoobservação adulta."
+  },
+  "pcl-5": {
+    id: "pcl-5",
+    slug: "pcl-5",
+    title: PCL5_ASSESSMENT.title,
+    acronym: PCL5_ASSESSMENT.acronym,
+    category: PCL5_ASSESSMENT.category,
+    description: PCL5_ASSESSMENT.description,
+    fullOverview: PCL5_ASSESSMENT.fullOverview,
+    questionCount: PCL5_ASSESSMENT.questionCount,
+    durationMinutes: PCL5_ASSESSMENT.durationMinutes,
+    difficulty: PCL5_ASSESSMENT.difficulty,
+    targetRoute: PCL5_ASSESSMENT.targetRoute,
+    executionRoute: PCL5_ASSESSMENT.executionRoute,
+    methodologyNotes: PCL5_ASSESSMENT.methodologyNotes,
+    scoringGuide: PCL5_ASSESSMENT.scoringGuide,
+    questions: PCL5_ASSESSMENT.questions
   }
 };
 
 export function getCanonicalTest(slugOrAcronym: string): CanonicalTestEntity | undefined {
   const normalized = slugOrAcronym.toLowerCase().trim();
   if (normalized === "asrs") return CANONICAL_TESTS["asrs-v1-1"];
+  if (normalized === "pcl5" || normalized === "pcl-5") return CANONICAL_TESTS["pcl-5"];
   if (CANONICAL_TESTS[normalized]) return CANONICAL_TESTS[normalized];
   return Object.values(CANONICAL_TESTS).find(
     t => t.slug === normalized || t.acronym.toLowerCase().replace(/[^a-z0-9]/g, "") === normalized.replace(/[^a-z0-9]/g, "")

@@ -437,3 +437,9 @@
 - [x] Compilar especificação de instrumentos internacionais de autoridade para os temas ausentes
 - [x] Elaborar diretrizes clínicas contra questionários genéricos e em conformidade YMYL
 - [x] Gerar relatório técnico e encaminhar diretrizes para integração editorial com validação humana
+
+- [x] Criar 11 artigos informativos rigorosos para os novos temas com referências internacionais
+- [x] Implementar categorias e filtros de busca no catálogo de testes
+- [x] Implementar a escala PCL-5 para TEPT com escore e salvaguardas éticas
+- [x] Atualizar sitemap.xml, feed.xml e llms.txt com as novas URLs
+- [x] Executar testes Vitest, typecheck, build e validações de produção

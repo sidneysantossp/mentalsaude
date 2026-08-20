@@ -1,17 +1,25 @@
-# Mental Saúde
+# Mental Saúde — llms.txt
 
 > Plataforma clínica e editorial de saúde mental baseada em evidências científicas, oferecendo autoavaliações rastreáveis e conteúdos de autoridade temática.
 
-## Guias e Artigos Principais
+## Guias e Artigos Principais (53 Artigos Baseados em Evidências)
 - [Ansiedade: o que é, sintomas, causas](https://www.mentalsaude.com.br/conteudos/ansiedade-o-que-e-sintomas-causas)
 - [TDAH em adultos: sintomas, avaliação e tratamento](https://www.mentalsaude.com.br/conteudos/tdah-em-adultos)
 - [Depressão: sintomas, causas e tratamento](https://www.mentalsaude.com.br/conteudos/depressao-sintomas-causas-tratamento)
+- [Transtorno de Estresse Pós-Traumático (TEPT)](https://www.mentalsaude.com.br/conteudos/transtorno-de-estresse-pos-traumatico-tept)
+- [Transtorno Obsessivo-Compulsivo (TOC)](https://www.mentalsaude.com.br/conteudos/transtorno-obsessivo-compulsivo-toc-sinais)
+- [Transtorno Afetivo Bipolar (TAB)](https://www.mentalsaude.com.br/conteudos/transtorno-afetivo-bipolar-oscilacoes-humor)
+- [Transtorno Disfórico Pré-Menstrual (TDPM)](https://www.mentalsaude.com.br/conteudos/transtorno-disforico-pre-menstrual-tdpm)
+- [Doenças Psicossomáticas](https://www.mentalsaude.com.br/conteudos/doencas-psicossomaticas-sinais-cuidado)
+- [Esquizofrenia: Sinais e Apoio](https://www.mentalsaude.com.br/conteudos/esquizofrenia-sinais-compreensao-apoio)
+- [Síndrome do Impostor](https://www.mentalsaude.com.br/conteudos/sindroma-do-impostor-autocobranca-excesso)
 
 ## Ferramentas de Autoavaliação
 - [Catálogo de Testes](https://www.mentalsaude.com.br/testes)
 - [GAD-7 (Ansiedade)](https://www.mentalsaude.com.br/testes/gad-7)
 - [PHQ-9 (Depressão)](https://www.mentalsaude.com.br/testes/phq-9)
 - [ASRS v1.1 (TDAH)](https://www.mentalsaude.com.br/testes/asrs)
+- [PCL-5 (TEPT)](https://www.mentalsaude.com.br/testes/pcl-5)
 
 ## Diretrizes de Uso
 O conteúdo da Mental Saúde possui caráter educacional e de autoconhecimento, não substituindo diagnóstico ou acompanhamento psiquiátrico/psicológico profissional.
