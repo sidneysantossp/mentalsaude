@@ -414,3 +414,6 @@
 
 - [x] Diagnosticar e corrigir o erro OAuth callback failed ao autenticar no preview do dashboard
 - [x] Validar o login e o carregamento do dashboard após a correção
+
+- [x] Executar teste de usabilidade autenticado do teste de ansiedade com respostas aleatórias do início ao fim
+- [x] Confirmar persistência do resultado no painel do usuário e disponibilidade do download
