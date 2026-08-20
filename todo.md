@@ -425,3 +425,7 @@
 - [x] Auditar a configuração existente de Google Search Console e GA4
 - [x] Integrar ou corrigir as tags globais fornecidas sem duplicação
 - [x] Validar HTML, build e carregamento das tags de SEO/analytics
+
+- [x] Definir o evento GA4 seguro para conclusão do teste de ansiedade
+- [x] Disparar o evento uma única vez após a conclusão sem enviar dados clínicos ou pessoais
+- [x] Cobrir o evento com teste, build e validação no preview
