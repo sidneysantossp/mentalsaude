@@ -463,3 +463,7 @@
 - [x] Auditar e estender a arquitetura de Schema.org e metadados de saúde
 - [x] Implementar JSON-LD especializado para artigos (MedicalWebPage / MedicalScholarlyArticle) e testes (MedicalTest)
 - [x] Criar validação automatizada de integridade dos dados estruturados e garantir build 100% verde
+
+- [ ] Criar commit completo de todas as alterações correntes do projeto
+- [ ] Enviar o commit atualizado para o repositório GitHub remoto
+- [ ] Consolidar o relatório de progresso e preparar a diretriz de reporte ao ChatGPT
