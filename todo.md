@@ -145,3 +145,6 @@
 - [x] Registrar evidência objetiva de foco visível do off-canvas (botão abrir, botão fechar e links internos) no checklist de validação
 - [x] Validar o off-canvas com `prefers-reduced-motion` realmente emulado/ativo no navegador e atualizar `MENTAL_SAUDE_MOBILE_NAV_VALIDATION.md` com essa evidência
 - [x] Registrar evidência objetiva de foco visível no off-canvas para botão abrir, botão fechar e pelo menos um link interno, com ordem de foco confirmada em preview
+- [x] Diagnosticar a sobreposição do conteúdo sobre o menu off-canvas mobile
+- [x] Corrigir z-index, largura, background e isolamento visual do painel lateral
+- [x] Validar o menu corrigido em viewport mobile e repetir testes/build

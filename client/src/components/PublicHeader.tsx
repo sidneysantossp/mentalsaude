@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 
 type PublicHeaderProps = {
@@ -164,7 +165,7 @@ export default function PublicHeader({ className }: PublicHeaderProps) {
         </button>
       </div>
 
-      {menuMounted && (
+      {menuMounted && typeof document !== "undefined" && createPortal((
         <>
           <button
             type="button"
@@ -222,8 +223,7 @@ export default function PublicHeader({ className }: PublicHeaderProps) {
               </Button>
             </div>
           </aside>
-        </>
-      )}
+        </>), document.body)}
     </header>
   );
 }
