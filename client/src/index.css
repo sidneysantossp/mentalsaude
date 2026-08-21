@@ -79,16 +79,52 @@ button:active { transform: scale(.98); }
 
 @media (max-width: 767px) {
   body[data-mobile-bottom-nav="true"] {
-    padding-bottom: calc(4.35rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(4.35rem + max(0.75rem, env(safe-area-inset-bottom)));
   }
 
   body[data-mobile-bottom-nav="true"] main {
-    min-height: calc(100vh - 4.35rem - env(safe-area-inset-bottom));
+    min-height: calc(100vh - 4.35rem - max(0.75rem, env(safe-area-inset-bottom)));
+  }
+
+  [data-mobile-bottom-nav] {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
   }
 
   [data-mobile-bottom-nav] a,
   [data-mobile-bottom-nav] button {
     min-height: 44px;
+  }
+
+  [data-mobile-bottom-nav] .mobile-nav-icon {
+    transition: transform 180ms cubic-bezier(.23, 1, .32, 1);
+  }
+
+  [data-mobile-bottom-nav] .mobile-nav-icon-shell {
+    transition: background-color 180ms ease, transform 180ms cubic-bezier(.23, 1, .32, 1);
+  }
+
+  [data-mobile-bottom-nav] .mobile-nav-active-indicator {
+    transition: opacity 180ms ease, transform 180ms cubic-bezier(.23, 1, .32, 1);
+  }
+
+  [data-mobile-bottom-nav] .mobile-nav-icon-shell:active {
+    transform: scale(.96);
+  }
+
+  [data-mobile-bottom-nav] a[aria-current="page"] .mobile-nav-icon,
+  [data-mobile-bottom-nav] a[aria-current="page"] .mobile-nav-icon-shell,
+  [data-mobile-bottom-nav] button:active .mobile-nav-icon,
+  [data-mobile-bottom-nav] button:active .mobile-nav-icon-shell {
+    transform: scale(1.06);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-mobile-bottom-nav] .mobile-nav-icon,
+    [data-mobile-bottom-nav] .mobile-nav-icon-shell,
+    [data-mobile-bottom-nav] .mobile-nav-active-indicator {
+      transition-duration: 1ms !important;
+      transform: none !important;
+    }
   }
 }
 
@@ -105,7 +141,11 @@ button:active { transform: scale(.98); }
   }
 
   html[data-mobile-preview="true"] body[data-mobile-bottom-nav="true"] {
-    padding-bottom: calc(4.35rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(4.35rem + max(0.75rem, env(safe-area-inset-bottom)));
+  }
+
+  html[data-mobile-preview="true"] [data-mobile-bottom-nav] {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom)) !important;
   }
 
 }

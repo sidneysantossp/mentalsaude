@@ -93,9 +93,9 @@ export default function MobileBottomNav() {
                 active ? "text-[#08736a]" : "text-[#6c8983] hover:text-[#0a615a]",
               )}
             >
-              <span className={cn("absolute top-1 h-1 w-8 rounded-full transition-opacity", active ? "bg-[#58b8a8] opacity-100" : "opacity-0")} aria-hidden="true" />
-              <span className={cn("grid h-7 w-10 place-items-center rounded-xl transition-colors", active ? "bg-[#d9f1ec]" : "group-hover:bg-[#eef6f2]")}>
-                <Icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
+              <span className={cn("mobile-nav-active-indicator absolute top-1 h-1 w-8 rounded-full transition-opacity", active ? "bg-[#58b8a8] opacity-100" : "opacity-0")} aria-hidden="true" />
+              <span className={cn("mobile-nav-icon-shell grid h-7 w-10 place-items-center rounded-xl transition-colors", active ? "bg-[#d9f1ec]" : "group-hover:bg-[#eef6f2]")}>
+                <Icon className="mobile-nav-icon h-[1.15rem] w-[1.15rem]" strokeWidth={active ? 2.4 : 2} aria-hidden="true" />
               </span>
               <span className="max-w-full truncate leading-none">{item.label}</span>
             </Link>
@@ -108,8 +108,8 @@ export default function MobileBottomNav() {
               aria-current={isRouteActive(location, accessHref) ? "page" : undefined}
               className="group relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-[0.68rem] font-semibold text-[#6c8983] transition-colors hover:text-[#0a615a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a7066] focus-visible:ring-inset"
             >
-              <span className={cn("grid h-7 w-10 place-items-center rounded-xl transition-colors", isRouteActive(location, accessHref) ? "bg-[#d9f1ec] text-[#08736a]" : "group-hover:bg-[#eef6f2]")}>
-                <UserRound className="h-[1.15rem] w-[1.15rem]" strokeWidth={2} aria-hidden="true" />
+              <span className={cn("mobile-nav-icon-shell grid h-7 w-10 place-items-center rounded-xl transition-colors", isRouteActive(location, accessHref) ? "bg-[#d9f1ec] text-[#08736a]" : "group-hover:bg-[#eef6f2]")}>
+                <UserRound className="mobile-nav-icon h-[1.15rem] w-[1.15rem]" strokeWidth={2} aria-hidden="true" />
               </span>
               <span className="max-w-full truncate leading-none">{accessLabel}</span>
             </Link>
@@ -119,8 +119,8 @@ export default function MobileBottomNav() {
               onClick={() => beginLogin()}
               className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-2xl px-1 py-2 text-[0.68rem] font-semibold text-[#6c8983] transition-colors hover:text-[#0a615a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a7066] focus-visible:ring-inset"
             >
-              <span className="grid h-7 w-10 place-items-center rounded-xl transition-colors group-hover:bg-[#eef6f2]">
-                <UserRound className="h-[1.15rem] w-[1.15rem]" strokeWidth={2} aria-hidden="true" />
+              <span className="mobile-nav-icon-shell grid h-7 w-10 place-items-center rounded-xl transition-colors group-hover:bg-[#eef6f2]">
+                <UserRound className="mobile-nav-icon h-[1.15rem] w-[1.15rem]" strokeWidth={2} aria-hidden="true" />
               </span>
               <span className="max-w-full truncate leading-none">{accessLabel}</span>
             </button>

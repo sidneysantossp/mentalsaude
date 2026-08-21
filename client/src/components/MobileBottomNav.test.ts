@@ -28,10 +28,15 @@ describe("MobileBottomNav navigation contract", () => {
 
   it("preserves the app-like visual treatment on the mobile bottom bar", () => {
     const source = readFileSync(new URL("./MobileBottomNav.tsx", import.meta.url), "utf8");
+    const styles = readFileSync(new URL("../index.css", import.meta.url), "utf8");
     expect(source).toContain("rounded-[1.75rem]");
     expect(source).toContain("backdrop-blur-2xl");
     expect(source).toContain("bg-[#fcfcf8]/78");
     expect(source).toContain("env(safe-area-inset-bottom)");
+    expect(source).toContain("mobile-nav-icon");
+    expect(source).toContain("mobile-nav-active-indicator");
+    expect(styles).toContain("max(0.75rem, env(safe-area-inset-bottom))");
+    expect(styles).toContain("prefers-reduced-motion: reduce");
   });
 
   it("hides the persistent navigation while a user is answering an assessment", () => {

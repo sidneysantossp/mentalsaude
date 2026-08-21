@@ -154,3 +154,6 @@
 - [x] Arredondar também os cantos inferiores da barra de navegação mobile
 - [x] Validar o arredondamento completo mantendo blur, safe-area, contraste e navegação
 - [x] Executar testes/build e publicar o refinamento visual da barra inferior
+- [x] Ajustar o espaçamento inferior da navegação mobile para respeitar a barra de gestos do iOS
+- [x] Adicionar microanimação sutil ao ícone/item ativo após seleção
+- [x] Respeitar prefers-reduced-motion na animação e validar contraste, toque, testes e build
