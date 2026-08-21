@@ -76,7 +76,7 @@ export default function MobileBottomNav() {
       aria-label="Navegação mobile"
       data-mobile-bottom-nav
       data-mobile-preview-nav
-      className="fixed inset-x-0 bottom-0 z-50 overflow-hidden rounded-t-[1.75rem] border border-b-0 border-[#dcebe6]/90 bg-[#fcfcf8]/78 pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_32px_rgba(20,75,67,0.14)] backdrop-blur-2xl md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 overflow-hidden rounded-[1.75rem] border border-[#dcebe6]/90 bg-[#fcfcf8]/78 pb-[env(safe-area-inset-bottom)] shadow-[0_-10px_32px_rgba(20,75,67,0.14)] backdrop-blur-2xl md:hidden"
     >
       <div className={cn("mx-auto grid min-h-[4.35rem] max-w-lg items-stretch px-2", showAccessAction ? "grid-cols-4" : "grid-cols-4")}>
         {items.map(item => {

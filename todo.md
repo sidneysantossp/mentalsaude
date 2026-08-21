@@ -151,3 +151,6 @@
 - [x] Arredondar os cantos superiores da barra de navegação inferior mobile
 - [x] Adicionar efeito blur translúcido à barra inferior sem prejudicar contraste e legibilidade
 - [x] Validar a barra refinada em viewport mobile, safe-area, testes e build
+- [x] Arredondar também os cantos inferiores da barra de navegação mobile
+- [x] Validar o arredondamento completo mantendo blur, safe-area, contraste e navegação
+- [x] Executar testes/build e publicar o refinamento visual da barra inferior
