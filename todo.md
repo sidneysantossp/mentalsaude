@@ -447,3 +447,19 @@
 - [x] Verificar o repositório remoto e o estado local antes do push para o GitHub
 - [x] Criar commit auditável com todas as atualizações atuais do projeto
 - [x] Enviar o commit ao GitHub e confirmar a sincronização
+
+- [x] Definir o escopo da auditoria técnica e estratégica de autoridade e tráfego em escala
+- [x] Preparar o briefing para o ChatGPT com foco em E-E-A-T, GEO, UX clínica e aquisição orgânica
+- [x] Registrar o prompt oficial e a instrução de envio da auditoria para o projeto Mental Saúde
+
+- [x] Definir escopo de auditoria com base no site publicado e dados de rastreamento
+- [x] Elaborar o prompt operacional detalhado para o ChatGPT acessar e auditar o site
+- [x] Executar o envio da solicitação e registrar o documento de auditoria operacional
+
+- [x] Compilar plano de ação estratégico para 1 milhão de visitas mensais em www.mentalsaude.com.br
+- [x] Definir fases, marcos, métricas e salvaguardas YMYL/E-E-A-T
+- [x] Registrar o plano completo no arquivo MENTAL_SAUDE_SCALE_ACTION_PLAN.md
+
+- [x] Auditar e estender a arquitetura de Schema.org e metadados de saúde
+- [x] Implementar JSON-LD especializado para artigos (MedicalWebPage / MedicalScholarlyArticle) e testes (MedicalTest)
+- [x] Criar validação automatizada de integridade dos dados estruturados e garantir build 100% verde

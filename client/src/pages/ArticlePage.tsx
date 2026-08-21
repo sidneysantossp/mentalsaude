@@ -12,6 +12,7 @@ import { Link, useRoute, useLocation } from "wouter";
 import { addFavorite, removeFavorite, isFavorite } from "@/lib/favoritesStorage";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { calculateReadingProgress, getActiveSectionId } from "@/lib/readingProgress";
+import { injectArticleSchema } from "@/lib/seoStructuredData";
 
 export default function ArticlePage() {
   const [, params] = useRoute("/conteudos/:slug");
@@ -46,35 +47,16 @@ export default function ArticlePage() {
       }
       canonicalLink.setAttribute("href", window.location.origin + window.location.pathname);
 
-      let scriptTag = document.getElementById("json-ld-article");
-      if (!scriptTag) {
-        scriptTag = document.createElement("script");
-        scriptTag.id = "json-ld-article";
-        scriptTag.setAttribute("type", "application/ld+json");
-        document.head.appendChild(scriptTag);
-      }
-      scriptTag.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": article.title,
-        "description": article.seoDescription,
-        "image": window.location.origin + article.image,
-        "author": {
-          "@type": "Person",
-          "name": article.author
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Mental Saúde",
-          "url": window.location.origin
-        },
-        "datePublished": "2026-08-08T08:00:00Z",
-        "dateModified": "2026-08-11T10:00:00Z",
-        "mainEntityOfPage": window.location.origin + window.location.pathname,
-        "about": {
-          "@type": "Thing",
-          "name": article.primaryEntity
-        }
+      injectArticleSchema({
+        title: article.title,
+        shortDescription: article.subtitle,
+        slug: article.slug,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        category: article.category,
+        author: article.author,
+        authorRole: "Equipe Editorial e Revisão Clínica",
+        coverImage: article.image,
       });
     }
   }, [article]);
