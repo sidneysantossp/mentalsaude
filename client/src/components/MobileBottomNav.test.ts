@@ -1,5 +1,5 @@
-import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { isAssessmentFlow, isRouteActive } from "./MobileBottomNav";
 
 describe("MobileBottomNav navigation contract", () => {
@@ -24,6 +24,14 @@ describe("MobileBottomNav navigation contract", () => {
     expect(source).toContain("focus-visible:ring-2");
     expect(source).toContain("min-h-[4.35rem]");
     expect(styles).toContain("min-height: 44px");
+  });
+
+  it("preserves the app-like visual treatment on the mobile bottom bar", () => {
+    const source = readFileSync(new URL("./MobileBottomNav.tsx", import.meta.url), "utf8");
+    expect(source).toContain("rounded-t-[1.75rem]");
+    expect(source).toContain("backdrop-blur-2xl");
+    expect(source).toContain("bg-[#fcfcf8]/78");
+    expect(source).toContain("env(safe-area-inset-bottom)");
   });
 
   it("hides the persistent navigation while a user is answering an assessment", () => {

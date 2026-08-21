@@ -148,3 +148,6 @@
 - [x] Diagnosticar a sobreposição do conteúdo sobre o menu off-canvas mobile
 - [x] Corrigir z-index, largura, background e isolamento visual do painel lateral
 - [x] Validar o menu corrigido em viewport mobile e repetir testes/build
+- [x] Arredondar os cantos superiores da barra de navegação inferior mobile
+- [x] Adicionar efeito blur translúcido à barra inferior sem prejudicar contraste e legibilidade
+- [x] Validar a barra refinada em viewport mobile, safe-area, testes e build
