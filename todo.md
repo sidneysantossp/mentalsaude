@@ -157,3 +157,6 @@
 - [x] Ajustar o espaçamento inferior da navegação mobile para respeitar a barra de gestos do iOS
 - [x] Adicionar microanimação sutil ao ícone/item ativo após seleção
 - [x] Respeitar prefers-reduced-motion na animação e validar contraste, toque, testes e build
+- [x] Criar commit consolidado com todas as alterações atuais da plataforma
+- [x] Enviar o commit consolidado para `sidneysantossp/mental-saude-platform`
+- [x] Confirmar no GitHub o hash e o estado sincronizado do branch remoto
