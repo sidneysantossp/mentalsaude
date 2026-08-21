@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { getPublicNavHref, isPublicNavActive, PUBLIC_NAV_ITEMS } from "./PublicHeader";
 
 describe("PublicHeader navigation contract", () => {
@@ -21,6 +22,17 @@ describe("PublicHeader navigation contract", () => {
     expect(getPublicNavHref("how-it-works", true)).toBe("#como-funciona");
     expect(getPublicNavHref("privacy", true)).toBe("#seguranca");
     expect(getPublicNavHref("how-it-works", false)).toBe("/#como-funciona");
+  });
+
+  it("keeps the mobile menu as an accessible off-canvas dialog", () => {
+    const source = readFileSync(new URL("./PublicHeader.tsx", import.meta.url), "utf8");
+    expect(source).toContain('role="dialog"');
+    expect(source).toContain('aria-modal="true"');
+    expect(source).toContain('aria-controls="public-mobile-menu"');
+    expect(source).toContain("-translate-x-full");
+    expect(source).toContain("translate-x-0");
+    expect(source).toContain('aria-label="Fechar menu"');
+    expect(source).toContain("Escape");
   });
 
   it("marks the active section consistently across nested public routes", () => {

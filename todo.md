@@ -122,3 +122,26 @@
 - [x] Verificar existência do repositório `sidneysantossp/mental-saude-platform` no GitHub.
 - [x] Configurar múltiplos remotes ou atualizar o remote principal para `mental-saude-platform`.
 - [x] Enviar o código atualizado para `sidneysantossp/mental-saude-platform` e confirmar integração com o painel Manus.
+
+- [x] Auditar os layouts e a navegação da plataforma em viewport mobile
+- [x] Definir a arquitetura da navegação inferior mobile e seus destinos
+- [x] Implementar shell mobile com barra inferior persistente, ícones e estados ativos
+- [x] Ajustar espaçamento, safe areas, cabeçalhos e conteúdo para evitar sobreposição à barra inferior
+- [x] Validar acessibilidade, navegação, responsividade, testes e build da experiência mobile
+- [x] Validar visualmente a navegação inferior mobile nas rotas administrativas (/admin, /admin/testes, /admin/usuarios e /admin/content-authority)
+- [x] Executar e registrar validação objetiva de acessibilidade da barra inferior mobile (Tab, foco visível, aria-current e ordem de navegação)
+- [x] Validar no preview mobile a barra inferior com navegação por Tab/Shift+Tab, registrando a ordem real de foco entre os ícones e o estado aria-current na rota ativa
+- [x] Registrar evidência objetiva de foco visível e ordem de navegação da barra inferior mobile em documento/checklist de validação, cobrindo área pública, dashboard e admin
+- [x] Validar no preview mobile a barra inferior com Tab e Shift+Tab nas rotas `/`, `/dashboard` e `/admin`, registrando a ordem real de foco entre cada ícone
+- [x] Registrar evidência explícita do elemento focado e do `aria-current` ativo para a barra inferior mobile em cada contexto (público, dashboard e admin)
+- [x] Atualizar `MENTAL_SAUDE_MOBILE_NAV_VALIDATION.md` com checklist objetivo por rota/contexto cobrindo foco visível, ordem de navegação e comportamento reverso com Shift+Tab
+- [x] Transformar o menu mobile público em painel off-canvas lateral da esquerda para a direita
+- [x] Adicionar overlay, fechamento ao tocar fora, botão X e bloqueio de scroll ao abrir o menu
+- [x] Validar foco visível, atributos ARIA, animação reduzida e responsividade do menu off-canvas
+- [x] Implementar suporte explícito a `prefers-reduced-motion` no menu off-canvas, reduzindo ou desabilitando a animação lateral e o fade do overlay
+- [x] Reexecutar `pnpm test --run`, `pnpm check` e `pnpm build` após os ajustes finais do off-canvas e registrar a validação
+- [x] Registrar validação objetiva do menu off-canvas com foco visível, ARIA, abertura/fechamento e comportamento com reduced motion
+- [x] Validar em execução o menu off-canvas com `prefers-reduced-motion` ativo e registrar o resultado no `MENTAL_SAUDE_MOBILE_NAV_VALIDATION.md`
+- [x] Registrar evidência objetiva de foco visível do off-canvas (botão abrir, botão fechar e links internos) no checklist de validação
+- [x] Validar o off-canvas com `prefers-reduced-motion` realmente emulado/ativo no navegador e atualizar `MENTAL_SAUDE_MOBILE_NAV_VALIDATION.md` com essa evidência
+- [x] Registrar evidência objetiva de foco visível no off-canvas para botão abrir, botão fechar e pelo menos um link interno, com ordem de foco confirmada em preview

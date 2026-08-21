@@ -5,6 +5,7 @@ import { Route, Switch, useLocation } from "wouter";
 import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AccessibilityControls from "./components/AccessibilityControls";
+import MobileBottomNav from "./components/MobileBottomNav";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -50,5 +51,5 @@ function Router() {
 }
 
 export default function App() {
-  return <ErrorBoundary><ThemeProvider defaultTheme="light"><AccessibilityProvider><TooltipProvider><LoginRedirect /><Toaster /><AccessibilityControls /><Router /></TooltipProvider></AccessibilityProvider></ThemeProvider></ErrorBoundary>;
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><AccessibilityProvider><TooltipProvider><LoginRedirect /><Toaster /><AccessibilityControls /><MobileBottomNav /><Router /></TooltipProvider></AccessibilityProvider></ThemeProvider></ErrorBoundary>;
 }
